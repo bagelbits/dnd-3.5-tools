@@ -87,43 +87,33 @@ def shield_attack(total_damage, cleave_damage, charging=False, cleave=False):
     return total_damage, cleave_damage
 
 def gore_attack(total_damage, cleave_damage, charging=False, cleave=False):
-    #+2 attack when charging
-    #It's your base attack bonus, +str bonus, -5.
-
-    #Implement crit
     global STR_mod
-    global melee_TAB
+    global base_attack_bonus
+    global size_mod
     global auto_roll
-    
-    distance = raw_input('How far away is the target? (in feet) ')
-    #TODO Distance mod
-    #Attack roll
-    print "Attack roll: d20+" + str(melee_TAB)
-    if auto_roll:
-        attack_roll = sum(roll_dice(1, 20)) + melee_TAB
-    else:
-        attack_roll = raw_input('What did you roll? ')
-    
+
+    ####Attack roll####
+    gore_attack_bonus = base_attack_bonus + STR_mod + size_mod
+    gore_attack_bonus -= 5     #Natural off hand weapon mod
+    if charging:
+        gore_attack_bonus += 2
+
+    total_attack_roll, multiplier = attack_roll(gore_attack_bonus)
+    print "Attack roll result: %d" % total_attack_roll
     hit = raw_input('Did it hit?')
     if hit.lower().startswith('n'):
         return total_damage, cleave_damage
     
-    #Damage roll
-    print "Damage roll: 4d8+" + str(STR_mod)
-    if auto_roll:
-        damage_roll = sum(roll_dice(4, 8)) + STR_mod
-    else:
-        damage_roll = raw_input('What did you roll? ')
-    
+    ####Damage roll####
     if cleave:
-        cleave_damage['boulder'] = damage_roll
+        cleave_damage['gore'] = damage_roll(1, 8, STR_mod//2, multiplier)
     else:
-        total_damage['boulder'] = damage_roll
+        total_damage['gore'] = damage_roll(1, 8, STR_mod//2, multiplier)
 
     if not cleave:
         cleave = ("Did it cleave?")
         if cleave.lower().startswith('y'):
-            return throw_boulder(total_damage, cleave_damage, True)
+            return throw_boulder(total_damage, cleave_damage, charging, True)
         
     return total_damage, cleave_damage
 
