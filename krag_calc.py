@@ -4,6 +4,28 @@ def roll_dice(dice=1, sides=6):
     try: return [randint(1, sides) for x in range(dice)]
     except: return []
 
+def attack_roll(total_attack_bonus=0):
+    critical = False
+    print "Attack roll: d20+" + str(boulder_attack_bonus)
+    if auto_roll:
+        attack_roll = sum(roll_dice(1, 20))
+    else:
+        print "Roll now. (Don't add in any mods)"
+        attack_roll = int(raw_input('What did you roll? ').strip())
+
+    if attack_roll = 20:
+        critical = True
+        print "Gotta crit! Roll to confirm!"
+        print "Attack roll: d20+" + str(boulder_attack_bonus)
+        if auto_roll:
+            attack_roll = sum(roll_dice(1, 20))
+        else:
+            print "Roll now. (Don't add in any mods)"
+            attack_roll = int(raw_input('What did you roll? ').strip())
+        
+    attack_roll += boulder_attack_bonus
+    return attack_roll, critical
+
 def shield_attack(total_damage, cleave_damage, charging=False, cleave=False):
     #+2 attack when charging
     
@@ -33,7 +55,7 @@ def shield_attack(total_damage, cleave_damage, charging=False, cleave=False):
 
     #And then if they hit a wall or solid object during the knockback
     #they take 4d6 + 2x str mod
-    
+
     return total_damage, cleave_damage
 
 def gore_attack(total_damage, cleave_damage, charging=False, cleave=False):
@@ -77,11 +99,16 @@ def gore_attack(total_damage, cleave_damage, charging=False, cleave=False):
         
     return total_damage, cleave_damage
 
+
 def throw_boulder(total_damage):
     global STR_mod
-    global melee_TAB
+    global base_attack_bonus
+    global size_mod
     global auto_roll
     
+    boulder_attack_bonus = base_attack_bonus + STR_mod + size_mod
+    
+
     distance = raw_input('How far away is the target? (in feet) ')
     #TODO Distance mod
     #Range Increment: Any attack at less than this distance is not
@@ -97,29 +124,31 @@ def throw_boulder(total_damage):
     # increments.
 
     #Attack roll
-    print "Attack roll: d20+" + str(melee_TAB)
-    if auto_roll:
-        attack_roll = sum(roll_dice(1, 20)) + melee_TAB
-    else:
-        attack_roll = raw_input('What did you roll? ')
-    
+    total_attack_roll, critical = attack_roll(boulder_attack_bonus)
+    print "Attack roll: %d" % attack_roll
     hit = raw_input('Did it hit?')
     if hit.lower().startswith('n'):
         return total_damage, cleave_damage
-    
+
     #Damage roll
     print "Damage roll: 4d8+" + str(STR_mod)
     if auto_roll:
         damage_roll = sum(roll_dice(4, 8)) + STR_mod
     else:
+        print "Roll now. (Don't add in any mods)"
         damage_roll = raw_input('What did you roll? ')
+        damage_roll += STR_mod
+
+    if critical:
+            damage_roll *= 2
     
     total_damage['boulder'] = damage_roll
     
     return total_damage, cleave_damage
 
 STR_mod = 16
-melee_TAB = 20
+base_attack_bonus = 5
+size_mod = -1
 total_damage = {'boulder': 0, 'gore': 0, 'shield': 0}
 cleave_damage = {'boulder': 0, 'gore': 0, 'shield': 0}
 
