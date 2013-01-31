@@ -65,12 +65,14 @@ def shield_attack(charging=False, power_attack=0, cleave=False):
     #+2 attack when charging
     
     #So, here's the full chain.
+    
+    #Dont' forget to take into account Mighty Swing
 
     #When you charge, you roll to hit. That's
     #Str bonus + BAB +2 +Enhancement Bonus (currently +1 for your shield) - Power Attack
 
     #Then you do damage. Because you deal double damage (Valorous Shield),
-    #that's 3*Str Mod + 2* Shield damage (so, 2d8 I think?)
+    #that's 3*Str Mod + 2* Shield damage (so, 4d6 I think?)
     # + 4* Power Attack Penalty +2 (Enhancement Bonus doubled).
 
     #Now, you get the free trip (note: only works on enemies no more than huge).
