@@ -57,7 +57,11 @@ def damage_roll(num_of_dice=1, num_of_sides=6, total_mod=0, multiplier=1):
 
     return total_damage
 
-def shield_attack(total_damage, cleave_damage, charging=False, cleave=False):
+def shield_attack(charging=False, power_attack=0, cleave=False):
+    global STR_mod
+    global base_attack_bonus
+    global size_mod
+    global auto_roll
     #+2 attack when charging
     
     #So, here's the full chain.
