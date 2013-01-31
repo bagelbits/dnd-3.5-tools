@@ -4,13 +4,43 @@ def roll_dice(dice=1, sides=6):
     try: return [randint(1, sides) for x in range(dice)]
     except: return []
 
-def shield_attack(total_damage, cleave_damage, cleave=False):
+def shield_attack(total_damage, cleave_damage, charging=False, cleave=False):
+    #+2 attack when charging
+    
+    #So, here's the full chain.
+
+    #When you charge, you roll to hit. That's
+    #Str bonus + BAB +2 +Enhancement Bonus (currently +1 for your shield) - Power Attack
+
+    #Then you do damage. Because you deal double damage (Valorous Shield),
+    #that's 3*Str Mod + 2* Shield damage (so, 2d8 I think?)
+    # + 4* Power Attack Penalty +2 (Enhancement Bonus doubled).
+
+    #Now, you get the free trip (note: only works on enemies no more than huge).
+    #This is Str bonus + size mod (+4 for large) +4 for Improved Trip, opposed
+    #by their trip check. If that works, roll to hit again, at +4 because they're prone.
+
+
+    #Now, you get to Shield Slam them (the daze effect). They just have to
+    #roll a save due to this:
+    #http://dndtools.eu/feats/complete-warrior--61/shield-slam--2592/
+    #So that's currently 10+ 1/2 character level (5) + str mod, and
+    #they fort save against that or they can't act next round
+
+    #Now you knock them back. Bull rush check,
+    #1d20+Size mod + str bonus + 4 for Improved Bull Rush,
+    #so same as trip check, and they go flying back if they fail to oppose. Whee!
+
+    #And then if they hit a wall or solid object during the knockback
+    #they take 4d6 + 2x str mod
+    
     return total_damage, cleave_damage
 
-def gore_attack(total_damage, cleave_damage, cleave=False):
-    return total_damage, cleave_damage
+def gore_attack(total_damage, cleave_damage, charging=False, cleave=False):
+    #+2 attack when charging
+    #It's your base attack bonus, +str bonus, -5.
 
-def throw_boulder(total_damage, cleave_damage, cleave=False):
+    #Implement crit
     global STR_mod
     global melee_TAB
     global auto_roll
@@ -20,7 +50,7 @@ def throw_boulder(total_damage, cleave_damage, cleave=False):
     #Attack roll
     print "Attack roll: d20+" + str(melee_TAB)
     if auto_roll:
-        attack_roll = roll_dice(1, 20) + melee_TAB
+        attack_roll = sum(roll_dice(1, 20)) + melee_TAB
     else:
         attack_roll = raw_input('What did you roll? ')
     
@@ -31,7 +61,7 @@ def throw_boulder(total_damage, cleave_damage, cleave=False):
     #Damage roll
     print "Damage roll: 4d8+" + str(STR_mod)
     if auto_roll:
-        damage_roll = roll_dice(4, 8) + STR_mod
+        damage_roll = sum(roll_dice(4, 8)) + STR_mod
     else:
         damage_roll = raw_input('What did you roll? ')
     
@@ -46,8 +76,47 @@ def throw_boulder(total_damage, cleave_damage, cleave=False):
             return throw_boulder(total_damage, cleave_damage, True)
         
     return total_damage, cleave_damage
-    
 
+def throw_boulder(total_damage):
+    global STR_mod
+    global melee_TAB
+    global auto_roll
+    
+    distance = raw_input('How far away is the target? (in feet) ')
+    #TODO Distance mod
+    #Range Increment: Any attack at less than this distance is not
+    # penalized for range, so an arrow from a shortbow
+    # (range increment 60 feet) can strike at an enemy 59
+    # feet away or closer with no penalty. However, each full
+    # range increment imposes a cumulative -2 penalty on the attack
+    # roll. A shortbow archer firing at a target 200 feet away takes
+    # a -6 penalty on the attack roll (-2 x 3, because 200 feet is at
+    # least three range increments but not four). A thrown weapon, such
+    # as a throwing axe, has a maximum range of five range increments.
+    # A projectile weapon, such as a bow, can shoot out to ten range
+    # increments.
+
+    #Attack roll
+    print "Attack roll: d20+" + str(melee_TAB)
+    if auto_roll:
+        attack_roll = sum(roll_dice(1, 20)) + melee_TAB
+    else:
+        attack_roll = raw_input('What did you roll? ')
+    
+    hit = raw_input('Did it hit?')
+    if hit.lower().startswith('n'):
+        return total_damage, cleave_damage
+    
+    #Damage roll
+    print "Damage roll: 4d8+" + str(STR_mod)
+    if auto_roll:
+        damage_roll = sum(roll_dice(4, 8)) + STR_mod
+    else:
+        damage_roll = raw_input('What did you roll? ')
+    
+    total_damage['boulder'] = damage_roll
+    
+    return total_damage, cleave_damage
 
 STR_mod = 16
 melee_TAB = 20
@@ -60,17 +129,27 @@ if auto_roll.lower().startswith('y'):
 else:
     auto_roll = False
 
+charging = raw_input('Are you charging? ')
+if charging.lower().startswith('y'):
+    charging = True
+else:
+    charging = False
+
 #TODO Implement Power Attack
+while(True):
+    attack =  raw_input('What is your attack? ')
+    if attack.lower() == 'shield':
+        total_damage, cleave_damage = shield_attack(total_damage, cleave_damage, charging)
 
-attack =  raw_input('What is your attack? ')
-if attack.lower() == 'shield':
-    total_damage, cleave_damage = shield_attack(total_damage, cleave_damage)
+    if attack.lower() == 'gore' or attack.lower() == 'horns':
+        total_damage, cleave_damage = gore_attack(total_damage, cleave_damage, charging)
 
-if attack.lower() == 'gore' or attack.lower() == 'horns':
-    total_damage, cleave_damage = gore_attack(total_damage, cleave_damage)
+    if attack.lower() == 'boulder' or attack.lower() == 'rock':
+        total_damage, cleave_damage = throw_boulder(total_damage)
 
-if attack.lower() == 'boulder' or attack.lower() == 'rock':
-    total_damage, cleave_damage = throw_boulder(total_damage, cleave_damage)
+    again = raw_input('Another attack? ')
+    if again.lower().startswith('n'):
+        break
 
 
 print total_damage
