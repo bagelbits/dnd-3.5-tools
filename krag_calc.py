@@ -4,9 +4,9 @@ def roll_dice(dice=1, sides=6):
     try: return [randint(1, sides) for x in range(dice)]
     except: return []
 
-def attack_roll(total_attack_bonus=0):
+def attack_roll(total_attack_bonus=0, range_penalty=0):
     critical = False
-    print "Attack roll: d20+" + str(boulder_attack_bonus)
+    print "Attack roll: d20 + %d - %d" % (boulder_attack_bonus, range_penalty)
     if auto_roll:
         attack_roll = sum(roll_dice(1, 20))
     else:
@@ -16,7 +16,7 @@ def attack_roll(total_attack_bonus=0):
     if attack_roll = 20:
         critical = True
         print "Gotta crit! Roll to confirm!"
-        print "Attack roll: d20+" + str(boulder_attack_bonus)
+        print "Attack roll: d20 + %d - %d" % (boulder_attack_bonus, range_penalty)
         if auto_roll:
             attack_roll = sum(roll_dice(1, 20))
         else:
@@ -24,6 +24,7 @@ def attack_roll(total_attack_bonus=0):
             attack_roll = int(raw_input('What did you roll? ').strip())
         
     attack_roll += boulder_attack_bonus
+    attack_roll -= range_penalty
     return attack_roll, critical
 
 def shield_attack(total_damage, cleave_damage, charging=False, cleave=False):
@@ -100,7 +101,7 @@ def gore_attack(total_damage, cleave_damage, charging=False, cleave=False):
     return total_damage, cleave_damage
 
 
-def throw_boulder(total_damage):
+def throw_boulder(total_damage, boulder_range):
     global STR_mod
     global base_attack_bonus
     global size_mod
@@ -109,22 +110,19 @@ def throw_boulder(total_damage):
     boulder_attack_bonus = base_attack_bonus + STR_mod + size_mod
     
 
-    distance = raw_input('How far away is the target? (in feet) ')
-    #TODO Distance mod
-    #Range Increment: Any attack at less than this distance is not
-    # penalized for range, so an arrow from a shortbow
-    # (range increment 60 feet) can strike at an enemy 59
-    # feet away or closer with no penalty. However, each full
-    # range increment imposes a cumulative -2 penalty on the attack
-    # roll. A shortbow archer firing at a target 200 feet away takes
-    # a -6 penalty on the attack roll (-2 x 3, because 200 feet is at
-    # least three range increments but not four). A thrown weapon, such
-    # as a throwing axe, has a maximum range of five range increments.
-    # A projectile weapon, such as a bow, can shoot out to ten range
-    # increments.
+    #Range mod
+    distance = int(raw_input('How far away is the target? (in feet) '))
+    if distance >= boulder_range * 5:
+        print "Target too far away"
+        return total_damage, cleave_damage
+
+    range_penalty = 0
+    while distance >= boulder_range:
+        distance -= boulder_range
+        range_penalty += 1
 
     #Attack roll
-    total_attack_roll, critical = attack_roll(boulder_attack_bonus)
+    total_attack_roll, critical = attack_roll(boulder_attack_bonus, range_penalty)
     print "Attack roll: %d" % attack_roll
     hit = raw_input('Did it hit?')
     if hit.lower().startswith('n'):
@@ -149,6 +147,7 @@ def throw_boulder(total_damage):
 STR_mod = 16
 base_attack_bonus = 5
 size_mod = -1
+boulder_range = 50
 total_damage = {'boulder': 0, 'gore': 0, 'shield': 0}
 cleave_damage = {'boulder': 0, 'gore': 0, 'shield': 0}
 
@@ -174,7 +173,7 @@ while(True):
         total_damage, cleave_damage = gore_attack(total_damage, cleave_damage, charging)
 
     if attack.lower() == 'boulder' or attack.lower() == 'rock':
-        total_damage, cleave_damage = throw_boulder(total_damage)
+        total_damage, cleave_damage = throw_boulder(total_damage, boulder_range)
 
     again = raw_input('Another attack? ')
     if again.lower().startswith('n'):
