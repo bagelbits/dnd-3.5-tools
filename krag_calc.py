@@ -5,27 +5,54 @@ def roll_dice(dice=1, sides=6):
     except: return []
 
 def attack_roll(total_attack_bonus=0, range_penalty=0):
-    critical = False
+    global auto_roll
+
+    multiplier = 1
     print "Attack roll: d20 + %d - %d" % (boulder_attack_bonus, range_penalty)
     if auto_roll:
-        attack_roll = sum(roll_dice(1, 20))
+        total_attack = sum(roll_dice(1, 20))
     else:
         print "Roll now. (Don't add in any mods)"
-        attack_roll = int(raw_input('What did you roll? ').strip())
+        total_attack = int(raw_input('What did you roll? ').strip())
 
-    if attack_roll = 20:
-        critical = True
+    if total_attack = 20:
+        multiplier = 2
         print "Gotta crit! Roll to confirm!"
         print "Attack roll: d20 + %d - %d" % (boulder_attack_bonus, range_penalty)
         if auto_roll:
-            attack_roll = sum(roll_dice(1, 20))
+            total_attack = sum(roll_dice(1, 20))
         else:
             print "Roll now. (Don't add in any mods)"
-            attack_roll = int(raw_input('What did you roll? ').strip())
+            total_attack = int(raw_input('What did you roll? ').strip())
         
-    attack_roll += boulder_attack_bonus
-    attack_roll -= range_penalty
-    return attack_roll, critical
+    total_attack += boulder_attack_bonus
+    total_attack -= range_penalty
+    return total_attack, multiplier
+
+def damage_roll(num_of_dice=1, num_of_sides=6, total_mod=0, multiplier=1):
+    global auto_roll
+
+    if multiplier > 1:
+        print "Damage roll: %dd%d + %d X%d" % (num_of_dice, num_of_sides,
+            STR_mod, multiplier)
+    else:
+        print "Damage roll: %dd%d + %d" % (num_of_dice, num_of_sides, STR_mod)
+
+    if auto_roll:
+        total_damage = sum(roll_dice(num_of_dice, num_of_sides))
+    else:
+        print "Roll now. (Don't add in any mods)"
+        total_damage = raw_input('What did you roll? ')
+        total_damage = total_damage.split(",")
+        total_damage = sum(int(x.strip()) for x in total_damage)
+
+    #Last minute mods
+    total_damage += total_mod
+    total_damage *= multiplier
+
+    print "Damage roll result: %d" % total_damage_roll
+
+    return total_damage
 
 def shield_attack(total_damage, cleave_damage, charging=False, cleave=False):
     #+2 attack when charging
@@ -122,25 +149,14 @@ def throw_boulder(total_damage, boulder_range):
         range_penalty += 1
 
     #Attack roll
-    total_attack_roll, critical = attack_roll(boulder_attack_bonus, range_penalty)
-    print "Attack roll: %d" % attack_roll
+    total_attack_roll, multiplier = attack_roll(boulder_attack_bonus, range_penalty)
+    print "Attack roll result: %d" % total_attack_roll
     hit = raw_input('Did it hit?')
     if hit.lower().startswith('n'):
         return total_damage, cleave_damage
 
     #Damage roll
-    print "Damage roll: 4d8+" + str(STR_mod)
-    if auto_roll:
-        damage_roll = sum(roll_dice(4, 8)) + STR_mod
-    else:
-        print "Roll now. (Don't add in any mods)"
-        damage_roll = raw_input('What did you roll? ')
-        damage_roll += STR_mod
-
-    if critical:
-            damage_roll *= 2
-    
-    total_damage['boulder'] = damage_roll
+    total_damage['boulder'] = damage_roll(4, 8, STR_mod, multiplier)
     
     return total_damage, cleave_damage
 
