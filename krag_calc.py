@@ -27,6 +27,9 @@ def attack_roll(total_attack_bonus=0, range_penalty=0):
         
     total_attack += boulder_attack_bonus
     total_attack -= range_penalty
+
+    print "Attack roll result: %d" % total_attack
+
     return total_attack, multiplier
 
 def damage_roll(num_of_dice=1, num_of_sides=6, total_mod=0, multiplier=1):
@@ -86,44 +89,52 @@ def shield_attack(total_damage, cleave_damage, charging=False, cleave=False):
 
     return total_damage, cleave_damage
 
-def gore_attack(total_damage, cleave_damage, charging=False, cleave=False):
+def gore_attack(charging=False, power_attack=0, cleave=False):
     global STR_mod
     global base_attack_bonus
     global size_mod
     global auto_roll
 
+    cleave_damage = 0
+    total_damage = 0
+
     ####Attack roll####
     gore_attack_bonus = base_attack_bonus + STR_mod + size_mod
-    gore_attack_bonus -= 5     #Natural off hand weapon mod
+    gore_attack_bonus -= 5     #Natural off hand weapon penalty
+    gore_attack_bonus -= power_attack #Power attack penalty
     if charging:
         gore_attack_bonus += 2
 
     total_attack_roll, multiplier = attack_roll(gore_attack_bonus)
-    print "Attack roll result: %d" % total_attack_roll
     hit = raw_input('Did it hit?')
     if hit.lower().startswith('n'):
+        if cleave:
+            return cleave_damage
         return total_damage, cleave_damage
     
     ####Damage roll####
+    damage_mod = STR_mod//2 + power_attack
     if cleave:
-        cleave_damage['gore'] = damage_roll(1, 8, STR_mod//2, multiplier)
+        cleave_damage = damage_roll(1, 8, damage_mod, multiplier)
+        return cleave_damage
     else:
-        total_damage['gore'] = damage_roll(1, 8, STR_mod//2, multiplier)
+        total_damage = damage_roll(1, 8, damage_mod, multiplier)
 
-    if not cleave:
-        cleave = ("Did it cleave?")
-        if cleave.lower().startswith('y'):
-            return throw_boulder(total_damage, cleave_damage, charging, True)
+
+    cleave = ("Did it cleave?")
+    if cleave.lower().startswith('y'):
+        cleave_damage = gore_attack(charging, power_attack, True)
         
     return total_damage, cleave_damage
 
 
-def throw_boulder(total_damage, boulder_range):
+def throw_boulder(boulder_range):
     global STR_mod
     global base_attack_bonus
     global size_mod
     global auto_roll
     
+    total_damage = 0
     boulder_attack_bonus = base_attack_bonus + STR_mod + size_mod
     
 
@@ -131,7 +142,7 @@ def throw_boulder(total_damage, boulder_range):
     distance = int(raw_input('How far away is the target? (in feet) '))
     if distance >= boulder_range * 5:
         print "Target too far away"
-        return total_damage, cleave_damage
+        return total_damage
 
     range_penalty = 0
     while distance >= boulder_range:
@@ -143,48 +154,59 @@ def throw_boulder(total_damage, boulder_range):
     print "Attack roll result: %d" % total_attack_roll
     hit = raw_input('Did it hit?')
     if hit.lower().startswith('n'):
-        return total_damage, cleave_damage
+        return total_damage
 
     #Damage roll
-    total_damage['boulder'] = damage_roll(4, 8, STR_mod, multiplier)
+    total_damage = damage_roll(4, 8, STR_mod, multiplier)
     
-    return total_damage, cleave_damage
+    return total_damage
+
+
 
 STR_mod = 16
 base_attack_bonus = 5
 size_mod = -1
 boulder_range = 50
 total_damage = {'boulder': 0, 'gore': 0, 'shield': 0}
-cleave_damage = {'boulder': 0, 'gore': 0, 'shield': 0}
+cleave_damage = {'gore': 0, 'shield': 0}
 
+#Auto roll?
 auto_roll = raw_input('Auto roll dice? ')
 if auto_roll.lower().startswith('y'):
     auto_roll = True
 else:
     auto_roll = False
 
+#Charging?
 charging = raw_input('Are you charging? ')
 if charging.lower().startswith('y'):
     charging = True
 else:
     charging = False
 
-#TODO Implement Power Attack
+#Power attack?
+power_attack = int(raw_input('How many points to power attack? (Max %d) '
+    % base_attack_bonus))
+if power_attack > base_attack_bonus:
+    print "Too many points!"
+    quit()
+
 while(True):
     attack =  raw_input('What is your attack? ')
     if attack.lower() == 'shield':
-        total_damage, cleave_damage = shield_attack(total_damage, cleave_damage, charging)
+        total_damage['shield'], cleave_damage['shield'] = shield_attack(charging, power_attack)
 
     if attack.lower() == 'gore' or attack.lower() == 'horns':
-        total_damage, cleave_damage = gore_attack(total_damage, cleave_damage, charging)
+        total_damage['gore'], cleave_damage['gore'] = gore_attack(charging, power_attack)
 
     if attack.lower() == 'boulder' or attack.lower() == 'rock':
-        total_damage, cleave_damage = throw_boulder(total_damage, boulder_range)
+        total_damage['boulder'] = throw_boulder(boulder_range)
 
     again = raw_input('Another attack? ')
     if again.lower().startswith('n'):
         break
 
 
+print "Damage done this round:"
 print total_damage
 print cleave_damage
