@@ -155,7 +155,7 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
                 
                 touch_success = raw_input('Did touch attack succeeed? (y|n) ')
                 if tripped.lower().startswith('y'):
-                    print "Strength check to beat: %d" STR_mod + STR_check_size_mod + 4
+                    print "Strength check to beat: %d" % STR_mod + STR_check_size_mod + 4
                     
                     tripped = raw_input('Did you trip it? (y|n) ')
                     if tripped.lower().startswith('y'):
