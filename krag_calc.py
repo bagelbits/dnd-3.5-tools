@@ -115,7 +115,8 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
     global shield_enhancement_bonus
     global auto_roll
 
-    
+    cleave_targets = {}
+    targets = {}
     dice_to_roll = 2
     damage_doubling = 1
 
@@ -131,27 +132,20 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
     hit = int(raw_input('How many things were hit?'))
     if hit == 0:
         if cleave:
-            return cleave_damage
-        return total_damage, cleave_damage
+            return cleave_targets
+        return targets, cleave_targets
     
-    if charging:
-        multiplier *= 2
-        damage_doubling += 1
-
+    
     #Damage roll with mighty swing, shield charge, shield slam, knockback... yay for fun times
     damage_mod = STR_mod*1.5 + power_attack* 2 + shield_enhancement_bonus
 
-    targets = {}
+    if charging:
+        damage_doubling += 1
 
     for target in range(1, hits + 1):
         target_name = 'target_%d' % target
-        cleave_damage = 0
-        total_damage = 0
 
-        if cleave:
-            cleave_damage = damage_roll(2, 6, damage_mod, damage_doubling, multiplier)
-        else:
-            total_damage = damage_roll(2, 6, damage_mod, damage_doubling, multiplier)
+        total_damage = damage_roll(2, 6, damage_mod, damage_doubling, multiplier)
 
         #Trip attempt
         if charging:
@@ -169,10 +163,7 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
                         throw_away, free_attack_multiplier = attack_roll(shield_attack_bonus + 4)
                         hit = raw_input('Did it hit? (y|n) ')
                         if hit.lower().startswith('y'):
-                            if cleave:
-                                cleave_damage += damage_roll(2, 6, damage_mod, damage_doubling, free_attack_multiplier)
-                            else:
-                                total_damage += damage_roll(2, 6, damage_mod, damage_doubling, free_attack_multiplier)
+                            total_damage += damage_roll(2, 6, damage_mod, damage_doubling, free_attack_multiplier)
 
         #Shield daze
         fort_save = 10 + hd_level//2 + STR_mod
@@ -196,22 +187,19 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
 
         hit = raw_input("Did target hit a wall/solid object? (y|n) ")
         if hit.lower().startswith('y'):
-            if cleave:
-                cleave_damage += damage_roll(4, 6, STR_mod*2)
-            else:
-                total_damage += damage_roll(4, 6, STR_mod*2)
+            total_damage += damage_roll(4, 6, STR_mod*2)
 
         targets[target_name] = total_damage
-    
+
     
     if cleave:
-        return cleave_damage
+        return targets
 
     cleave = ("Did it cleave?")
     if cleave.lower().startswith('y'):
-        cleave_damage = shield_attack(item_mod, charging, power_attack, True)
+        cleave_targets = shield_attack(item_mod, charging, power_attack, True)
         
-    return total_damage, cleave_damage
+    return targets, cleave_targets
 
 def gore_attack(charging=False, power_attack=0, cleave=False):
     global STR_mod
@@ -220,6 +208,7 @@ def gore_attack(charging=False, power_attack=0, cleave=False):
     global auto_roll
 
     total_damage = 0
+    cleave_damage = 0
 
     ####Attack roll####
     gore_attack_bonus = base_attack_bonus + STR_mod + size_mod
@@ -232,8 +221,8 @@ def gore_attack(charging=False, power_attack=0, cleave=False):
     hit = raw_input('Did it hit? (y|n) ')
     if hit.lower().startswith('n'):
         if cleave:
-            return total_damage
-        return total_damage, 0
+            return cleave_damage
+        return total_damage, cleave_damage
     
     ####Damage roll####
     damage_mod = STR_mod//2 + power_attack
@@ -245,7 +234,7 @@ def gore_attack(charging=False, power_attack=0, cleave=False):
         
     cleave = ("Did it cleave?")
     if cleave.lower().startswith('y'):
-        cleave_damage = gore_attack(charging, power_attack, True)
+        cleave_damage += gore_attack(charging, power_attack, True)
         
     return total_damage, cleave_damage
 
