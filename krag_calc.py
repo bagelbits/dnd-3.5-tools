@@ -298,6 +298,10 @@ boulder_range = 50
 total_damage = {'boulder': 0, 'gore': 0, 'shield': {}}
 cleave_damage = {'gore': 0, 'shield': {}}
 
+print "############################################"
+print "#      WELCOME! TO KRAG'S DAMAGE CALC!     #"
+print "############################################"
+
 #Auto roll?
 auto_roll = raw_input('Auto roll dice?(y|n) ')
 if auto_roll.lower().startswith('y'):
