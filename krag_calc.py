@@ -4,36 +4,85 @@ def roll_dice(dice=1, sides=6):
     try: return [randint(1, sides) for x in range(dice)]
     except: return []
 
+def general_dc_roll(dc_name, num_of_dice=1, num_of_sides=20, total_mod=0):
+    global auto_roll
+
+    total_dc_roll = 0
+
+    print "%s roll: %dd%d + %d" % (dc_name, num_of_dice, num_of_sides, total_mod)
+    if auto_roll:
+        base_dc_roll = sum(roll_dice(1, 20))
+    else:
+        print "Roll now. (Don't add in any mods)"
+        base_dc_roll = int(raw_input('What did you roll? ').strip())
+
+    print "Base roll: %d\n" % base_dc_roll
+
+    while base_dc_roll == 20:
+        total_dc_roll += base_dc_roll
+        print "Exploding dice! Roll again"
+        print "%s roll: %dd%d + %d" % (dc_name, num_of_dice, num_of_sides, total_mod)
+        if auto_roll:
+            base_dc_roll = sum(roll_dice(1, 20))
+        else:
+            print "Roll now. (Don't add in any mods)"
+            base_dc_roll = int(raw_input('What did you roll? ').strip())
+        print "Base roll: %d\n" % base_dc_roll
+
+    if base_dc_roll == 1:
+        print "Critical Failure!"
+
+    total_dc_roll += total_mod
+
+    print "Total %s roll result: %d" % (dc_name, total_dc_roll)
+
+    return total_dc_roll
+    
+
 def attack_roll(total_attack_bonus=0, range_penalty=0):
     global auto_roll
 
     multiplier = 1
-    print "Attack roll: d20 + %d - %d" % (boulder_attack_bonus, range_penalty)
+    print "Attack roll: d20 + %d - %d" % (total_attack_bonus, range_penalty)
     if auto_roll:
-        total_attack = sum(roll_dice(1, 20))
+        base_attack_roll = sum(roll_dice(1, 20))
     else:
         print "Roll now. (Don't add in any mods)"
-        total_attack = int(raw_input('What did you roll? ').strip())
+        base_attack_roll = int(raw_input('What did you roll? ').strip())
 
-    if total_attack = 20:
-        multiplier = 2
+    print "Base roll: %d\n" % base_attack_roll
+
+    while base_attack_roll == 20:
+        multiplier += 1
         print "Gotta crit! Roll to confirm!"
-        print "Attack roll: d20 + %d - %d" % (boulder_attack_bonus, range_penalty)
+        print "Attack roll: d20 + %d - %d" % (total_attack_bonus, range_penalty)
         if auto_roll:
-            total_attack = sum(roll_dice(1, 20))
+            base_attack_roll = sum(roll_dice(1, 20))
         else:
             print "Roll now. (Don't add in any mods)"
-            total_attack = int(raw_input('What did you roll? ').strip())
-        
-    total_attack += boulder_attack_bonus
-    total_attack -= range_penalty
+            base_attack_roll = int(raw_input('What did you roll? ').strip())
+        print "Base roll: %d\n" % base_attack_roll
 
-    print "Attack roll result: %d" % total_attack
+    if base_attack_roll == 1:
+        print "Critical Failure!"
+        
+    roll_mod += total_attack_bonus
+    roll_mod -= range_penalty
+
+    total_attack = base_attack_roll + roll_mod
+
+    print "Total Attack roll result: %d" % total_attack
+    if multiplier > 1:
+        "Total multiplier: %dx" % multiplier
 
     return total_attack, multiplier
 
-def damage_roll(num_of_dice=1, num_of_sides=6, total_mod=0, multiplier=1):
+
+def damage_roll(num_of_dice=1, num_of_sides=6, total_mod=0, damage_doubling=1, multiplier=1):
     global auto_roll
+
+    num_of_dice *= damage_doubling
+    total_mod *= damage_doubling
 
     if multiplier > 1:
         print "Damage roll: %dd%d + %d X%d" % (num_of_dice, num_of_sides,
@@ -57,42 +106,111 @@ def damage_roll(num_of_dice=1, num_of_sides=6, total_mod=0, multiplier=1):
 
     return total_damage
 
-def shield_attack(charging=False, power_attack=0, cleave=False):
+
+def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
     global STR_mod
     global base_attack_bonus
+    global STR_check_size_mod
     global size_mod
+    global shield_enhancement_bonus
     global auto_roll
-    #+2 attack when charging
+
     
-    #So, here's the full chain.
+    dice_to_roll = 2
+    damage_doubling = 1
+
+    raw_input('Mighty swing used. Please pick 3 adjacent squares.')
+
+    ####Attack roll####
+    shield_attack_bonus = base_attack_bonus + STR_mod + size_mod + shield_enhancement_bonus
+    shield_attack_bonus -= power_attack #Power attack penalty
+    if charging:
+        shield_attack_bonus += 2
+
+    total_attack_roll, multiplier = attack_roll(shield_attack_bonus)
+    hit = int(raw_input('How many things were hit?'))
+    if hit == 0:
+        if cleave:
+            return cleave_damage
+        return total_damage, cleave_damage
     
-    #Dont' forget to take into account Mighty Swing
+    if charging:
+        multiplier *= 2
+        damage_doubling += 1
 
-    #When you charge, you roll to hit. That's
-    #Str bonus + BAB +2 +Enhancement Bonus (currently +1 for your shield) - Power Attack
+    #Damage roll with mighty swing, shield charge, shield slam, knockback... yay for fun times
+    damage_mod = STR_mod*1.5 + power_attack* 2 + shield_enhancement_bonus
 
-    #Then you do damage. Because you deal double damage (Valorous Shield),
-    #that's 3*Str Mod + 2* Shield damage (so, 4d6 I think?)
-    # + 4* Power Attack Penalty +2 (Enhancement Bonus doubled).
+    targets = {}
 
-    #Now, you get the free trip (note: only works on enemies no more than huge).
-    #This is Str bonus + size mod (+4 for large) +4 for Improved Trip, opposed
-    #by their trip check. If that works, roll to hit again, at +4 because they're prone.
+    for target in range(1, hits + 1):
+        target_name = 'target_%d' % target
+        cleave_damage = 0
+        total_damage = 0
 
+        if cleave:
+            cleave_damage = damage_roll(2, 6, damage_mod, damage_doubling, multiplier)
+        else:
+            total_damage = damage_roll(2, 6, damage_mod, damage_doubling, multiplier)
 
-    #Now, you get to Shield Slam them (the daze effect). They just have to
-    #roll a save due to this:
-    #http://dndtools.eu/feats/complete-warrior--61/shield-slam--2592/
-    #So that's currently 10+ 1/2 character level (5) + str mod, and
-    #they fort save against that or they can't act next round
+        #Trip attempt
+        if charging:
+            can_trip = raw_input('Enemy bigger than huge? (y|n) ')
+            if can_trip.lower().startswith('n'):
+                touch_attack_roll = general_dc_roll("Touch attack", 1, 20, STR_mod + base_attack_bonus)
+                
+                touch_success = raw_input('Did touch attack succeeed? (y|n) ')
+                if tripped.lower().startswith('y'):
+                    print "Strength check to beat: %d" STR_mod + STR_check_size_mod + 4
+                    
+                    tripped = raw_input('Did you trip it? (y|n) ')
+                    if tripped.lower().startswith('y'):
+                        #+4 because they're prone
+                        throw_away, free_attack_multiplier = attack_roll(shield_attack_bonus + 4)
+                        hit = raw_input('Did it hit? (y|n) ')
+                        if hit.lower().startswith('y'):
+                            if cleave:
+                                cleave_damage += damage_roll(2, 6, damage_mod, damage_doubling, free_attack_multiplier)
+                            else:
+                                total_damage += damage_roll(2, 6, damage_mod, damage_doubling, free_attack_multiplier)
 
-    #Now you knock them back. Bull rush check,
-    #1d20+Size mod + str bonus + 4 for Improved Bull Rush,
-    #so same as trip check, and they go flying back if they fail to oppose. Whee!
+        #Shield daze
+        fort_save = 10 + hd_level//2 + STR_mod
+        print "Target: %s must make Fort save and beat %d" % (target_name)
+        raw_input("Press Enter to continue...")
 
-    #And then if they hit a wall or solid object during the knockback
-    #they take 4d6 + 2x str mod
+        #Knockback with bull rush check
+        print "Bull rush check roll:"
+        bull_rush_mod = STR_check_size_mod + STR_mod + 4 #+4 for Improved Bull Rush
+        bull_rush_check = general_dc_roll("Bull rush", 1, 20, )
 
+        opposing_bull_rush_check = int(raw_input("Opposing bull rush check? "))
+        if bull_rush_check > opposing_bull_rush_check:
+            knockback_distance = 5
+            br_check_diff = bull_rush_check - opposing_bull_rush_check
+            while br_check_diff > 5:
+                knockback_distance += 5
+                br_check_diff -= 5
+
+        print "Target knocked back %d feet" % knockback_distance
+
+        hit = raw_input("Did target hit a wall/solid object? (y|n) ")
+        if hit.lower().startswith('y'):
+            if cleave:
+                cleave_damage += damage_roll(4, 6, STR_mod*2)
+            else:
+                total_damage += damage_roll(4, 6, STR_mod*2)
+
+        targets[target_name] = total_damage
+    
+    
+    if cleave:
+        return cleave_damage
+
+    cleave = ("Did it cleave?")
+    if cleave.lower().startswith('y'):
+        cleave_damage = shield_attack(item_mod, charging, power_attack, True)
+        
     return total_damage, cleave_damage
 
 def gore_attack(charging=False, power_attack=0, cleave=False):
@@ -101,7 +219,6 @@ def gore_attack(charging=False, power_attack=0, cleave=False):
     global size_mod
     global auto_roll
 
-    cleave_damage = 0
     total_damage = 0
 
     ####Attack roll####
@@ -112,21 +229,20 @@ def gore_attack(charging=False, power_attack=0, cleave=False):
         gore_attack_bonus += 2
 
     total_attack_roll, multiplier = attack_roll(gore_attack_bonus)
-    hit = raw_input('Did it hit?')
+    hit = raw_input('Did it hit? (y|n) ')
     if hit.lower().startswith('n'):
         if cleave:
-            return cleave_damage
-        return total_damage, cleave_damage
+            return total_damage
+        return total_damage, 0
     
     ####Damage roll####
     damage_mod = STR_mod//2 + power_attack
+    total_damage = damage_roll(1, 8, damage_mod, 1, multiplier)
+
+    #Dealing with cleave
     if cleave:
-        cleave_damage = damage_roll(1, 8, damage_mod, multiplier)
-        return cleave_damage
-    else:
-        total_damage = damage_roll(1, 8, damage_mod, multiplier)
-
-
+        return total_damage
+        
     cleave = ("Did it cleave?")
     if cleave.lower().startswith('y'):
         cleave_damage = gore_attack(charging, power_attack, True)
@@ -158,7 +274,7 @@ def throw_boulder(boulder_range):
     #Attack roll
     total_attack_roll, multiplier = attack_roll(boulder_attack_bonus, range_penalty)
     print "Attack roll result: %d" % total_attack_roll
-    hit = raw_input('Did it hit?')
+    hit = raw_input('Did it hit? (y|n) ')
     if hit.lower().startswith('n'):
         return total_damage
 
@@ -168,10 +284,12 @@ def throw_boulder(boulder_range):
     return total_damage
 
 
-
+hd_level = 11
 STR_mod = 16
 base_attack_bonus = 5
+STR_check_size_mod = 4
 size_mod = -1
+shield_enhancement_bonus = 1
 boulder_range = 50
 total_damage = {'boulder': 0, 'gore': 0, 'shield': 0}
 cleave_damage = {'gore': 0, 'shield': 0}
