@@ -120,15 +120,13 @@ def attack_roll(total_attack_bonus=0, range_penalty=0):
 
 def damage_roll(num_of_dice=1, num_of_sides=6, total_mod=0, multiplier=1, damage_doubling=1):
     global auto_roll
-
     num_of_dice *= damage_doubling
     total_mod *= damage_doubling
-
     print colorz.RED
 
     if multiplier > 1:
-        print "Damage roll: %dd%d + %d X%d" % (num_of_dice, num_of_sides,
-            total_mod, multiplier)
+        print "Damage roll: %dd%d + %d X%d" \
+            % (num_of_dice, num_of_sides, total_mod, multiplier)
     else:
         print "Damage roll: %dd%d + %d" % (num_of_dice, num_of_sides, total_mod)
 
@@ -201,39 +199,41 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
 
         if charging:
             #Trip attempt
-            print colorz.YELLOW + "\n++Free Trip attempt++"
+            print "\n%s++Free Trip attempt++" % colorz.YELLOW
             can_trip = raw_input('Enemy bigger than huge? (y|n) ')
             if can_trip.lower().startswith('n'):
                 touch_attack_roll = general_dc_roll("Touch attack", 1, 20, STR_mod + base_attack_bonus)
-                
-                touch_success = raw_input(colorz.YELLOW + 'Did touch attack succeeed? (y|n) ')
+                print colorz.YELLOW
+                touch_success = raw_input('Did touch attack succeeed? (y|n) ')
+
                 if touch_success.lower().startswith('y'):
                     trip_str_check = STR_mod + STR_check_size_mod + 4
                     print "\nStrength check to beat: %d" % trip_str_check
-                    
                     tripped = raw_input('Did you trip it? (y|n) ')
+
                     if tripped.lower().startswith('y'):
                         print "\n++Free attack!++"
                         #+4 because they're prone
                         throw_away, free_attack_multiplier = attack_roll(shield_attack_bonus + 4)
-                        hit = raw_input(colorz.YELLOW + 'Did it hit? (y|n) ')
+                        print colorz.YELLOW
+                        hit = raw_input('Did it hit? (y|n) ')
                         if hit.lower().startswith('y'):
                             total_damage += damage_roll(2, 6, damage_mod, free_attack_multiplier, damage_doubling)
 
         #Shield daze
-        print colorz.PURPLE + "\n++Shield daze++"
+        print "\n%s++Shield daze++" % colorz.PURPLE
         fort_save = 10 + hd_level//2 + STR_mod
         print "%s must make Fort save and beat %d or be Dazed for one round" % (target_name, fort_save)
         raw_input("Press Enter to continue..." + colorz.GREEN)
 
         #Knockback with bull rush check
-        print colorz.BLUE + "\n++Knockback++"
+        print "\n%s++Knockback++" % colorz.BLUE
         print "Bull rush check roll:"
         bull_rush_mod = STR_check_size_mod + STR_mod + 4 #+4 for Improved Bull Rush
         bull_rush_check = general_dc_roll("Bull rush", 1, 20, bull_rush_mod)
         knockback_distance = 0
-
-        opposing_bull_rush_check = int(raw_input(colorz.BLUE + "Opposing bull rush check? "))
+        print colorz.BLUE
+        opposing_bull_rush_check = int(raw_input("Opposing bull rush check? "))
         if bull_rush_check > opposing_bull_rush_check:
             knockback_distance += 5
             br_check_diff = bull_rush_check - opposing_bull_rush_check
@@ -242,7 +242,6 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
                 br_check_diff -= 5
 
         print "\nTarget knocked back %d feet" % knockback_distance
-
         if knockback_distance > 0:
             hit = raw_input(colorz.GREEN + "Did target hit a wall/solid object? (y|n) ")
             if hit.lower().startswith('y'):
@@ -257,11 +256,11 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
     print colorz.RED
     for target in targets.keys():
         print "Total damage for %s: %d" % (target, targets[target])
-    print colorz.GREEN
-
+    
+    print colorz.YELLOW
     cleave = raw_input("\n\nDid it cleave? (y|n) ")
     if cleave.lower().startswith('y'):
-        print  colorz.PURPLE + "Cleaving....\n" + colorz.GREEN
+        print  "%sCleaving....\n%s" % (colorz.PURPLE, colorz.GREEN)
         cleave_targets = shield_attack(item_mod, charging, power_attack, True)
         
     return targets, cleave_targets
@@ -301,9 +300,10 @@ def gore_attack(charging=False, power_attack=0, cleave=False):
     if cleave:
         return total_damage
         
-    cleave = raw_input(colorz.YELLOW + "Did it cleave? (y|n) ")
+    print colorz.YELLOW
+    cleave = raw_input("Did it cleave? (y|n) ")
     if cleave.lower().startswith('y'):
-        print  colorz.PURPLE + "Cleaving....\n" + colorz.GREEN
+        print  "%sCleaving....\n%s" % (colorz.PURPLE, colorz.GREEN)
         cleave_damage += gore_attack(charging, power_attack, True)
         
     return total_damage, cleave_damage
@@ -364,8 +364,8 @@ print colorz.PURPLE
 print "############################################"
 print "#      WELCOME! TO KRAG'S DAMAGE CALC!     #"
 print "############################################"
-
 print colorz.YELLOW
+
 #Auto roll?
 auto_roll = raw_input('Auto roll dice?(y|n) ')
 if auto_roll.lower().startswith('y'):
@@ -384,7 +384,7 @@ else:
 power_attack = int(raw_input('How many points to power attack? (Max %d) '
     % base_attack_bonus))
 if power_attack > base_attack_bonus:
-    print  colorz.RED + "Too many points!" + colorz.ENDC
+    print  "%sToo many points!%s" % (colorz.RED, colorz.ENDC)
     quit()
 
 
@@ -397,11 +397,12 @@ while(True):
             = shield_attack(shield_enhancement_bonus, charging, power_attack)
 
     elif attack.lower() == 'gore':
-        total_damage['gore'], cleave_damage['gore'] = gore_attack(charging, power_attack)
+        total_damage['gore'], cleave_damage['gore'] \
+            = gore_attack(charging, power_attack)
 
     elif attack.lower() == 'boulder':
         if charging:
-            print colorz.RED + "Can't throw boulder while charging.\n"
+            print "%sCan't throw boulder while charging.\n" % colorz.RED
         else:
             total_damage['boulder'] = throw_boulder(boulder_range)
         
@@ -409,13 +410,13 @@ while(True):
     elif attack.lower() == 'none':
         break
 
-    again = raw_input(colorz.YELLOW + '\n\nAnother attack? (y|n) ')
+    print colorz.YELLOW
+    again = raw_input('\nAnother attack? (y|n) ')
     if again.lower().startswith('n'):
         break
 
 #Print out damage summary!
-print colorz.RED
-print "\n####Damage done this round####"
+print "\n\n%s####Damage done this round####" % colorz.RED
 if total_damage:
     print "\nRegular Damage: "
     if 'shield' in total_damage:
@@ -444,6 +445,5 @@ if cleave_damage:
 
     if 'gore' in cleave_damage:
         print "-Gore: %d" % cleave_damage['gore']
-
 
 print colorz.ENDC
