@@ -207,7 +207,7 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
                 touch_success = raw_input('Did touch attack succeeed? (y|n) ')
 
                 if touch_success.lower().startswith('y'):
-                    trip_str_check = STR_mod + STR_check_size_mod + 4
+                    trip_str_check = general_dc_roll("Strength check", 1, 20, STR_mod + STR_check_size_mod + 4)
                     print "\nStrength check to beat: %d" % trip_str_check
                     tripped = raw_input('Did you trip it? (y|n) ')
 
@@ -219,6 +219,13 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
                         hit = raw_input('Did it hit? (y|n) ')
                         if hit.lower().startswith('y'):
                             total_damage += damage_roll(2, 6, damage_mod, free_attack_multiplier, damage_doubling)
+                            #Free Attack Shield Dave
+                            print "\n%s++Shield daze++" % colorz.PURPLE
+                            fort_save = 10 + hd_level//2 + STR_mod
+                            print "%s must make Fort save and beat %d or be Dazed for one round" \
+                                % (target_name, fort_save)
+                            raw_input("Press Enter to continue..." + colorz.GREEN)
+
 
         #Shield daze
         print "\n%s++Shield daze++" % colorz.PURPLE
@@ -366,84 +373,94 @@ print "#      WELCOME! TO KRAG'S DAMAGE CALC!     #"
 print "############################################"
 print colorz.YELLOW
 
-#Auto roll?
-auto_roll = raw_input('Auto roll dice?(y|n) ')
-if auto_roll.lower().startswith('y'):
-    auto_roll = True
-else:
-    auto_roll = False
+round_num = 1
 
-#Charging?
-charging = raw_input('Are you charging? (y|n) ')
-if charging.lower().startswith('y'):
-    charging = True
-else:
-    charging = False
+while True:
+    print "Combat round #%d" % round_num
+    #Auto roll?
+    auto_roll = raw_input('Auto roll dice?(y|n) ')
+    if auto_roll.lower().startswith('y'):
+        auto_roll = True
+    else:
+        auto_roll = False
 
-#Power attack?
-power_attack = int(raw_input('How many points to power attack? (Max %d) '
-    % base_attack_bonus))
-if power_attack > base_attack_bonus:
-    print  "%sToo many points!%s" % (colorz.RED, colorz.ENDC)
-    quit()
+    #Charging?
+    charging = raw_input('Are you charging? (y|n) ')
+    if charging.lower().startswith('y'):
+        charging = True
+    else:
+        charging = False
+
+    #Power attack?
+    power_attack = int(raw_input('How many points to power attack? (Max %d) '
+        % base_attack_bonus))
+    if power_attack > base_attack_bonus:
+        print  "%sToo many points!%s" % (colorz.RED, colorz.ENDC)
+        quit()
 
 
-#Choose your attacks!
-while(True):
-    print colorz.GREEN
-    attack =  raw_input('\nWhat is your attack? (shield|gore|boulder|none) ')
-    if attack.lower() == 'shield':
-        total_damage['shield'], cleave_damage['shield'] \
-            = shield_attack(shield_enhancement_bonus, charging, power_attack)
+    #Choose your attacks!
+    while(True):
+        print colorz.GREEN
+        attack =  raw_input('\nWhat is your attack? (shield|gore|boulder|none) ')
+        if attack.lower() == 'shield':
+            total_damage['shield'], cleave_damage['shield'] \
+                = shield_attack(shield_enhancement_bonus, charging, power_attack)
 
-    elif attack.lower() == 'gore':
-        total_damage['gore'], cleave_damage['gore'] \
-            = gore_attack(charging, power_attack)
+        elif attack.lower() == 'gore':
+            total_damage['gore'], cleave_damage['gore'] \
+                = gore_attack(charging, power_attack)
 
-    elif attack.lower() == 'boulder':
-        if charging:
-            print "%sCan't throw boulder while charging.\n" % colorz.RED
-        else:
-            total_damage['boulder'] = throw_boulder(boulder_range)
-        
-        
-    elif attack.lower() == 'none':
-        break
+        elif attack.lower() == 'boulder':
+            if charging:
+                print "%sCan't throw boulder while charging.\n" % colorz.RED
+            else:
+                total_damage['boulder'] = throw_boulder(boulder_range)
+            
+            
+        elif attack.lower() == 'none':
+            break
 
+        print colorz.YELLOW
+        again = raw_input('\nAnother attack? (y|n) ')
+        if again.lower().startswith('n'):
+            break
+
+    #Print out damage summary!
+    print "\n\n%s####Damage done this round####" % colorz.RED
+    if total_damage:
+        print "\nRegular Damage: "
+        if 'shield' in total_damage:
+            print "-Shield:"
+            for target in total_damage['shield'].keys():
+                print "--%s: %d" % (target, total_damage['shield'][target])
+
+            if not total_damage['shield']:
+                print "-- None"
+
+        if 'gore' in total_damage:
+            print "-Gore: %d" % total_damage['gore']
+
+        if 'boulder' in total_damage:
+            print "-Boulder: %d" % total_damage['boulder']
+
+    if cleave_damage:
+        print "\nCleave Damage: "
+        if 'shield' in cleave_damage:
+            print "-Shield:"
+            for target in cleave_damage['shield'].keys():
+                print "--%s: %d" % (target, cleave_damage['shield'][target])
+
+            if not cleave_damage['shield']:
+                print "-- None"
+
+        if 'gore' in cleave_damage:
+            print "-Gore: %d" % cleave_damage['gore']
     print colorz.YELLOW
-    again = raw_input('\nAnother attack? (y|n) ')
+    again = raw_input('Continue? (y|n) ')
     if again.lower().startswith('n'):
         break
+    #death_toll = raw_input('\nHow many killed this round? ')
 
-#Print out damage summary!
-print "\n\n%s####Damage done this round####" % colorz.RED
-if total_damage:
-    print "\nRegular Damage: "
-    if 'shield' in total_damage:
-        print "-Shield:"
-        for target in total_damage['shield'].keys():
-            print "--%s: %d" % (target, total_damage['shield'][target])
-
-        if not total_damage['shield']:
-            print "-- None"
-
-    if 'gore' in total_damage:
-        print "-Gore: %d" % total_damage['gore']
-
-    if 'boulder' in total_damage:
-        print "-Boulder: %d" % total_damage['boulder']
-
-if cleave_damage:
-    print "\nCleave Damage: "
-    if 'shield' in cleave_damage:
-        print "-Shield:"
-        for target in cleave_damage['shield'].keys():
-            print "--%s: %d" % (target, cleave_damage['shield'][target])
-
-        if not cleave_damage['shield']:
-            print "-- None"
-
-    if 'gore' in cleave_damage:
-        print "-Gore: %d" % cleave_damage['gore']
 
 print colorz.ENDC
