@@ -62,7 +62,8 @@ def general_dc_roll(dc_name, num_of_dice=1, num_of_sides=20, total_mod=0):
         print "%s\nCritical Failure!%s" % (colorz.RED, colorz.PURPLE)
 
     total_dc_roll += total_mod + base_dc_roll
-    print "Total %s roll result: %d%s\n" % (dc_name, total_dc_roll, colorz.GREEN)
+    print "Total %s roll result: %d%s\n" \
+        % (dc_name, total_dc_roll, colorz.GREEN)
     return total_dc_roll
     
 
@@ -88,7 +89,8 @@ def attack_roll(total_attack_bonus=0, range_penalty=0):
     while base_attack_roll == 20:
         multiplier += 1
         print "%s\nGotta crit! Roll to confirm!%s" % (colorz.RED, colorz.BLUE)
-        print "\nAttack roll: 1d20 + %d - %d" % (total_attack_bonus, range_penalty)
+        print "\nAttack roll: 1d20 + %d - %d" \
+            % (total_attack_bonus, range_penalty)
         
         if auto_roll:
             base_attack_roll = sum(roll_dice(1, 20))
@@ -186,7 +188,8 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
         return targets, cleave_targets
     
     
-    #Damage roll with mighty swing, shield charge, shield slam, knockback... yay for fun times
+    #Damage roll with mighty swing, shield charge, 
+    #shield slam, knockback... yay for fun times
     damage_mod = STR_mod*1.5 + power_attack*2 + item_mod
 
     if charging:
@@ -230,7 +233,8 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
         #Shield daze
         print "\n%s++Shield daze++" % colorz.PURPLE
         fort_save = 10 + hd_level//2 + STR_mod
-        print "%s must make Fort save and beat %d or be Dazed for one round" % (target_name, fort_save)
+        print "%s must make Fort save and beat %d or be Dazed for one round" \
+            % (target_name, fort_save)
         raw_input("Press Enter to continue..." + colorz.GREEN)
 
         #Knockback with bull rush check
@@ -248,9 +252,10 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
                 knockback_distance += 5
                 br_check_diff -= 5
 
-        print "\nTarget knocked back %d feet" % knockback_distance
+        print "\nTarget knocked back %d feet%s" \
+            % (knockback_distance, colorz.GREEN)
         if knockback_distance > 0:
-            hit = raw_input(colorz.GREEN + "Did target hit a wall/solid object? (y|n) ")
+            hit = raw_input("Did target hit a wall/solid object? (y|n) ")
             if hit.lower().startswith('y'):
                 total_damage += damage_roll(4, 6, STR_mod*2)
 
