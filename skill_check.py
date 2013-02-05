@@ -17,31 +17,31 @@ def roll_dice(dice=1, sides=6):
     try: return [randint(1, sides) for x in range(dice)]
     except: return []
 
-def general_skill_roll(dc_name, total_mod=0):
+def general_skill_roll(total_mod=0):
     total_dc_roll = 0
 
-    print "\n%s%s roll: 1d20 + %d"  % (colorz.PURPLE, dc_name, total_mod)
+    print "%sRoll: 1d20 + %d"  % (colorz.PURPLE, total_mod)
     
     base_dc_roll = sum(roll_dice(1, 20))
 
-    print "\n%sBase roll: %d\n" % (colorz.PURPLE, base_dc_roll)
+    print "%sBase roll: %d" % (colorz.PURPLE, base_dc_roll)
 
     #EXPLODING DICE
     while base_dc_roll == 20:
         total_mod += base_dc_roll
-        print "%s\nExploding dice! Roll again%s" % (colorz.RED, colorz.PURPLE)
-        print "%s roll: 1d20 + %d"  % (dc_name, total_mod)
+        print "%sExploding dice! Roll again%s" % (colorz.RED, colorz.PURPLE)
+        print "Roll: 1d20 + %d"  % (total_mod)
         
         base_dc_roll = sum(roll_dice(1, 20))
         
-        print "\n%sBase roll: %d\n" % (colorz.PURPLE, base_dc_roll)
+        print "%sBase roll: %d" % (colorz.PURPLE, base_dc_roll)
 
     if base_dc_roll == 1:
-        print "%s\nCritical Failure!%s" % (colorz.RED, colorz.PURPLE)
+        print "%sCritical Failure!%s" % (colorz.RED, colorz.PURPLE)
 
     total_dc_roll += total_mod + base_dc_roll
-    print "Total %s roll result: %d%s\n" \
-        % (dc_name, total_dc_roll, colorz.GREEN)
+    print "Total roll result: %d%s\n" \
+        % (total_dc_roll, colorz.GREEN)
 
 def skill_grabber(file_name):
     xml_skill_table = {}
@@ -68,6 +68,8 @@ name = "Krag"
 file_name = name + ".xml"
 skill_table = skill_grabber(file_name)
 
+print "\n%sRemember to add in situational mods to results!!!" % colorz.RED
+
 while True:
     print colorz.BLUE
     skill_to_roll \
@@ -77,7 +79,7 @@ while True:
     for key in sorted(skill_table):
         if skill_to_roll.lower() in key.lower():
             print "%s%s" % (colorz.BLUE, key)
-            general_skill_roll(key, skill_table[key])
+            general_skill_roll(skill_table[key])
 
 print colorz.ENDC
             
