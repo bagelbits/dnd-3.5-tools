@@ -104,7 +104,7 @@ def attack_roll(total_attack_bonus=0, range_penalty=0):
         print "\n%sBase roll: %d\n" % (colorz.BLUE, base_attack_roll)
 
     if base_attack_roll == 1:
-        print "Critical Failure!" % (colorz.RED, colorz.BLUE)
+        print "%sCritical Failure!%s" % (colorz.RED, colorz.BLUE)
         
     #Addin in mods
     roll_mod = total_attack_bonus
@@ -163,6 +163,77 @@ def damage_roll(num_of_dice=1, num_of_sides=6, total_mod=0, multiplier=1, damage
 # SHIELD ATTACK #
 #################
 
+def shield_daze(target_name):
+    global hd_level
+    global STR_mod
+
+    print "\n%s++Shield daze++" % colorz.PURPLE
+    fort_save = 10 + hd_level//2 + STR_mod
+    print "%s must make Fort save and beat %d or be Dazed for one round" \
+        % (target_name, fort_save)
+    raw_input("Press Enter to continue..." + colorz.GREEN)
+
+def trip_attempt(target_name, attack_bonus, damage_bonus, damage_doubling=1):
+    global STR_mod
+    global base_attack_bonus
+    global STR_check_size_mod
+
+    can_trip = raw_input('Enemy bigger than huge? (y|n) ')
+    if can_trip.lower().startswith('n'):
+        touch_attack_roll = general_dc_roll("Touch attack", 1, 20, STR_mod + base_attack_bonus)
+        print colorz.YELLOW
+        touch_success = raw_input('Did touch attack succeeed? (y|n) ')
+
+        if touch_success.lower().startswith('y'):
+            #+4 for Improved Trip
+            trip_str_mod = STR_mod + STR_check_size_mod + 4
+            trip_str_check = general_dc_roll("Strength check", 1, 20, trip_str_mod)
+            print "\nStrength check to beat: %d" % trip_str_check
+            tripped = raw_input('Did you trip it? (y|n) ')
+
+            if tripped.lower().startswith('y'):
+                print "\n++Free attack!++"
+                #+4 because they're prone
+                throw_away, multiplier = attack_roll(attack_bonus + 4)
+                print colorz.YELLOW
+                hit = raw_input('Did it hit? (y|n) ')
+                if hit.lower().startswith('y'):
+                    total_damage = damage_roll(2, 6, damage_bonus, multiplier, damage_doubling)
+                    #Free Attack Shield Daze
+                    shield_daze(target_name)
+                    return total_damage
+    return 0
+
+
+def knockback():
+    global STR_mod
+    global base_attack_bonus
+    global STR_check_size_mod
+
+    print "\n%s++Knockback++" % colorz.BLUE
+    print "Bull rush check roll:"
+    #+4 for Improved Bull Rush
+    bull_rush_mod = STR_check_size_mod + STR_mod + 4
+    bull_rush_check = general_dc_roll("Bull rush", 1, 20, bull_rush_mod)
+    knockback_distance = 0
+    print colorz.BLUE
+    opposing_bull_rush_check = int(raw_input("Opposing bull rush check? "))
+    if bull_rush_check > opposing_bull_rush_check:
+        knockback_distance += 5
+        br_check_diff = bull_rush_check - opposing_bull_rush_check
+        while br_check_diff > 5:
+            knockback_distance += 5
+            br_check_diff -= 5
+
+    print "\nTarget knocked back %d feet%s" \
+        % (knockback_distance, colorz.GREEN)
+    if knockback_distance > 0:
+        hit = raw_input("Did target hit a wall/solid object? (y|n) ")
+        if hit.lower().startswith('y'):
+            total_damage = damage_roll(4, 6, STR_mod*2)
+            return total_damage
+    return 0
+
 def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
     global STR_mod
     global base_attack_bonus
@@ -204,63 +275,17 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
         total_damage = damage_roll(2, 6, damage_mod, multiplier, damage_doubling)
 
         if charging:
-            #Trip attempt
+            #Free Trip attempt
             print "\n%s++Free Trip attempt++" % colorz.YELLOW
-            can_trip = raw_input('Enemy bigger than huge? (y|n) ')
-            if can_trip.lower().startswith('n'):
-                touch_attack_roll = general_dc_roll("Touch attack", 1, 20, STR_mod + base_attack_bonus)
-                print colorz.YELLOW
-                touch_success = raw_input('Did touch attack succeeed? (y|n) ')
-
-                if touch_success.lower().startswith('y'):
-                    trip_str_check = general_dc_roll("Strength check", 1, 20, STR_mod + STR_check_size_mod + 4)
-                    print "\nStrength check to beat: %d" % trip_str_check
-                    tripped = raw_input('Did you trip it? (y|n) ')
-
-                    if tripped.lower().startswith('y'):
-                        print "\n++Free attack!++"
-                        #+4 because they're prone
-                        throw_away, free_attack_multiplier = attack_roll(shield_attack_bonus + 4)
-                        print colorz.YELLOW
-                        hit = raw_input('Did it hit? (y|n) ')
-                        if hit.lower().startswith('y'):
-                            total_damage += damage_roll(2, 6, damage_mod, free_attack_multiplier, damage_doubling)
-                            #Free Attack Shield Dave
-                            print "\n%s++Shield daze++" % colorz.PURPLE
-                            fort_save = 10 + hd_level//2 + STR_mod
-                            print "%s must make Fort save and beat %d or be Dazed for one round" \
-                                % (target_name, fort_save)
-                            raw_input("Press Enter to continue..." + colorz.GREEN)
-
-
+            total_damage += trip_attempt(target_name, shield_attack_bonus, damage_mod, damage_doubling)
+            
         #Shield daze
-        print "\n%s++Shield daze++" % colorz.PURPLE
-        fort_save = 10 + hd_level//2 + STR_mod
-        print "%s must make Fort save and beat %d or be Dazed for one round" \
-            % (target_name, fort_save)
-        raw_input("Press Enter to continue..." + colorz.GREEN)
-
+        shield_daze(target_name)
+        
         #Knockback with bull rush check
-        print "\n%s++Knockback++" % colorz.BLUE
-        print "Bull rush check roll:"
-        bull_rush_mod = STR_check_size_mod + STR_mod + 4 #+4 for Improved Bull Rush
-        bull_rush_check = general_dc_roll("Bull rush", 1, 20, bull_rush_mod)
-        knockback_distance = 0
-        print colorz.BLUE
-        opposing_bull_rush_check = int(raw_input("Opposing bull rush check? "))
-        if bull_rush_check > opposing_bull_rush_check:
-            knockback_distance += 5
-            br_check_diff = bull_rush_check - opposing_bull_rush_check
-            while br_check_diff > 5:
-                knockback_distance += 5
-                br_check_diff -= 5
+        if power_attack:
+            total_damage += knockback()
 
-        print "\nTarget knocked back %d feet%s" \
-            % (knockback_distance, colorz.GREEN)
-        if knockback_distance > 0:
-            hit = raw_input("Did target hit a wall/solid object? (y|n) ")
-            if hit.lower().startswith('y'):
-                total_damage += damage_roll(4, 6, STR_mod*2)
 
         targets[target_name] = total_damage
 
