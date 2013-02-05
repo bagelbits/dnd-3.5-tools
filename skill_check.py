@@ -1,5 +1,9 @@
-#!/usr/bin/env python3.2
+#!/usr/bin/env python -3
 # -*- coding: utf8 -*- 
+
+from random import randint
+import xml.etree.ElementTree as ET
+import re
 
 class colorz:
     PURPLE = '\033[95m'
@@ -9,5 +13,71 @@ class colorz:
     RED = '\033[91m'
     ENDC = '\033[0m'
 
-name = input("Enter character's name: ")
-print(name)
+def roll_dice(dice=1, sides=6):
+    try: return [randint(1, sides) for x in range(dice)]
+    except: return []
+
+def general_skill_roll(dc_name, total_mod=0):
+    total_dc_roll = 0
+
+    print "\n%s%s roll: 1d20 + %d"  % (colorz.PURPLE, dc_name, total_mod)
+    
+    base_dc_roll = sum(roll_dice(1, 20))
+
+    print "\n%sBase roll: %d\n" % (colorz.PURPLE, base_dc_roll)
+
+    #EXPLODING DICE
+    while base_dc_roll == 20:
+        total_mod += base_dc_roll
+        print "%s\nExploding dice! Roll again%s" % (colorz.RED, colorz.PURPLE)
+        print "%s roll: 1d20 + %d"  % (dc_name, total_mod)
+        
+        base_dc_roll = sum(roll_dice(1, 20))
+        
+        print "\n%sBase roll: %d\n" % (colorz.PURPLE, base_dc_roll)
+
+    if base_dc_roll == 1:
+        print "%s\nCritical Failure!%s" % (colorz.RED, colorz.PURPLE)
+
+    total_dc_roll += total_mod + base_dc_roll
+    print "Total %s roll result: %d%s\n" \
+        % (dc_name, total_dc_roll, colorz.GREEN)
+
+def skill_grabber(file_name):
+    xml_skill_table = {}
+    tree = ET.parse(file_name)
+    root = tree.getroot()
+    for node in root.findall("./data/node"):
+        if node.attrib['name'].startswith("Skill"):
+            result = re.match("Skill(\d\d)(.*)$", node.attrib['name'])
+            if not result.group(2):
+                xml_skill_table[int(result.group(1))] = {'name': node.text}
+            else:
+                xml_skill_table[int(result.group(1))][result.group(2)] = node.text
+
+    skill_table = {}
+    for key in sorted(xml_skill_table):
+        skill_table[xml_skill_table[key]['name']] \
+            = int(xml_skill_table[key]['Mod'])
+
+    return skill_table
+
+print colorz.GREEN
+name = raw_input("Enter character's name: ")
+name = "Krag"
+file_name = name + ".xml"
+skill_table = skill_grabber(file_name)
+
+while True:
+    print colorz.BLUE
+    skill_to_roll \
+        = raw_input("Enter a partial or full skill name or 'quit' to exit: ")
+    if skill_to_roll == 'quit':
+        break
+    for key in sorted(skill_table):
+        if skill_to_roll.lower() in key.lower():
+            print "%s%s" % (colorz.BLUE, key)
+            general_skill_roll(key, skill_table[key])
+
+print colorz.ENDC
+            
