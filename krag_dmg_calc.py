@@ -2,6 +2,8 @@
 # -*- coding: utf8 -*- 
 
 from random import randint
+import xml.etree.ElementTree as ET
+import re
 
 #For making text all colorful and easier to read.
 class colorz:
@@ -396,13 +398,47 @@ def throw_boulder(boulder_range):
     
     return total_damage
 
+def stat_grabber(character_sheet):
+    relevent_stats = {}
+    character_sheet = ET.parse(character_sheet)
+    root = character_sheet.getroot()
+    for node in root.findall("./data/node"):
+        #Calc HD and ECL
+        if node.attrib['name'] == "Class":
+            class_to_parse = node.text
+            class_to_parse = class_to_parse.split("/")
+            relevent_stats['hd'] = 0
+            for class_name in class_to_parse:
+                result = re.search("(\d+)$", class_name)
+                if result.group(1):
+                    relevent_stats['hd'] += int(result.group(1))
+            continue
+        
+        if node.attrib['name'] == "Size":
+            relevent_stats['size'] = node.text
+            continue
+            
+        if node.attrib['name'].endswith("Mod"):
+            result = re.match("Skill(\d\d)(.*)$", node.attrib['name'])
+            if not result.group(2):
+                xml_skill_table[int(result.group(1))] = {'name': node.text}
+            else:
+                xml_skill_table[int(result.group(1))][result.group(2)] = node.text
+            continue
+        
+    
+    return relevent_stats
 
 ###############
 # MAIN METHOD #
 ###############
 
 #TODO: These should be pulled from the xml
-hd_level = 11
+character_sheet = "Krag.xml"
+relevent_stats = stat_grabber(character_sheet)
+print relevent_stats
+
+hd_level = relevent_stats['hd']
 STR_mod = 16
 base_attack_bonus = 5
 
