@@ -401,11 +401,15 @@ def throw_boulder(boulder_range):
 # MAIN METHOD #
 ###############
 
+#TODO: These should be pulled from the xml
 hd_level = 11
 STR_mod = 16
 base_attack_bonus = 5
+
+#Use a dict for these
 STR_check_size_mod = 4
 attack_based_size_mod = -1
+
 shield_enhancement_bonus = 1
 boulder_range = 50
 morale_attack_bonus = 0
@@ -448,7 +452,7 @@ while True:
     #Choose your attacks!
     while(True):
         print colorz.GREEN
-        attack =  raw_input('\nWhat is your attack? (shield|gore|boulder|none) ')
+        attack =  raw_input('\nWhat is your attack? (shield|gore|boulder|death move|none) ')
         if attack.lower() == 'shield':
             total_damage['shield'], cleave_damage['shield'] \
                 = shield_attack(shield_enhancement_bonus, charging, power_attack)
@@ -463,7 +467,15 @@ while True:
             else:
                 total_damage['boulder'] = throw_boulder(boulder_range)
             
-            
+        elif attack.lower() == 'death move': 
+            str_roll = general_dc_roll("STR check", total_mod=STR_mod)
+            if str_roll > STR_mod + 1:
+                print "%sDeath move successful!%s" % (colorz.RED, colorz.YELLOW)
+                if morale_attack_bonus < 1:
+                    morale_attack_bonus = 1
+                if morale_damage_bonus < 1:
+                    morale_damage_bonus = 1
+
         elif attack.lower() == 'none':
             break
 
@@ -504,14 +516,6 @@ while True:
             print "-Gore: %d" % cleave_damage['gore']
     print colorz.YELLOW
     
-    death_toll = int(raw_input('\nHow many killed this round? '))
-    for death in range(death_toll):
-        str_roll = general_dc_roll("STR check", total_mod=STR_mod)
-        if str_roll > STR_mod + 1:
-            print "%sDeath move successful!%s" % (colorz.RED, colorz.YELLOW)
-            morale_attack_bonus += death_toll
-            morale_damage_bonus += death_toll
-
     again = raw_input('Continue? (y|n) ')
     if again.lower().startswith('n'):
         break
