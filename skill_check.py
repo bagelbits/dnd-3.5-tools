@@ -1,9 +1,10 @@
 #!/usr/bin/env python -3
-# -*- coding: utf8 -*- 
+# -*- coding: utf8 -*-
 
 from random import randint
 import xml.etree.ElementTree as ET
 import re
+
 
 class colorz:
     PURPLE = '\033[95m'
@@ -13,15 +14,19 @@ class colorz:
     RED = '\033[91m'
     ENDC = '\033[0m'
 
+
 def roll_dice(dice=1, sides=6):
-    try: return [randint(1, sides) for x in range(dice)]
-    except: return []
+    try:
+        return [randint(1, sides) for x in range(dice)]
+    except:
+        return []
+
 
 def general_skill_roll(total_mod=0):
     total_dc_roll = 0
 
-    print "%sRoll: 1d20 + %d"  % (colorz.PURPLE, total_mod)
-    
+    print "%sRoll: 1d20 + %d" % (colorz.PURPLE, total_mod)
+
     base_dc_roll = sum(roll_dice(1, 20))
 
     print "%sBase roll: %d" % (colorz.PURPLE, base_dc_roll)
@@ -30,10 +35,10 @@ def general_skill_roll(total_mod=0):
     while base_dc_roll == 20:
         total_mod += base_dc_roll
         print "%sExploding dice! Roll again%s" % (colorz.RED, colorz.PURPLE)
-        print "Roll: 1d20 + %d"  % (total_mod)
-        
+        print "Roll: 1d20 + %d" % (total_mod)
+
         base_dc_roll = sum(roll_dice(1, 20))
-        
+
         print "%sBase roll: %d" % (colorz.PURPLE, base_dc_roll)
 
     if base_dc_roll == 1:
@@ -42,6 +47,7 @@ def general_skill_roll(total_mod=0):
     total_dc_roll += total_mod + base_dc_roll
     print "Total roll result: %d%s\n" \
         % (total_dc_roll, colorz.GREEN)
+
 
 def skill_grabber(file_name):
     xml_skill_table = {}
@@ -82,4 +88,3 @@ while True:
             general_skill_roll(skill_table[key])
 
 print colorz.ENDC
-            

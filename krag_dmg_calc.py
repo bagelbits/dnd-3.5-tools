@@ -1,9 +1,10 @@
 #!/usr/bin/env python -3
-# -*- coding: utf8 -*- 
+# -*- coding: utf8 -*-
 
 from random import randint
 import xml.etree.ElementTree as ET
 import re
+
 
 #For making text all colorful and easier to read.
 class colorz:
@@ -19,14 +20,19 @@ class colorz:
 # Subroutines for General DC, Attack, and Damage rolls #
 ########################################################
 
+
 def roll_dice(dice=1, sides=6):
-    try: return [randint(1, sides) for x in range(dice)]
-    except: return []
+    try:
+        return [randint(1, sides) for x in range(dice)]
+    except:
+        return []
+
 
 #TODO Give rollers a dice list of [num_of_dice, num_of_sides]
 ####################
 # GENEREAL DC ROLL #
 ####################
+
 
 def general_dc_roll(dc_name, num_of_dice=1, num_of_sides=20, total_mod=0):
     global auto_roll
@@ -35,7 +41,7 @@ def general_dc_roll(dc_name, num_of_dice=1, num_of_sides=20, total_mod=0):
 
     print "\n%s%s roll: %dd%d + %d" \
         % (colorz.PURPLE, dc_name, num_of_dice, num_of_sides, total_mod)
-    
+
     if auto_roll:
         base_dc_roll = sum(roll_dice(num_of_dice, num_of_sides))
     else:
@@ -52,7 +58,7 @@ def general_dc_roll(dc_name, num_of_dice=1, num_of_sides=20, total_mod=0):
         print "%s\nExploding dice! Roll again%s" % (colorz.RED, colorz.PURPLE)
         print "%s roll: %dd%d + %d" \
             % (dc_name, num_of_dice, num_of_sides, total_mod)
-        
+
         if auto_roll:
             base_dc_roll = sum(roll_dice(num_of_dice, num_of_sides))
         else:
@@ -70,11 +76,12 @@ def general_dc_roll(dc_name, num_of_dice=1, num_of_sides=20, total_mod=0):
     print "Total %s roll result: %d%s\n" \
         % (dc_name, total_dc_roll, colorz.GREEN)
     return total_dc_roll
-    
+
 
 ###############
 # ATTACK ROLL #
 ###############
+
 
 def attack_roll(total_attack_bonus=0, range_penalty=0):
     global auto_roll
@@ -82,7 +89,7 @@ def attack_roll(total_attack_bonus=0, range_penalty=0):
     multiplier = 1
     print "\n%sAttack roll: 1d20 + %d - %d" \
         % (colorz.BLUE, total_attack_bonus, range_penalty)
-    
+
     if auto_roll:
         base_attack_roll = sum(roll_dice(1, 20))
     else:
@@ -96,7 +103,7 @@ def attack_roll(total_attack_bonus=0, range_penalty=0):
         print "%s\nGotta crit! Roll to confirm!%s" % (colorz.RED, colorz.BLUE)
         print "\nAttack roll: 1d20 + %d - %d" \
             % (total_attack_bonus, range_penalty)
-        
+
         if auto_roll:
             base_attack_roll = sum(roll_dice(1, 20))
         else:
@@ -107,7 +114,7 @@ def attack_roll(total_attack_bonus=0, range_penalty=0):
 
     if base_attack_roll == 1:
         print "%sCritical Failure!%s" % (colorz.RED, colorz.BLUE)
-        
+
     #Addin in mods
     roll_mod = total_attack_bonus
     roll_mod -= range_penalty
@@ -124,6 +131,7 @@ def attack_roll(total_attack_bonus=0, range_penalty=0):
 ###############
 # DAMAGE ROLL #
 ###############
+
 
 def damage_roll(num_of_dice=1, num_of_sides=6, total_mod=0, multiplier=1, damage_doubling=1):
     global auto_roll
@@ -155,6 +163,7 @@ def damage_roll(num_of_dice=1, num_of_sides=6, total_mod=0, multiplier=1, damage
     print "Damage roll result: %d%s\n" % (total_damage, colorz.GREEN)
     return total_damage
 
+
 ######################################################
 #              WEAPON ATTACK METHODS                 #
 # Fully automized methods for each of Krag's attacks #
@@ -166,6 +175,7 @@ def damage_roll(num_of_dice=1, num_of_sides=6, total_mod=0, multiplier=1, damage
 # SHIELD ATTACK #
 #################
 
+
 def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
     global STR_mod
     global base_attack_bonus
@@ -176,16 +186,16 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
 
     cleave_targets = {}
     targets = {}
-    dice_to_roll = 2
+    #dice_to_roll = 2
     damage_doubling = 1
 
     print '\nMighty swing used. Please pick 3 adjacent squares.'
     raw_input('(Press enter to continue)')
 
     ####Attack roll####
-    shield_attack_bonus = base_attack_bonus + STR_mod + attack_based_size_mod 
+    shield_attack_bonus = base_attack_bonus + STR_mod + attack_based_size_mod
     shield_attack_bonus += item_mod
-    shield_attack_bonus -= power_attack #Power attack penalty
+    shield_attack_bonus -= power_attack  # Power attack penalty
     shield_attack_bonus += morale_attack_bonus
     if charging:
         shield_attack_bonus += 2
@@ -196,11 +206,10 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
         if cleave:
             return cleave_targets
         return targets, cleave_targets
-    
-    
-    #Damage roll with mighty swing, shield charge, 
-    #shield slam, knockback... yay for fun times
-    damage_mod = STR_mod*1.5 + power_attack*2 + item_mod 
+
+    # Damage roll with mighty swing, shield charge,
+    # shield slam, knockback... yay for fun times
+    damage_mod = STR_mod * 1.5 + power_attack * 2 + item_mod
     damage_mod += morale_damage_bonus
 
     if charging:
@@ -215,42 +224,42 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
             #Free Trip attempt
             print "\n%s++Free Trip attempt++" % colorz.YELLOW
             total_damage += trip_attempt(target_name, shield_attack_bonus, damage_mod, damage_doubling)
-            
+
         #Shield daze
         shield_daze(target_name)
-        
+
         #Knockback with bull rush check
         if power_attack:
             total_damage += knockback()
 
-
         targets[target_name] = total_damage
 
-    
     if cleave:
         return targets
 
     print colorz.RED
     for target in targets.keys():
         print "Total damage for %s: %d" % (target, targets[target])
-    
+
     print colorz.YELLOW
     cleave = raw_input("\n\nDid it cleave? (y|n) ")
     if cleave.lower().startswith('y'):
-        print  "%sCleaving....\n%s" % (colorz.PURPLE, colorz.GREEN)
+        print "%sCleaving....\n%s" % (colorz.PURPLE, colorz.GREEN)
         cleave_targets = shield_attack(item_mod, charging, power_attack, True)
-        
+
     return targets, cleave_targets
+
 
 def shield_daze(target_name):
     global hd_level
     global STR_mod
 
     print "\n%s++Shield daze++" % colorz.PURPLE
-    fort_save = 10 + hd_level//2 + STR_mod
+    fort_save = 10 + hd_level // 2 + STR_mod
     print "%s must make Fort save and beat %d or be Dazed for one round" \
         % (target_name, fort_save)
     raw_input("Press Enter to continue..." + colorz.GREEN)
+
 
 def trip_attempt(target_name, attack_bonus, damage_bonus, damage_doubling=1):
     global STR_mod
@@ -259,7 +268,8 @@ def trip_attempt(target_name, attack_bonus, damage_bonus, damage_doubling=1):
 
     can_trip = raw_input('Enemy bigger than huge? (y|n) ')
     if can_trip.lower().startswith('n'):
-        touch_attack_roll = general_dc_roll("Touch attack", 1, 20, STR_mod + base_attack_bonus)
+        #touch_attack_roll = general_dc_roll("Touch attack", 1, 20, STR_mod + base_attack_bonus)
+        general_dc_roll("Touch attack", 1, 20, STR_mod + base_attack_bonus)
         print colorz.YELLOW
         touch_success = raw_input('Did touch attack succeeed? (y|n) ')
 
@@ -282,6 +292,7 @@ def trip_attempt(target_name, attack_bonus, damage_bonus, damage_doubling=1):
                     shield_daze(target_name)
                     return total_damage
     return 0
+
 
 def knockback():
     global STR_mod
@@ -308,13 +319,15 @@ def knockback():
     if knockback_distance > 0:
         hit = raw_input("Did target hit a wall/solid object? (y|n) ")
         if hit.lower().startswith('y'):
-            total_damage = damage_roll(4, 6, STR_mod*2)
+            total_damage = damage_roll(4, 6, STR_mod * 2)
             return total_damage
     return 0
+
 
 ###############
 # GORE ATTACK #
 ###############
+
 
 def gore_attack(charging=False, power_attack=0, cleave=False):
     global STR_mod
@@ -329,8 +342,8 @@ def gore_attack(charging=False, power_attack=0, cleave=False):
 
     ####Attack roll####
     gore_attack_bonus = base_attack_bonus + STR_mod + attack_based_size_mod
-    gore_attack_bonus -= 5     #Natural off hand weapon penalty
-    gore_attack_bonus -= power_attack #Power attack penalty
+    gore_attack_bonus -= 5     # Natural off hand weapon penalty
+    gore_attack_bonus -= power_attack  # Power attack penalty
     gore_attack_bonus += morale_attack_bonus
     if charging:
         gore_attack_bonus += 2
@@ -341,26 +354,28 @@ def gore_attack(charging=False, power_attack=0, cleave=False):
         if cleave:
             return cleave_damage
         return total_damage, cleave_damage
-    
+
     ####Damage roll####
-    damage_mod = STR_mod//2 + power_attack + morale_damage_bonus
+    damage_mod = STR_mod // 2 + power_attack + morale_damage_bonus
     total_damage = damage_roll(1, 8, damage_mod, multiplier)
 
     #Dealing with cleave
     if cleave:
         return total_damage
-        
+
     print colorz.YELLOW
     cleave = raw_input("Did it cleave? (y|n) ")
     if cleave.lower().startswith('y'):
-        print  "%sCleaving....\n%s" % (colorz.PURPLE, colorz.GREEN)
+        print "%sCleaving....\n%s" % (colorz.PURPLE, colorz.GREEN)
         cleave_damage += gore_attack(charging, power_attack, True)
-        
+
     return total_damage, cleave_damage
+
 
 #################
 # THROW BOULDER #
 #################
+
 
 def throw_boulder(boulder_range):
     global STR_mod
@@ -369,11 +384,10 @@ def throw_boulder(boulder_range):
     global auto_roll
     global morale_attack_bonus
     global morale_damage_bonus
-    
+
     total_damage = 0
     boulder_attack_bonus = base_attack_bonus + STR_mod + attack_based_size_mod
     boulder_attack_bonus += morale_attack_bonus
-    
 
     #Range mod
     distance = int(raw_input('\n\nHow far away is the target? (in feet) '))
@@ -395,8 +409,9 @@ def throw_boulder(boulder_range):
     #Damage roll
     damage_mod = STR_mod + morale_damage_bonus
     total_damage = damage_roll(2, 8, damage_mod, multiplier)
-    
+
     return total_damage
+
 
 def stat_grabber(character_sheet):
     relevent_stats = {}
@@ -413,21 +428,21 @@ def stat_grabber(character_sheet):
                 if result.group(1):
                     relevent_stats['hd'] += int(result.group(1))
             continue
-        
+
         if node.attrib['name'] == "Size":
             relevent_stats['size'] = node.text
             continue
-            
+
         if node.attrib['name'].endswith("Mod"):
             result = re.match("Skill(\d\d)(.*)$", node.attrib['name'])
             if not result.group(2):
-                xml_skill_table[int(result.group(1))] = {'name': node.text}
+                relevent_stats[int(result.group(1))] = {'name': node.text}
             else:
-                xml_skill_table[int(result.group(1))][result.group(2)] = node.text
+                relevent_stats[int(result.group(1))][result.group(2)] = node.text
             continue
-        
-    
+
     return relevent_stats
+
 
 ###############
 # MAIN METHOD #
@@ -481,14 +496,13 @@ while True:
     power_attack = int(raw_input('How many points to power attack? (Max %d) '
         % base_attack_bonus))
     if power_attack > base_attack_bonus:
-        print  "%sToo many points!%s" % (colorz.RED, colorz.ENDC)
+        print "%sToo many points!%s" % (colorz.RED, colorz.ENDC)
         quit()
-
 
     #Choose your attacks!
     while(True):
         print colorz.GREEN
-        attack =  raw_input('\nWhat is your attack? (shield|gore|boulder|death move|none) ')
+        attack = raw_input('\nWhat is your attack? (shield|gore|boulder|death move|none) ')
         if attack.lower() == 'shield':
             total_damage['shield'], cleave_damage['shield'] \
                 = shield_attack(shield_enhancement_bonus, charging, power_attack)
@@ -502,8 +516,8 @@ while True:
                 print "%sCan't throw boulder while charging.\n" % colorz.RED
             else:
                 total_damage['boulder'] = throw_boulder(boulder_range)
-            
-        elif attack.lower() == 'death move': 
+
+        elif attack.lower() == 'death move':
             str_roll = general_dc_roll("STR check", total_mod=STR_mod)
             if str_roll > STR_mod + 1:
                 print "%sDeath move successful!%s" % (colorz.RED, colorz.YELLOW)
@@ -551,7 +565,7 @@ while True:
         if 'gore' in cleave_damage:
             print "-Gore: %d" % cleave_damage['gore']
     print colorz.YELLOW
-    
+
     again = raw_input('Continue? (y|n) ')
     if again.lower().startswith('n'):
         break
