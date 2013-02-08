@@ -1,4 +1,4 @@
-#!/usr/bin/env python -3
+#!/usr/bin/env python
 # -*- coding: utf8 -*-
 
 from random import randint

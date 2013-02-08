@@ -1,4 +1,4 @@
-#!/usr/bin/env python -3
+#!/usr/bin/env python
 # -*- coding: utf8 -*-
 
 from random import randint
@@ -28,7 +28,8 @@ def roll_dice(dice=1, sides=6):
         return []
 
 
-#TODO Give rollers a dice list of [num_of_dice, num_of_sides]
+# TODO Give rollers a dice list of [num_of_dice, num_of_sides]
+
 ####################
 # GENEREAL DC ROLL #
 ####################
@@ -199,6 +200,7 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
     shield_attack_bonus += morale_attack_bonus
     if charging:
         shield_attack_bonus += 2
+        damage_doubling += 1
 
     total_attack_roll, multiplier = attack_roll(shield_attack_bonus)
     hits = int(raw_input('How many things were hit? '))
@@ -211,9 +213,6 @@ def shield_attack(item_mod=0, charging=False, power_attack=0, cleave=False):
     # shield slam, knockback... yay for fun times
     damage_mod = STR_mod * 1.5 + power_attack * 2 + item_mod
     damage_mod += morale_damage_bonus
-
-    if charging:
-        damage_doubling += 1
 
     for target in range(1, hits + 1):
         target_name = 'Target %d' % target
@@ -434,12 +433,12 @@ def stat_grabber(character_sheet):
             continue
 
         if node.attrib['name'].endswith("Mod"):
-            result = re.match("Skill(\d\d)(.*)$", node.attrib['name'])
-            if not result.group(2):
-                relevent_stats[int(result.group(1))] = {'name': node.text}
-            else:
-                relevent_stats[int(result.group(1))][result.group(2)] = node.text
+            relevent_stats[node.attrib['name']] = node.text
             continue
+
+        if node.attrib['name'] == "MABBase":
+            relevent_stats['bab'] = node.text
+            break
 
     return relevent_stats
 
@@ -448,18 +447,38 @@ def stat_grabber(character_sheet):
 # MAIN METHOD #
 ###############
 
-#TODO: These should be pulled from the xml
 character_sheet = "Krag.xml"
 relevent_stats = stat_grabber(character_sheet)
 print relevent_stats
 
 hd_level = relevent_stats['hd']
-STR_mod = 16
-base_attack_bonus = 5
+STR_mod = relevent_stats['StrMod']
+base_attack_bonus = relevent_stats['bab']
+
+STR_check_size = {
+    'Fine': -16,
+    'Diminutive': -12,
+    'Tiny': -8,
+    'Small': -4,
+    'Medium': 0,
+    'Large': 4,
+    'Huge': 8,
+    'Gargantuan': 12,
+    'Colossal': 16}
+attack_based_size = {
+    'Fine': 8,
+    'Diminutive': 4,
+    'Tiny': 2,
+    'Small': 1,
+    'Medium': 0,
+    'Large': -1,
+    'Huge': -2,
+    'Gargantuan': -4,
+    'Colossal': -8}
 
 #Use a dict for these
-STR_check_size_mod = 4
-attack_based_size_mod = -1
+STR_check_size_mod = STR_check_size[relevent_stats['size']]
+attack_based_size_mod = attack_based_size[relevent_stats['size']]
 
 shield_enhancement_bonus = 1
 boulder_range = 50
