@@ -1,5 +1,7 @@
 from Tkinter import *
 from random import randint
+import tkFileDialog
+import tkMessageBox
 import xml.etree.ElementTree as ET
 import re
 
@@ -44,15 +46,21 @@ class SkillCheckApp:
     def file_loader_setup(self):
         Label(self.file_loader_frame, text="Character Name:",
               background='misty rose').grid(row=0)
-        self.character_name = Entry(self.file_loader_frame,
+        self.path_to_xml = Entry(self.file_loader_frame,
                                 highlightbackground='misty rose', width=20)
-        self.character_name.grid(row=0, column=1)
+        self.path_to_xml.grid(row=0, column=1)
+        browse_button = Button(self.file_loader_frame,
+                               text="Browse...",
+                               command=self.loadtemplate,
+                               background='misty rose',
+                               highlightbackground='misty rose')
+        browse_button.grid(row=0, column=2)
         load_xml_button = Button(self.file_loader_frame,
                                  text="Load!",
-                                 command=lambda: self.skill_grabber(self.character_name.get()),
+                                 command=lambda: self.skill_grabber(self.path_to_xml.get()),
                                  background='misty rose',
                                  highlightbackground='misty rose')
-        load_xml_button.grid(row=0, column=2)
+        load_xml_button.grid(row=1, column=1)
 
     def skill_roller_setup(self):
         Label(self.skill_roller_frame, text="Select skills to roll:",
@@ -126,7 +134,7 @@ class SkillCheckApp:
         self.reroll_button_frame.grid_forget()
 
     def reset(self):
-        self.character_name.delete(0, END)
+        self.path_to_xml.delete(0, END)
         self.file_loader_frame.grid(row=0)
         self.skill_roll_button_frame.grid_forget()
         self.skill_box.delete(0, END)
@@ -134,6 +142,19 @@ class SkillCheckApp:
         self.result_box.delete('1.0', END)
         self.roll_result_frame.grid_forget()
         self.reroll_button_frame.grid_forget()
+
+    def loadtemplate(self):
+        filename = tkFileDialog.askopenfilename(filetypes=(
+                                                ("XML files", "*.xml"),
+                                                ("All files", "*.*")))
+        if filename:
+            try:
+                self.path_to_xml.delete(0, END)
+                self.path_to_xml.insert(0, filename)
+            except:
+                tkMessageBox.showerror("Open Source File",
+                    "Failed to read file \n'%s'" % filename)
+                return
 
 ################
 # Dice rollers #
@@ -189,10 +210,9 @@ class SkillCheckApp:
 # Grab skills from XML #
 ########################
 
-    def skill_grabber(self, character_name):
+    def skill_grabber(self, path_to_xml):
         xml_skill_table = {}
-        character_name = "Krag"
-        xml_file_name = character_name + ".xml"
+        xml_file_name = path_to_xml
         tree = ET.parse(xml_file_name)
         root = tree.getroot()
         for node in root.findall("./data/node"):
@@ -206,7 +226,6 @@ class SkillCheckApp:
         for key in sorted(xml_skill_table):
             self.skill_table[xml_skill_table[key]['name']] \
                 = int(xml_skill_table[key]['Mod'])
-        print self.skill_table
         self.file_loader_frame.grid_forget()
 
         for skill_name in sorted(self.skill_table):
