@@ -161,6 +161,8 @@ class SkillCheckApp:
             self.result_box.insert(END, "Roll: 1d20 + %d\n" % (total_mod, ))
 
             base_dc_roll = sum(self.roll_dice(1, 20))
+            print base_dc_roll
+            print self.roll_dice(1, 20)
 
             self.result_box.insert(END, "Base roll: %d\n" % (base_dc_roll, ))
 
