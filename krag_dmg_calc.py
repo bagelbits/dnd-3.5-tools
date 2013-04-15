@@ -451,9 +451,9 @@ character_sheet = "Krag.xml"
 relevent_stats = stat_grabber(character_sheet)
 print relevent_stats
 
-hd_level = relevent_stats['hd']
-STR_mod = relevent_stats['StrMod']
-base_attack_bonus = relevent_stats['bab']
+hd_level = int(relevent_stats['hd'])
+STR_mod = int(relevent_stats['StrMod'])
+base_attack_bonus = int(relevent_stats['bab'])
 
 STR_check_size = {
     'Fine': -16,
@@ -477,8 +477,8 @@ attack_based_size = {
     'Colossal': -8}
 
 #Use a dict for these
-STR_check_size_mod = STR_check_size[relevent_stats['size']]
-attack_based_size_mod = attack_based_size[relevent_stats['size']]
+STR_check_size_mod = int(STR_check_size[relevent_stats['size']])
+attack_based_size_mod = int(attack_based_size[relevent_stats['size']])
 
 shield_enhancement_bonus = 1
 boulder_range = 50
@@ -512,7 +512,7 @@ while True:
         charging = False
 
     #Power attack?
-    power_attack = int(raw_input('How many points to power attack? (Max %d) '
+    power_attack = int(raw_input('How many points to power attack? (Max %s) '
         % base_attack_bonus))
     if power_attack > base_attack_bonus:
         print "%sToo many points!%s" % (colorz.RED, colorz.ENDC)

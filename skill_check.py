@@ -70,7 +70,7 @@ def skill_grabber(file_name):
 
 print colorz.GREEN
 name = raw_input("Enter character's name: ")
-name = "Krag"
+#name = "Krag"
 file_name = name + ".xml"
 skill_table = skill_grabber(file_name)
 
