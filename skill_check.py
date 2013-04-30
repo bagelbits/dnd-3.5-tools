@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
+# This will do any skill rolls for the xml that you can
+# grab from thetangledweb.net
+
 
 from random import randint
 import xml.etree.ElementTree as ET
