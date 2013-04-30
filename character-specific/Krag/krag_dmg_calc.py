@@ -447,9 +447,8 @@ def stat_grabber(character_sheet):
 # MAIN METHOD #
 ###############
 
-character_sheet = "Krag.xml"
+character_sheet = "../../character-sheets/Krag.xml"
 relevent_stats = stat_grabber(character_sheet)
-print relevent_stats
 
 hd_level = int(relevent_stats['hd'])
 STR_mod = int(relevent_stats['StrMod'])

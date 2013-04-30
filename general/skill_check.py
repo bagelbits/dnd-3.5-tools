@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
-# This will do any skill rolls for the xml that you can
-# grab from thetangledweb.net
+"""
+This will do any skill rolls for the xml that you can
+grab from thetangledweb.net
+"""
 
 
 from random import randint
@@ -74,7 +76,7 @@ def skill_grabber(file_name):
 print colorz.GREEN
 name = raw_input("Enter character's name: ")
 #name = "Krag"
-file_name = name + ".xml"
+file_name = "../character-sheets/" + name + ".xml"
 skill_table = skill_grabber(file_name)
 
 print "\n%sRemember to add in situational mods to results!!!" % colorz.RED

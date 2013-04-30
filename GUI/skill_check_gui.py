@@ -47,7 +47,7 @@ class SkillCheckApp:
         Label(self.file_loader_frame, text="Character Name:",
               background='misty rose').grid(row=0)
         self.path_to_xml = Entry(self.file_loader_frame,
-                                highlightbackground='misty rose', width=20)
+                                 highlightbackground='misty rose', width=20)
         self.path_to_xml.grid(row=0, column=1)
         browse_button = Button(self.file_loader_frame,
                                text="Browse...",
@@ -89,8 +89,8 @@ class SkillCheckApp:
               background='misty rose').pack()
         result_scroll = Scrollbar(self.roll_result_frame)
         self.result_box = Text(self.roll_result_frame,
-                            height=20, width=40,
-                            highlightbackground='misty rose')
+                               height=20, width=40,
+                               highlightbackground='misty rose')
         result_scroll.config(command=self.result_box.yview)
         self.result_box.config(yscrollcommand=result_scroll.set)
         self.result_box.pack(side=LEFT)
@@ -113,16 +113,16 @@ class SkillCheckApp:
 
     def exit_setup(self):
         reset_button = Button(self.exit_frame,
-                                 text="Reset",
-                                 command=self.reset,
-                                 background='misty rose',
-                                 highlightbackground='misty rose')
+                              text="Reset",
+                              command=self.reset,
+                              background='misty rose',
+                              highlightbackground='misty rose')
         reset_button.grid(row=0, column=0)
         quit_button = Button(self.exit_frame,
-                                 text="Quit",
-                                 command=self.exit_frame.quit,
-                                 background='misty rose',
-                                 highlightbackground='misty rose')
+                             text="Quit",
+                             command=self.exit_frame.quit,
+                             background='misty rose',
+                             highlightbackground='misty rose')
         quit_button.grid(row=0, column=1)
 
     def pick_new_skills(self):
@@ -146,14 +146,15 @@ class SkillCheckApp:
     def loadtemplate(self):
         filename = tkFileDialog.askopenfilename(filetypes=(
                                                 ("XML files", "*.xml"),
-                                                ("All files", "*.*")))
+                                                ("All files", "*.*")),
+                                                initialdir="../character-sheets")
         if filename:
             try:
                 self.path_to_xml.delete(0, END)
                 self.path_to_xml.insert(0, filename)
             except:
                 tkMessageBox.showerror("Open Source File",
-                    "Failed to read file \n'%s'" % filename)
+                                       "Failed to read file \n'%s'" % filename)
                 return
 
 ################
