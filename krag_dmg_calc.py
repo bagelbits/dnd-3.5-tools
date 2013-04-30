@@ -453,6 +453,8 @@ print relevent_stats
 
 hd_level = int(relevent_stats['hd'])
 STR_mod = int(relevent_stats['StrMod'])
+if relevent_stats['StrTempMod']:
+    STR_mod = int(relevent_stats['StrTempMod'])
 base_attack_bonus = int(relevent_stats['bab'])
 
 STR_check_size = {

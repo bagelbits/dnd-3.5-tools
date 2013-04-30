@@ -23,6 +23,8 @@
         <node name="Hair">Black</node>
         <node name="Str">43</node>
         <node name="StrMod">+16</node>
+        <node name="StrTemp">47</node>
+        <node name="StrTempMod">+18</node>
         <node name="Dex">13</node>
         <node name="DexMod">+1</node>
         <node name="Con">24</node>
@@ -50,12 +52,12 @@
         <node name="InitMisc">0</node>
         <node name="Speed">40/Swim 40</node>
         <node name="TotalWeight">185.0</node>
-        <node name="LightLoad">6400</node>
-        <node name="MediumLoad">12800</node>
-        <node name="HeavyLoad">19200</node>
-        <node name="LiftOverHead">19200</node>
-        <node name="LiftOffGround">38400</node>
-        <node name="LiftPushDrag">96000</node>
+        <node name="LightLoad">11072</node>
+        <node name="MediumLoad">22176</node>
+        <node name="HeavyLoad">33280</node>
+        <node name="LiftOverHead">33280</node>
+        <node name="LiftOffGround">66560</node>
+        <node name="LiftPushDrag">166400</node>
         <node name="Fort">+17</node>
         <node name="FortBase">10</node>
         <node name="FortAbility">7</node>
@@ -68,21 +70,21 @@
         <node name="ReflexMagic">0</node>
         <node name="ReflexMisc">0</node>
         <node name="ReflexTemp">0</node>
-        <node name="Will">+4</node>
+        <node name="Will">+3</node>
         <node name="WillBase">2</node>
-        <node name="WillAbility">2</node>
+        <node name="WillAbility">1</node>
         <node name="WillMagic">0</node>
         <node name="WillMisc">0</node>
         <node name="WillTemp">0</node>
-        <node name="MBAB">+20</node>
+        <node name="MBAB">+22</node>
         <node name="MABBase">5</node>
-        <node name="MABStr">16</node>
+        <node name="MABStr">18</node>
         <node name="MABSize">-1</node>
         <node name="MABMisc">0</node>
         <node name="MABTemp">0</node>
-        <node name="GBAB">+25</node>
+        <node name="GBAB">+27</node>
         <node name="GABBase">5</node>
-        <node name="GABStr">16</node>
+        <node name="GABStr">18</node>
         <node name="GABSize">4</node>
         <node name="GABMisc">0</node>
         <node name="GABTemp">0</node>
@@ -176,8 +178,8 @@
         <node name="Skill03CheckPen">0</node>
         <node name="Skill04">Climb</node>
         <node name="Skill04Ab">Str</node>
-        <node name="Skill04Mod">+20</node>
-        <node name="Skill04AbMod">16</node>
+        <node name="Skill04Mod">+22</node>
+        <node name="Skill04AbMod">18</node>
         <node name="Skill04Rank">6</node>
         <node name="Skill04MiscMod">0</node>
         <node name="Skill04CheckPen">-2</node>
@@ -253,8 +255,8 @@
         <node name="Skill14CheckPen">0</node>
         <node name="Skill15">Heal</node>
         <node name="Skill15Ab">Wis</node>
-        <node name="Skill15Mod">+2</node>
-        <node name="Skill15AbMod">2</node>
+        <node name="Skill15Mod">+1</node>
+        <node name="Skill15AbMod">1</node>
         <node name="Skill15Rank">0</node>
         <node name="Skill15MiscMod">0</node>
         <node name="Skill15CheckPen">0</node>
@@ -274,8 +276,8 @@
         <node name="Skill17CheckPen">0</node>
         <node name="Skill18">Jump</node>
         <node name="Skill18Ab">Str</node>
-        <node name="Skill18Mod">+32</node>
-        <node name="Skill18AbMod">16</node>
+        <node name="Skill18Mod">+34</node>
+        <node name="Skill18AbMod">18</node>
         <node name="Skill18Rank">14</node>
         <node name="Skill18MiscMod">4</node>
         <node name="Skill18CheckPen">-2</node>
@@ -351,8 +353,8 @@
         <node name="Skill28CheckPen">0</node>
         <node name="Skill29">Listen</node>
         <node name="Skill29Ab">Wis</node>
-        <node name="Skill29Mod">+4</node>
-        <node name="Skill29AbMod">2</node>
+        <node name="Skill29Mod">+3</node>
+        <node name="Skill29AbMod">1</node>
         <node name="Skill29Rank">0</node>
         <node name="Skill29MiscMod">2</node>
         <node name="Skill29CheckPen">0</node>
@@ -379,8 +381,8 @@
         <node name="Skill32CheckPen">0</node>
         <node name="Skill33">Profession</node>
         <node name="Skill33Ab">Wis</node>
-        <node name="Skill33Mod">+2</node>
-        <node name="Skill33AbMod">2</node>
+        <node name="Skill33Mod">+1</node>
+        <node name="Skill33AbMod">1</node>
         <node name="Skill33Rank">0</node>
         <node name="Skill33MiscMod">0</node>
         <node name="Skill33CheckPen">0</node>
@@ -400,8 +402,8 @@
         <node name="Skill35CheckPen">0</node>
         <node name="Skill36">Sense Motive</node>
         <node name="Skill36Ab">Wis</node>
-        <node name="Skill36Mod">+2</node>
-        <node name="Skill36AbMod">2</node>
+        <node name="Skill36Mod">+1</node>
+        <node name="Skill36AbMod">1</node>
         <node name="Skill36Rank">0</node>
         <node name="Skill36MiscMod">0</node>
         <node name="Skill36CheckPen">0</node>
@@ -421,22 +423,22 @@
         <node name="Skill38CheckPen">0</node>
         <node name="Skill39">Spot</node>
         <node name="Skill39Ab">Wis</node>
-        <node name="Skill39Mod">+4</node>
-        <node name="Skill39AbMod">2</node>
+        <node name="Skill39Mod">+3</node>
+        <node name="Skill39AbMod">1</node>
         <node name="Skill39Rank">0</node>
         <node name="Skill39MiscMod">2</node>
         <node name="Skill39CheckPen">0</node>
         <node name="Skill40">Survival</node>
         <node name="Skill40Ab">Wis</node>
-        <node name="Skill40Mod">+2</node>
-        <node name="Skill40AbMod">2</node>
+        <node name="Skill40Mod">+1</node>
+        <node name="Skill40AbMod">1</node>
         <node name="Skill40Rank">0</node>
         <node name="Skill40MiscMod">0</node>
         <node name="Skill40CheckPen">0</node>
         <node name="Skill41">Swim</node>
         <node name="Skill41Ab">Str</node>
-        <node name="Skill41Mod">+20</node>
-        <node name="Skill41AbMod">16</node>
+        <node name="Skill41Mod">+22</node>
+        <node name="Skill41AbMod">18</node>
         <node name="Skill41Rank">0</node>
         <node name="Skill41MiscMod">8</node>
         <node name="Skill41CheckPen">-4</node>
@@ -510,29 +512,23 @@
         <node name="Gear18">5 Ringmail Armor (Med)</node>
         <node name="Gear19">3 Black Robes (Med)</node>
         <node name="Gear20">1 Large Javelin</node>
+        <node name="Gear24">Large Wine Barrel Shield</node>
         <node name="Gear33">KonKon</node>
         <node name="Gear34">Stormy</node>
         <node name="CashPP">0</node>
         <node name="CashPPParty">0</node>
         <node name="CashGP">20</node>
         <node name="CashGPParty">0</node>
-        <node name="CashSP">6</node>
+        <node name="CashSP">5</node>
         <node name="CashSPParty">0</node>
         <node name="CashCP">6</node>
         <node name="CashCPParty">0</node>
-        <node name="CashTotal">20.66</node>
+        <node name="CashTotal">20.56</node>
         <node name="CashTotalParty">0</node>
         <node name="Lang1">Common</node>
         <node name="Lang2">Orc</node>
         <node name="Save_Changes">Save Changes</node>
         <node name="PrivateNotes"></node>
-        <node name="Notes">-Masterwork Silent Steadfast Boots (MiC, 1450 gp) +4 bonus to avoid bull rush, trip, or overrun attacks.  Any two-handed weapon you carry is treated as if readied against any creature that charges you. Also, +2 to move silently.
-
--Amulet of Tears (MiC 70, 2,300 gp)  Has 3 charges which are renewed each day at dawn.
-1 charge: 12 temporary hit points.
-2 charges: 18 temporary hit points.
-3 charges: 24 temporary hit points.
-
--Locked gauntlet:  It provides a +10 bonus on any roll made to keep from being disarmed in combat. Removing a weapon from a locked gauntlet or attaching a weapon to a locked gauntlet is a full-round action that provokes attacks of opportunity. </node>
+        <node name="Notes"></node>
     </data>
 </character>
