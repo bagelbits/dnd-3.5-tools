@@ -9,11 +9,11 @@
       <w>230</w>
       <h>110</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;spell_type&gt;&gt;
+    <panel_attributes>&lt;&lt;spell_school&gt;&gt;
 {Unique Key: id}
 --
 *-id: int*
--type_id: int
+-school_id: int
 -spell_id: int
 </panel_attributes>
     <additional_attributes/>
@@ -165,6 +165,7 @@
 -cast_time: tinytext (NULLABLE)
 -range: tinytext
 -target: tinytext
+-effect: tinytext
 -duration: tinytext
 -saving_throw: tinytext
 -description: tinytext
@@ -252,7 +253,7 @@
       <w>230</w>
       <h>110</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;type&gt;&gt;
+    <panel_attributes>&lt;&lt;school&gt;&gt;
 {Unique Key: id}
 --
 *-id: int*
