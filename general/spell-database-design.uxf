@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="12.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>60</x>
+      <y>180</y>
+      <w>210</w>
+      <h>400</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;spell&gt;&gt;
+{Unique Key: id}
+--
+*-id: int*
+-name: tinytext
+-
+-verbal_component: bool
+-somatic_component: bool
+-material_component: bool
+-focus_component: bool
+-divine_focus_component: bool
+-xp_component: bool
+-divine_spell: bool
+-arcane_spell: bool
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
