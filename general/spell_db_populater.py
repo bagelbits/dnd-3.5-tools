@@ -12,10 +12,7 @@ def table_setup(name, db_cursor):
             (id INTEGER PRIMARY KEY, name TINYTEXT,\
             cast_time TINYTEXT, range TINYTEXT,\
             target TINYTEXT, effect TINYTEXT, duration TINYTEXT, saving_throw TINYTEXT,\
-            description TINYTEXT, verbal_component INT,\
-            somatic_component INT, material_component INT,\
-            focus_component INT, divine_focus_component INT,\
-            xp_component INT)")
+            description TINYTEXT, components TINYTEXT)")
 
     elif(name == 'class'):
         db_cursor.execute("CREATE TABLE class (\

@@ -58,6 +58,22 @@
     <additional_attributes>30;90;110;30</additional_attributes>
   </element>
   <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>190</x>
+      <y>650</y>
+      <w>230</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;alternative_spell&gt;&gt;
+{Unique Key: id}
+--
+*-id: int*
+-spell_id: int
+-name: tinytext</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
       <x>1010</x>
@@ -154,7 +170,7 @@
       <x>530</x>
       <y>380</y>
       <w>230</w>
-      <h>300</h>
+      <h>240</h>
     </coordinates>
     <panel_attributes>&lt;&lt;spell&gt;&gt;
 {Unique Key: id}
@@ -169,13 +185,7 @@
 -duration: tinytext
 -saving_throw: tinytext
 -description: tinytext
--verbal_component: bool
--somatic_component: bool
--material_component: bool
--focus_component: bool
--divine_focus_component: bool
--xp_component: bool
-</panel_attributes>
+-component: tinytext</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -259,6 +269,17 @@
 *-id: int*
 -name: tinytext</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>390</x>
+      <y>580</y>
+      <w>160</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>140;30;30;130</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
