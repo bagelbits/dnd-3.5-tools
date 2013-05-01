@@ -30,7 +30,7 @@
 {Unique Key: id}
 --
 *-id: int*
--sub_type_id: int
+-subtype_id: int
 -spell_id: int
 </panel_attributes>
     <additional_attributes/>
