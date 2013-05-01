@@ -11,7 +11,7 @@ def table_setup(name, db_cursor):
         db_cursor.execute("CREATE TABLE spell\
             (id INTEGER PRIMARY KEY, name TINYTEXT,\
             cast_time TINYTEXT, range TINYTEXT,\
-            target TINYTEXT, duration TINYTEXT, saving_throw TINYTEXT,\
+            target TINYTEXT, effect TINYTEXT, duration TINYTEXT, saving_throw TINYTEXT,\
             description TINYTEXT, verbal_component INT,\
             somatic_component INT, material_component INT,\
             focus_component INT, divine_focus_component INT,\
@@ -45,13 +45,13 @@ def table_setup(name, db_cursor):
             id INTEGER PRIMARY KEY, book_id INT, \
             spell_id INT, page TINYTEXT")
 
-    elif(name == 'type'):
+    elif(name == 'school'):
         db_cursor.execute("CREATE TABLE type (\
             id INTEGER PRIMARY KEY, name TINYTEXT)")
 
-    elif(name == 'spell_type'):
+    elif(name == 'spell_school'):
         db_cursor.execute("CREATE TABLE spell_type (\
-            id INTEGER PRIMARY KEY, type_id INT, \
+            id INTEGER PRIMARY KEY, school_id INT, \
             spell_id INT)")
 
     elif(name == 'subtype'):
@@ -65,13 +65,22 @@ def table_setup(name, db_cursor):
 
 
 def parse_spell(spell):
+    global alt_spells
+    global web_abbrev
     spell_line = spell.pop(0)
+
+    #Handle the See "this spell" for info cases
+    match = re.search('See "(.+)"', spell[0])
+    if match:
+        alt_spells.append([spell_line.strip(), match.group(1)])
+        return
+
     # First get the spell name and book with page number
     match = re.search('(.+) \[(.+)\]', spell_line)
     spell_name = match.group(1)
-    print spell_name
     book_info = match.group(2)
     book_info = book_info.split(",")
+
     # Spells can have multiple books
     for x in range(len(book_info)):
         # Books may or may not have a page number
@@ -83,12 +92,39 @@ def parse_spell(spell):
         else:
             page = None
             book_name = book_info[x]
+        #Handle web abbreviations
         book_info[x] = [book_name, page]
-    # Now lets figure out the type and sub-type
 
-    # Enchantment (Compulsion) [Mind-Affecting]
-    # Transmutation [Cold, Water]
-    # Conjuration/Necromancy [Cold]
+    # Now lets figure out the type and sub-type
+    type_line = spell.pop(0)
+    school = type_line.split()[0].split("/")
+    sub_types = []
+    match = re.search('\((.+)\)', type_line)
+    if match:
+        sub_types.extend([sub_type.strip() for sub_type in match.group(1).split(",")])
+    match = re.search('\[(.+)\]', type_line)
+    if match:
+        sub_types.extend([sub_type.strip() for sub_type in match.group(1).split(",")])
+
+    # Finished pieces:
+    # Spell Name
+    # Book Name
+    # Page in Book
+    # Type (school)
+    # Sub-type
+    print spell_name
+    print book_info
+    print school
+    print sub_types
+
+    # Unfinished pieces:
+    # Class and level
+    # Components
+    # Casting Time
+    # Range
+    # Effect
+    # Duration
+    # Saving Throw
 
 
 tables = ['spell', 'class_spell', 'class', 'domain_spell', 'domain']
@@ -128,6 +164,8 @@ for line in cleric_domain_file:
         db_cursor.execute("INSERT INTO domain VALUES (NULL, ?)",
                           (line.strip(), ))
 
+alt_spells = []
+
 #Then parse spell list
 all_spells_file = open('data/all-spells.txt', 'r')
 spell = []
@@ -139,7 +177,7 @@ for line in all_spells_file:
         continue
     spell.append(line.strip())
 
-
+print "Alt spells: %s" % alt_spells
 """
 Ignore spells like:
           Horizikaul's Boom
