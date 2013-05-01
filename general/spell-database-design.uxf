@@ -26,7 +26,7 @@
       <w>230</w>
       <h>110</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;spell_sub_type&gt;&gt;
+    <panel_attributes>&lt;&lt;spell_subtype&gt;&gt;
 {Unique Key: id}
 --
 *-id: int*
@@ -196,7 +196,7 @@
       <w>230</w>
       <h>110</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;sub_type&gt;&gt;
+    <panel_attributes>&lt;&lt;subtype&gt;&gt;
 {Unique Key: id}
 --
 *-id: int*
