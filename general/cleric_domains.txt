@@ -102,5 +102,6 @@ Undead
 Undeath
 War
 Water
-Windstorm
+Watery Death
+Weather
 Wrath
