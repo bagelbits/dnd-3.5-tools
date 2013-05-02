@@ -11,8 +11,8 @@ def table_setup(name, db_cursor):
         db_cursor.execute("CREATE TABLE spell\
             (id INTEGER PRIMARY KEY, name TINYTEXT,\
             cast_time TINYTEXT, range TINYTEXT,\
-            target TINYTEXT, effect TINYTEXT, duration TINYTEXT, saving_throw TINYTEXT,\
-            description TINYTEXT, components TINYTEXT)")
+            target TINYTEXT, effect TINYTEXT, area TINYTEXT, duration TINYTEXT,\
+            saving_throw TINYTEXT, description TINYTEXT, components TINYTEXT)")
 
     elif(name == 'class'):
         db_cursor.execute("CREATE TABLE class (\
@@ -64,7 +64,7 @@ def table_setup(name, db_cursor):
 def parse_spell(spell):
     global alt_spells
     global web_abbrev
-    spell_line = spell.pop(0)
+    spell_line = spell.pop(0).strip()
 
     #Handle the See "this spell" for info cases
     match = re.search('See "(.+)"', spell[0])
@@ -90,6 +90,8 @@ def parse_spell(spell):
             page = None
             book_name = book_info[x]
         #Handle web abbreviations
+        if book_name in web_abbrev:
+            book_name = web_abbrev[book_name]
         book_info[x] = [book_name, page]
 
     # Now lets figure out the type and sub-type
@@ -103,19 +105,55 @@ def parse_spell(spell):
     if match:
         sub_types.extend([sub_type.strip() for sub_type in match.group(1).split(",")])
 
+    if spell[0].startswith("Level: "):
+        classes = {}
+        level_lines = [spell.pop(0).strip()]
+        while True:
+            if re.match("\w+:", spell[0]):
+                break
+            level_lines.append(spell.pop(0).strip())
+        level_lines = " ".join(level_lines).replace("Level: ", '').split(', ')
+        # Now lets separate class from level. We may need to come back to
+        # this point later.
+        for class_level in level_lines:
+            level = re.search('(\d+)', class_level).group(1)
+            character_class = re.sub(' \d+', '', class_level, count=1)
+            classes[character_class] = level
+
+    # Now need to break everything else out
+    spell_info = {}
+    while True:
+        #You've hit the description yay!
+        if spell[0].startswith(' '):
+            break
+        # Magically, you have no description
+        if len(spell) == 0:
+            break
+        spell_line = spell.pop(0).strip()
+        spell_descriptor = re.match("(\w+( \w+)*): ", spell_line).group(1).lower()
+        spell_descriptor = re.sub(" +", "_", spell_descriptor)
+        spell_line = re.sub("\w+( \w+)*: ", '', spell_line, count=1)
+        spell_info[spell_descriptor] = spell_line
+
+    #Now stich together the rest of the description
+    spell_info['description'] = "\n".join(spell).strip()
+
     # Finished pieces:
     # Spell Name
     # Book Name
     # Page in Book
     # Type (school)
     # Sub-type
-    print spell_name
+    # Class and level
+    print "Spell: %s" % spell_name
     print book_info
     print school
     print sub_types
+    print classes
+    for spell_descriptor in spell_info:
+        print "%s: %s" % (spell_descriptor, spell_info[spell_descriptor])
 
     # Unfinished pieces:
-    # Class and level
     # Components
     # Casting Time
     # Range
@@ -167,12 +205,16 @@ alt_spells = []
 all_spells_file = open('data/all-spells.txt', 'r')
 spell = []
 for line in all_spells_file:
+    #End of the file
+    if re.match('\-+', line):
+        break
+
     if not line.strip():
         parse_spell(spell)
         del spell[:]
         break
         continue
-    spell.append(line.strip())
+    spell.append(line)
 
 print "Alt spells: %s" % alt_spells
 """
