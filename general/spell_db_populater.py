@@ -41,7 +41,7 @@ def table_setup(name, db_cursor):
     elif(name == 'spell_class'):
         db_cursor.execute("CREATE TABLE spell_class (\
             id INTEGER PRIMARY KEY, class_id INT,\
-            spell_id INT, level INT)")
+            spell_id INT, level INT, subtype TINYTEXT)")
 
     elif(name == 'domain'):
         db_cursor.execute("CREATE TABLE domain (\
@@ -134,12 +134,25 @@ def stitch_together_parens(level_lines):
     return level_lines
 
 
-def break_apart_class(character_class):
-    if character_class.startswith("Shugenja") or character_class.startswith("Wu Jen"):
-        if re.search('\(\w+ and \w+\)', character_class):
-            character_class = character_class.split(' and ')
-            character_class[0] = character_class[0] + ")"
-            character_class[1] = "(" + character_class[1]
+def break_out_class_subtype(character_class):
+    if "(" in character_class:
+        character_class = character_class.strip().split(" (")
+        classes_to_subtype = [
+            "Cleric",
+            "Wu Jen",
+            "Shugenja",
+            "Arachnomancer",
+            "Spelldancer",
+            "Pious Templar",
+            "Maho-Tsukai"
+        ]
+        if character_class[0] in classes_to_subtype:
+            character_class[1] = character_class[1][:-2]
+        else:
+            character_class = [" (".join(character_class)]
+    else:
+        character_class = [character_class]
+
     return character_class
 
 
@@ -215,12 +228,15 @@ def parse_spell(spell, db_cursor):
             match = re.search('(\d+)\-(\d+)', class_level)
             if match:
                 level = range(int(match.group(1)), int(match.group(2)) + 1)
-                character_class = re.sub(' \d+-\d+', '', class_level, count=1)
+                character_class = re.sub(' \d+\-\d+', '', class_level, count=1)
             else:
                 level = [int(re.search('(\d+)', class_level).group(1))]
                 character_class = re.sub(' \d+', '', class_level, count=1).strip()
-                character_class = break_apart_class(character_class)
-            classes[character_class] = level
+            character_class = break_out_class_subtype(character_class)
+            if len(character_class) == 2:
+                classes[character_class[0]] = [level, character_class[1]]
+            else:
+                classes[character_class[0]] = [level]
 
     # Now need to break everything else out
     spell_info = {}
@@ -300,14 +316,11 @@ def parse_spell(spell, db_cursor):
         ## Classes ##
         # Remember to skip domains
         for class_name in classes:
-            if class_name == "Shugenja":
-                print spell_name
             db_cursor.execute("SELECT id FROM class WHERE name = ?", (class_name,))
             if not db_cursor.fetchone():
                 db_cursor.execute("SELECT id FROM domain WHERE name = ?", (class_name,))
                 if not db_cursor.fetchone():
                     db_cursor.execute("INSERT INTO class VALUES(NULL, ?, 0, 0, 0)", (class_name,))
-
 
     ## Components ##
 
