@@ -147,10 +147,13 @@ def break_out_class_subtype(character_class):
             "Arachnomancer",
             "Spelldancer",
             "Pious Templar",
-            "Maho-Tsukai"
+            "Maho-Tsukai",
+            "Savant"
         ]
         if character_class[0] in classes_to_subtype:
             character_class[1] = character_class[1][:-2]
+            if character_class[0] == "Savant":
+                character_class[1] = character_class[1][:-2].split(" ")
         else:
             character_class = [" (".join(character_class)]
     else:
@@ -236,15 +239,19 @@ def parse_spell(spell, db_cursor):
                 level = [int(re.search('(\d+)', class_level).group(1))]
                 character_class = re.sub(' \d+', '', class_level, count=1).strip()
             character_class = break_out_class_subtype(character_class)
-            if len(character_class) == 2:
+
+            #There are some class specific edge cases.
+            if character_class[0] == "Sorcerer/Wizard":
+                character_class[0] = character_class[0].split("/")
+                classes[character_class[0][0]] = [level]
+                classes[character_class[0][1]] = [level]
+            elif character_class[0] == "Bard":
+                classes[character_class[0]] = [level]
+                classes["Divine Bard"] = [level]
+            elif len(character_class) == 2:
                 classes[character_class[0]] = [level, character_class[1]]
             else:
-                if character_class[0] == "Sorcerer/Wizard":
-                    character_class[0] = character_class[0].split("/")
-                    classes[character_class[0][0]] = [level]
-                    classes[character_class[0][1]] = [level]
-                else:
-                    classes[character_class[0]] = [level]
+                classes[character_class[0]] = [level]
 
     # Now need to break everything else out
     spell_info = {}
