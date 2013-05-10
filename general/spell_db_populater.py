@@ -120,6 +120,9 @@ def preload_tables(db_cursor):
     db_cursor.execute("SELECT id FROM class WHERE name = ?", ("Divine Bard",))
     if not db_cursor.fetchone():
         db_cursor.execute("INSERT INTO class VALUES (NULL, ?, 0, 0, 0)", ("Divine Bard",))
+    db_cursor.execute("SELECT id FROM class WHERE name = ?", ("Divine Savant",))
+    if not db_cursor.fetchone():
+        db_cursor.execute("INSERT INTO class VALUES (NULL, ?, 0, 0, 0)", ("Divine Savant",))
 
 
 def stitch_together_parens(level_lines):
@@ -236,7 +239,12 @@ def parse_spell(spell, db_cursor):
             if len(character_class) == 2:
                 classes[character_class[0]] = [level, character_class[1]]
             else:
-                classes[character_class[0]] = [level]
+                if character_class[0] == "Sorcerer/Wizard":
+                    character_class[0] = character_class[0].split("/")
+                    classes[character_class[0][0]] = [level]
+                    classes[character_class[0][1]] = [level]
+                else:
+                    classes[character_class[0]] = [level]
 
     # Now need to break everything else out
     spell_info = {}
