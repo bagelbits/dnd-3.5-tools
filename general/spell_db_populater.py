@@ -18,11 +18,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>
 """
 
-
 import sqlite3
 import traceback
 import re
-from sys import exit
+from sys import exit, stdout
 
 
 def table_setup(name, db_cursor):
@@ -346,6 +345,15 @@ def parse_spell(spell, db_cursor):
                 if not db_cursor.fetchone():
                     db_cursor.execute("INSERT INTO class VALUES(NULL, ?, 0, 0, 0)", (class_name,))
 
+            db_cursor.execute("SELECT id FROM class WHERE name = ? LIMIT 1", (class_name,))
+            class_id = db_cursor.fetchone()
+            if class_id:
+                class_id = class_id[0]
+            else:
+                db_cursor.execute("SELECT id FROM domain WHERE name = ? LIMIT 1", (class_name,))
+                domain_id = db_cursor.fetchone()[0]
+
+
     ## Components ##
 
     #print "\nSpell: %s" % spell_name
@@ -398,8 +406,15 @@ preload_tables(db_cursor)
 alt_spells = []
 all_spells_file = open('data/all-spells.txt', 'r')
 spell = []
+
+all_spells_file = list(all_spells_file)
+line_count = 0
 for line in all_spells_file:
     #End of the file
+    line_count += 1
+    per = line_count / float(len(all_spells_file)) * 100
+    stdout.write("\rParsed: %d%%" % per)
+    stdout.flush()
     if re.match('\-+', line):
         break
 
@@ -409,26 +424,18 @@ for line in all_spells_file:
         #break
         continue
     spell.append(line)
+print " COMPLETE"
 
-#print "Alt spells: %s" % alt_spells
+# We need to stick these in after the fact.
+print "Alt spells: %s" % alt_spells
 
-db_cursor.execute("SELECT name FROM class")
-books = list(db_cursor.fetchall())
+#db_cursor.execute("SELECT name FROM class")
+#books = list(db_cursor.fetchall())
 
-for book in range(len(books)):
-    books[book] = books[book][0]
-for book in sorted(books):
-    print book
+#for book in range(len(books)):
+#    books[book] = books[book][0]
+#for book in sorted(books):
+#    print book
 
-    db_cursor.close()
+db_cursor.close()
 db_conn.close()
-
-"""
-Add Divine Bard as a separate class and to any
-spell that has Bard as a class
-"""
-
-"""
-Populate Classes, Book, Type, and Subtype tables as you run trough the txt file
-Domain should be generated off the other pdf that Noah gave me.
-"""
