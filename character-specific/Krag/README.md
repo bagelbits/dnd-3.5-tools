@@ -6,9 +6,8 @@ Damage calculator for D&amp;D character
 Deals with choosing between shield bash (charging or not), gore, and throwing boulders. As well as all feats that modify my combat damage. Also deals with cleave damage too. Auto-rolling dice can be turned off for manual rolls.
 
 TODO:
-Rage feat
-More QA
-Play test in game session
+Rage feat/Bear form bonus feat
+
 
 Nice to have:
 GUI
