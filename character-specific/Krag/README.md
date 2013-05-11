@@ -11,7 +11,6 @@ TODO:
 Nice to have:
 * GUI
 * Executable app for Mac and Windows
-* Read stats off the XML dump of my character sheet.
 * Abstract out feat mods.
 
 Final Goal:
