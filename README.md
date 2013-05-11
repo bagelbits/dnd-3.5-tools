@@ -24,4 +24,6 @@ general/spell_db_populater.py:
 
 general/scroll_generator.py
 * Interface with spell.db
+* Deal with special case classes like All, Sanctified, and Corrupt
+* Randomly pick arcane or divine if both options are there.
 * Generally just write it.
