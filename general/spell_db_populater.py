@@ -323,7 +323,7 @@ def parse_spell(spell, db_cursor):
                 db_cursor.execute("SELECT id FROM school WHERE name = ? LIMIT 1", (school,))
                 school_id = db_cursor.fetchone()
             school_id = school_id[0]
-            db_cursor.execute("INSERT INTO spell_school VALUES(NULL, ?, ?)", (spell_id, school_id))
+            db_cursor.execute("INSERT INTO spell_school VALUES(NULL, ?, ?)", (school_id, spell_id))
 
         ## Subtype ##
         for sub_type in sub_types:
@@ -334,7 +334,7 @@ def parse_spell(spell, db_cursor):
                 db_cursor.execute("SELECT id FROM subtype WHERE name = ? LIMIT 1", (sub_type,))
                 subtype_id = db_cursor.fetchone()
             subtype_id = subtype_id[0]
-            db_cursor.execute("INSERT INTO spell_subtype VALUES(NULL, ?, ?)", (spell_id, subtype_id))
+            db_cursor.execute("INSERT INTO spell_subtype VALUES(NULL, ?, ?)", (subtype_id, spell_id))
 
         ## Classes ##
         # Remember to skip domains
@@ -348,10 +348,16 @@ def parse_spell(spell, db_cursor):
             db_cursor.execute("SELECT id FROM class WHERE name = ? LIMIT 1", (class_name,))
             class_id = db_cursor.fetchone()
             if class_id:
+                #Classes
                 class_id = class_id[0]
+                # Don't forget to handle the Divine Savant subtype edge case
             else:
+                # Domains
                 db_cursor.execute("SELECT id FROM domain WHERE name = ? LIMIT 1", (class_name,))
                 domain_id = db_cursor.fetchone()[0]
+                for level in classes[class_name][0]:
+                    db_cursor.execute("INSERT INTO spell_domain VALUES(NULL, ?, ?, ?)",
+                                      (domain_id, spell_id, level))
 
 
     ## Components ##
