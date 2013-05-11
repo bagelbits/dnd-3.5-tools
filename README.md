@@ -1,24 +1,27 @@
-krag_calc
+D&amp;D 3.5 Tools
 ================
 
-Damage calculator for D&amp;D character
+Consists of:  
+* Damage calculator for D&amp;D character
+* General skill roller with xml importer
+* GUI version of skill roller
+* Spell database populater
+* Random magic scroll generator (Coming soon)
 
-Deals with choosing between shield bash (charging or not), gore, and throwing boulders. As well as all feats that modify my combat damage. Also deals with cleave damage too. Auto-rolling dice can be turned off for manual rolls.
+TO DO:  
+================
 
-TODO:
-Rage feat
-More QA
-Play test in game session
+character/specific/krag_calc.py:
+* Rage feat/Bear form bonus feat
+* 2nd look over to clean up code
+* GUI version
 
-Nice to have:
-GUI
-Executable app for Mac and Windows
-Read stats off the XML dump of my character sheet.
-Abstract out feat mods.
+general/spell_db_populater.py:
+* Populate spell_class and spell_domain tables
+* Import files for book, class, school, subtype, and component tables
+* General code clean up
+* Allow for the DM to set % for class. May want to just use types like Core, Uncommon, Rare, Nonexistant.
 
-Final Goal:
-Web based app that DM can set AC and HP for enemies and it takes care of all rolls.
-Mobile based app.
-
-Far Reaching Goal:
-Module designed general use combat damage calc with interchangeable feat mods and item mods.
+general/scroll_generator.py
+* Interface with spell.db
+* Generally just write it.
