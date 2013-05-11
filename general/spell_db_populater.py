@@ -290,50 +290,59 @@ def parse_spell(spell, db_cursor):
     # and link tables as we go.
 
     # Initial spell insert:
-    db_cursor.execute("SELECT id from spell WHERE name = ?", (spell_name,))
+    db_cursor.execute("SELECT id from spell WHERE name = ? LIMIT 1", (spell_name,))
     if not db_cursor.fetchone():
         db_cursor.execute("INSERT INTO spell VALUES(NULL, ?, NULL, NULL, NULL,\
                            NULL, NULL, NULL, NULL, NULL, NULL)", (spell_name,))
-        db_cursor.execute("SELECT id from spell WHERE name = ?", (spell_name,))
+        db_cursor.execute("SELECT id from spell WHERE name = ? LIMIT 1", (spell_name,))
         spell_id = db_cursor.fetchone()[0]
 
         # Let's populate reference tables as we go:
         ## BOOK ##
         for book in book_info:
-            db_cursor.execute("SELECT id FROM book WHERE name = ?", (book[0],))
-            if not db_cursor.fetchone():
+            db_cursor.execute("SELECT id FROM book WHERE name = ? LIMIT 1", (book[0],))
+            book_id = db_cursor.fetchone()
+            if not book_id:
                 db_cursor.execute("INSERT INTO book VALUES(NULL, ?)", (book[0],))
-            db_cursor.execute("SELECT id FROM book WHERE name = ?", (book[0],))
-            book_id = db_cursor.fetchone()[0]
-            db_cursor.execute("SELECT id FROM spell_book\
-                               WHERE spell_id = ? AND book_id = ?", (spell_id, book_id))
-            if not db_cursor.fetchone():
-                if book[1]:
-                    for page in book[1]:
-                        db_cursor.execute("INSERT INTO spell_book VALUES(NULL, ?, ?, ?)",
-                                          (book_id, spell_id, page))
-                else:
-                    db_cursor.execute("INSERT INTO spell_book VALUES(NULL, ?, ?, NULL)",
-                                      (book_id, spell_id))
+                db_cursor.execute("SELECT id FROM book WHERE name = ? LIMIT 1", (book[0],))
+                book_id = db_cursor.fetchone()
+            book_id = book_id[0]
+            if book[1]:
+                for page in book[1]:
+                    db_cursor.execute("INSERT INTO spell_book VALUES(NULL, ?, ?, ?)",
+                                      (book_id, spell_id, page))
+            else:
+                db_cursor.execute("INSERT INTO spell_book VALUES(NULL, ?, ?, NULL)",
+                                  (book_id, spell_id))
 
         ## School ##
         for school in schools:
-            db_cursor.execute("SELECT id FROM school WHERE name = ?", (school,))
+            db_cursor.execute("SELECT id FROM school WHERE name = ? LIMIT 1", (school,))
+            school_id = db_cursor.fetchone()
             if not db_cursor.fetchone():
                 db_cursor.execute("INSERT INTO school VALUES(NULL, ?)", (school,))
+                db_cursor.execute("SELECT id FROM school WHERE name = ? LIMIT 1", (school,))
+                school_id = db_cursor.fetchone()
+            school_id = school_id[0]
+            db_cursor.execute("INSERT INTO spell_school VALUES(NULL, ?, ?)", (spell_id, school_id))
 
         ## Subtype ##
         for sub_type in sub_types:
-            db_cursor.execute("SELECT id FROM subtype WHERE name = ?", (sub_type,))
+            db_cursor.execute("SELECT id FROM subtype WHERE name = ? LIMIT 1", (sub_type,))
+            subtype_id = db_cursor.fetchone()
             if not db_cursor.fetchone():
                 db_cursor.execute("INSERT INTO subtype VALUES(NULL, ?)", (sub_type,))
+                db_cursor.execute("SELECT id FROM subtype WHERE name = ? LIMIT 1", (sub_type,))
+                subtype_id = db_cursor.fetchone()
+            subtype_id = subtype_id[0]
+            db_cursor.execute("INSERT INTO spell_subtype VALUES(NULL, ?, ?)", (spell_id, subtype_id))
 
         ## Classes ##
         # Remember to skip domains
         for class_name in classes:
-            db_cursor.execute("SELECT id FROM class WHERE name = ?", (class_name,))
+            db_cursor.execute("SELECT id FROM class WHERE name = ? LIMIT 1", (class_name,))
             if not db_cursor.fetchone():
-                db_cursor.execute("SELECT id FROM domain WHERE name = ?", (class_name,))
+                db_cursor.execute("SELECT id FROM domain WHERE name = ? LIMIT 1", (class_name,))
                 if not db_cursor.fetchone():
                     db_cursor.execute("INSERT INTO class VALUES(NULL, ?, 0, 0, 0)", (class_name,))
 
