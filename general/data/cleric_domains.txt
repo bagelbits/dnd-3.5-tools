@@ -1,140 +1,79 @@
+Abyss
 Air
 Animal
+Arborea
+Arcane
+Army
 Artifice
+Assassination
+Baator
 Balance
+Bestial
+Blackwater
 Cavern
 Celerity
 Celestial
 Chaos
 Charm
+Chill
 City
 Cold
 Commerce
 Community
 Community'
 Competition
+Corruption
 Courage
 Craft
 Creation
 Darkness
 Death
+Deathbound
 Deathless
 Decay
+Demonic
 Destiny
 Destruction
+Diabolic
+Divine
 Domination
+Dragon
 Dragon Below
 Dream
 Drow
 Dwarf
 Earth
 Elf
+Elysium
 Endurance
+Entropy
+Envy
+Ethics
 Evil
 Exorcism
 Family
 Fate
 Feast
+Ferocity
 Fey
 Fire
 Force
+Fury
+Ghost
 Glory
+Gluttony
 Gnome
 Good
+Greed
+Guarding
+Hades
 Halfling
 Hatred
 Healing
 Herald
+Horiuchi School
 Hunger
 Illusion
-Inquisition
-Joy
-Knowledge
-Law
-Liberation
-Life
-Luck
-Madness
-Magic
-Meditation
-Mentalism
-Metal
-Mind
-Moon
-Mysticism (Evil)
-Mysticism (Good)
-Mysticism
-Necromancy
-Nobility
-Ocean
-Oracle
-Orc
-Pact
-Passion
-Pestilence
-Planning
-Plant
-Pleasure
-Portal
-Portal'
-Protection
-Purification
-Renewal
-Repose
-Retribution
-Rune
-Scalykind
-Shadow
-Slime
-Sky
-Spell
-Spider
-Spirit
-Storm
-Strength
-Suffering
-Summoner
-Sun
-Time
-Trade
-Transformation
-Travel
-Trickery
-Truth
-Tyrant
-Undead
-Undeath
-War
-Water
-Watery Death
-Weather
-Weather'
-Abyss
-Arborea
-Arcane
-Army
-Assassination
-Baator
-Bestial
-Blackwater
-Chill
-Corruption
-Deathbound
-Demonic
-Diabolic
-Divine
-Dragon
-Elysium
-Entropy
-Envy
-Ethics
-Ferocity
-Fury
-Ghost
-Gluttony
-Greed
-Guarding
-Hades
 Incarnum
 Initiate of Aasterinian
 Initiate of Amaunator
@@ -185,6 +124,7 @@ Initiate of Shar
 Initiate of St. Cuthbert
 Initiate of Tamara
 Initiate of Tchazzar
+Initiate of the Holy Realm
 Initiate of Tiamat
 Initiate of Torm
 Initiate of Torm (Cleric only)
@@ -194,45 +134,118 @@ Initiate of Tyr
 Initiate of Varae
 Initiate of Vecna
 Initiate of Wee Jas
-Initiate of the Holy Realm
 Injustice
+Inquisition
 Inspiration
 Invigoration
 Journey
+Joy
+Kanosei Furudera School
+Knowledge
+Law
+Liberation
+Life
 Limbo
 Love
+Luck
 Lust
+Madness
+Magic
+Meditation
+Mentalism
 Mercy
+Metal
+Mind
 Misfortune
+Moon
 Moon (Veshemo)
+Moshi School
+Mysticism
+Mysticism (Evil)
+Mysticism (Good)
 Nature (Divine Masters)
+Necromancy
 Night
+Nobility
 Oblivion
+Ocean
 Ooze
 Oppression
+Oracle
+Orc
+Order of the All-Seeing Eye
+Order of the Consuming Flame
+Order of the Forbidding Wasteland
+Order of the Gentle Rain
+Order of the Impenetrable Crucible
+Order of the Ineffable Mystery
+Order of the Perfect Sculpture
+Order of the Spring Zephyr
+Pact
 Pain
+Passion
+Pestilence
+Planning
+Plant
+Pleasure
 Pondering
+Portal
+Portal'
 Pride
 Profit
+Protection
+Purification
 Radiance
+Renewal
+Repose
+Retribution
+Rune
 Sand
+Scalykind
 Scorn
 Seafolk
+Shadow
+Sky
+Slime
 Sloth
+Spell
+Spider
+Spirit
 Spite
 Stealth
+Storm
 Strategy
+Strength
+Suffering
 Summer
+Summoner
+Sun
 Tempest
 Temptation
 Terror
 Thirst
+Time
 Timing
+Trade
+Transformation
+Travel
+Trickery
+Truth
 Tyranny
+Tyrant
+Undead
+Undeath
 Underworld
 Vice
 Void
+War
+Water
+Watery Death
 Wealth
+Weather
+Weather'
 Windstorm
 Winter
 Wrath
+Yogo School
+Yoritomo School

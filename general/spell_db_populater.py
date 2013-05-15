@@ -88,6 +88,11 @@ def table_setup(name, db_cursor):
             id INTEGER PRIMARY KEY, component_id INT,\
             spell_id INT)")
 
+    elif(name == 'alt_spell'):
+        db_cursor.execute("CREATE TABLE alt_spell (\
+            id INTEGER PRIMARY KEY, alt_spell_name TINYTEXT,\
+            spell_id INT)")
+
 
 def preload_tables(db_cursor):
     """
@@ -147,7 +152,8 @@ def break_out_class_subtype(character_class):
             "Spelldancer",
             "Pious Templar",
             "Maho-Tsukai",
-            "Savant"
+            "Savant",
+            "Portal"
         ]
         if character_class[0] in classes_to_subtype:
             character_class[1] = character_class[1][:-2]
@@ -350,6 +356,21 @@ def parse_spell(spell, db_cursor):
             if class_id:
                 #Classes
                 class_id = class_id[0]
+                for level in classes[class_name][0]:
+                    #Don't forget to store subtypes
+                    if len(classes[class_name]) == 2:
+                        if isinstance(classes[class_name][1], list):
+                            db_cursor.execute("INSERT INTO spell_class VALUES(NULL, ?, ?, ?, NULL)",
+                                              (class_id, spell_id, level))
+                            db_cursor.execute("INSERT INTO spell_class VALUES(NULL, ?, ?, ?, ?)",
+                                              (class_id, spell_id, classes[class_name][1][0],
+                                               classes[class_name][1][1]))
+                        else:
+                            db_cursor.execute("INSERT INTO spell_class VALUES(NULL, ?, ?, ?, ?)",
+                                              (class_id, spell_id, level, classes[class_name][1]))
+                    else:
+                        db_cursor.execute("INSERT INTO spell_class VALUES(NULL, ?, ?, ?, NULL)",
+                                          (class_id, spell_id, level))
                 # Don't forget to handle the Divine Savant subtype edge case
             else:
                 # Domains
@@ -374,7 +395,7 @@ all_descriptors = []
 
 tables = ['spell', 'spell_class', 'class', 'spell_domain', 'domain']
 tables.extend(['book', 'school', 'spell_school', 'subtype', 'spell_subtype'])
-tables.extend(['spell_book', 'component', 'spell_component'])
+tables.extend(['spell_book', 'component', 'spell_component', 'alt_spell'])
 
 db_conn = sqlite3.connect('spells.db')
 db_conn.text_factory = str
@@ -382,7 +403,6 @@ db_cursor = db_conn.cursor()
 
 db_cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
 table_results = db_cursor.fetchall()
-print table_results
 for table in tables:
     if not any(table == result[0] for result in table_results):
         try:
@@ -419,7 +439,7 @@ for line in all_spells_file:
     #End of the file
     line_count += 1
     per = line_count / float(len(all_spells_file)) * 100
-    stdout.write("\rParsed: %d%%" % per)
+    stdout.write("\rLoading: %d%%" % per)
     stdout.flush()
     if re.match('\-+', line):
         break
@@ -433,15 +453,21 @@ for line in all_spells_file:
 print " COMPLETE"
 
 # We need to stick these in after the fact.
-print "Alt spells: %s" % alt_spells
+for spell in alt_spells:
+    db_cursor.execute("SELECT id FROM alt_spell WHERE alt_spell_name = ?", (spell[0],))
+    if not db_cursor.fetchone():
+        db_cursor.execute("SELECT id FROM spell WHERE name = ?", (spell[1],))
+        spell_id = db_cursor.fetchone()
+        if spell_id:
+            db_cursor.execute("INSERT INTO alt_spell VALUES(NULL, ?, ?)", (spell[0], spell_id[0]))
 
-#db_cursor.execute("SELECT name FROM class")
-#books = list(db_cursor.fetchall())
+db_cursor.execute("SELECT name FROM class")
+books = list(db_cursor.fetchall())
 
-#for book in range(len(books)):
-#    books[book] = books[book][0]
-#for book in sorted(books):
-#    print book
+for book in range(len(books)):
+    books[book] = books[book][0]
+for book in sorted(books):
+    print book
 
 db_cursor.close()
 db_conn.close()
