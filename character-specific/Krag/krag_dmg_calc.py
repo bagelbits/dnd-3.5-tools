@@ -467,9 +467,11 @@ def stat_grabber(character_sheet):
 
 character_sheet = "../../character-sheets/Krag.xml"
 relevent_stats = stat_grabber(character_sheet)
+print relevent_stats
 
 hd_level = int(relevent_stats['hd'])
 STR_mod = int(relevent_stats['StrMod'])
+CON_mod = int(relevent_stats['ConMod'])
 if relevent_stats['StrTempMod']:
     STR_mod = int(relevent_stats['StrTempMod'])
 base_attack_bonus = int(relevent_stats['bab'])
@@ -504,6 +506,12 @@ boulder_range = 50
 morale_attack_bonus = 0
 morale_damage_bonus = 0
 
+rage_used = False
+rage_started = False
+rage_rounds = -1
+
+fatigued = False
+
 total_damage = {}
 cleave_damage = {}
 
@@ -515,20 +523,21 @@ print "############################################"
 round_num = 1
 
 while True:
+    auto_roll = False
+    charging = False
+
     print "\n%sCombat round #%d%s" % (colorz.BLUE, round_num, colorz.YELLOW)
+
     #Auto roll?
     auto_roll = raw_input('Auto roll dice?(y|n) ')
     if auto_roll.lower().startswith('y'):
         auto_roll = True
-    else:
-        auto_roll = False
 
     #Charging?
-    charging = raw_input('Are you charging? (y|n) ')
-    if charging.lower().startswith('y'):
-        charging = True
-    else:
-        charging = False
+    if not fatigued:
+        charging = raw_input('Are you charging? (y|n) ')
+        if charging.lower().startswith('y'):
+            charging = True
 
     #Power attack?
     power_attack = int(raw_input('How many points to power attack? (Max %s) '
@@ -537,8 +546,24 @@ while True:
         print "%sToo many points!%s" % (colorz.RED, colorz.ENDC)
         quit()
 
+    #Let's rage!
+    print colorz.YELLOW
+    if not rage_used:
+        answer = print raw_input('Would you like to rage? (y|n) ')
+        if answer.lower().startswith('y'):
+            rage_started = True
+            rage_used = True
+            STR_mod += 2
+            CON_mod += 2
+            rage_rounds = 3 + CON_mod
+    
+    # TODO: Implement Bear Mode
+    if rage_started:
+        pass
+
     #Choose your attacks!
     while(True):
+
         print colorz.GREEN
         attack = raw_input('\nWhat is your attack? (shield|gore|boulder|death move|none) ')
         if attack.lower() == 'shield':
@@ -571,6 +596,17 @@ while True:
         again = raw_input('\nAnother attack? (y|n) ')
         if again.lower().startswith('n'):
             break
+
+    # Decrement my rage counter
+    if rage_started:
+        rage_rounds -= 1
+        if rage_rounds == 0:
+            rage_started = False
+            print "%sYou are now fatigued!%s" % (colorz.RED, colorz.YELLOW)
+            STR_mod -= 3
+            CON_mod -= 2
+            fatigued = True
+
 
     #Print out damage summary!
     print "\n\n%s####Damage done this round####" % colorz.RED
