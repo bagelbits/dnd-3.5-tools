@@ -8,7 +8,11 @@ that modify my combat damage. Also deals with cleave damage too. Auto-rolling di
 manual rolls. Now will important stats from the character xml.
 
 TODO:
-* Rage feat/Bear form bonus feat
+* Test Rage code
+* Clean up code again
+* Bear form bonus feat
+* Print out HP, Saves, AC at the end of round, and keep track if they're altered due to Rage or the like
+* Keep track of HP
 
 Nice to have:
 * GUI
