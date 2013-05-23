@@ -12,8 +12,11 @@ TO DO:
 ================
 
 character/specific/krag_calc.py:
-* Rage feat/Bear form bonus feat
-* 2nd look over to clean up code
+* Test Rage code
+* Clean up code again
+* Bear form bonus feat
+* Print out HP, Saves, AC at the end of round, and keep track if they're altered due to Rage or the like
+* Keep track of HP
 * GUI version
 
 general/spell_db_populater.py:
