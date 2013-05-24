@@ -9,12 +9,12 @@
         <node name="id">62114</node>
         <node name="Name">Marrion</node>
         <node name="Player">Noah</node>
-        <node name="XPCurrent">63450</node>
-        <node name="XPNext">66000</node>
-        <node name="Class">Archivist 3/Binder 1/Anima Mage 6/Tainted Sorcerer 1</node>
+        <node name="XPCurrent">68250</node>
+        <node name="XPNext">78000</node>
+        <node name="Class">Archivist 3/Binder 1/Anima Mage 7/Tainted Sorcerer 1</node>
         <node name="Race">Human</node>
         <node name="Alignment">Neutral Evil</node>
-        <node name="Level">11</node>
+        <node name="Level">12</node>
         <node name="Size">Medium</node>
         <node name="Age">16</node>
         <node name="Gender">M</node>
@@ -24,19 +24,21 @@
         <node name="Hair">Black</node>
         <node name="Str">8</node>
         <node name="StrMod">-1</node>
+        <node name="StrTemp">18</node>
+        <node name="StrTempMod">+4</node>
         <node name="Dex">12</node>
         <node name="DexMod">+1</node>
         <node name="Con">15</node>
         <node name="ConMod">+2</node>
-        <node name="Int">19</node>
-        <node name="IntMod">+4</node>
+        <node name="Int">20</node>
+        <node name="IntMod">+5</node>
         <node name="Wis">19</node>
         <node name="WisMod">+4</node>
-        <node name="WisTemp">13</node>
+        <node name="WisTemp">12</node>
         <node name="WisTempMod">+1</node>
         <node name="Cha">16</node>
         <node name="ChaMod">+3</node>
-        <node name="HP">64</node>
+        <node name="HP">70</node>
         <node name="AC">16</node>
         <node name="ACArmor">3</node>
         <node name="ACShield">0</node>
@@ -54,12 +56,12 @@
         <node name="Speed">30</node>
         <node name="Armor">Light</node>
         <node name="TotalWeight">45.9</node>
-        <node name="LightLoad">26</node>
-        <node name="MediumLoad">53</node>
-        <node name="HeavyLoad">80</node>
-        <node name="LiftOverHead">80</node>
-        <node name="LiftOffGround">160</node>
-        <node name="LiftPushDrag">400</node>
+        <node name="LightLoad">100</node>
+        <node name="MediumLoad">200</node>
+        <node name="HeavyLoad">300</node>
+        <node name="LiftOverHead">300</node>
+        <node name="LiftOffGround">600</node>
+        <node name="LiftPushDrag">1500</node>
         <node name="Fort">+12</node>
         <node name="FortBase">10</node>
         <node name="FortAbility">2</node>
@@ -78,15 +80,15 @@
         <node name="WillMagic">0</node>
         <node name="WillMisc">0</node>
         <node name="WillTemp">0</node>
-        <node name="MBAB">+5</node>
+        <node name="MBAB">+10</node>
         <node name="MABBase">6</node>
-        <node name="MABStr">-1</node>
+        <node name="MABStr">4</node>
         <node name="MABSize">0</node>
         <node name="MABMisc">0</node>
         <node name="MABTemp">0</node>
-        <node name="GBAB">+5</node>
+        <node name="GBAB">+10</node>
         <node name="GABBase">6</node>
-        <node name="GABStr">-1</node>
+        <node name="GABStr">4</node>
         <node name="GABSize">0</node>
         <node name="GABMisc">0</node>
         <node name="GABTemp">0</node>
@@ -129,69 +131,69 @@
         <node name="Armor1Weight">20</node>
         <node name="Armor1Speed">30</node>
         <node name="Armor1Dex">7</node>
-        <node name="MaxRank">14</node>
-        <node name="MaxRankCC">7</node>
+        <node name="MaxRank">15</node>
+        <node name="MaxRankCC">7.5</node>
         <node name="Skill01">Appraise</node>
         <node name="Skill01Ab">Int</node>
-        <node name="Skill01Mod">+4</node>
-        <node name="Skill01AbMod">4</node>
+        <node name="Skill01Mod">+5</node>
+        <node name="Skill01AbMod">5</node>
         <node name="Skill01Rank">0</node>
         <node name="Skill01MiscMod">0</node>
         <node name="Skill01CheckPen">0</node>
         <node name="Skill02">Balance</node>
         <node name="Skill02Ab">Dex</node>
-        <node name="Skill02Mod">-4</node>
+        <node name="Skill02Mod">-1</node>
         <node name="Skill02AbMod">1</node>
         <node name="Skill02Rank">0</node>
         <node name="Skill02MiscMod">-2</node>
-        <node name="Skill02CheckPen">-3</node>
+        <node name="Skill02CheckPen">+0</node>
         <node name="Skill03">Bluff</node>
         <node name="Skill03Ab">Cha</node>
-        <node name="Skill03Mod">+11</node>
+        <node name="Skill03Mod">+12</node>
         <node name="Skill03AbMod">3</node>
-        <node name="Skill03Rank">8</node>
+        <node name="Skill03Rank">9</node>
         <node name="Skill03MiscMod">0</node>
         <node name="Skill03CheckPen">0</node>
         <node name="Skill04">Climb</node>
         <node name="Skill04Ab">Str</node>
-        <node name="Skill04Mod">-6</node>
-        <node name="Skill04AbMod">-1</node>
+        <node name="Skill04Mod">+2</node>
+        <node name="Skill04AbMod">4</node>
         <node name="Skill04Rank">0</node>
         <node name="Skill04MiscMod">-2</node>
-        <node name="Skill04CheckPen">-3</node>
+        <node name="Skill04CheckPen">+0</node>
         <node name="Skill05">Concentration</node>
         <node name="Skill05Ab">Con</node>
-        <node name="Skill05Mod">+16</node>
+        <node name="Skill05Mod">+17</node>
         <node name="Skill05AbMod">2</node>
-        <node name="Skill05Rank">14</node>
+        <node name="Skill05Rank">15</node>
         <node name="Skill05MiscMod">0</node>
         <node name="Skill05CheckPen">0</node>
         <node name="Skill06">Craft</node>
         <node name="Skill06Ab">Int</node>
-        <node name="Skill06Mod">+4</node>
-        <node name="Skill06AbMod">4</node>
+        <node name="Skill06Mod">+5</node>
+        <node name="Skill06AbMod">5</node>
         <node name="Skill06Rank">0</node>
         <node name="Skill06MiscMod">0</node>
         <node name="Skill06CheckPen">0</node>
         <node name="Skill07">Decipher Script</node>
         <node name="Skill07Ab">Int</node>
-        <node name="Skill07Mod">+7</node>
-        <node name="Skill07AbMod">4</node>
+        <node name="Skill07Mod">+8</node>
+        <node name="Skill07AbMod">5</node>
         <node name="Skill07Rank">1</node>
         <node name="Skill07MiscMod">2</node>
         <node name="Skill07CheckPen">0</node>
         <node name="Skill08">Diplomacy</node>
         <node name="Skill08Ab">Cha</node>
         <node name="Skill08CC">on</node>
-        <node name="Skill08Mod">+20</node>
+        <node name="Skill08Mod">+21</node>
         <node name="Skill08AbMod">3</node>
-        <node name="Skill08Rank">14</node>
+        <node name="Skill08Rank">15</node>
         <node name="Skill08MiscMod">3</node>
         <node name="Skill08CheckPen">0</node>
         <node name="Skill09">Disable Device</node>
         <node name="Skill09Ab">Int</node>
-        <node name="Skill09Mod">+4</node>
-        <node name="Skill09AbMod">4</node>
+        <node name="Skill09Mod">+5</node>
+        <node name="Skill09AbMod">5</node>
         <node name="Skill09Rank">0</node>
         <node name="Skill09MiscMod">0</node>
         <node name="Skill09CheckPen">0</node>
@@ -204,15 +206,15 @@
         <node name="Skill10CheckPen">0</node>
         <node name="Skill11">Escape Artist</node>
         <node name="Skill11Ab">Dex</node>
-        <node name="Skill11Mod">-4</node>
+        <node name="Skill11Mod">-1</node>
         <node name="Skill11AbMod">1</node>
         <node name="Skill11Rank">0</node>
         <node name="Skill11MiscMod">-2</node>
-        <node name="Skill11CheckPen">-3</node>
+        <node name="Skill11CheckPen">+0</node>
         <node name="Skill12">Forgery</node>
         <node name="Skill12Ab">Int</node>
-        <node name="Skill12Mod">+4</node>
-        <node name="Skill12AbMod">4</node>
+        <node name="Skill12Mod">+5</node>
+        <node name="Skill12AbMod">5</node>
         <node name="Skill12Rank">0</node>
         <node name="Skill12MiscMod">0</node>
         <node name="Skill12CheckPen">0</node>
@@ -239,11 +241,11 @@
         <node name="Skill15CheckPen">0</node>
         <node name="Skill16">Hide</node>
         <node name="Skill16Ab">Dex</node>
-        <node name="Skill16Mod">-4</node>
+        <node name="Skill16Mod">-1</node>
         <node name="Skill16AbMod">1</node>
         <node name="Skill16Rank">0</node>
         <node name="Skill16MiscMod">-2</node>
-        <node name="Skill16CheckPen">-3</node>
+        <node name="Skill16CheckPen">+0</node>
         <node name="Skill17">Intimidate</node>
         <node name="Skill17Ab">Cha</node>
         <node name="Skill17Mod">+9</node>
@@ -253,82 +255,82 @@
         <node name="Skill17CheckPen">0</node>
         <node name="Skill18">Jump</node>
         <node name="Skill18Ab">Str</node>
-        <node name="Skill18Mod">-6</node>
-        <node name="Skill18AbMod">-1</node>
+        <node name="Skill18Mod">+2</node>
+        <node name="Skill18AbMod">4</node>
         <node name="Skill18Rank">0</node>
         <node name="Skill18MiscMod">-2</node>
-        <node name="Skill18CheckPen">-3</node>
+        <node name="Skill18CheckPen">+0</node>
         <node name="Skill19">Knowledge: Arcana</node>
         <node name="Skill19Ab">Int</node>
         <node name="Skill19CC">on</node>
-        <node name="Skill19Mod">+18</node>
-        <node name="Skill19AbMod">4</node>
-        <node name="Skill19Rank">14</node>
+        <node name="Skill19Mod">+20</node>
+        <node name="Skill19AbMod">5</node>
+        <node name="Skill19Rank">15</node>
         <node name="Skill19MiscMod">0</node>
         <node name="Skill19CheckPen">0</node>
         <node name="Skill20">Knowledge: Architecture</node>
         <node name="Skill20Ab">Int</node>
         <node name="Skill20CC">on</node>
-        <node name="Skill20Mod">+5</node>
-        <node name="Skill20AbMod">4</node>
+        <node name="Skill20Mod">+6</node>
+        <node name="Skill20AbMod">5</node>
         <node name="Skill20Rank">1</node>
         <node name="Skill20MiscMod">0</node>
         <node name="Skill20CheckPen">0</node>
         <node name="Skill21">Knowledge: Dungeoneering</node>
         <node name="Skill21Ab">Int</node>
-        <node name="Skill21Mod">+5</node>
-        <node name="Skill21AbMod">4</node>
+        <node name="Skill21Mod">+6</node>
+        <node name="Skill21AbMod">5</node>
         <node name="Skill21Rank">1</node>
         <node name="Skill21MiscMod">0</node>
         <node name="Skill21CheckPen">0</node>
         <node name="Skill22">Knowledge: Geography</node>
         <node name="Skill22Ab">Int</node>
-        <node name="Skill22Mod">+5</node>
-        <node name="Skill22AbMod">4</node>
+        <node name="Skill22Mod">+6</node>
+        <node name="Skill22AbMod">5</node>
         <node name="Skill22Rank">1</node>
         <node name="Skill22MiscMod">0</node>
         <node name="Skill22CheckPen">0</node>
         <node name="Skill23">Knowledge: History</node>
         <node name="Skill23Ab">Int</node>
-        <node name="Skill23Mod">+5</node>
-        <node name="Skill23AbMod">4</node>
+        <node name="Skill23Mod">+6</node>
+        <node name="Skill23AbMod">5</node>
         <node name="Skill23Rank">1</node>
         <node name="Skill23MiscMod">0</node>
         <node name="Skill23CheckPen">0</node>
         <node name="Skill24">Knowledge: Local</node>
         <node name="Skill24Ab">Int</node>
-        <node name="Skill24Mod">+5</node>
-        <node name="Skill24AbMod">4</node>
+        <node name="Skill24Mod">+6</node>
+        <node name="Skill24AbMod">5</node>
         <node name="Skill24Rank">1</node>
         <node name="Skill24MiscMod">0</node>
         <node name="Skill24CheckPen">0</node>
         <node name="Skill25">Knowledge: Nature</node>
         <node name="Skill25Ab">Int</node>
-        <node name="Skill25Mod">+5</node>
-        <node name="Skill25AbMod">4</node>
+        <node name="Skill25Mod">+6</node>
+        <node name="Skill25AbMod">5</node>
         <node name="Skill25Rank">1</node>
         <node name="Skill25MiscMod">0</node>
         <node name="Skill25CheckPen">0</node>
         <node name="Skill26">Knowledge: Nobility</node>
         <node name="Skill26Ab">Int</node>
-        <node name="Skill26Mod">+5</node>
-        <node name="Skill26AbMod">4</node>
+        <node name="Skill26Mod">+6</node>
+        <node name="Skill26AbMod">5</node>
         <node name="Skill26Rank">1</node>
         <node name="Skill26MiscMod">0</node>
         <node name="Skill26CheckPen">0</node>
         <node name="Skill27">Knowledge: Religion</node>
         <node name="Skill27Ab">Int</node>
         <node name="Skill27CC">on</node>
-        <node name="Skill27Mod">+20</node>
-        <node name="Skill27AbMod">4</node>
-        <node name="Skill27Rank">14</node>
+        <node name="Skill27Mod">+22</node>
+        <node name="Skill27AbMod">5</node>
+        <node name="Skill27Rank">15</node>
         <node name="Skill27MiscMod">2</node>
         <node name="Skill27CheckPen">0</node>
         <node name="Skill28">Knowledge: The Planes</node>
         <node name="Skill28Ab">Int</node>
-        <node name="Skill28Mod">+18</node>
-        <node name="Skill28AbMod">4</node>
-        <node name="Skill28Rank">14</node>
+        <node name="Skill28Mod">+20</node>
+        <node name="Skill28AbMod">5</node>
+        <node name="Skill28Rank">15</node>
         <node name="Skill28MiscMod">0</node>
         <node name="Skill28CheckPen">0</node>
         <node name="Skill29">Listen</node>
@@ -340,11 +342,11 @@
         <node name="Skill29CheckPen">0</node>
         <node name="Skill30">Move Silently</node>
         <node name="Skill30Ab">Dex</node>
-        <node name="Skill30Mod">-4</node>
+        <node name="Skill30Mod">-1</node>
         <node name="Skill30AbMod">1</node>
         <node name="Skill30Rank">0</node>
         <node name="Skill30MiscMod">-2</node>
-        <node name="Skill30CheckPen">-3</node>
+        <node name="Skill30CheckPen">+0</node>
         <node name="Skill31">Open Lock</node>
         <node name="Skill31Ab">Dex</node>
         <node name="Skill31Mod">-1</node>
@@ -375,8 +377,8 @@
         <node name="Skill34CheckPen">0</node>
         <node name="Skill35">Search</node>
         <node name="Skill35Ab">Int</node>
-        <node name="Skill35Mod">+4</node>
-        <node name="Skill35AbMod">4</node>
+        <node name="Skill35Mod">+5</node>
+        <node name="Skill35AbMod">5</node>
         <node name="Skill35Rank">0</node>
         <node name="Skill35MiscMod">0</node>
         <node name="Skill35CheckPen">0</node>
@@ -389,16 +391,16 @@
         <node name="Skill36CheckPen">0</node>
         <node name="Skill37">Sleight of Hand</node>
         <node name="Skill37Ab">Dex</node>
-        <node name="Skill37Mod">-4</node>
+        <node name="Skill37Mod">-1</node>
         <node name="Skill37AbMod">1</node>
         <node name="Skill37Rank">0</node>
         <node name="Skill37MiscMod">-2</node>
-        <node name="Skill37CheckPen">-3</node>
+        <node name="Skill37CheckPen">+0</node>
         <node name="Skill38">Spellcraft</node>
         <node name="Skill38Ab">Int</node>
-        <node name="Skill38Mod">+20</node>
-        <node name="Skill38AbMod">4</node>
-        <node name="Skill38Rank">14</node>
+        <node name="Skill38Mod">+22</node>
+        <node name="Skill38AbMod">5</node>
+        <node name="Skill38Rank">15</node>
         <node name="Skill38MiscMod">2</node>
         <node name="Skill38CheckPen">0</node>
         <node name="Skill39">Spot</node>
@@ -417,23 +419,23 @@
         <node name="Skill40CheckPen">0</node>
         <node name="Skill41">Swim</node>
         <node name="Skill41Ab">Str</node>
-        <node name="Skill41Mod">-9</node>
-        <node name="Skill41AbMod">-1</node>
+        <node name="Skill41Mod">+2</node>
+        <node name="Skill41AbMod">4</node>
         <node name="Skill41Rank">0</node>
         <node name="Skill41MiscMod">-2</node>
-        <node name="Skill41CheckPen">-6</node>
+        <node name="Skill41CheckPen">0</node>
         <node name="Skill42">Tumble</node>
         <node name="Skill42Ab">Dex</node>
-        <node name="Skill42Mod">-4</node>
+        <node name="Skill42Mod">-1</node>
         <node name="Skill42AbMod">1</node>
         <node name="Skill42Rank">0</node>
         <node name="Skill42MiscMod">-2</node>
-        <node name="Skill42CheckPen">-3</node>
+        <node name="Skill42CheckPen">+0</node>
         <node name="Skill43">Use Magic Device</node>
         <node name="Skill43Ab">Cha</node>
         <node name="Skill43Mod">+3</node>
         <node name="Skill43AbMod">3</node>
-        <node name="Skill43Rank">0</node>
+        <node name="Skill43Rank">0.5</node>
         <node name="Skill43MiscMod">0</node>
         <node name="Skill43CheckPen">0</node>
         <node name="Skill44">Use Rope</node>
@@ -451,11 +453,13 @@
         <node name="Feat06">Improved Binding</node>
         <node name="Feat07">Corpse Crafter</node>
         <node name="Feat08">Twin Spell</node>
+        <node name="Feat09">Planar Touchstone</node>
+        <node name="Feat10">Landlord/Fearless</node>
         <node name="Feat12">Latent Dreamer</node>
         <node name="Feat13">Spirit Dissertation (1/day Speak W/Dead)</node>
         <node name="Feat14">Ghost Warped (Random when Incorporeal)</node>
         <node name="Feat15">Feeble (-2 Str, Dex, Con skills)</node>
-        <node name="Feat16">Soul Binding (3)</node>
+        <node name="Feat16">Soul Binding (8)</node>
         <node name="Feat17">Dark Knowledge (4/day)</node>
         <node name="Feat18">Dark Knowledge (Tactics)</node>
         <node name="Feat19">Taint Supression</node>
@@ -463,10 +467,13 @@
         <node name="Feat21">Tainted Casting (Fort DC 10+Lvl)</node>
         <node name="Feat22">Exploit Vestige</node>
         <node name="Feat23">Vestige Awareness (+2 Init on good pact)</node>
-        <node name="Feat24">Vestige Metamagic (1/day)</node>
-        <node name="Feat30">Taint: 13</node>
+        <node name="Feat24">Vestige Metamagic (2/day)</node>
+        <node name="Feat25">2 Vestiges (4 or lower)</node>
+        <node name="Feat26">Bound Vestige: Naberius</node>
+        <node name="Feat27">Bound Vestige: Astaroth or Tenebrous</node>
+        <node name="Feat30">Taint: 15, CL 17</node>
         <node name="Gear01">2 Ring of 3 Wishes (used)</node>
-        <node name="Gear02">4 Rings, 2 circlets, 1 mask, unident</node>
+        <node name="Gear02">4 Rings of Sustinence, 2 circlets of Wisdom +2, 1 artifact mask, unident</node>
         <node name="Gear03">15 Magical component candles</node>
         <node name="Gear04">Cold Weather Outfit</node>
         <node name="Gear04W">7</node>
@@ -501,35 +508,39 @@
         <node name="Gear27">3 Carts (one with lead lined false bottom)</node>
         <node name="Gear28">Many Holy Symbols, Three barrels (false bottoms)</node>
         <node name="Gear29">Bedroll, 1lb Soap, Everfull Mug, Everlasting Rations</node>
+        <node name="Gear30">11 rats in a rat cage</node>
         <node name="Gear31">Leather Barding for Warhorse</node>
         <node name="Gear32">Honeyleather 10ft Tent</node>
         <node name="Gear33">Sack Cloth and Lead covered sarcophagi (two)</node>
         <node name="Gear34">Ring of Protection +2, Ring of Sustenance</node>
         <node name="MagicDisp">on</node>
-        <node name="SpellDC0">23</node>
+        <node name="SpellDC0">25</node>
         <node name="SpellPerDay0">4</node>
-        <node name="SpellCast0">3</node>
-        <node name="SpellDC1">24</node>
+        <node name="SpellCast0">4</node>
+        <node name="SpellDC1">26</node>
         <node name="SpellPerDay1">5</node>
         <node name="BonusSpells1">2</node>
         <node name="SpellCast1">7</node>
-        <node name="SpellDC2">25</node>
+        <node name="SpellDC2">27</node>
         <node name="SpellPerDay2">5</node>
         <node name="BonusSpells2">2</node>
-        <node name="SpellCast2">7</node>
-        <node name="SpellDC3">26</node>
-        <node name="SpellPerDay3">4</node>
-        <node name="BonusSpells3">1</node>
-        <node name="SpellCast3">5</node>
-        <node name="SpellDC4">27</node>
+        <node name="SpellCast2">6</node>
+        <node name="SpellDC3">28</node>
+        <node name="SpellPerDay3">5</node>
+        <node name="BonusSpells3">2</node>
+        <node name="SpellCast3">4</node>
+        <node name="SpellDC4">29</node>
         <node name="SpellPerDay4">4</node>
         <node name="BonusSpells4">1</node>
         <node name="SpellCast4">5</node>
-        <node name="SpellDC5">28</node>
+        <node name="SpellDC5">30</node>
         <node name="SpellPerDay5">3</node>
         <node name="BonusSpells5">1</node>
         <node name="SpellCast5">5</node>
-        <node name="SpellCast6">0</node>
+        <node name="SpellDC6">31</node>
+        <node name="SpellPerDay6">2</node>
+        <node name="BonusSpells6">1</node>
+        <node name="SpellCast6">3</node>
         <node name="SpellCast7">0</node>
         <node name="SpellCast8">0</node>
         <node name="SpellCast9">0</node>
@@ -541,7 +552,7 @@
         <node name="Spell02Cast">1</node>
         <node name="Spell03">Read Magic</node>
         <node name="Spell03Level">0</node>
-        <node name="Spell03Cast">1</node>
+        <node name="Spell03Cast">0</node>
         <node name="Spell04">Purify Food and Drink </node>
         <node name="Spell04Level">0</node>
         <node name="Spell04Cast">0</node>
@@ -550,21 +561,22 @@
         <node name="Spell05Cast">0</node>
         <node name="Spell06">Mending</node>
         <node name="Spell06Level">0</node>
-        <node name="Spell06Cast">0</node>
+        <node name="Spell06Cast">1</node>
         <node name="Spell07">Prestidigitation</node>
         <node name="Spell07Level">0</node>
-        <node name="Spell07Cast">1</node>
+        <node name="Spell07Cast">2</node>
         <node name="Spell09">Lesser Vigor</node>
         <node name="Spell09Level">1</node>
-        <node name="Spell09Cast">3</node>
+        <node name="Spell09Cast">1</node>
         <node name="Spell10">Scholar&#039;s Touch</node>
         <node name="Spell10Level">1</node>
-        <node name="Spell10Cast">1</node>
+        <node name="Spell10Cast">5</node>
         <node name="Spell11">Divine Favor</node>
         <node name="Spell11Level">1</node>
         <node name="Spell11Cast">0</node>
-        <node name="Spell12">Snowshoes</node>
+        <node name="Spell12">Snowshoes/Wieldskill</node>
         <node name="Spell12Level">1</node>
+        <node name="Spell12Cast">0/0</node>
         <node name="Spell13">Obscuring Mist</node>
         <node name="Spell13Level">1</node>
         <node name="Spell14">Endure Elements</node>
@@ -573,34 +585,35 @@
         <node name="Spell15Level">1</node>
         <node name="Spell16">Hide From Undead</node>
         <node name="Spell16Level">1</node>
-        <node name="Spell16Cast">1</node>
+        <node name="Spell16Cast">0</node>
         <node name="Spell17">Comprehend Languages</node>
         <node name="Spell17Level">1</node>
+        <node name="Spell17Cast">1</node>
         <node name="Spell18">Detect Evil</node>
         <node name="Spell18Level">1</node>
-        <node name="Spell18Cast">1</node>
+        <node name="Spell18Cast">0</node>
         <node name="Spell19">Grease</node>
         <node name="Spell19Level">1</node>
-        <node name="Spell19Cast">1</node>
+        <node name="Spell19Cast">0</node>
         <node name="Spell21">Glitterdust</node>
         <node name="Spell21Level">2</node>
-        <node name="Spell21Cast">2</node>
+        <node name="Spell21Cast">1</node>
         <node name="Spell22">Shatter</node>
         <node name="Spell22Level">2</node>
         <node name="Spell22Cast">0</node>
-        <node name="Spell23">Auguery</node>
+        <node name="Spell23">Augury/Divine Insight</node>
         <node name="Spell23Level">2</node>
-        <node name="Spell23Cast">0</node>
-        <node name="Spell24">Divine Insight</node>
+        <node name="Spell23Cast">0/1</node>
+        <node name="Spell24">Alter Self</node>
         <node name="Spell24Level">2</node>
         <node name="Spell24Cast">1</node>
         <node name="Spell25">Spiritual Weapon</node>
         <node name="Spell25Level">2</node>
-        <node name="Spell25Cast">1</node>
-        <node name="Spell26">Unseen Crafter</node>
+        <node name="Spell25Cast">0</node>
+        <node name="Spell26">Unseen Crafter/Black Sand</node>
         <node name="Spell26Level">2</node>
-        <node name="Spell26Cast">2</node>
-        <node name="Spell27">Black Sand </node>
+        <node name="Spell26Cast">3/0</node>
+        <node name="Spell27">Gentle Repose</node>
         <node name="Spell27Level">2</node>
         <node name="Spell27Cast">0</node>
         <node name="Spell28">Minor Image</node>
@@ -608,22 +621,22 @@
         <node name="Spell28Cast">0</node>
         <node name="Spell29">Make Whole</node>
         <node name="Spell29Level">2</node>
-        <node name="Spell29Cast">0</node>
+        <node name="Spell29Cast">1</node>
         <node name="Spell30">Silence</node>
         <node name="Spell30Level">2</node>
         <node name="Spell30Cast">0</node>
         <node name="Spell31">Animate Dead</node>
         <node name="Spell31Level">3</node>
-        <node name="Spell31Cast">1</node>
+        <node name="Spell31Cast">0</node>
         <node name="Spell32">Removed Disease</node>
         <node name="Spell32Level">3</node>
         <node name="Spell32Cast">1</node>
         <node name="Spell33">Create Food and Water</node>
         <node name="Spell33Level">3</node>
-        <node name="Spell33Cast">0</node>
+        <node name="Spell33Cast">1</node>
         <node name="Spell34">Dispel Magic</node>
         <node name="Spell34Level">3</node>
-        <node name="Spell34Cast">0</node>
+        <node name="Spell34Cast">1</node>
         <node name="Spell35">Remove Curse</node>
         <node name="Spell35Level">3</node>
         <node name="Spell35Cast">0</node>
@@ -632,13 +645,13 @@
         <node name="Spell36Cast">0</node>
         <node name="Spell37">Lesser Mass Vigor</node>
         <node name="Spell37Level">3</node>
-        <node name="Spell37Cast">1</node>
+        <node name="Spell37Cast">0</node>
         <node name="Spell38">Shrink Item</node>
         <node name="Spell38Level">3</node>
-        <node name="Spell38Cast">1</node>
-        <node name="Spell39">Speak with Dead</node>
+        <node name="Spell38Cast">0</node>
+        <node name="Spell39">Speak with Dead/Heart&#039;s Ease</node>
         <node name="Spell39Level">3</node>
-        <node name="Spell39Cast">0</node>
+        <node name="Spell39Cast">0/3</node>
         <node name="Spell40">Wrack</node>
         <node name="Spell40Level">3</node>
         <node name="Spell40Cast">1</node>
@@ -647,13 +660,13 @@
         <node name="Spell42Cast">0</node>
         <node name="Spell43">Restoration</node>
         <node name="Spell43Level">4</node>
-        <node name="Spell43Cast">1</node>
+        <node name="Spell43Cast">2</node>
         <node name="Spell44">Consumptive Field</node>
         <node name="Spell44Level">4</node>
         <node name="Spell44Cast">1</node>
         <node name="Spell45">Magic Weapon, Greater</node>
         <node name="Spell45Level">4</node>
-        <node name="Spell45Cast">3</node>
+        <node name="Spell45Cast">2</node>
         <node name="Spell47">Plane Shift</node>
         <node name="Spell47Level">5</node>
         <node name="Spell47Cast">1</node>
@@ -662,23 +675,30 @@
         <node name="Spell48Cast">1</node>
         <node name="Spell49">Symbol of Sleep</node>
         <node name="Spell49Level">5</node>
-        <node name="Spell49Cast">2</node>
+        <node name="Spell49Cast">1</node>
         <node name="Spell50">Wall of Stone</node>
         <node name="Spell50Level">5</node>
-        <node name="Spell50Cast">1</node>
-        <node name="Spell60">Alter Self</node>
-        <node name="Spell60Level">2</node>
-        <node name="Spell60Cast">1</node>
+        <node name="Spell50Cast">2</node>
+        <node name="Spell52">Wall of Iron</node>
+        <node name="Spell52Level">6</node>
+        <node name="Spell52Cast">2</node>
+        <node name="Spell53">Symbol of Persuasion</node>
+        <node name="Spell53Level">6</node>
+        <node name="Spell53Cast">1</node>
+        <node name="Spell57">Persisted/Extended Spells:</node>
+        <node name="Spell58">Lesser Mass Vigor</node>
+        <node name="Spell59">Consumptive Field</node>
+        <node name="Spell60">Divine Favor, Read Magic</node>
         <node name="CashPP">0</node>
-        <node name="CashPPParty">1</node>
+        <node name="CashPPParty">104</node>
         <node name="CashGP">81</node>
-        <node name="CashGPParty">8424</node>
+        <node name="CashGPParty">9212</node>
         <node name="CashSP">12</node>
-        <node name="CashSPParty">200</node>
+        <node name="CashSPParty">708</node>
         <node name="CashCP">0</node>
         <node name="CashCPParty">800</node>
         <node name="CashTotal">82.2</node>
-        <node name="CashTotalParty">8462</node>
+        <node name="CashTotalParty">10330.8</node>
         <node name="Lang1">Common</node>
         <node name="Lang2">Abyssal</node>
         <node name="Lang3">Draconic</node>
@@ -718,12 +738,12 @@ Scrolls (Divine): Shrink Item, Alter Self, Glitterdust, Grease, Presitidigitatio
 102 Hit Points
 Init +6
 Speed 40&#039;
-AC 15 (-1 Size, +4 Dex, +2 Natural), Touch 11, Flat Foot 11
+AC 18 (-1 Size, +4 Dex, +2 Natural, +3 Hide Armor), Touch 11, Flat Foot 11
 Base Attack/Grapple +6/+25
 Attack: Claw +18 melee (2d4+12)
 Full Attack: 2 Claws +17 melee (2d4+12) and Bite +12 (2d8+6)
 Space/Reach 10ft/5ft
-Special Qualities: Immune to Cold, DR 5/Bludgeoning
+Special Qualities: Immune to Cold, DR 5/Bludgeoning, Vile Damage Claw (One Bear)
 Saves: Fort +4, Ref +8, Will +8
 Abilities:  Str 35, Dex 19, Con -, Int -, Wis 10, Cha 1
 Feats: Improved Initiative
@@ -740,16 +760,80 @@ Antique Spellbook
 
 Spells I want
 
-Sign (Clr 1), Wieldskill (Clr 1), Obscuring Snow (Clr 2 , Dru 2),  Guidance of the Avatar (Cleric 2),  Anyspell (Magic 3), Continual Flame (Adept or Cleric 3), Invisibility Purge (Cleric 3), Hallow (Cleric or Druid 5),  Righteous Wrath of the Faithful (Cleric 5), Greater Anyspell (Magic 6), Pass Without Trace (Shugenja 1, Druid 1, Ranger 1), Disguise Self (Shugenja 1), Rivivify (Healer 5, Cleric 5),  Freedom of Movement (Healer 4, Cleric 4, Drd 4, Rng 4), Speak With Animals (Healer 1, Drd 1, Rng 1), Adoration of the Frightful (Clr 3), Soul of Shadow (Blackguard 2, Clr 3), Vision of the Omniscient Eye (Clr 3, Dru 3), Mass Resist Energy (Clr 3, Dru 3), Skull of Secrets (Clr 4), Favor of Ilmater (Clr 4, Pal 4)
+Heat Water (Clr 0), Resize (Clr 0), Audible Artisan (Clr 1), Detect Violence (Clr 1), Divine Favor (Clr 1), Extract Drug (Clr 1), Holy Defense (Clr 1, Pal 1), Sign (Clr 1), Traveler&#039;s Shoes (Clr 1),  Witness of the True (Clr 1), Avoid Planar Effects (Clr 2), Benediction (Clr 2), Darkness (Clr 2), Desecrate (Clr 2), Elation (Clr 2), Enhance Weapons (Clr 2, Pal 2), Fertility (Clr 2), Festival Feast (Clr 2), Guidance of the Avatar (Cleric 2), Locate Touchstone (Clr 2, Brd 1, Dru 1), Lore of the Gods (Clr 2), Obscuring Snow (Clr 2 , Dru 2), Zone of Truth (Clr 2, Pal 2), Adoration of the Frightful (Clr 3), Analyze Touchstone (Clr 3), Attune Form (Clr 3), Augment Object (Clr 3), Continual Flame (Adept or Cleric 3),   Favorable Sacrifice (Clr 3),  Immerse Mind (Clr 3), Invisibility Purge (Cleric 3), Mass Resist Energy (Clr 3, Dru 3), Shackle (Clr 3), Skull Watch (Clr 3), Stone Shape (Clr 3), Stonesight (Clr 3), Rain of Terror (Clr 3), Rockburst (Clr 3, Spirit Shaman 2), Soul of Shadow (Blackguard 2, Clr 3), Vision of the Omniscient Eye (Clr 3, Dru 3), Animate Undead Legion (Clr 4), Black Binding (Clr 4), Delay Death (Clr 4), Dismissal (Clr 4, Balance 4), Divine Power (Clr 4, Competition 4, War 4), Enhance Armors (Clr 4), Favor of Ilmater (Clr 4, Pal 4), Feed the Many (Clr 4), Freedom of Movement (Healer 4, Cleric 4, Drd 4, Rng 4), Glowing Orb (Clr 4), Identify Transgressor (Clr 4), Plague Cloud (Clr 4), Revenance (Clr 4),  Shape Metal (Clr 4), Skull of Secrets (Clr 4), Stone Metamorphosis (Clr 4, Dru 4), Wall of Salt (Clr 4), Elemental Guardian (Clr 5), Ensnare the Heart (Clr 5), Extract Gift (Clr 5), Greater Stone Shape (Cleric 5), Hallow (Cleric or Druid 5),  Haunt Shift (Cleric 5), Hibernate (Clr 5), Mark of Justice (Clr 5, Pal 4), Mule&#039;s Enlightenment (Clr 5), Parboil (Clr 5), Past-Seeing (Clr 5), Righteous Wrath of the Faithful (Cleric 5), Rivivify (Healer 5, Cleric 5), Sacred Guardian (Cleric 5), Scrying (Clr 5, Oracle 4), Soul Anchor (Clr 5), Stalwart Pact (Clr 5), Superior Resistance (Clr 5, Dru 5), Wall of Magma (Clr 5), Algid Enhancement (Clr 6), Banishment (Clr 6), Call Faithful Servants (Clr 6), Cloak of Hate (Clr 6), Create Bad-Corpse Dust (Clr 6), Create Undead (Clr 6), Forbiddance (Clr 6),  Gambler&#039;s Luck (Clr 6), Geas/Quest (Clr 6, Despot 4), Greater Dispel Magic (Clr 6), Greater Magic Circle (Clr 6), Harm (Clr 6), Heal (Clr 6), Hero&#039;s Feast (Clr 6), Revive Outsider (Cleric 6), Wall of Tentacles (Clr 6), Planar Bubble (Clr 7), Refuge (Clr 7), Renewal Pact (Clr 7), Greater Scrying (Clr 7), Minor Servitor (Clr 7), Stone Trap (Clr 7), Stone Walk (Clr 6), Symphonic Nightmare (Clr 7), Create Greater Undead (Clr 8, Undead 8), Holy Aura (Clr 8)
 
- Lay of the Land (Ranger 1), Primal Hunter (Ranger 1), Smell of Fear (Rng 1), Primal Instinct (Ranger 2), Hunter&#039;s Eye (Ranger 2),Primal Senses (Ranger 3), Primal Speed (Ranger 4), Bloodfreeze Arrow (Rng 4), Doublestrike Arrow (Rng 4), 
+Disguise Self (Trickery 1), Command Undead (Undead 2), Ghoul Glyph (Hunger 2),   Secret Page (Rune 2, Bard 3), Anyspell (Magic 3), Distilled Joy (Joy 3), Glyph of Warding (Dwarf 3, Rune 3, Clr 4), Ray of Exhaustion (Oppression 3), Recitation (Purification 3, Clr 4), Slow Death (Death 3), Armor of Darkness (Darkness 4), Explosive Runes (Rune 4), Shadow Conjuration (Shadow 4, Bard 4), Lesser Planar Binding (Rune 5), Permanancy (Time 5), Skyline Runner (City 5), Wall of Iron (Metal 5, Earth Shugenja 5), Teleport (Portal 5, Travel 5), Shadow Evocation (Shadow 5, Bard 5), Awaken Undead (Deathbound 6), Contingency (Time 6), Greater Anyspell (Magic 6), Control Undead (Undeath 7), Greater Shadow Conjuration (Shadow 7), Greater Teleport (Travel 7), Hardening (Artifice 7), Limited Wish (Spell 7), Foresight (Mentalism 8, Mind 8, Time 8), Greater Shadow Evocation (Shadow 8), Mindblank (Trade 8), Polymorph Any Object (Transformation 8, Trickery 8), True Creation (Artifice 8, Creation 8), Monstrous Thrall (Domination 9), Shades (Shadow 9)
 
-Soul of Order (Pal 1), Warning Shout (Pal 1), Righteous Fury (Paladin 2), Greater Magic Weapon (Pal 3), Draconic Might (Paladin 4), Favor of the Martyr (Paladin 4), 
+Lahm&#039;s Finger Darts (Corrupt 2), Absorb Mind (Corrupt 3), Forbidden Speech (Corrupt 5), Power Leech (Corrupt 5), Consume Likeness (Corrupt 6), Vileblade (Corrupt 6), Curse of Pain Eternal (Corrupt 7), Rapture of Rupture (Corrupt 7), 
 
-Web (Adept 2),  Scorching Ray (Adept 2)Tongues (Adept 3), Lightning Bolt (Adept 3),  Heal (Adept 5),
+Alarm (Rng 1, Urban Druid 1, Wealth 1), Lay of the Land (Ranger 1), Primal Hunter (Ranger 1), Smell of Fear (Rng 1), Primal Instinct (Ranger 2), Hunter&#039;s Eye (Ranger 2), Darkvision (Rng 3), Primal Senses (Ranger 3), Primal Speed (Ranger 4), Bloodfreeze Arrow (Rng 4), Doublestrike Arrow (Rng 4), 
 
-Snowsight (Dru 1, Rng 1), Entangle (Dru 1 or Rng 1), Blinding Spittle (Dru 2), Creeping Cold (Dru 2), Downdraft (Dru 2), Kelpstrand (Dru 2), Arc of Lightning (Dru 4), Boreal Wind (Druid 4), Bite of the Weretiger (Dru 5), Owl&#039;s Insight (Dru 5), Phantom Stag (Dru 5), Wind Tunnel (Dru 5), 
+Soul of Order (Pal 1), Warning Shout (Pal 1), Righteous Fury (Paladin 2), Greater Magic Weapon (Pal 3), Break Enchantment (Paladin 4, Despot 4), Dominate Person (Despot 4, Brd 4), Door to Great Evil (Pal 4), Draconic Might (Paladin 4), Favor of the Martyr (Paladin 4), 
 
-Sepia Snake Sigil (Brd 3)</node>
+Web (Adept 2),  Scorching Ray (Adept 2)Tongues (Adept 3, Commerce 3), Lightning Bolt (Adept 3),  Heal (Adept 5),
+
+Agasha&#039;s Touch (Druid 0, Shaman 0, Shugenja 0), Arm (Druid 1), Keen Hearing (Dru 1), Snowsight (Dru 1, Rng 1), Entangle (Dru 1 or Rng 1), Pass Without Trace (Shugenja 1, Druid 1, Ranger 1), Speak With Animals (Healer 1, Drd 1, Rng 1),  Blinding Spittle (Dru 2), Creeping Cold (Dru 2), Downdraft (Dru 2), Kelpstrand (Dru 2), Scent (Dru 2, Rng 2), Wood Shape (Dru 2, Artifice 2, Craft 2), Animal Form (Dru 3, Clr 4), Camel&#039;s Tenacity (Dru 3, Clr 4), Coral Growth (Dru 3), Embrace the Wild (Dru 3, Rng 3), Plant Growth (Dru 3, Rng3, Plant 3), Treasure Scent (Dru 3), Arc of Lightning (Dru 4), Boreal Wind (Druid 4), Improved Blindsight (Dru 4), Restore Nature (Dru 4, Clr 5), Remember (Dru 4), Slipsand (Dru 4, Rng 4),  Bite of the Weretiger (Dru 5), Commune with Nature (Dru 5), Fabricate (Urban Druid 5, Artifice 5, Dwarf 5, Trade 5, Greed 5), Mantle of the Icy Soul (Dru 5, Clr 6), Owl&#039;s Insight (Dru 5), Phantom Stag (Dru 5), Transmute Sand to Stone (Dru 5), Transmute Stone to Sand (Dru 5), Wind Tunnel (Dru 5), Fey Ring (Brd 6, Dru 6, Clr 7), Undermaster (Dru 9)
+
+Create Spring (Shaman 2), 
+
+Feathered Footfalls (Brd 1), Immediate Assistance (Brd 1), Good Luck (Brd 2), Burden (Brd 3), Glibness (Brd 3, Urban Druid 3, Commerce 4), Listening Coin (Brd 3), Moral Facade (Brd 3, Clr 4, Pal 4), Ray of Dizziness (Brd 3), Sepia Snake Sigil (Brd 3), Anamensis (Brd 4), Beacon (Bard 4), Modify Memory (Brd 4, Mentalism 4), Permanent Image (Brd 6, Creation 7, Air Shugenja 6, Moon 6)
+
+ Disguise Self (Shugenja 1), Anvil of the Kami (Earth Shugenja 3), Symbol of Air (Air Shugenja 5), Symbol of Earth (Earth Shugenja 5), Symbol of Water (Water Shugenja 5), Contingency (Water Shugenja 6), Forever Secret (Air Shugenja 6), The Seed of Quanon (Water Shugenja 6, Sor/Wiz 6), Laughter of the Risen Earth (Earth Shugenja 7), Ring of Air (Air Shugenja 9), Ring of Earth (Earth Shugenja 9), Ring of Fire (Fire Shugenja 9), Ring of Void (Void Shugenja 9), Ring of Water (Water Shugenja 9)The Mirror&#039;s Smile (Air Shugenja 9)
+
+A Moment Ago (Sor/Wiz 1), Clothier&#039;s Closet (Sor/Wiz 2), Create Magic Tattoo (Sor/Wiz 2), Darsson&#039;s Chilling Chamber (Sor/Wiz 2), Darsson&#039;s Fiery Furnace (Sor/Wiz 2), Ray of Stupidity (Sor/Wiz 2), Improved Arcane Lock (Sor/Wizard 3), Transparency (Sor/Wiz 3), Awaken the Mind (Sor/Wiz 4), Clou&#039;s Closet (Sor/Wiz 4), Magic Jar (Wiz/Sor 5, Envy 6, Spirit 6), Touch of Vecna (Sor/Wiz 5), Animate Dread Warrior (Sor/Wizard 6), Steal Life (Sor/Wiz 8)
+
+Books Read: 15 books on Lady Death, the Dark Goddess.  Hundreds of  books on mental health.  Many books of children&#039;s Tales about morality.  Many books on death and evil.  Many books on herbs.
+
+Astaroth:
+
+Sign: Your skin yellows, and you emit a foul, unwashed odor. While this odor is not strong enough to impede or distract an opponent, it does attract attention.
+
+Influence: Astaroth&#039;s influence renders you incapable of taking responsibility for your own actions. You cannot admit any fault, acknowledge any mistake, or make reparations or apologies for any wrong, no matter the consequences or the evidence against you.
+
+Granted Abilities:
+
+Angelic Lore: Astaroth constantly whispers the secrets of reality in the back of your mind, allowing you to draw on his own nigh-infinite knowledge. This functions as the bardic knowledge ability (PH 28), based on your effective binder level.
+
+Astaroth&#039;s Breath: Once every 5 rounds, you can exhale a 60-foot cone of foul-smelling gas. Creatures within the cone must make a Fortitude save or be nauseated for 1 round and sickened for an additional 1d4 rounds. Those who make the save are merely sickened for 1 round. Creatures immune to poison or disease are immune to this effect.
+
+Honeyed Tongue: You gain a +4 competence bonus on Bluff, Diplomacy, and Intimidate checks.
+
+Master Craftsman: While bound to Astaroth, you gain a +4 competence bonus on all Craft checks. In addition, each time you bind with Astaroth, you may select one item creation feat as a temporary bonus feat. So long as you continue to bind with Astaroth, you may use that feat as though you possessed it normally; you must still spend all standard gold and XP for any item you create, and you must still provide all necessary spells for a given item.
+
+If your effective binder level is not at least as high as the necessary caster level to take a specific item creation feat, you cannot choose that feat. For instance, a 4th-level binder could not choose any item creation feat with a prerequisite of caster level 5th or higher.
+
+Word of Astaroth: You may make a suggestion, as the spell, with a caster level equal to your effective binder level. You must wait 5 rounds before attempting another suggestion, and at any given time, you may only have a total number of people under the effects of this ability equal to your Charisma bonus.
+
+----------------
+Landlord Funds: 250kgp
+
+Stuff taken from Asylum:
+Potions of Remove Disease, Cure Light Wounds, Cure Moderate Wounds, Cure Serious Wounds, Cure Critical Wounds
+Scrolls of Dimensional Anchor, Gust of Wind, Mirror Image, Shrink Item (CL 7)
+425pp
+9996gp
+3863sp
+150 gp Pearl, 100gp Pearl
+Six 250gp Agates
+2 500gp Rubies
+500gp Powdered Platinum
+350gp Powdered Silver
+100gp Powdered Gold
+5gp Powdered Sulfur
+225gp Ivory Comb
+250gp in cologne and perfumes 
+Heraladus&#039;s clothing (fine robes and shirts worth 200gp)
++2 Buckler
++2 Short Sword of Shock
++4 Belt of Giant Strength
+2 Stonestrong Hammers (+2 Warhammer, +8 Competancy bonus to Craft Stonemasonry)
+4X Sleep Arrow
+Wand of Flame Arrow (22 Charges)
+Wool Blankets, White Linen Shirts, Lumber, Stone Blocks, Construction Tools
+Outstanding Set of Gem Cutting and Masonry Tools
+2 sets Precision Tools for fine detail work on portal worth 100gp each
+2 Oil of Taggit (Ingested DC 15, Secondary Unconscious) 90gp
+1 Carrion Crawler Brain Juice (Contact DC 13 Paralysis) 200gp
+1 Dragon Bile (Contact DC 26, 3d6 Str) 1500gp</node>
     </data>
 </character>

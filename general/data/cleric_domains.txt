@@ -1,0 +1,251 @@
+Abyss
+Air
+Animal
+Arborea
+Arcane
+Army
+Artifice
+Assassination
+Baator
+Balance
+Bestial
+Blackwater
+Cavern
+Celerity
+Celestial
+Chaos
+Charm
+Chill
+City
+Cold
+Commerce
+Community
+Community'
+Competition
+Corruption
+Courage
+Craft
+Creation
+Darkness
+Death
+Deathbound
+Deathless
+Decay
+Demonic
+Destiny
+Destruction
+Diabolic
+Divine
+Domination
+Dragon
+Dragon Below
+Dream
+Drow
+Dwarf
+Earth
+Elf
+Elysium
+Endurance
+Entropy
+Envy
+Ethics
+Evil
+Exorcism
+Family
+Fate
+Feast
+Ferocity
+Fey
+Fire
+Force
+Fury
+Ghost
+Glory
+Gluttony
+Gnome
+Good
+Greed
+Guarding
+Hades
+Halfling
+Hatred
+Healing
+Herald
+Horiuchi School
+Hunger
+Illusion
+Incarnum
+Initiate of Aasterinian
+Initiate of Amaunator
+Initiate of Anhur
+Initiate of Anhur (ranger only)
+Initiate of Arvoreen
+Initiate of Astilabor
+Initiate of Bahamut
+Initiate of Bane
+Initiate of Baravar Cloakshadow
+Initiate of Boccab
+Initiate of Boccob
+Initiate of Cyric
+Initiate of Ehlonna
+Initiate of Eilistraee
+Initiate of Erythnul
+Initiate of Falazure
+Initiate of Fharlanghn
+Initiate of Garyx
+Initiate of Ghaunadaur
+Initiate of Gond
+Initiate of Gruumsh
+Initiate of Heironeous
+Initiate of Helm
+Initiate of Hextor
+Initiate of Hlal
+Initiate of Horus-Re
+Initiate of Horus-Re (Cleric only)
+Initiate of Horus-Re (Paladin and Ranger only)
+Initiate of Ilmater
+Initiate of Io
+Initiate of Kord
+Initiate of Kossuth
+Initiate of Lathander
+Initiate of Lendys
+Initiate of Loviatar
+Initiate of Malar
+Initiate of Milil
+Initiate of Mystra
+Initiate of Nature
+Initiate of Nerull
+Initiate of Nobanion
+Initiate of Obad-Hai
+Initiate of Pelor
+Initiate of Selune
+Initiate of Selûne
+Initiate of Shar
+Initiate of St. Cuthbert
+Initiate of Tamara
+Initiate of Tchazzar
+Initiate of the Holy Realm
+Initiate of Tiamat
+Initiate of Torm
+Initiate of Torm (Cleric only)
+Initiate of Torm (Paladin only)
+Initiate of Tymora
+Initiate of Tyr
+Initiate of Varae
+Initiate of Vecna
+Initiate of Wee Jas
+Injustice
+Inquisition
+Inspiration
+Invigoration
+Journey
+Joy
+Kanosei Furudera School
+Knowledge
+Law
+Liberation
+Life
+Limbo
+Love
+Luck
+Lust
+Madness
+Magic
+Meditation
+Mentalism
+Mercy
+Metal
+Mind
+Misfortune
+Moon
+Moon (Veshemo)
+Moshi School
+Mysticism
+Mysticism (Evil)
+Mysticism (Good)
+Nature (Divine Masters)
+Necromancy
+Night
+Nobility
+Oblivion
+Ocean
+Ooze
+Oppression
+Oracle
+Orc
+Order of the All-Seeing Eye
+Order of the Consuming Flame
+Order of the Forbidding Wasteland
+Order of the Gentle Rain
+Order of the Impenetrable Crucible
+Order of the Ineffable Mystery
+Order of the Perfect Sculpture
+Order of the Spring Zephyr
+Pact
+Pain
+Passion
+Pestilence
+Planning
+Plant
+Pleasure
+Pondering
+Portal
+Portal'
+Pride
+Profit
+Protection
+Purification
+Radiance
+Renewal
+Repose
+Retribution
+Rune
+Sand
+Scalykind
+Scorn
+Seafolk
+Shadow
+Sky
+Slime
+Sloth
+Spell
+Spider
+Spirit
+Spite
+Stealth
+Storm
+Strategy
+Strength
+Suffering
+Summer
+Summoner
+Sun
+Tempest
+Temptation
+Terror
+Thirst
+Time
+Timing
+Trade
+Transformation
+Travel
+Trickery
+Truth
+Tyranny
+Tyrant
+Undead
+Undeath
+Underworld
+Vice
+Void
+War
+Water
+Watery Death
+Wealth
+Weather
+Weather'
+Windstorm
+Winter
+Wrath
+Yogo School
+Yoritomo School
