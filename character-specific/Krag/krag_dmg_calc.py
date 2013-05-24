@@ -22,6 +22,7 @@
 from weapons.shield import shield_attack
 from weapons.gore import gore_attack
 from weapons.boulder import throw_boulder
+from weapons.dice_rolling import general_dc_roll
 import xml.etree.ElementTree as ET
 import re
 
@@ -67,23 +68,43 @@ def stat_grabber(character_sheet):
     return relevent_stats
 
 
+def damage_summary(total_damage, cleave_damage):
+    #Print out damage summary!
+    print "\n\n%s####Damage done this round####" % colorz.RED
+    if total_damage:
+        print "\nRegular Damage: "
+        if 'shield' in total_damage:
+            print "-Shield:"
+            for target in total_damage['shield'].keys():
+                print "--%s: %d" % (target, total_damage['shield'][target])
+
+            if not total_damage['shield']:
+                print "-- None"
+
+        if 'gore' in total_damage:
+            print "-Gore: %d" % total_damage['gore']
+
+        if 'boulder' in total_damage:
+            print "-Boulder: %d" % total_damage['boulder']
+
+    if cleave_damage:
+        print "\nCleave Damage: "
+        if 'shield' in cleave_damage:
+            print "-Shield:"
+            for target in cleave_damage['shield'].keys():
+                print "--%s: %d" % (target, cleave_damage['shield'][target])
+
+            if not cleave_damage['shield']:
+                print "-- None"
+
+        if 'gore' in cleave_damage:
+            print "-Gore: %d" % cleave_damage['gore']
+    print colorz.YELLOW
+
+
 ###############
 # MAIN METHOD #
 ###############
-
-character_sheet = "../../character-sheets/Krag.xml"
-relevent_stats = stat_grabber(character_sheet)
-print relevent_stats
-
-char_stats = {}
-
-char_stats['HD'] = int(relevent_stats['hd'])
-char_stats['StrMod'] = int(relevent_stats['StrMod'])
-char_stats['ConMod'] = int(relevent_stats['ConMod'])
-if relevent_stats['StrTempMod']:
-    char_stats['StrMod'] = int(relevent_stats['StrTempMod'])
-char_stats['BAB'] = int(relevent_stats['bab'])
-
 STR_check_size = {
     'Fine': -16,
     'Diminutive': -12,
@@ -105,6 +126,19 @@ attack_based_size = {
     'Gargantuan': -4,
     'Colossal': -8}
 
+character_sheet = "../../character-sheets/Krag.xml"
+relevent_stats = stat_grabber(character_sheet)
+print relevent_stats
+
+char_stats = {}
+
+char_stats['HD'] = int(relevent_stats['hd'])
+char_stats['StrMod'] = int(relevent_stats['StrMod'])
+char_stats['ConMod'] = int(relevent_stats['ConMod'])
+if relevent_stats['StrTempMod']:
+    char_stats['StrMod'] = int(relevent_stats['StrTempMod'])
+char_stats['BAB'] = int(relevent_stats['bab'])
+
 #Use a dict for these
 char_stats['StrSizeMod'] = int(STR_check_size[relevent_stats['size']])
 char_stats['AttackSizeMod'] = int(attack_based_size[relevent_stats['size']])
@@ -117,10 +151,7 @@ char_stats['MoraleDmg'] = 0
 char_stats['PowerAttack'] = 0
 char_stats['Charging'] = False
 
-char_stats['AutoRoll'] = False
-char_stats['AutoRoll'] = raw_input('Auto roll dice?(y|n) ')
-if char_stats['AutoRoll'].lower().startswith('y'):
-    char_stats['AutoRoll'] = True
+
 
 rage_used = False
 rage_started = False
@@ -135,12 +166,20 @@ print "############################################"
 print "#      WELCOME! TO KRAG'S DAMAGE CALC!     #"
 print "############################################"
 
+print colorz.YELLOW
+char_stats['AutoRoll'] = False
+char_stats['AutoRoll'] = raw_input('Auto roll dice?(y|n) ')
+if char_stats['AutoRoll'].lower().startswith('y'):
+    char_stats['AutoRoll'] = True
+
 round_num = 1
 
 while True:
     char_stats['Charging'] = False
 
     print "\n%sCombat round #%d%s" % (colorz.BLUE, round_num, colorz.YELLOW)
+    if rage_started:
+        print "\n%sRounds of rage left: %s%s" % (colorz.RED, rage_rounds, colorz.YELLOW)
 
     #Charging?
     if not fatigued:
@@ -165,6 +204,7 @@ while True:
             char_stats['StrMod'] += 2
             char_stats['ConMod'] += 2
             rage_rounds = 3 + char_stats['ConMod']
+            print "\n%sRAGE MODE ACTIVATED~!" % colorz.RED
 
     # TODO: Implement Bear Mode
     if rage_started:
@@ -211,46 +251,17 @@ while True:
         rage_rounds -= 1
         if rage_rounds == 0:
             rage_started = False
-            print "%sYou are now fatigued!%s" % (colorz.RED, colorz.YELLOW)
+            print "%sRage is over!" % colorz.RED
+            print "You are now fatigued!%s" % colorz.YELLOW
             char_stats['StrMod'] -= 3
             char_stats['ConMod'] -= 2
             fatigued = True
 
-
-    #Print out damage summary!
-    print "\n\n%s####Damage done this round####" % colorz.RED
-    if total_damage:
-        print "\nRegular Damage: "
-        if 'shield' in total_damage:
-            print "-Shield:"
-            for target in total_damage['shield'].keys():
-                print "--%s: %d" % (target, total_damage['shield'][target])
-
-            if not total_damage['shield']:
-                print "-- None"
-
-        if 'gore' in total_damage:
-            print "-Gore: %d" % total_damage['gore']
-
-        if 'boulder' in total_damage:
-            print "-Boulder: %d" % total_damage['boulder']
-
-    if cleave_damage:
-        print "\nCleave Damage: "
-        if 'shield' in cleave_damage:
-            print "-Shield:"
-            for target in cleave_damage['shield'].keys():
-                print "--%s: %d" % (target, cleave_damage['shield'][target])
-
-            if not cleave_damage['shield']:
-                print "-- None"
-
-        if 'gore' in cleave_damage:
-            print "-Gore: %d" % cleave_damage['gore']
-    print colorz.YELLOW
+    damage_summary(total_damage, cleave_damage)
 
     again = raw_input('Continue? (y|n) ')
     if again.lower().startswith('n'):
         break
+    round_num += 1
 
 print colorz.ENDC

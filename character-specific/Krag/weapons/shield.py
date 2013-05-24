@@ -19,7 +19,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>
 """
 
-from dice_rolling.py import attack_roll, damage_roll, general_dc_roll
+from dice_rolling import attack_roll, damage_roll, general_dc_roll
 
 
 #For making text all colorful and easier to read.
@@ -37,7 +37,6 @@ class colorz:
 
 
 def shield_attack(char_stats, cleave=False):
-    global char_stats
 
     cleave_targets = {}
     targets = {}
@@ -104,7 +103,7 @@ def shield_attack(char_stats, cleave=False):
     cleave = raw_input("\n\nDid it cleave? (y|n) ")
     if cleave.lower().startswith('y'):
         print "%sCleaving....\n%s" % (colorz.PURPLE, colorz.GREEN)
-        cleave_targets = shield_attack(True)
+        cleave_targets = shield_attack(char_stats, True)
 
     return targets, cleave_targets
 
@@ -146,8 +145,6 @@ def trip_attempt(char_stats, target_name, attack_bonus, damage_bonus, damage_dou
                         'damage_doubling': damage_doubling
                     }
                     total_damage = damage_roll(char_stats, damage_dice)
-                    #Free Attack Shield Daze
-                    shield_daze(target_name)
                     return total_damage
     return 0
 
