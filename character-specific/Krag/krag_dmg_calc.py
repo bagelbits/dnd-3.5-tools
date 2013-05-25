@@ -22,7 +22,7 @@
 from weapons.shield import shield_attack
 from weapons.gore import gore_attack
 from weapons.boulder import throw_boulder
-from weapons.dice_rolling import general_dc_roll
+from dice_rolling import general_dc_roll
 import xml.etree.ElementTree as ET
 import re
 
