@@ -12,7 +12,6 @@ TO DO:
 ================
 
 character/specific/krag_calc.py:
-* Test Rage code
 * Clean up code again
 * Bear form bonus feat
 * Print out HP, Saves, AC at the end of round, and keep track if they're altered due to Rage or the like

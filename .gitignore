@@ -1,8 +1,16 @@
-
 general/.DS_Store
-
-general/spells.db
 
 character-sheets/.DS_Store
 
 general/data/.DS_Store
+
+character-specific/Krag/.DS_Store
+
+character-specific/Krag/weapons/.DS_Store
+
+.DS_Store
+
+
+*.pyc
+
+*.pyc
