@@ -17,6 +17,7 @@ Chaos
 Charm
 Chill
 City
+Cleric (Gnome)
 Cold
 Commerce
 Community
