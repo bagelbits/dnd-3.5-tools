@@ -8,16 +8,18 @@ Artifice
 Assassination
 Baator
 Balance
+Beastmaster
 Bestial
 Blackwater
+Builder
 Cavern
 Celerity
+Celestia
 Celestial
 Chaos
 Charm
 Chill
 City
-Cleric (Gnome)
 Cold
 Commerce
 Community
@@ -44,6 +46,8 @@ Dream
 Drow
 Dwarf
 Earth
+Earthen Embrace
+Elemental
 Elf
 Elysium
 Endurance
@@ -52,6 +56,7 @@ Envy
 Ethics
 Evil
 Exorcism
+Expressive
 Family
 Fate
 Feast
