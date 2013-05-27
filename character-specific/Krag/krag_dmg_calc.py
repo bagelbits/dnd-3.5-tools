@@ -53,6 +53,30 @@ def stat_grabber(character_sheet):
                     relevent_stats['hd'] += int(result.group(1))
             continue
 
+        if node.attrib['name'] == "Level":
+            relevent_stats['level'] = node.text
+            continue
+
+        if node.attrib['name'] == "HP":
+            relevent_stats['hp'] = node.text
+            continue
+
+        if node.attrib['name'].endswith("AC"):
+            relevent_stats[node.attrib['name']] = node.text
+            continue
+
+        if node.attrib['name'] == "Fort":
+            relevent_stats['fort'] = node.text
+            continue
+
+        if node.attrib['name'] == "Reflex":
+            relevent_stats['reflex'] = node.text
+            continue
+
+        if node.attrib['name'] == "Will":
+            relevent_stats['will'] = node.text
+            continue
+
         if node.attrib['name'] == "Size":
             relevent_stats['size'] = node.text
             continue
@@ -105,6 +129,8 @@ def damage_summary(total_damage, cleave_damage):
 ###############
 # MAIN METHOD #
 ###############
+
+# TODO: Shift this into stat grabber
 STR_check_size = {
     'Fine': -16,
     'Diminutive': -12,
@@ -132,6 +158,7 @@ print relevent_stats
 
 char_stats = {}
 
+#Offesnive stats
 char_stats['HD'] = int(relevent_stats['hd'])
 char_stats['StrMod'] = int(relevent_stats['StrMod'])
 char_stats['ConMod'] = int(relevent_stats['ConMod'])
@@ -139,7 +166,6 @@ if relevent_stats['StrTempMod']:
     char_stats['StrMod'] = int(relevent_stats['StrTempMod'])
 char_stats['BAB'] = int(relevent_stats['bab'])
 
-#Use a dict for these
 char_stats['StrSizeMod'] = int(STR_check_size[relevent_stats['size']])
 char_stats['AttackSizeMod'] = int(attack_based_size[relevent_stats['size']])
 
@@ -151,7 +177,15 @@ char_stats['MoraleDmg'] = 0
 char_stats['PowerAttack'] = 0
 char_stats['Charging'] = False
 
-
+#Defensive stats
+char_stats['HP'] = int(relevent_stats['hp'])
+char_stats['Level'] = int(relevent_stats['level'])
+char_stats['AC'] = int(relevent_stats['AC'])
+char_stats['TouchAC'] = int(relevent_stats['TouchAC'])
+char_stats['FFAC'] = int(relevent_stats['FFAC'])
+char_stats['Fort'] = int(relevent_stats['fort'])
+char_stats['Reflex'] = int(relevent_stats['reflex'])
+char_stats['Will'] = int(relevent_stats['will'])
 
 rage_used = False
 rage_started = False
@@ -181,6 +215,18 @@ while True:
     if rage_started:
         print "\n%sRounds of rage left: %s%s" % (colorz.RED, rage_rounds, colorz.YELLOW)
 
+    #print AC, Current HP, save bonuses
+    print "Current HP: %s" % char_stats['HP']
+    print "AC stats:\nAC: %s\tTouch AC: %s\tFlatfooted AC: %s" \
+        % (char_stats['AC'], char_stats['TouchAC'], char_stats['FFAC'])
+    print "Save stats:\nFort: %s\tReflex: %s\tWill: %s" \
+        % (char_stats['Fort'], char_stats['Reflex'], char_stats['Will'])
+
+    hp_loss = raw_input('HP lossed since turn ended? (Negative numbers heal): ')
+    char_stats['HP'] -= int(hp_loss)
+
+    print "HP is now: %s" % char_stats['HP']
+
     #Charging?
     if not fatigued:
         char_stats['Charging'] = raw_input('Are you charging? (y|n) ')
@@ -203,6 +249,11 @@ while True:
             rage_used = True
             char_stats['StrMod'] += 2
             char_stats['ConMod'] += 2
+            char_stats['Will'] += 2
+            char_stats['HP'] += 2 * int(relevent_stats['level'])
+            char_stats['AC'] -= 2
+            char_stats['TouchAC'] -= 2
+            char_stats['FFAC'] -= 2
             rage_rounds = 3 + char_stats['ConMod']
             print "\n%sRAGE MODE ACTIVATED~!" % colorz.RED
 
@@ -255,6 +306,11 @@ while True:
             print "You are now fatigued!%s" % colorz.YELLOW
             char_stats['StrMod'] -= 3
             char_stats['ConMod'] -= 2
+            char_stats['Will'] -= 2
+            char_stats['AC'] += 2
+            char_stats['TouchAC'] += 2
+            char_stats['FFAC'] += 2
+            char_stats['HP'] -= 2 * int(relevent_stats['level'])
             fatigued = True
 
     damage_summary(total_damage, cleave_damage)
@@ -262,6 +318,7 @@ while True:
     again = raw_input('Continue? (y|n) ')
     if again.lower().startswith('n'):
         break
+
     round_num += 1
 
 print colorz.ENDC
