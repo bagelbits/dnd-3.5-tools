@@ -23,7 +23,6 @@ City
 Cold
 Commerce
 Community
-Community'
 Competition
 Corruption
 Courage
@@ -144,6 +143,7 @@ Injustice
 Inquisition
 Inspiration
 Invigoration
+Jigoku
 Journey
 Joy
 Knowledge
@@ -154,6 +154,7 @@ Limbo
 Love
 Luck
 Lust
+Kyuss
 Madness
 Magic
 Meditation
@@ -186,7 +187,6 @@ Plant
 Pleasure
 Pondering
 Portal
-Portal'
 Pride
 Profit
 Protection
@@ -200,6 +200,7 @@ Sand
 Scalykind
 Scorn
 Seafolk
+Sentinel
 Shadow
 Sky
 Slime
@@ -235,11 +236,11 @@ Underworld
 Vice
 Void
 War
+Warding
 Water
 Watery Death
 Wealth
 Weather
-Weather'
 Windstorm
 Winter
 Wrath
