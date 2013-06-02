@@ -216,16 +216,17 @@ while True:
         print "\n%sRounds of rage left: %s%s" % (colorz.RED, rage_rounds, colorz.YELLOW)
 
     #print AC, Current HP, save bonuses
+    print colorz.GREEN
     print "Current HP: %s" % char_stats['HP']
     print "AC stats:\nAC: %s\tTouch AC: %s\tFlatfooted AC: %s" \
         % (char_stats['AC'], char_stats['TouchAC'], char_stats['FFAC'])
-    print "Save stats:\nFort: %s\tReflex: %s\tWill: %s" \
-        % (char_stats['Fort'], char_stats['Reflex'], char_stats['Will'])
+    print "Save stats:\nFort: %s\tReflex: %s\tWill: %s%s" \
+        % (char_stats['Fort'], char_stats['Reflex'], char_stats['Will'], colorz.YELLOW)
 
     hp_loss = raw_input('HP lossed since turn ended? (Negative numbers heal): ')
     char_stats['HP'] -= int(hp_loss)
 
-    print "HP is now: %s" % char_stats['HP']
+    print "%sHP is now: %s%s" % (colorz.GREEN, char_stats['HP'], colorz.YELLOW)
 
     #Charging?
     if not fatigued:
