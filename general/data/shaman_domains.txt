@@ -1,20 +1,27 @@
-Ancestor Shaman Domain
-Celestial Shaman Domain
-Community Shaman Domain
-Divination Shaman Domain
-Flame Shaman Domain
-Fury Shaman Domain
-Grave Shaman Domain
-Guardian Shaman Domain
-Healing Shaman Domain
-Hero Shaman Domain
-Knowledge Shaman Domain
-Metal Shaman Domain
-Nature Shaman Domain
-River Shaman Domain
+Ancestor
+Celestial
+Community
+Divination
+Flame
+Fury
+Grave
+Guardian
+Healing
+Hero
+Jigoku
+Knowledge
+Meido
+Metal
+Nature
+River
 Shaman Domain
-Stone Shaman Domain
-Travel Shaman Domain
-Trickery Shaman Domain
-War Shaman Domain
-Wood Shaman Domain
+Sakkaku
+Stone
+Tengoku
+Toshigoku
+Travel
+Trickery
+War
+Wood
+Yomi
+Yume-Do
