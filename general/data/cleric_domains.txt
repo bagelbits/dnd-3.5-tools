@@ -11,7 +11,7 @@ Balance
 Beastmaster
 Bestial
 Blackwater
-Broken Sands
+Broken Sands;DS
 Builder
 Cavern
 Celerity
@@ -80,7 +80,7 @@ Herald
 Home
 Hunger
 Hunting
-Ill Winds
+Ill Winds;DS
 Illusion
 Incarnum
 Initiate of Aasterinian
@@ -170,9 +170,7 @@ Misfortune
 Moon
 Moon (Veshemo)
 Mysticism
-Mysticism (Evil)
-Mysticism (Good)
-Nature (Divine Masters)
+Nature
 Necromancy
 Night
 Nobility
@@ -210,7 +208,7 @@ Seafolk
 Sentinel
 Shadow
 Sky
-Sky Blitz
+Sky Blitz;DS
 Slime
 Sloth
 Spell
