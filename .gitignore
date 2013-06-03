@@ -16,3 +16,5 @@ character-specific/Krag/weapons/.DS_Store
 *.pyc
 
 *.pyc
+
+*.csv#
