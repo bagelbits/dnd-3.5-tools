@@ -11,6 +11,7 @@ Balance
 Beastmaster
 Bestial
 Blackwater
+Broken Sands
 Builder
 Cavern
 Celerity
@@ -78,6 +79,8 @@ Healing
 Herald
 Home
 Hunger
+Hunting
+Ill Winds
 Illusion
 Incarnum
 Initiate of Aasterinian
@@ -143,7 +146,6 @@ Injustice
 Inquisition
 Inspiration
 Invigoration
-Jigoku
 Journey
 Joy
 Knowledge
@@ -151,12 +153,14 @@ Law
 Liberation
 Life
 Limbo
+Locust
 Love
 Luck
 Lust
 Kyuss
 Madness
 Magic
+Mechanus
 Meditation
 Mentalism
 Mercy
@@ -173,6 +177,7 @@ Necromancy
 Night
 Nobility
 Oblivion
+Observation
 Ocean
 Ooze
 Oppression
@@ -191,11 +196,13 @@ Pride
 Profit
 Protection
 Purification
+Raconteur
 Radiance
 Renewal
 Repose
 Retribution
 Rune
+Sagacity
 Sand
 Scalykind
 Scorn
@@ -203,6 +210,7 @@ Seafolk
 Sentinel
 Shadow
 Sky
+Sky Blitz
 Slime
 Sloth
 Spell
@@ -233,6 +241,7 @@ Tyrant
 Undead
 Undeath
 Underworld
+Valiant
 Vice
 Void
 War
