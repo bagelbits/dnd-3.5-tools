@@ -22,7 +22,7 @@ for domain in domains:
                 if re.search('%s Domain 0' % re.escape(domain), line):
                     print '%s has a 0-level spell!' % domain
                 count += 1
-    if count < 9:
+    if count != 9 and count != 18:
         print "%s: %s" % (domain, count)
 
 
