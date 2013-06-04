@@ -3,7 +3,7 @@ from shutil import move
 from os import remove
 from sys import stdout
 
-domains = open('cleric_domains.txt', 'r')
+domains = open('cleric_domains.csv', 'r')
 domains = list(domains)
 line_count = 0
 for domain in domains:
