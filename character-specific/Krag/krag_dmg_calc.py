@@ -170,9 +170,12 @@ char_stats['StrSizeMod'] = int(STR_check_size[relevent_stats['size']])
 char_stats['AttackSizeMod'] = int(attack_based_size[relevent_stats['size']])
 
 char_stats['ShieldEnchance'] = 1
+char_stats['ShieldEnchance'] = 5
 char_stats['BoulderRange'] = 50
 char_stats['MoraleAttack'] = 0
 char_stats['MoraleDmg'] = 0
+char_stats['MoraleAttack'] = 3
+char_stats['MoraleDmg'] = 3
 
 char_stats['PowerAttack'] = 0
 char_stats['Charging'] = False
@@ -233,6 +236,8 @@ while True:
         char_stats['Charging'] = raw_input('Are you charging? (y|n) ')
         if char_stats['Charging'].lower().startswith('y'):
             char_stats['Charging'] = True
+        else:
+            char_stats['Charging'] = False
 
     #Power attack?
     char_stats['PowerAttack'] = int(raw_input('How many points to power attack? (Max %s) '
