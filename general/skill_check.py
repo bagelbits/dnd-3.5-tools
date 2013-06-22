@@ -3,8 +3,6 @@
 """
     General Skill Check Roller
     Written by Christopher Durien Ward
-    With help from Noah Reson-Brown and Becca Decso
-    Special thanks to zook1shoe and JaronK from minmaxboards.com
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
