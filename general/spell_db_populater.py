@@ -37,20 +37,18 @@ def table_setup(name, db_cursor):
     elif(name == 'class'):
         db_cursor.execute("CREATE TABLE class (\
             id INTEGER PRIMARY KEY, name TINYTEXT,\
-            divine INT, arcane INT, frequency INT, base_class INT,\
-            setting TINYTEXT, book TINYTEXT)")
+            probability INT, divine INT, arcane INT)")
 
     elif(name == 'spell_class'):
         db_cursor.execute("CREATE TABLE spell_class (\
             id INTEGER PRIMARY KEY, class_id INT,\
             spell_id INT, level INT, subtype TINYTEXT)")
 
-    elif(name == 'domain_feat'):
+    elif(name == 'domain'):
         db_cursor.execute("CREATE TABLE domain (\
-            id INTEGER PRIMARY KEY, name TINYTEXT, domain INT,\
-            feat INT, class TINYTEXT, setting TINYTEXT, book TINYTEXT)")
+            id INTEGER PRIMARY KEY, name TINYTEXT)")
 
-    elif(name == 'spell_domain_feat'):
+    elif(name == 'spell_domain'):
         db_cursor.execute("CREATE TABLE spell_domain (\
             id INTEGER PRIMARY KEY, domain_id INT,\
             spell_id INTEGER, level INT)")
