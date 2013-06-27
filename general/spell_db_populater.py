@@ -56,12 +56,12 @@ def table_setup(name, db_cursor):
             spell_id INT, level INT, subtype TINYTEXT)")
 
     elif(name == 'domain_feat'):
-        db_cursor.execute("CREATE TABLE domain (\
+        db_cursor.execute("CREATE TABLE domain_feat (\
             id INTEGER PRIMARY KEY, name TINYTEXT, domain INT,\
             feat INT, class TINYTEXT, setting TINYTEXT, book TINYTEXT)")
 
     elif(name == 'spell_domain_feat'):
-        db_cursor.execute("CREATE TABLE spell_domain (\
+        db_cursor.execute("CREATE TABLE spell_domain_feat (\
             id INTEGER PRIMARY KEY, domain_id INT,\
             spell_id INTEGER, level INT)")
 
@@ -114,10 +114,10 @@ def preload_tables(db_cursor):
     """
     #Load up all domains and feats
     domain_feat_file = csv.reader(open('data/domain_feat.csv', 'rU'), delimiter=";", quotechar='"')
-    for line in cleric_domain_file:
-        db_cursor.execute("SELECT id FROM domain WHERE name = ?", (line[0], ))
+    for line in domain_feat_file:
+        db_cursor.execute("SELECT id FROM domain_feat WHERE name = ?", (line[0], ))
         if not db_cursor.fetchone():
-            db_cursor.execute("INSERT INTO domain VALUES (NULL, ?, ?, ?, ?, ?, ?)",
+            db_cursor.execute("INSERT INTO domain_feat VALUES (NULL, ?, ?, ?, ?, ?, ?)",
                               (line[0], line[1], line[2], line[3], line[4], line[5]))
 
     #Add in the normal spell components
@@ -137,9 +137,9 @@ def preload_tables(db_cursor):
 
     class_file = csv.reader(open('data/classes.csv', 'rU'), delimiter=";", quotechar='"')
     for line in class_file:
-        db_cursor.execute("SELECT id FROM class WHERE name = ?", (line[0]))
+        db_cursor.execute("SELECT id FROM class WHERE name = ?", (line[0], ))
         if not db_cursor.fetchone():
-            db_cursor.execute("INSERT INTO class VALUES (NULL, ?, ?, ?, ?, ?, ?, ?",
+            db_cursor.execute("INSERT INTO class VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)",
                               (line[0], line[1], line[2], line[3], line[4], line[5], line[6]))
 
 def stitch_together_parens(level_lines):
@@ -362,7 +362,7 @@ def parse_spell(spell, db_cursor):
             if not db_cursor.fetchone():
                 db_cursor.execute("SELECT id FROM domain_feat WHERE name = ? LIMIT 1", (class_name,))
                 if not db_cursor.fetchone():
-                    db_cursor.execute("INSERT INTO class VALUES(NULL, ?, 0, 0, 0)", (class_name,))
+                    db_cursor.execute("INSERT INTO class VALUES(NULL, ?, 0, 0, NULL, NULL, NULL, NULL)", (class_name,))
                     print "%sNew Classe added: %s%s" % (colorz.RED, class_name, colorz.ENDC)
 
             db_cursor.execute("SELECT id FROM class WHERE name = ? LIMIT 1", (class_name,))
@@ -407,7 +407,7 @@ def parse_spell(spell, db_cursor):
 
 all_descriptors = []
 
-tables = ['spell', 'spell_class', 'class', 'spell_domain', 'domain']
+tables = ['spell', 'spell_class', 'class', 'spell_domain_feat', 'domain_feat']
 tables.extend(['book', 'school', 'spell_school', 'subtype', 'spell_subtype'])
 tables.extend(['spell_book', 'component', 'spell_component', 'alt_spell'])
 
