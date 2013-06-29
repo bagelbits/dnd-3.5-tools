@@ -166,7 +166,7 @@ def break_out_class_subtype(character_class):
             "Pious Templar",
             "Maho-Tsukai",
             "Savant",
-            "Portal"
+            "Spellsinger"
         ]
         if character_class[0] in classes_to_subtype:
             character_class[1] = character_class[1][:-2]
@@ -258,7 +258,6 @@ def parse_spell(spell, db_cursor):
                 character_class = re.sub(' \d+', '', class_level, count=1).strip()
             character_class = break_out_class_subtype(character_class)
 
-            #There are some class specific edge cases.
             if character_class[0] == "Sorcerer/Wizard":
                 character_class[0] = character_class[0].split("/")
                 classes[character_class[0][0]] = [level]
@@ -282,6 +281,7 @@ def parse_spell(spell, db_cursor):
             break
         # Ah, sometimes descriptors can be multiline
         spell_line = [spell.pop(0).strip()]
+        #while True and len(spell) > 0:
         while True:
             if re.match('\w+( \w+)*:', spell[0]):
                 break
@@ -363,7 +363,7 @@ def parse_spell(spell, db_cursor):
                 db_cursor.execute("SELECT id FROM domain_feat WHERE name = ? LIMIT 1", (class_name,))
                 if not db_cursor.fetchone():
                     db_cursor.execute("INSERT INTO class VALUES(NULL, ?, 0, 0, NULL, NULL, NULL, NULL)", (class_name,))
-                    print "%sNew Classe added: %s%s" % (colorz.RED, class_name, colorz.ENDC)
+                    print "%s New Class added: %s%s" % (colorz.RED, class_name, colorz.ENDC)
 
             db_cursor.execute("SELECT id FROM class WHERE name = ? LIMIT 1", (class_name,))
             class_id = db_cursor.fetchone()
@@ -388,10 +388,10 @@ def parse_spell(spell, db_cursor):
                 # Don't forget to handle the Divine Savant subtype edge case
             else:
                 # Domains
-                db_cursor.execute("SELECT id FROM domain WHERE name = ? LIMIT 1", (class_name,))
+                db_cursor.execute("SELECT id FROM domain_feat WHERE name = ? LIMIT 1", (class_name,))
                 domain_id = db_cursor.fetchone()[0]
                 for level in classes[class_name][0]:
-                    db_cursor.execute("INSERT INTO spell_domain VALUES(NULL, ?, ?, ?)",
+                    db_cursor.execute("INSERT INTO spell_domain_feat VALUES(NULL, ?, ?, ?)",
                                       (domain_id, spell_id, level))
 
 
@@ -478,10 +478,10 @@ for spell in alt_spells:
 db_cursor.execute("SELECT name FROM class")
 books = list(db_cursor.fetchall())
 
-for book in range(len(books)):
-    books[book] = books[book][0]
-for book in sorted(books):
-    print book
+#for book in range(len(books)):
+#    books[book] = books[book][0]
+#for book in sorted(books):
+#    print book
 
 db_cursor.close()
 db_conn.close()
