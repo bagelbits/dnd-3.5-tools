@@ -23,7 +23,17 @@
 import sqlite3
 import traceback
 import re
+import csv
 from sys import exit, stdout
+
+
+class colorz:
+    PURPLE = '\033[95m'
+    BLUE = '\033[94m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+    ENDC = '\033[0m'
 
 
 def table_setup(name, db_cursor):
@@ -37,19 +47,21 @@ def table_setup(name, db_cursor):
     elif(name == 'class'):
         db_cursor.execute("CREATE TABLE class (\
             id INTEGER PRIMARY KEY, name TINYTEXT,\
-            probability INT, divine INT, arcane INT)")
+            divine INT, arcane INT, frequency INT, base_class INT,\
+            setting TINYTEXT, book TINYTEXT)")
 
     elif(name == 'spell_class'):
         db_cursor.execute("CREATE TABLE spell_class (\
             id INTEGER PRIMARY KEY, class_id INT,\
             spell_id INT, level INT, subtype TINYTEXT)")
 
-    elif(name == 'domain'):
-        db_cursor.execute("CREATE TABLE domain (\
-            id INTEGER PRIMARY KEY, name TINYTEXT)")
+    elif(name == 'domain_feat'):
+        db_cursor.execute("CREATE TABLE domain_feat (\
+            id INTEGER PRIMARY KEY, name TINYTEXT, domain INT,\
+            feat INT, class TINYTEXT, setting TINYTEXT, book TINYTEXT)")
 
-    elif(name == 'spell_domain'):
-        db_cursor.execute("CREATE TABLE spell_domain (\
+    elif(name == 'spell_domain_feat'):
+        db_cursor.execute("CREATE TABLE spell_domain_feat (\
             id INTEGER PRIMARY KEY, domain_id INT,\
             spell_id INTEGER, level INT)")
 
@@ -100,13 +112,13 @@ def preload_tables(db_cursor):
     """
         Let's preload some of the tables:
     """
-    #Load up all domains
-    cleric_domain_file = open('data/cleric_domains.txt', 'r')
-    for line in cleric_domain_file:
-        db_cursor.execute("SELECT id FROM domain WHERE name = ?", (line.strip(), ))
+    #Load up all domains and feats
+    domain_feat_file = csv.reader(open('data/domain_feat.csv', 'rU'), delimiter=";", quotechar='"')
+    for line in domain_feat_file:
+        db_cursor.execute("SELECT id FROM domain_feat WHERE name = ?", (line[0], ))
         if not db_cursor.fetchone():
-            db_cursor.execute("INSERT INTO domain VALUES (NULL, ?)",
-                              (line.strip(), ))
+            db_cursor.execute("INSERT INTO domain_feat VALUES (NULL, ?, ?, ?, ?, ?, ?)",
+                              (line[0], line[1], line[2], line[3], line[4], line[5]))
 
     #Add in the normal spell components
     spell_components = {
@@ -123,13 +135,12 @@ def preload_tables(db_cursor):
             db_cursor.execute("INSERT INTO component VALUES (NULL, ?, ?)",
                               (spell_components[component_type], component_type))
 
-    db_cursor.execute("SELECT id FROM class WHERE name = ?", ("Divine Bard",))
-    if not db_cursor.fetchone():
-        db_cursor.execute("INSERT INTO class VALUES (NULL, ?, 0, 0, 0)", ("Divine Bard",))
-    db_cursor.execute("SELECT id FROM class WHERE name = ?", ("Divine Savant",))
-    if not db_cursor.fetchone():
-        db_cursor.execute("INSERT INTO class VALUES (NULL, ?, 0, 0, 0)", ("Divine Savant",))
-
+    class_file = csv.reader(open('data/classes.csv', 'rU'), delimiter=";", quotechar='"')
+    for line in class_file:
+        db_cursor.execute("SELECT id FROM class WHERE name = ?", (line[0], ))
+        if not db_cursor.fetchone():
+            db_cursor.execute("INSERT INTO class VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)",
+                              (line[0], line[1], line[2], line[3], line[4], line[5], line[6]))
 
 def stitch_together_parens(level_lines):
     paran_sections = []
@@ -349,9 +360,10 @@ def parse_spell(spell, db_cursor):
         for class_name in classes:
             db_cursor.execute("SELECT id FROM class WHERE name = ? LIMIT 1", (class_name,))
             if not db_cursor.fetchone():
-                db_cursor.execute("SELECT id FROM domain WHERE name = ? LIMIT 1", (class_name,))
+                db_cursor.execute("SELECT id FROM domain_feat WHERE name = ? LIMIT 1", (class_name,))
                 if not db_cursor.fetchone():
-                    db_cursor.execute("INSERT INTO class VALUES(NULL, ?, 0, 0, 0)", (class_name,))
+                    db_cursor.execute("INSERT INTO class VALUES(NULL, ?, 0, 0, NULL, NULL, NULL, NULL)", (class_name,))
+                    print "%sNew Classe added: %s%s" % (colorz.RED, class_name, colorz.ENDC)
 
             db_cursor.execute("SELECT id FROM class WHERE name = ? LIMIT 1", (class_name,))
             class_id = db_cursor.fetchone()
@@ -395,7 +407,7 @@ def parse_spell(spell, db_cursor):
 
 all_descriptors = []
 
-tables = ['spell', 'spell_class', 'class', 'spell_domain', 'domain']
+tables = ['spell', 'spell_class', 'class', 'spell_domain_feat', 'domain_feat']
 tables.extend(['book', 'school', 'spell_school', 'subtype', 'spell_subtype'])
 tables.extend(['spell_book', 'component', 'spell_component', 'alt_spell'])
 
