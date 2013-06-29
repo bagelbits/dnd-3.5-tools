@@ -174,6 +174,8 @@ char_stats['ShieldEnchance'] = 5
 char_stats['BoulderRange'] = 50
 char_stats['MoraleAttack'] = 0
 char_stats['MoraleDmg'] = 0
+
+# Marrions Spells
 char_stats['MoraleAttack'] = 3
 char_stats['MoraleDmg'] = 3
 
@@ -189,6 +191,13 @@ char_stats['FFAC'] = int(relevent_stats['FFAC'])
 char_stats['Fort'] = int(relevent_stats['fort'])
 char_stats['Reflex'] = int(relevent_stats['reflex'])
 char_stats['Will'] = int(relevent_stats['will'])
+
+#Magic Tattoo
+char_stats['MoraleAttack'] += 2
+char_stats['AC'] += 1
+char_stats['Fort'] += 2
+char_stats['Reflex'] += 2
+char_stats['Will'] += 2
 
 rage_used = False
 rage_started = False
