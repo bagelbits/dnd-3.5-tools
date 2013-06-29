@@ -199,6 +199,9 @@ char_stats['Fort'] += 2
 char_stats['Reflex'] += 2
 char_stats['Will'] += 2
 
+#Ability Drain
+char_stats['StrMod'] =- 2
+
 rage_used = False
 rage_started = False
 rage_rounds = -1
