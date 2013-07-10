@@ -23,6 +23,7 @@ from weapons.shield import shield_attack
 from weapons.gore import gore_attack
 from weapons.boulder import throw_boulder
 from dice_rolling import general_dc_roll
+from math import floor
 import xml.etree.ElementTree as ET
 import re
 
@@ -37,6 +38,7 @@ class colorz:
     ENDC = '\033[0m'
 
 
+#It's a lot fucking easier if I just load it all and pick out what I need.
 def stat_grabber(character_sheet):
     relevent_stats = {}
     character_sheet = ET.parse(character_sheet)
@@ -46,48 +48,13 @@ def stat_grabber(character_sheet):
         if node.attrib['name'] == "Class":
             class_to_parse = node.text
             class_to_parse = class_to_parse.split("/")
-            relevent_stats['hd'] = 0
+            relevent_stats['HD'] = 0
             for class_name in class_to_parse:
                 result = re.search("(\d+)$", class_name)
                 if result.group(1):
-                    relevent_stats['hd'] += int(result.group(1))
-            continue
+                    relevent_stats['HD'] += int(result.group(1))
 
-        if node.attrib['name'] == "Level":
-            relevent_stats['level'] = node.text
-            continue
-
-        if node.attrib['name'] == "HP":
-            relevent_stats['hp'] = node.text
-            continue
-
-        if node.attrib['name'].endswith("AC"):
-            relevent_stats[node.attrib['name']] = node.text
-            continue
-
-        if node.attrib['name'] == "Fort":
-            relevent_stats['fort'] = node.text
-            continue
-
-        if node.attrib['name'] == "Reflex":
-            relevent_stats['reflex'] = node.text
-            continue
-
-        if node.attrib['name'] == "Will":
-            relevent_stats['will'] = node.text
-            continue
-
-        if node.attrib['name'] == "Size":
-            relevent_stats['size'] = node.text
-            continue
-
-        if node.attrib['name'].endswith("Mod"):
-            relevent_stats[node.attrib['name']] = node.text
-            continue
-
-        if node.attrib['name'] == "MABBase":
-            relevent_stats['bab'] = node.text
-            break
+        relevent_stats[node.attrib['name']] = node.text
 
     return relevent_stats
 
@@ -126,81 +93,190 @@ def damage_summary(total_damage, cleave_damage):
     print colorz.YELLOW
 
 
+def adjust_all_mods(char_stats):
+    ability_stats = [
+        'Str',
+        'Dex',
+        'Con',
+        'Int',
+        'Wis',
+        'Cha']
+
+    #We also need to readjust HP for con changes and AC for dex changes
+    old_con_mod = char_stats['ConMod']
+    old_dex_mod = char_stats['DexMod']
+    for ability_stat in ability_stats:
+        stat_to_calc = char_stats[ability_stat]
+        mod_result = int(floor((stat_to_calc - 10) / 2.0))
+        char_stats[ability_stat + 'Mod'] = mod_result
+
+    #Auto adjust saves but only if initialized
+    char_stats = adjust_all_saves(char_stats)
+
+    #Now adjust HP
+    hp_adjust = char_stats['ConMod'] - old_con_mod
+    char_stats['HP'] += hp_adjust * char_stats['Level']
+
+    #Now adjust Touch and Normal AC
+    ac_adjust = char_stats['DexMod'] - old_dex_mod
+    char_stats['TouchAC'] += ac_adjust
+    char_stats['AC'] += ac_adjust
+    return char_stats
+
+
+def adjust_all_saves(char_stats):
+    saves = ['Fort', 'Will', 'Reflex']
+    for save in saves:
+        char_stats[save] = char_stats[save + "Base"]
+        if save == 'Fort':
+            char_stats[save] += char_stats['ConMod']
+        if save == 'Reflex':
+            char_stats[save] += char_stats['DexMod']
+        if save == 'Will':
+            char_stats[save] += char_stats['WisMod']
+        char_stats[save] += char_stats[save + "Magic"]
+        char_stats[save] += char_stats[save + "Misc"]
+        char_stats[save] += char_stats[save + "Temp"]
+
+    return char_stats
+
+
+def defensive_round(char_stats):
+    defensive = True
+    while defensive:
+        print colorz.GREEN
+        print "Current HP: %s" % char_stats['HP']
+        print "AC stats:\nAC: %s\tTouch AC: %s\tFlatfooted AC: %s" \
+            % (char_stats['AC'], char_stats['TouchAC'], char_stats['FFAC'])
+        print "Save stats:\nFort: %s\tReflex: %s\tWill: %s%s" \
+            % (char_stats['Fort'], char_stats['Reflex'], char_stats['Will'], colorz.YELLOW)
+
+        hp_loss = raw_input('HP lossed since turn ended? (Positive numbers heal): ')
+        char_stats['HP'] += int(hp_loss)
+
+        print "%sHP is now: %s%s\n" % (colorz.GREEN, char_stats['HP'], colorz.YELLOW)
+
+        ability_dmg = raw_input('Ability damage? (e.g. Str -4) ')
+        ability_dmg = ability_dmg.split(" ")
+        ability_dmg[1] = int(ability_dmg[1])
+        char_stats[ability_dmg[0]] += int(ability_dmg[1])
+        while ability_dmg:
+            ability_dmg = raw_input('More? ')
+            ability_dmg = ability_dmg.split(" ")
+            ability_dmg[1] = int(ability_dmg[1])
+            char_stats[ability_dmg[0]] += int(ability_dmg[1])
+        char_stats = adjust_all_mods(char_stats)
+
+        defensive_answer = raw_input('Your turn yet? ')
+        if defensive_answer.lower().startswith('y'):
+            defensive = False
+
+
+def init_char_stats(relevent_stats):
+    char_stats = {}
+    STR_check_size = {
+        'Fine': -16,
+        'Diminutive': -12,
+        'Tiny': -8,
+        'Small': -4,
+        'Medium': 0,
+        'Large': 4,
+        'Huge': 8,
+        'Gargantuan': 12,
+        'Colossal': 16}
+    attack_based_size = {
+        'Fine': 8,
+        'Diminutive': 4,
+        'Tiny': 2,
+        'Small': 1,
+        'Medium': 0,
+        'Large': -1,
+        'Huge': -2,
+        'Gargantuan': -4,
+        'Colossal': -8}
+    ability_stats = [
+        'Str',
+        'Dex',
+        'Con',
+        'Int',
+        'Wis',
+        'Cha']
+
+    #Offesnive stats
+    char_stats['HD'] = int(relevent_stats['HD'])
+
+    #Calculate out all mods, for kicks. Don't forget temps
+    for ability_stat in ability_stats:
+        char_stats[ability_stat] = int(relevent_stats[ability_stat])
+        if ability_stat + 'Temp' in relevent_stats:
+            char_stats[ability_stat] = int(relevent_stats[ability_stat + 'Temp'])
+        stat_to_calc = char_stats[ability_stat]
+        mod_result = int(floor((stat_to_calc - 10) / 2.0))
+        char_stats[ability_stat + 'Mod'] = mod_result
+
+    print char_stats
+    char_stats['BAB'] = int(relevent_stats['MABBase'])
+
+    char_stats['StrSizeMod'] = int(STR_check_size[relevent_stats['Size']])
+    char_stats['AttackSizeMod'] = int(attack_based_size[relevent_stats['Size']])
+
+    char_stats['ShieldEnchance'] = 1
+    char_stats['ShieldEnchance'] = 5
+    char_stats['BoulderRange'] = 50
+    char_stats['MoraleAttack'] = 0
+    char_stats['MoraleDmg'] = 0
+
+    # Marrions Spells
+    char_stats['MoraleAttack'] += 3
+    char_stats['MoraleDmg'] += 3
+
+    char_stats['PowerAttack'] = 0
+    char_stats['Charging'] = False
+
+    # Defensive stats
+    char_stats['HP'] = int(relevent_stats['HP'])
+    char_stats['Level'] = int(relevent_stats['Level'])
+    char_stats['AC'] = int(relevent_stats['AC'])
+    char_stats['TouchAC'] = int(relevent_stats['TouchAC'])
+    char_stats['FFAC'] = int(relevent_stats['FFAC'])
+
+    # Saves
+    char_stats['Fort'] = int(relevent_stats['Fort'])
+    char_stats['Reflex'] = int(relevent_stats['Reflex'])
+    char_stats['Will'] = int(relevent_stats['Will'])
+    char_stats['FortBase'] = int(relevent_stats['FortBase'])
+    char_stats['ReflexBase'] = int(relevent_stats['ReflexBase'])
+    char_stats['WillBase'] = int(relevent_stats['WillBase'])
+    char_stats['FortMagic'] = int(relevent_stats['FortMagic'])
+    char_stats['ReflexMagic'] = int(relevent_stats['ReflexMagic'])
+    char_stats['WillMagic'] = int(relevent_stats['WillMagic'])
+    char_stats['FortMisc'] = int(relevent_stats['FortMisc'])
+    char_stats['ReflexMisc'] = int(relevent_stats['ReflexMisc'])
+    char_stats['WillMisc'] = int(relevent_stats['WillMisc'])
+    char_stats['FortTemp'] = int(relevent_stats['FortTemp'])
+    char_stats['ReflexTemp'] = int(relevent_stats['ReflexTemp'])
+    char_stats['WillTemp'] = int(relevent_stats['WillTemp'])
+
+    # Magic Tattoo
+    char_stats['MoraleAttack'] += 2
+    char_stats['AC'] += 1
+    char_stats['FortMagic'] += 2
+    char_stats['ReflexMagic'] += 2
+    char_stats['WillMagic'] += 2
+    char_stats = adjust_all_saves(char_stats)
+
+    return char_stats
+
+
 ###############
 # MAIN METHOD #
 ###############
 
 # TODO: Shift this into stat grabber
-STR_check_size = {
-    'Fine': -16,
-    'Diminutive': -12,
-    'Tiny': -8,
-    'Small': -4,
-    'Medium': 0,
-    'Large': 4,
-    'Huge': 8,
-    'Gargantuan': 12,
-    'Colossal': 16}
-attack_based_size = {
-    'Fine': 8,
-    'Diminutive': 4,
-    'Tiny': 2,
-    'Small': 1,
-    'Medium': 0,
-    'Large': -1,
-    'Huge': -2,
-    'Gargantuan': -4,
-    'Colossal': -8}
 
 character_sheet = "../../character-sheets/Krag.xml"
 relevent_stats = stat_grabber(character_sheet)
-print relevent_stats
-
-char_stats = {}
-
-#Offesnive stats
-char_stats['HD'] = int(relevent_stats['hd'])
-char_stats['StrMod'] = int(relevent_stats['StrMod'])
-char_stats['ConMod'] = int(relevent_stats['ConMod'])
-if relevent_stats['StrTempMod']:
-    char_stats['StrMod'] = int(relevent_stats['StrTempMod'])
-char_stats['BAB'] = int(relevent_stats['bab'])
-
-char_stats['StrSizeMod'] = int(STR_check_size[relevent_stats['size']])
-char_stats['AttackSizeMod'] = int(attack_based_size[relevent_stats['size']])
-
-char_stats['ShieldEnchance'] = 1
-char_stats['ShieldEnchance'] = 5
-char_stats['BoulderRange'] = 50
-char_stats['MoraleAttack'] = 0
-char_stats['MoraleDmg'] = 0
-
-# Marrions Spells
-char_stats['MoraleAttack'] = 3
-char_stats['MoraleDmg'] = 3
-
-char_stats['PowerAttack'] = 0
-char_stats['Charging'] = False
-
-#Defensive stats
-char_stats['HP'] = int(relevent_stats['hp'])
-char_stats['Level'] = int(relevent_stats['level'])
-char_stats['AC'] = int(relevent_stats['AC'])
-char_stats['TouchAC'] = int(relevent_stats['TouchAC'])
-char_stats['FFAC'] = int(relevent_stats['FFAC'])
-char_stats['Fort'] = int(relevent_stats['fort'])
-char_stats['Reflex'] = int(relevent_stats['reflex'])
-char_stats['Will'] = int(relevent_stats['will'])
-
-#Magic Tattoo
-char_stats['MoraleAttack'] += 2
-char_stats['AC'] += 1
-char_stats['Fort'] += 2
-char_stats['Reflex'] += 2
-char_stats['Will'] += 2
-
-#Ability Drain
-char_stats['StrMod'] =- 2
+char_stats = init_char_stats(relevent_stats)
 
 rage_used = False
 rage_started = False
@@ -231,21 +307,11 @@ while True:
         print "\n%sRounds of rage left: %s%s" % (colorz.RED, rage_rounds, colorz.YELLOW)
 
     #print AC, Current HP, save bonuses
-    print colorz.GREEN
-    print "Current HP: %s" % char_stats['HP']
-    print "AC stats:\nAC: %s\tTouch AC: %s\tFlatfooted AC: %s" \
-        % (char_stats['AC'], char_stats['TouchAC'], char_stats['FFAC'])
-    print "Save stats:\nFort: %s\tReflex: %s\tWill: %s%s" \
-        % (char_stats['Fort'], char_stats['Reflex'], char_stats['Will'], colorz.YELLOW)
-
-    hp_loss = raw_input('HP lossed since turn ended? (Negative numbers heal): ')
-    char_stats['HP'] -= int(hp_loss)
-
-    print "%sHP is now: %s%s" % (colorz.GREEN, char_stats['HP'], colorz.YELLOW)
+    char_stats = defensive_round(char_stats)
 
     #Charging?
     if not fatigued:
-        char_stats['Charging'] = raw_input('Are you charging? (y|n) ')
+        char_stats['Charging'] = raw_input('\nAre you charging? (y|n) ')
         if char_stats['Charging'].lower().startswith('y'):
             char_stats['Charging'] = True
         else:
@@ -265,10 +331,11 @@ while True:
         if answer.lower().startswith('y'):
             rage_started = True
             rage_used = True
-            char_stats['StrMod'] += 2
-            char_stats['ConMod'] += 2
-            char_stats['Will'] += 2
-            char_stats['HP'] += 2 * int(relevent_stats['level'])
+            char_stats['Str'] += 4
+            char_stats['Con'] += 4
+            char_stats = adjust_all_mods(char_stats)
+            char_stats['WillMisc'] += 2
+            char_stats = adjust_all_saves(char_stats)
             char_stats['AC'] -= 2
             char_stats['TouchAC'] -= 2
             char_stats['FFAC'] -= 2
@@ -322,13 +389,15 @@ while True:
             rage_started = False
             print "%sRage is over!" % colorz.RED
             print "You are now fatigued!%s" % colorz.YELLOW
-            char_stats['StrMod'] -= 3
-            char_stats['ConMod'] -= 2
-            char_stats['Will'] -= 2
+            char_stats['Str'] -= 6
+            char_stats['Dex'] -= 2
+            char_stats['Con'] -= 4
+            char_stats = adjust_all_mods(char_stats)
+            char_stats['WillMisc'] -= 2
+            char_stats = adjust_all_saves(char_stats)
             char_stats['AC'] += 2
             char_stats['TouchAC'] += 2
             char_stats['FFAC'] += 2
-            char_stats['HP'] -= 2 * int(relevent_stats['level'])
             fatigued = True
 
     damage_summary(total_damage, cleave_damage)
