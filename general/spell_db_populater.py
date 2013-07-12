@@ -239,13 +239,10 @@ def get_class_info(level_line):
     return classes
 
 
-def parse_spell(spell):
+def parse_spell(spell, alt_spells, web_abbrev, all_descriptors):
     """
         Let's parse a spell chunk
     """
-    global alt_spells
-    global web_abbrev
-    global all_descriptors
 
     spell_info = {}
 
@@ -473,7 +470,7 @@ for line in all_spells_file:
         break
 
     if not line.strip():
-        spell_info = parse_spell(spell)
+        spell_info = parse_spell(spell, alt_spells, web_abbrev, all_descriptors)
         if spell_info:
             insert_into_spell_db(db_cursor, spell_info)
         del spell[:]
