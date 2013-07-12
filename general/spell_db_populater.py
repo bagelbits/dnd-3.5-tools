@@ -406,16 +406,6 @@ def insert_into_spell_db(db_cursor, spell_info):
                                       (domain_id, spell_id, level))
 
 
-    ## Components ##
-
-    #print "\nSpell: %s" % spell_name
-    #print book_info
-    #print schools
-    #print sub_types
-    #print classes
-    #for spell_descriptor in spell_info:
-    #    print "%s: %s" % (spell_descriptor, spell_info[spell_descriptor])
-
 all_descriptors = []
 
 tables = ['spell', 'spell_class', 'class', 'spell_domain_feat', 'domain_feat']
@@ -449,6 +439,7 @@ for line in web_abbrevation_file:
 
 
 preload_tables(db_cursor)
+db_conn.commit()
 
 
 """
@@ -473,6 +464,7 @@ for line in all_spells_file:
         spell_info = parse_spell(spell, alt_spells, web_abbrev, all_descriptors)
         if spell_info:
             insert_into_spell_db(db_cursor, spell_info)
+            db_conn.commit()
         del spell[:]
         continue
     spell.append(line)
@@ -486,9 +478,10 @@ for spell in alt_spells:
         spell_id = db_cursor.fetchone()
         if spell_id:
             db_cursor.execute("INSERT INTO alt_spell VALUES(NULL, ?, ?)", (spell[0], spell_id[0]))
+            db_conn.commit()
 
-db_cursor.execute("SELECT name FROM class")
-books = list(db_cursor.fetchall())
+#db_cursor.execute("SELECT name FROM class")
+#books = list(db_cursor.fetchall())
 
 #for book in range(len(books)):
 #    books[book] = books[book][0]
