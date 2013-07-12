@@ -50,9 +50,9 @@ for spell in db_cursor.fetchall():
         spell_books.append(book)
     test_master_file.write("    " + spell[1] + " [" + ", ".join(spell_books) + "]\n")
 
-######################
-# School and subtype #
-######################
+#####################################
+# School, subschool, and descriptor #
+#####################################
     db_cursor.execute("SELECT school_id FROM spell_school WHERE spell_id = ?", (spell_id,))
     school_meta_info = db_cursor.fetchall()
     spell_schools = []
@@ -61,7 +61,26 @@ for spell in db_cursor.fetchall():
         db_cursor.execute("SELECT name FROM school WHERE id = ?", (school_id,))
         spell_schools.append(db_cursor.fetchone()[0])
     test_master_file.write("/".join(spell_schools))
-    
+
+    db_cursor.execute("SELECT subschool_id FROM spell_subschool WHERE spell_id = ?", (spell_id,))
+    subschool_meta_info = db_cursor.fetchall()
+    if subschool_meta_info:
+        spell_subschools = []
+        for subschool in subschool_meta_info:
+            subschool_id = subschool[0]
+            db_cursor.execute("SELECT name FROM subschool WHERE id = ?", (subschool_id,))
+            spell_subschools.append(db_cursor.fetchone()[0])
+        test_master_file.write(" (" + ", ".join(spell_subschools) + ")")
+
+    db_cursor.execute("SELECT descriptor_id FROM spell_descriptor WHERE spell_id = ?", (spell_id,))
+    descriptor_meta_info = db_cursor.fetchall()
+    if descriptor_meta_info:
+        spell_descriptors = []
+        for descriptor in descriptor_meta_info:
+            descriptor_id = descriptor[0]
+            db_cursor.execute("SELECT name FROM descriptor WHERE id = ?", (descriptor_id,))
+            spell_descriptors.append(db_cursor.fetchone()[0])
+        test_master_file.write(" [" + ", ".join(spell_descriptors) + "]")
     test_master_file.write("\n")
 
     test_master_file.write("\n")
