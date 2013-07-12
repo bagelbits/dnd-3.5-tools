@@ -61,6 +61,7 @@ for spell in db_cursor.fetchall():
         db_cursor.execute("SELECT name FROM school WHERE id = ?", (school_id,))
         spell_schools.append(db_cursor.fetchone()[0])
     test_master_file.write("/".join(spell_schools))
+    
     test_master_file.write("\n")
 
     test_master_file.write("\n")

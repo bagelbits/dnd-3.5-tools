@@ -83,13 +83,22 @@ def table_setup(name, db_cursor):
             id INTEGER PRIMARY KEY, school_id INT,\
             spell_id INT)")
 
-    elif(name == 'subtype'):
-        db_cursor.execute("CREATE TABLE subtype (\
+    elif(name == 'subschool'):
+        db_cursor.execute("CREATE TABLE subschool (\
             id INTEGER PRIMARY KEY, name TINYTEXT)")
 
-    elif(name == 'spell_subtype'):
-        db_cursor.execute("CREATE TABLE spell_subtype (\
-            id INTEGER PRIMARY KEY, subtype_id INT,\
+    elif(name == 'spell_subschool'):
+        db_cursor.execute("CREATE TABLE spell_subschool (\
+            id INTEGER PRIMARY KEY, subschool_id INT,\
+            spell_id INT)")
+
+    elif(name == 'descriptor'):
+        db_cursor.execute("CREATE TABLE descriptor (\
+            id INTEGER PRIMARY KEY, name TINYTEXT)")
+
+    elif(name == 'spell_descriptor'):
+        db_cursor.execute("CREATE TABLE spell_descriptor (\
+            id INTEGER PRIMARY KEY, descriptor_id INT,\
             spell_id INT)")
 
     elif(name == 'component'):
@@ -272,16 +281,17 @@ def parse_spell(spell, alt_spells, web_abbrev, all_descriptors):
 
     # Now lets figure out the School and sub-type
     # Because not every spell has a type.
-    spell_info['Subtypes'] = []
+    spell_info['Subschools'] = []
+    spell_info['Descriptors'] = []
     if not re.match("\w+( \w+)*:", spell[0]):
         type_line = spell.pop(0)
         spell_info['Schools'] = type_line.split()[0].split("/")
         match = re.search('\((.+)\)', type_line)
         if match:
-            spell_info['Subtypes'].extend([sub_type.strip() for sub_type in match.group(1).split(",")])
+            spell_info['Subschools'].extend([sub_type.strip() for sub_type in match.group(1).split(",")])
         match = re.search('\[(.+)\]', type_line)
         if match:
-            spell_info['Subtypes'].extend([sub_type.strip() for sub_type in match.group(1).split(",")])
+            spell_info['Descriptors'].extend([sub_type.strip() for sub_type in match.group(1).split(",")])
 
     #Now let's grab the classes and levels
     spell_info['Classes'] = get_class_info(spell.pop(0))
@@ -394,16 +404,27 @@ def insert_into_spell_db(db_cursor, spell_info):
             school_id = school_id[0]
             db_cursor.execute("INSERT INTO spell_school VALUES(NULL, ?, ?)", (school_id, spell_id))
 
-        ## Subtype ##
-        for sub_type in spell_info['Subtypes']:
-            db_cursor.execute("SELECT id FROM subtype WHERE name = ? LIMIT 1", (sub_type,))
-            subtype_id = db_cursor.fetchone()
+        ## Subschools ##
+        for subschool in spell_info['Subschools']:
+            db_cursor.execute("SELECT id FROM subschool WHERE name = ? LIMIT 1", (subschool,))
+            subschool_id = db_cursor.fetchone()
             if not db_cursor.fetchone():
-                db_cursor.execute("INSERT INTO subtype VALUES(NULL, ?)", (sub_type,))
-                db_cursor.execute("SELECT id FROM subtype WHERE name = ? LIMIT 1", (sub_type,))
-                subtype_id = db_cursor.fetchone()
-            subtype_id = subtype_id[0]
-            db_cursor.execute("INSERT INTO spell_subtype VALUES(NULL, ?, ?)", (subtype_id, spell_id))
+                db_cursor.execute("INSERT INTO subschool VALUES(NULL, ?)", (subschool,))
+                db_cursor.execute("SELECT id FROM subschool WHERE name = ? LIMIT 1", (subschool,))
+                subschool_id = db_cursor.fetchone()
+            subschool_id = subschool_id[0]
+            db_cursor.execute("INSERT INTO spell_subschool VALUES(NULL, ?, ?)", (subschool_id, spell_id))
+
+        ## Descriptors ##
+        for descriptors in spell_info['Descriptors']:
+            db_cursor.execute("SELECT id FROM descriptor WHERE name = ? LIMIT 1", (descriptors,))
+            descriptor_id = db_cursor.fetchone()
+            if not db_cursor.fetchone():
+                db_cursor.execute("INSERT INTO descriptor VALUES(NULL, ?)", (descriptors,))
+                db_cursor.execute("SELECT id FROM descriptor WHERE name = ? LIMIT 1", (descriptors,))
+                descriptor_id = db_cursor.fetchone()
+            descriptor_id = descriptor_id[0]
+            db_cursor.execute("INSERT INTO spell_descriptor VALUES(NULL, ?, ?)", (descriptor_id, spell_id))
 
         ## Classes ##
         # Remember to skip domains
@@ -452,8 +473,9 @@ def insert_into_spell_db(db_cursor, spell_info):
 all_descriptors = []
 
 tables = ['spell', 'spell_class', 'class', 'spell_domain_feat', 'domain_feat']
-tables.extend(['book', 'school', 'spell_school', 'subtype', 'spell_subtype'])
-tables.extend(['spell_book', 'component', 'spell_component', 'alt_spell'])
+tables.extend(['book', 'spell_book', 'school', 'spell_school', 'subschool'])
+tables.extend(['spell_subschool', 'descriptor', 'spell_descriptor', 'component'])
+tables.extend(['spell_component', 'alt_spell'])
 
 db_conn = sqlite3.connect('spells.db')
 db_conn.text_factory = str
