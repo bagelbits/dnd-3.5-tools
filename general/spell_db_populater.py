@@ -127,7 +127,8 @@ def preload_tables(db_cursor):
         'M': 'Material',
         'F': 'Focus',
         'DF': 'Divine Focus',
-        'XP': 'XP Cost'
+        'XP': 'XP Cost',
+        'T': 'Truename'
     }
     for component_type in spell_components:
         db_cursor.execute("SELECT id FROM component WHERE short_hand = ?", (component_type,))
@@ -244,7 +245,16 @@ def parse_spell(spell, alt_spells, web_abbrev, all_descriptors):
         Let's parse a spell chunk
     """
 
-    spell_info = {}
+    spell_info = {'Name': '',
+                  'cast_time': '',
+                  'range': '',
+                  'target': '',
+                  'effect': '',
+                  'area': '',
+                  'duration': '',
+                  'saving_throw': '',
+                  'description': '',
+                  'components': ''}
 
     spell_line = spell.pop(0).strip()
 
@@ -306,8 +316,12 @@ def parse_spell(spell, alt_spells, web_abbrev, all_descriptors):
 
     #Now stich together the rest of the description
     spell_info['description'] = "".join(spell).strip()
-    if 'components' in spell_info:
+
+    """
+    if spell_info['components']:
         spell_info['components'] = spell_info['components'].split(", ")
+    """
+
     return spell_info
 
 
@@ -317,17 +331,46 @@ def insert_into_spell_db(db_cursor, spell_info):
     # Initial spell insert:
     db_cursor.execute("SELECT id from spell WHERE name = ? LIMIT 1", (spell_info['Name'],))
     if not db_cursor.fetchone():
-        db_cursor.execute("INSERT INTO spell VALUES(NULL, ?, NULL, NULL, NULL,\
-                           NULL, NULL, NULL, NULL, NULL, NULL)", (spell_info['Name'],))
+        db_cursor.execute("INSERT INTO spell VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                           (spell_info['Name'],
+                            spell_info['cast_time'],
+                            spell_info['range'],
+                            spell_info['target'],
+                            spell_info['effect'],
+                            spell_info['area'],
+                            spell_info['duration'],
+                            spell_info['saving_throw'],
+                            spell_info['description'],
+                            spell_info['components']))
         db_cursor.execute("SELECT id from spell WHERE name = ? LIMIT 1", (spell_info['Name'],))
         spell_id = db_cursor.fetchone()[0]
 
         # Let's populate reference tables as we go:
+        ## COMPONENTS ##
+        """
+        for component in spell_info['components']:
+            db_cursor.execute("SELECT id from component WHERE short_hand = ? LIMIT 1",
+                             (component,))
+            component_id = db_cursor.fetchone()
+            if not component_id:
+                print spell_info['Name']
+                print "%s New component type added: %s%s" % (colorz.RED, component, colorz.ENDC)
+                db_cursor.execute("INSERT INTO component VALUES(NULL, NULL, ?)",
+                                 (component,))
+                db_cursor.execute("SELECT id from component WHERE short_hand = ? LIMIT 1",
+                                 (component,))
+                component_id = db_cursor.fetchone()
+            component_id = component_id[0]
+            db_cursor.execute("INSERT INTO spell_component VALUES(NULL, ?, ?)",
+                              (component_id, spell_id))
+        """
+
         ## BOOK ##
         for book in spell_info['Books']:
             db_cursor.execute("SELECT id FROM book WHERE name = ? LIMIT 1", (book[0],))
             book_id = db_cursor.fetchone()
             if not book_id:
+                #print spell_info['Name']
                 db_cursor.execute("INSERT INTO book VALUES(NULL, ?)", (book[0],))
                 db_cursor.execute("SELECT id FROM book WHERE name = ? LIMIT 1", (book[0],))
                 book_id = db_cursor.fetchone()
@@ -466,6 +509,7 @@ for line in all_spells_file:
             insert_into_spell_db(db_cursor, spell_info)
             db_conn.commit()
         del spell[:]
+        #break
         continue
     spell.append(line)
 print " COMPLETE"

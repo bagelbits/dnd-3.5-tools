@@ -19,13 +19,56 @@
 """
 
 import sqlite3
-import csv
+#import csv
 
 db_conn = sqlite3.connect('spells.db')
 db_conn.text_factory = str
 db_cursor = db_conn.cursor()
 
-db_cursor.execute("SELECT id, name FROM spell")
+db_cursor.execute("SELECT * FROM spell ORDER BY name")
 
-for line in db_cursor.fetchall():
-    print line
+test_master_file = open('data/test-all-spells.txt', 'w')
+
+for spell in db_cursor.fetchall():
+#################
+# Name and Book #
+#################
+    spell_id = spell[0]
+    db_cursor.execute("SELECT book_id, page FROM spell_book WHERE spell_id = ?", (spell_id,))
+    book_meta_info = db_cursor.fetchall()
+    spell_books = []
+    for book in book_meta_info:
+        book = list(book)
+        db_cursor.execute("SELECT name FROM book WHERE id = ?", (book[0],))
+        book[0] = db_cursor.fetchone()[0]
+        if book[1]:
+            book[1] = str(book[1])
+            book[1] = "(pg " + book[1] + ")"
+        else:
+            book[1] = ''
+        book = " ".join(book).strip()
+        spell_books.append(book)
+    test_master_file.write("    " + spell[1] + " [" + ", ".join(spell_books) + "]\n")
+
+######################
+# School and subtype #
+######################
+    db_cursor.execute("SELECT school_id FROM spell_school WHERE spell_id = ?", (spell_id,))
+    school_meta_info = db_cursor.fetchall()
+    spell_schools = []
+    for school in school_meta_info:
+        school_id = school[0]
+        db_cursor.execute("SELECT name FROM school WHERE id = ?", (school_id,))
+        spell_schools.append(db_cursor.fetchone()[0])
+    test_master_file.write("/".join(spell_schools))
+    test_master_file.write("\n")
+
+    test_master_file.write("\n")
+
+"""
+        db_cursor.execute("CREATE TABLE spell\
+            (id INTEGER PRIMARY KEY, name TINYTEXT,\
+            cast_time TINYTEXT, range TINYTEXT,\
+            target TINYTEXT, effect TINYTEXT, area TINYTEXT, duration TINYTEXT,\
+            saving_throw TINYTEXT, description TINYTEXT, components TINYTEXT)")
+"""
