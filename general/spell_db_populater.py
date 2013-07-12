@@ -142,6 +142,7 @@ def preload_tables(db_cursor):
             db_cursor.execute("INSERT INTO class VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)",
                               (line[0], line[1], line[2], line[3], line[4], line[5], line[6]))
 
+
 def stitch_together_parens(level_lines):
     paran_sections = []
     for pos in range(len(level_lines)):
@@ -169,9 +170,9 @@ def break_out_class_subtype(character_class):
             "Spellsinger"
         ]
         if character_class[0] in classes_to_subtype:
-            character_class[1] = character_class[1][:-2]
+            character_class[1] = character_class[1][:-1]
             if character_class[0] == "Savant":
-                character_class[1] = character_class[1][:-2].split(" ")
+                character_class[1] = character_class[1].split(" ")
         else:
             character_class = [" (".join(character_class)]
     else:
@@ -180,25 +181,11 @@ def break_out_class_subtype(character_class):
     return character_class
 
 
-def parse_spell(spell, db_cursor):
-    """
-        Let's parse a spell chunk
-    """
-    global alt_spells
-    global web_abbrev
-    global all_descriptors
-    spell_line = spell.pop(0).strip()
+##############################
+#        Spell Parsing       #
+##############################
 
-    #Handle the See "this spell" for info cases
-    match = re.search('See "(.+)"', spell[0])
-    if match:
-        alt_spells.append([spell_line.strip(), match.group(1)])
-        return
-
-    # First get the spell name and book with page number
-    match = re.search('(.+) \[(.+)\]', spell_line)
-    spell_name = match.group(1)
-    book_info = match.group(2)
+def get_book_info(book_info):
     book_info = book_info.split(", ")
     book_info = stitch_together_parens(book_info)
 
@@ -218,37 +205,17 @@ def parse_spell(spell, db_cursor):
             book_name = web_abbrev[book_name]
         book_info[x] = [book_name, page]
 
-    # Now lets figure out the type and sub-type
-    # Because not every spell has a type.
-    schools = []
-    sub_types = []
-    if not re.match("\w+( \w+)*:", spell[0]):
-        type_line = spell.pop(0)
-        schools = type_line.split()[0].split("/")
-        match = re.search('\((.+)\)', type_line)
-        if match:
-            sub_types.extend([sub_type.strip() for sub_type in match.group(1).split(",")])
-        match = re.search('\[(.+)\]', type_line)
-        if match:
-            sub_types.extend([sub_type.strip() for sub_type in match.group(1).split(",")])
+    return book_info
 
-    #Now let's grab the classes and levels
-    if spell[0].lower().startswith("level: "):
+
+def get_class_info(level_line):
+    if level_line.lower().startswith("level: "):
         classes = {}
-        level_lines = [spell.pop(0).strip()]
-        while True:
-            if spell[0].startswith('    '):
-                break
-            if len(spell) == 0:
-                break
-            if re.match("\w+( \w+)*:", spell[0]):
-                break
-            level_lines.append(spell.pop(0).strip())
-        level_lines = filter(None, " ".join(level_lines).replace("Level: ", '').split(', '))
-        level_lines = stitch_together_parens(level_lines)
+        level_line = filter(None, level_line.replace("Level: ", '').split(', '))
+        level_line = stitch_together_parens(level_line)
         # Now lets separate class from level. We may need to come back to
         # this point later.
-        for class_level in level_lines:
+        for class_level in level_line:
             match = re.search('(\d+)\-(\d+)', class_level)
             if match:
                 level = range(int(match.group(1)), int(match.group(2)) + 1)
@@ -269,9 +236,47 @@ def parse_spell(spell, db_cursor):
                 classes[character_class[0]] = [level, character_class[1]]
             else:
                 classes[character_class[0]] = [level]
+    return classes
+
+
+def parse_spell(spell, alt_spells, web_abbrev, all_descriptors):
+    """
+        Let's parse a spell chunk
+    """
+
+    spell_info = {}
+
+    spell_line = spell.pop(0).strip()
+
+    #Handle the See "this spell" for info cases
+    match = re.search('See "(.+)"', spell[0])
+    if match:
+        alt_spells.append([spell_line.strip(), match.group(1)])
+        return
+
+    # First get the spell name and book with page number
+    match = re.search('(.+) \[(.+)\]', spell_line)
+    spell_info['Name'] = match.group(1)
+    #print spell_info['Name']
+    spell_info['Books'] = get_book_info(match.group(2))
+
+    # Now lets figure out the School and sub-type
+    # Because not every spell has a type.
+    spell_info['Subtypes'] = []
+    if not re.match("\w+( \w+)*:", spell[0]):
+        type_line = spell.pop(0)
+        spell_info['Schools'] = type_line.split()[0].split("/")
+        match = re.search('\((.+)\)', type_line)
+        if match:
+            spell_info['Subtypes'].extend([sub_type.strip() for sub_type in match.group(1).split(",")])
+        match = re.search('\[(.+)\]', type_line)
+        if match:
+            spell_info['Subtypes'].extend([sub_type.strip() for sub_type in match.group(1).split(",")])
+
+    #Now let's grab the classes and levels
+    spell_info['Classes'] = get_class_info(spell.pop(0))
 
     # Now need to break everything else out
-    spell_info = {}
     while True:
         #You've hit the description yay!
         if spell[0].startswith('    '):
@@ -303,21 +308,23 @@ def parse_spell(spell, db_cursor):
     spell_info['description'] = "".join(spell).strip()
     if 'components' in spell_info:
         spell_info['components'] = spell_info['components'].split(", ")
+    return spell_info
 
-    # You should populate the spell first so you can populate other tables
-    # and link tables as we go.
 
+# You should populate the spell first so you can populate other tables
+# and link tables as we go.
+def insert_into_spell_db(db_cursor, spell_info):
     # Initial spell insert:
-    db_cursor.execute("SELECT id from spell WHERE name = ? LIMIT 1", (spell_name,))
+    db_cursor.execute("SELECT id from spell WHERE name = ? LIMIT 1", (spell_info['Name'],))
     if not db_cursor.fetchone():
         db_cursor.execute("INSERT INTO spell VALUES(NULL, ?, NULL, NULL, NULL,\
-                           NULL, NULL, NULL, NULL, NULL, NULL)", (spell_name,))
-        db_cursor.execute("SELECT id from spell WHERE name = ? LIMIT 1", (spell_name,))
+                           NULL, NULL, NULL, NULL, NULL, NULL)", (spell_info['Name'],))
+        db_cursor.execute("SELECT id from spell WHERE name = ? LIMIT 1", (spell_info['Name'],))
         spell_id = db_cursor.fetchone()[0]
 
         # Let's populate reference tables as we go:
         ## BOOK ##
-        for book in book_info:
+        for book in spell_info['Books']:
             db_cursor.execute("SELECT id FROM book WHERE name = ? LIMIT 1", (book[0],))
             book_id = db_cursor.fetchone()
             if not book_id:
@@ -334,7 +341,7 @@ def parse_spell(spell, db_cursor):
                                   (book_id, spell_id))
 
         ## School ##
-        for school in schools:
+        for school in spell_info['Schools']:
             db_cursor.execute("SELECT id FROM school WHERE name = ? LIMIT 1", (school,))
             school_id = db_cursor.fetchone()
             if not db_cursor.fetchone():
@@ -345,7 +352,7 @@ def parse_spell(spell, db_cursor):
             db_cursor.execute("INSERT INTO spell_school VALUES(NULL, ?, ?)", (school_id, spell_id))
 
         ## Subtype ##
-        for sub_type in sub_types:
+        for sub_type in spell_info['Subtypes']:
             db_cursor.execute("SELECT id FROM subtype WHERE name = ? LIMIT 1", (sub_type,))
             subtype_id = db_cursor.fetchone()
             if not db_cursor.fetchone():
@@ -357,7 +364,7 @@ def parse_spell(spell, db_cursor):
 
         ## Classes ##
         # Remember to skip domains
-        for class_name in classes:
+        for class_name in spell_info['Classes']:
             db_cursor.execute("SELECT id FROM class WHERE name = ? LIMIT 1", (class_name,))
             if not db_cursor.fetchone():
                 db_cursor.execute("SELECT id FROM domain_feat WHERE name = ? LIMIT 1", (class_name,))
@@ -370,18 +377,22 @@ def parse_spell(spell, db_cursor):
             if class_id:
                 #Classes
                 class_id = class_id[0]
-                for level in classes[class_name][0]:
+                for level in spell_info['Classes'][class_name][0]:
                     #Don't forget to store subtypes
-                    if len(classes[class_name]) == 2:
-                        if isinstance(classes[class_name][1], list):
+                    if len(spell_info['Classes'][class_name]) == 2:
+                        # This is only for Savant which has a different level
+                        # for divine spells
+                        if isinstance(spell_info['Classes'][class_name][1], list):
                             db_cursor.execute("INSERT INTO spell_class VALUES(NULL, ?, ?, ?, NULL)",
                                               (class_id, spell_id, level))
+                            alternate_level = spell_info['Classes'][class_name][1][0]
+                            alternate_subtype = spell_info['Classes'][class_name][1][1]
                             db_cursor.execute("INSERT INTO spell_class VALUES(NULL, ?, ?, ?, ?)",
-                                              (class_id, spell_id, classes[class_name][1][0],
-                                               classes[class_name][1][1]))
+                                              (class_id, spell_id, alternate_level, alternate_subtype))
                         else:
+                            classe_subtype = spell_info['Classes'][class_name][1]
                             db_cursor.execute("INSERT INTO spell_class VALUES(NULL, ?, ?, ?, ?)",
-                                              (class_id, spell_id, level, classes[class_name][1]))
+                                              (class_id, spell_id, level, classe_subtype))
                     else:
                         db_cursor.execute("INSERT INTO spell_class VALUES(NULL, ?, ?, ?, NULL)",
                                           (class_id, spell_id, level))
@@ -390,20 +401,10 @@ def parse_spell(spell, db_cursor):
                 # Domains
                 db_cursor.execute("SELECT id FROM domain_feat WHERE name = ? LIMIT 1", (class_name,))
                 domain_id = db_cursor.fetchone()[0]
-                for level in classes[class_name][0]:
+                for level in spell_info['Classes'][class_name][0]:
                     db_cursor.execute("INSERT INTO spell_domain_feat VALUES(NULL, ?, ?, ?)",
                                       (domain_id, spell_id, level))
 
-
-    ## Components ##
-
-    #print "\nSpell: %s" % spell_name
-    #print book_info
-    #print schools
-    #print sub_types
-    #print classes
-    #for spell_descriptor in spell_info:
-    #    print "%s: %s" % (spell_descriptor, spell_info[spell_descriptor])
 
 all_descriptors = []
 
@@ -438,6 +439,7 @@ for line in web_abbrevation_file:
 
 
 preload_tables(db_cursor)
+db_conn.commit()
 
 
 """
@@ -459,9 +461,11 @@ for line in all_spells_file:
         break
 
     if not line.strip():
-        parse_spell(spell, db_cursor)
+        spell_info = parse_spell(spell, alt_spells, web_abbrev, all_descriptors)
+        if spell_info:
+            insert_into_spell_db(db_cursor, spell_info)
+            db_conn.commit()
         del spell[:]
-        #break
         continue
     spell.append(line)
 print " COMPLETE"
@@ -474,9 +478,10 @@ for spell in alt_spells:
         spell_id = db_cursor.fetchone()
         if spell_id:
             db_cursor.execute("INSERT INTO alt_spell VALUES(NULL, ?, ?)", (spell[0], spell_id[0]))
+            db_conn.commit()
 
-db_cursor.execute("SELECT name FROM class")
-books = list(db_cursor.fetchall())
+#db_cursor.execute("SELECT name FROM class")
+#books = list(db_cursor.fetchall())
 
 #for book in range(len(books)):
 #    books[book] = books[book][0]
