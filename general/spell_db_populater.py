@@ -42,7 +42,8 @@ def table_setup(name, db_cursor):
             (id INTEGER PRIMARY KEY, name TINYTEXT,\
             cast_time TINYTEXT, range TINYTEXT,\
             target TINYTEXT, effect TINYTEXT, area TINYTEXT, duration TINYTEXT,\
-            saving_throw TINYTEXT, description TINYTEXT, components TINYTEXT)")
+            saving_throw TINYTEXT, spell_resist TINYTEXT, description TINYTEXT,\
+            components TINYTEXT)")
 
     elif(name == 'class'):
         db_cursor.execute("CREATE TABLE class (\
@@ -116,6 +117,10 @@ def table_setup(name, db_cursor):
             id INTEGER PRIMARY KEY, alt_spell_name TINYTEXT,\
             spell_id INT)")
 
+    elif(name == 'web_abbrev'):
+        db_cursor.execute("CREATE TABLE web_abbrev (\
+            id INTEGER PRIMARY KEY, abbrev TINYTEXT, name TINYTEXT)")
+
 
 def preload_tables(db_cursor):
     """
@@ -151,6 +156,13 @@ def preload_tables(db_cursor):
         if not db_cursor.fetchone():
             db_cursor.execute("INSERT INTO class VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)",
                               (line[0], line[1], line[2], line[3], line[4], line[5], line[6]))
+
+    #Create a memoizie table of Web abbreviations
+    web_abbrevation_file = csv.reader(open('data/web-source-abbrev.txt', 'rU'), delimiter=">", quotechar='"')
+    for line in web_abbrevation_file:
+        db_cursor.execute("SELECT id FROM web_abbrev WHERE abbrev = ?", (line[0],))
+        if not db_cursor.fetchone():
+            db_cursor.execute("INSERT INTO web_abbrev VALUES (NULL, ?, ?)", (line[0], line[1]))
 
 
 def stitch_together_parens(level_lines):
@@ -195,7 +207,7 @@ def break_out_class_subtype(character_class):
 #        Spell Parsing       #
 ##############################
 
-def get_book_info(book_info):
+def get_book_info(book_info, db_cursor):
     book_info = book_info.split(", ")
     book_info = stitch_together_parens(book_info)
 
@@ -210,9 +222,12 @@ def get_book_info(book_info):
         else:
             page = None
             book_name = book_info[x]
+
         #Handle web abbreviations
-        if book_name in web_abbrev:
-            book_name = web_abbrev[book_name]
+        db_cursor.execute("SELECT name FROM web_abbrev WHERE abbrev = ?", (book_name,))
+        found = db_cursor.fetchone()
+        if found:
+            book_name = found[0]
         book_info[x] = [book_name, page]
 
     return book_info
@@ -226,42 +241,31 @@ def get_class_info(level_line):
         # Now lets separate class from level. We may need to come back to
         # this point later.
         for class_level in level_line:
-            match = re.search('(\d+)\-(\d+)', class_level)
-            if match:
-                level = range(int(match.group(1)), int(match.group(2)) + 1)
-                character_class = re.sub(' \d+\-\d+', '', class_level, count=1)
-            else:
-                level = [int(re.search('(\d+)', class_level).group(1))]
-                character_class = re.sub(' \d+', '', class_level, count=1).strip()
+            level = [int(re.search('(\d+)', class_level).group(1))]
+            character_class = re.sub(' \d+', '', class_level, count=1).strip()
             character_class = break_out_class_subtype(character_class)
 
-            if character_class[0] == "Sorcerer/Wizard":
-                character_class[0] = character_class[0].split("/")
-                classes[character_class[0][0]] = [level]
-                classes[character_class[0][1]] = [level]
-            elif character_class[0] == "Bard":
-                classes[character_class[0]] = [level]
-                classes["Divine Bard"] = [level]
-            elif len(character_class) == 2:
+            if len(character_class) == 2:
                 classes[character_class[0]] = [level, character_class[1]]
             else:
                 classes[character_class[0]] = [level]
     return classes
 
 
-def parse_spell(spell, alt_spells, web_abbrev, all_descriptors):
+def parse_spell(spell, alt_spells, all_descriptors):
     """
         Let's parse a spell chunk
     """
 
     spell_info = {'Name': '',
-                  'cast_time': '',
+                  'casting_time': '',
                   'range': '',
                   'target': '',
                   'effect': '',
                   'area': '',
                   'duration': '',
                   'saving_throw': '',
+                  'spell_resistance': '',
                   'description': '',
                   'components': ''}
 
@@ -277,7 +281,7 @@ def parse_spell(spell, alt_spells, web_abbrev, all_descriptors):
     match = re.search('(.+) \[(.+)\]', spell_line)
     spell_info['Name'] = match.group(1)
     #print spell_info['Name']
-    spell_info['Books'] = get_book_info(match.group(2))
+    spell_info['Books'] = get_book_info(match.group(2), db_cursor)
 
     # Now lets figure out the School and sub-type
     # Because not every spell has a type.
@@ -341,17 +345,18 @@ def insert_into_spell_db(db_cursor, spell_info):
     # Initial spell insert:
     db_cursor.execute("SELECT id from spell WHERE name = ? LIMIT 1", (spell_info['Name'],))
     if not db_cursor.fetchone():
-        db_cursor.execute("INSERT INTO spell VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                           (spell_info['Name'],
-                            spell_info['cast_time'],
-                            spell_info['range'],
-                            spell_info['target'],
-                            spell_info['effect'],
-                            spell_info['area'],
-                            spell_info['duration'],
-                            spell_info['saving_throw'],
-                            spell_info['description'],
-                            spell_info['components']))
+        db_cursor.execute("INSERT INTO spell VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                          (spell_info['Name'],
+                           spell_info['casting_time'],
+                           spell_info['range'],
+                           spell_info['target'],
+                           spell_info['effect'],
+                           spell_info['area'],
+                           spell_info['duration'],
+                           spell_info['saving_throw'],
+                           spell_info['spell_resistance'],
+                           spell_info['description'],
+                           spell_info['components']))
         db_cursor.execute("SELECT id from spell WHERE name = ? LIMIT 1", (spell_info['Name'],))
         spell_id = db_cursor.fetchone()[0]
 
@@ -475,7 +480,7 @@ all_descriptors = []
 tables = ['spell', 'spell_class', 'class', 'spell_domain_feat', 'domain_feat']
 tables.extend(['book', 'spell_book', 'school', 'spell_school', 'subschool'])
 tables.extend(['spell_subschool', 'descriptor', 'spell_descriptor', 'component'])
-tables.extend(['spell_component', 'alt_spell'])
+tables.extend(['spell_component', 'alt_spell', 'web_abbrev'])
 
 db_conn = sqlite3.connect('spells.db')
 db_conn.text_factory = str
@@ -493,14 +498,6 @@ for table in tables:
             db_cursor.close()
             db_conn.close()
             exit(1)
-
-#Create a memoizie table of Web abbreviations
-web_abbrevation_file = open('data/web-source-abbrev.txt', 'r')
-web_abbrev = {}
-for line in web_abbrevation_file:
-    line = line.strip()
-    line = line.split(">")
-    web_abbrev[line[0]] = line[1]
 
 
 preload_tables(db_cursor)
@@ -525,8 +522,10 @@ for line in all_spells_file:
     if re.match('\-+', line):
         break
 
+    line = re.sub(" +$", "", line)
+
     if not line.strip():
-        spell_info = parse_spell(spell, alt_spells, web_abbrev, all_descriptors)
+        spell_info = parse_spell(spell, alt_spells, all_descriptors)
         if spell_info:
             insert_into_spell_db(db_cursor, spell_info)
             db_conn.commit()
