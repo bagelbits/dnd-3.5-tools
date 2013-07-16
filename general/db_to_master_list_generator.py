@@ -25,20 +25,24 @@ from sys import stdout
 
 def spell_name_sort(spell_info):
     roman_numerals = {
-        "I": 1,
-        "II": 2,
-        "III": 3,
-        "IV": 4,
-        "V": 5,
-        "VI": 6,
-        "VII": 7,
-        "VIII": 8,
-        "IX": 9
+        "i": 1,
+        "ii": 2,
+        "iii": 3,
+        "iv": 4,
+        "v": 5,
+        "vi": 6,
+        "vii": 7,
+        "viii": 8,
+        "ix": 9
     }
     name = spell_info[1].lower()
     name = name.replace(",", "\t")
 
     #Because fuck you roman numerals
+    name = name.split(" ")
+    if name[-1] in roman_numerals:
+        name[-1] = str(roman_numerals[name[-1]])
+    name = " ".join(name)
     return name
 
 db_conn = sqlite3.connect('spells.db')
@@ -47,6 +51,7 @@ db_cursor = db_conn.cursor()
 
 db_cursor.execute("SELECT spell_id, alt_spell_name FROM alt_spell ORDER BY alt_spell_name")
 alt_spells = list(db_cursor.fetchall())
+alt_spells = sorted(alt_spells, key=spell_name_sort)
 db_cursor.execute("SELECT id, name FROM spell ORDER BY name")
 
 test_master_file = open('data/test-all-spells.txt', 'w')

@@ -33,7 +33,7 @@ for line in all_spells:
     per = line_count / float(len(all_spells)) * 100
     stdout.write("\rLoading: %d%%" % per)
     stdout.flush()
-    match = re.search('\[.*(WB\d+)\]', line)
+    match = re.search('\[.*(WB\d+).*\]', line)
     if line.startswith("    ") and match:
         temp_spells.write(re.sub(match.group(1), web_abbrev[match.group(1)], line))
     else:

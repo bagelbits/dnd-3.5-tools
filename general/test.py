@@ -16,5 +16,5 @@ for x in range(file_lines):
     #stdout.write("Checking against master list: %d%%" % per)
     #stdout.flush()
     if test_master_file[x] != master_file[x]:
-        print "MISMATCH! On line %s" % x
+        print "MISMATCH! On line %s" % str(x + 1)
 print " COMPLETE!"
