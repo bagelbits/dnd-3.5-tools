@@ -181,7 +181,6 @@ def break_out_class_subtype(character_class):
     if "(" in character_class:
         character_class = character_class.strip().split(" (")
         classes_to_subtype = [
-            "Cleric",
             "Wu Jen",
             "Shugenja",
             "Arachnomancer",
@@ -439,7 +438,7 @@ def insert_into_spell_db(db_cursor, spell_info):
                 db_cursor.execute("SELECT id FROM domain_feat WHERE name = ? LIMIT 1", (class_name,))
                 if not db_cursor.fetchone():
                     db_cursor.execute("INSERT INTO class VALUES(NULL, ?, 0, 0, NULL, NULL, NULL, NULL)", (class_name,))
-                    print "%s New Class added: %s%s" % (colorz.RED, class_name, colorz.ENDC)
+                    print "%s New Class added: %s from %s%s" % (colorz.RED, class_name, spell_info['Name'], colorz.ENDC)
 
             db_cursor.execute("SELECT id FROM class WHERE name = ? LIMIT 1", (class_name,))
             class_id = db_cursor.fetchone()

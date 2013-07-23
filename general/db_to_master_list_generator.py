@@ -63,7 +63,7 @@ line_count = 0
 for spell in all_spells:
     line_count += 1
     per = line_count / float(len(all_spells)) * 100
-    stdout.write("\rLoading: %d%%" % per)
+    stdout.write("\rGenerating: %d%%" % per)
     stdout.flush()
 
     # Handle alt spells
@@ -187,7 +187,7 @@ for spell in all_spells:
 
     test_master_file.write("\n")
 
-print " Complete"
+print " COMPLETE!"
 
 #This is temporary, take me out
 """
