@@ -47,7 +47,6 @@ Demonologist;1;0;;0;0;BoVD
 Despot;0;1;;1;0;Dragon
 Disciple of Thrym;0;1;;0;0;Frostburn
 Divine Bard;0;1;;1;0;UA
-Divine Savant;0;1;;1;0;DrCompendium
 Dread Necromancer;1;0;;1;0;Heroes of Horror
 Druid;0;1;;1;0;Core
 Druid of the West (Warcraft);0;1;;1;W;
@@ -113,7 +112,8 @@ Purebreath Devotee;0;1;;;F;Dragon
 Ranger;0;1;;1;0;Core
 Runescarred Berserker;0;1;;0;F;UE
 Sanctified;1;1;;1;0;BoED
-Savant;1;0;;1;0;DrCompendium
+Savant (Arcane);1;0;;1;0;DrCompendium
+Savant (Divine);0;1;;1;0;DrCompendium
 Scaled Horror;0;1;;0;0;SS
 Sentinel;0;1;;1;0;Dragon
 Sha'ir;1;0;;1;0;DrCompendium

@@ -187,7 +187,6 @@ def break_out_class_subtype(character_class):
             "Spelldancer",
             "Pious Templar",
             "Maho-Tsukai",
-            "Savant",
             "Spellsinger"
         ]
         if character_class[0] in classes_to_subtype:
