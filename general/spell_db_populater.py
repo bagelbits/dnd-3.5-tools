@@ -191,8 +191,6 @@ def break_out_class_subtype(character_class):
         ]
         if character_class[0] in classes_to_subtype:
             character_class[1] = character_class[1][:-1]
-            if character_class[0] == "Savant":
-                character_class[1] = character_class[1].split(" ")
         else:
             character_class = [" (".join(character_class)]
     else:
@@ -250,7 +248,7 @@ def get_class_info(level_line):
     return classes
 
 
-def parse_spell(spell, alt_spells, all_descriptors):
+def parse_spell(spell, alt_spells):
     """
         Let's parse a spell chunk
     """
@@ -306,23 +304,13 @@ def parse_spell(spell, alt_spells, all_descriptors):
         # Magically, you have no description
         if len(spell) == 0:
             break
-        # Ah, sometimes descriptors can be multiline
-        spell_line = [spell.pop(0).strip()]
-        #while True and len(spell) > 0:
-        while True:
-            if re.match('\w+( \w+)*:', spell[0]):
-                break
-            if spell[0].startswith('    '):
-                break
-            if len(spell) == 0:
-                break
-            spell_line.append(spell.pop(0).strip())
-        spell_line = " ".join(spell_line)
+
+        spell_line = spell.pop(0).strip()
 
         spell_descriptor = re.match("(\w+( \w+)*): ", spell_line).group(1).lower()
         spell_descriptor = re.sub(" +", "_", spell_descriptor)
-        if spell_descriptor not in all_descriptors:
-            all_descriptors.append(spell_descriptor)
+        if spell_descriptor not in spell_info:
+            print "%s New Descriptor found: %s%s" % (colorz.RED, spell_descriptor, colorz.ENDC)
         spell_line = re.sub("\w+( \w+)*: ", '', spell_line, count=1)
         spell_info[spell_descriptor] = spell_line
 
@@ -473,7 +461,6 @@ def insert_into_spell_db(db_cursor, spell_info):
                                       (domain_id, spell_id, level))
 
 
-all_descriptors = []
 
 tables = ['spell', 'spell_class', 'class', 'spell_domain_feat', 'domain_feat']
 tables.extend(['book', 'spell_book', 'school', 'spell_school', 'subschool'])
@@ -523,7 +510,7 @@ for line in all_spells_file:
     line = re.sub(" +$", "", line)
 
     if not line.strip():
-        spell_info = parse_spell(spell, alt_spells, all_descriptors)
+        spell_info = parse_spell(spell, alt_spells)
         if spell_info:
             insert_into_spell_db(db_cursor, spell_info)
             db_conn.commit()
