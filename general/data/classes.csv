@@ -1,164 +1,164 @@
 Class Name;Arcane;Divine;Frequency;Base;Setting;Book
-Adept;0;1;;1;0;Core
+Adept;0;1;;1;0;Dungeon Master's Guide
 All;1;1;;1;R;Magic of Rokugan
-Anagakok;1;0;;1;0;Dragon
-Anarch;0;1;;1;0;Dragon
-Ancestral Speaker;0;1;;1;0;Dragon
-Anti-Paladin;0;1;;1;0;Dragon
-Apostle of Peace;0;1;;0;0;BoED
-Arachnomancer;1;0;;0;F;DotU
-Arcane Disciple;0;1;;1;0;Dragon
-Archivist;0;1;;1;0;HoH
-Artificer;0;0;;1;E;ECS
-Aspirant;0;1;;1;0;Dragon
-Assassin;1;0;;0;0;Core
-Avenger;0;1;;1;0;Dragon
-Avenger (prestige);1;0;;0;0;Online
-Bard;1;0;;1;0;Core
-Basiran Dancer;1;0;;1;K;Players Guide to the Sovereign Lands
-Beguiler;1;0;;1;0;PHB2
+Anagakok;1;0;;1;0;Dragon 344
+Anarch;0;1;;1;0;Dragon 310
+Ancestral Speaker;0;1;;1;0;Dragon 311
+Anti-Paladin;0;1;;1;0;Dragon 312
+Apostle of Peace;0;1;;0;0;Book of Exalted Deeds
+Arachnomancer;1;0;;0;F;Underdark
+Arcane Disciple;0;1;;1;0;Dragon 311
+Archivist;0;1;;1;0;Heroes of Horror
+Artificer;0;0;;1;E;Eberron Campaign Setting
+Aspirant;0;1;;1;0;Dragon 311
+Assassin;1;0;;0;0;Dungeon Master's Guide
+Avenger;0;1;;1;0;Dragon 310
+Avenger (prestige);1;0;;0;0;Prestige Class- The Avenger
+Bard;1;0;;1;0;Player's Handbook
+Basiran Dancer;1;0;;1;K;Player's Guide to the Sovereign Lands
+Beguiler;1;0;;1;0;Player's Handbook II
 Beholder Mage;1;0;;0;0;Lords of Madness
-Beloved of Valarian;0;1;;0;0;BoED
-Benevolent;0;1;;1;0;Dragon
-Blackguard;0;1;;0;0;Core
-Blighter;0;1;;0;0;CompDiv
+Beloved of Valarian;0;1;;0;0;Book of Exalted Deeds
+Benevolent;0;1;;1;0;Dragon 311
+Blackguard;0;1;;0;0;Dungeon Master's Guide
+Blighter;0;1;;0;0;Complete Divine
 Bone Collector;0;1;;0;G;Ghostwalk
 Branch of Zivilyn;0;1;;0;D;Beastiary of Krynn
 Celebrant of Sharess;1;0;;0;F;PgtFaerun
-Cerebrant;1;1;;1;0;Dragon
-Champion of Gwynharwyf;0;1;;0;0;BoED
-Cleric;0;1;;0;0;Core
-Cloistered Cleric;0;1;;0;0;UA
+Cerebrant;1;1;;1;0;Dragon 330
+Champion of Gwynharwyf;0;1;;0;0;Book of Exalted Deeds
+Cleric;0;1;;0;0;Player's Handbook
+Cloistered Cleric;0;1;;0;0;Unearthed Arcana
 Coddler;0;1;;0;K;Divine Masters
-Cold Iron Warrior;0;1;;0;0;Online
-Consecrated Harrier;0;1;;0;0;BoED
-Corrupt;1;1;;1;0;BoVD
+Cold Iron Warrior;0;1;;0;0;Fey Feature- Cold Iron Warrior
+Consecrated Harrier;0;1;;0;0;Book of Exalted Deeds
+Corrupt;1;1;;1;0;Book of Vile Darknes
 Corrupt Avenger;1;0;;0;0;Heroes of Horror
-Corrupter;0;1;;1;0;Dragon
+Corrupter;0;1;;1;0;Dragon 312
 Court Herald;1;0;;0;F;Power of Faerun
-Crusader (base);0;1;;1;0;Dragon
+Crusader (base);0;1;;1;0;Dragon 311
 Cultist of the Shattered Peak;1;0;;0;F;Lost Empires of Faerun
 Cyre Scout;0;0;;0;E;Dragonmarked
-Dark Hunter;1;0;;0;0;Online
+Dark Hunter;1;0;;0;0;Fey Feature- The Dark Hunter
 Death Delver;0;1;;0;0;Heroes of Horror
-Death Master;1;0;;1;0;DrCompendium
-Deathwalker;1;0;;1;0;Dragon
-Demonologist;1;0;;0;0;BoVD
-Despot;0;1;;1;0;Dragon
+Death Master;1;0;;1;0;Dragon Compendium
+Deathwalker;1;0;;1;0;Dragon 312
+Demonologist;1;0;;0;0;Book of Vile Darknes
+Despot;0;1;;1;0;Dragon 312
 Disciple of Thrym;0;1;;0;0;Frostburn
-Divine Bard;0;1;;1;0;UA
+Divine Bard;0;1;;1;0;Unearthed Arcana
 Dread Necromancer;1;0;;1;0;Heroes of Horror
-Druid;0;1;;1;0;Core
-Druid of the West (Warcraft);0;1;;1;W;
-Duskblade;1;0;;1;0;PHB2
-Eagle Knight;0;1;;0;0;Dragon
+Druid;0;1;;1;0;Player's Handbook
+Druid of the West (Warcraft);0;1;;1;W;Warcraft
+Duskblade;1;0;;1;0;Player's Handbook II
+Eagle Knight;0;1;;0;0;Dragon 315
 Ebonmar Infiltrator;1;0;;0;0;Cityscape
-Elven Ranger (Warcraft);;;;;W;
-Emissary of Barachiel;0;1;;0;0;BoED
-Enforcer;0;1;;1;0;Dragon
-Evangelist;0;1;;1;0;Dragon
-Exalted Arcanist;1;0;;0;0;BoED
+Elven Ranger (Warcraft);;;;;W;Warcraft
+Emissary of Barachiel;0;1;;0;0;Book of Exalted Deeds
+Enforcer;0;1;;1;0;Dragon 310
+Evangelist;0;1;;1;0;Dragon 311
+Exalted Arcanist;1;0;;0;0;Book of Exalted Deeds
 Fatemaker;1;0;;0;0;Planar Handbook
-Favored Soul;0;1;;1;0;CompDiv
-Fiend Slayer;1;0;;0;0;Dragon
+Favored Soul;0;1;;1;0;Complete Divine
+Fiend Slayer;1;0;;0;0;Dragon 287
 Fiend of Blasphemy;0;1;;0;0;Fiend Folio
-Flame Steward;0;1;;0;0;Dragon
-Flame Steward (fire only);0;1;;0;0;Dragon
-Fleshcrafter;1;0;;1;0;Dragon
-Ghustil;0;1;;0;0;Dungeon
+Flame Steward;0;1;;0;0;Dragon 283
+Flame Steward (fire only);0;1;;0;0;Dragon 283
+Fleshcrafter;1;0;;1;0;Dragon 312
+Ghustil;0;1;;0;0;Dungeon 100
 Gnome Artificer;0;0;;0;F;Magic of Faerun
-Harper Scout;1;0;;0;F;FRCS
-Hathran;1;0;;0;F;FRCS
-Healer;0;1;;1;0;MH
-Healer (Warcraft);0;1;;;W;
-Hexblade;1;0;;1;0;CompWar
+Harper Scout;1;0;;0;F;Forgotten Realms Campaign Setting
+Hathran;1;0;;0;F;Forgotten Realms Campaign Setting
+Healer;0;1;;1;0;Miniatures Handbook
+Healer (Warcraft);0;1;;;W;Warcraft
+Hexblade;1;0;;1;0;Complete Warrior
 Hoardstealer;1;0;;0;0;Draconomicon
-Holy Liberator;0;1;;0;0;CompDiv
-Hunter (Warcraft);;;;;W;
-Hunter of the Dead;0;1;;0;0;CompWar
-Incarnate;0;1;;1;0;Dragon
-Jaguar Knight;0;1;;0;0;Dragon
-Jester;1;0;;1;0;DrCompendium
+Holy Liberator;0;1;;0;0;Complete Divine
+Hunter (Warcraft);;;;;W;Warcraft
+Hunter of the Dead;0;1;;0;0;Complete Warrior
+Incarnate;0;1;;1;0;Dragon 310
+Jaguar Knight;0;1;;0;0;Dragon 315
+Jester;1;0;;1;0;Dragon Compendium
 Justicar of Taiia;0;1;;0;F;Deities and Demigods
 Justice of Weald and Woe;0;1;;0;F;Champions of Ruin
-Knight of the Chalice;0;1;;0;0;CompWar
-Knight of the Chase;0;1;;0;0;Dragon
+Knight of the Chalice;0;1;;0;0;Complete Warrior
+Knight of the Chase;0;1;;0;0;Dragon 297
 Knight of the Middle Circle;0;1;;0;0;Defenders of the Faith
 Knight of the Weave;1;0;;0;F;Champions of Valor
-Magewright;1;0;;1;E;ECS
-Maho-Tsukai;1;1;;1;R;OA
-Mask of Johydee;0;1;;0;F;Dragon
-Master of the South Wind;1;0;;0;F;Dragon
+Magewright;1;0;;1;E;Eberron Campaign Setting
+Maho-Tsukai;1;1;;1;R;Oriental Adventures
+Mask of Johydee;0;1;;0;F;Dragon 302
+Master of the South Wind;1;0;;0;F;Dragon 314
 Merchant Prince;1;0;;0;F;Power of Faerun
-Metal Master;0;1;;1;0;Dragon
-Mlar;1;0;;0;0;Dungeon
-Mortal Hunter;1;0;;0;0;BoVD
+Metal Master;0;1;;1;0;Dragon 311
+Mlar;1;0;;0;0;Dungeon 100
+Mortal Hunter;1;0;;0;0;Book of Vile Darknes
 Mystic;0;1;;1;K;Divine Masters
-Nar Demonbinder;1;0;;0;F;UE
+Nar Demonbinder;1;0;;0;F;Unapproachable East
 Necromancer;;;;;D;Diablo 2
-Necromancer (Warcraft);;;;;W;
-Nentyar Hunter;0;1;;0;F;UE
-Paladin;0;1;;1;0;Core
-Paladin of Freedom;0;1;;1;0;UA
-Paladin of Slaughter;0;1;;1;0;UA
-Paladin of Tyranny;0;1;;1;0;UA
+Necromancer (Warcraft);;;;;W;Warcraft
+Nentyar Hunter;0;1;;0;F;Unapproachable East
+Paladin;0;1;;1;0;Player's Handbook
+Paladin of Freedom;0;1;;1;0;Unearthed Arcana
+Paladin of Slaughter;0;1;;1;0;Unearthed Arcana
+Paladin of Tyranny;0;1;;1;0;Unearthed Arcana
 Paladin (Silver Flame);0;1;;1;E;Five Nations
-Paladin-Warrior (Warcraft);0;1;;;W;
-Pious Templar;0;1;;0;0;CompDiv
-Priest (Warcraft);0;1;;;W;
+Paladin-Warrior (Warcraft);0;1;;;W;Warcraft
+Pious Templar;0;1;;0;0;Complete Divine
+Priest (Warcraft);0;1;;;W;Warcraft
 Prime Underdark Guide;1;0;;0;F;Underdark
-Psi-Hunter;1;0;;0;0;Dragon
-Purebreath Devotee;0;1;;;F;Dragon
-Ranger;0;1;;1;0;Core
-Runescarred Berserker;0;1;;0;F;UE
-Sanctified;1;1;;1;0;BoED
-Savant (Arcane);1;0;;1;0;DrCompendium
-Savant (Divine);0;1;;1;0;DrCompendium
-Scaled Horror;0;1;;0;0;SS
-Sentinel;0;1;;1;0;Dragon
-Sha'ir;1;0;;1;0;DrCompendium
+Psi-Hunter;1;0;;0;0;Dragon 281
+Purebreath Devotee;0;1;;;F;Dragon 314
+Ranger;0;1;;1;0;Player's Handbook
+Runescarred Berserker;0;1;;0;F;Unapproachable East
+Sanctified;1;1;;1;0;Book of Exalted Deeds
+Savant (Arcane);1;0;;1;0;Dragon Compendium
+Savant (Divine);0;1;;1;0;Dragon Compendium
+Scaled Horror;0;1;;0;0;Savage Species
+Sentinel;0;1;;1;0;Dragon 310
+Sha'ir;1;0;;1;0;Dragon Compendium
 Shade Hunter;1;0;;0;F;Champions of Ruin
 Shadow Walker;1;0;;0;R;Creatures of Rokugan
-Shaman;0;1;;1;0;OA
+Shaman;0;1;;1;0;Oriental Adventures
 Shaman (Kalamar);0;1;;1;K;Players Guide to the Sovereign Lands
-Shaman (Oriental Adventures);0;1;;1;0;OA
-Shaman (Warcraft);0;1;;1;W;
+Shaman (Oriental Adventures);0;1;;1;0;Oriental Adventures
+Shaman (Warcraft);0;1;;1;W;Warcraft
 Shosuro Tejina;1;0;;0;R;Way of the Ninja
-Shugenja;0;1;;1;0;CompDiv
-Sinker;1;0;;0;P;Dragon
+Shugenja;0;1;;1;0;Complete Divine
+Sinker;1;0;;0;P;Dragon 287
 Sky Blitz;;;;;DS;Dark Sun Campaign Setting
-Slayer of Domiel;0;1;;0;0;BoED
-Sohei;0;1;;1;OA;OA
+Slayer of Domiel;0;1;;0;0;Book of Exalted Deeds
+Sohei;0;1;;1;Oriental Adventures;Oriental Adventures
 Soldier of Light;0;1;;0;0;Deities and Demigods
-Son of Mercy;0;1;;0;P;Dragon
-Sorcerer;1;0;;1;0;Core
-Sorceress;1;0;;;D;
-Soul Reaper;1;0;;1;0;Dragon
+Son of Mercy;0;1;;0;P;Dragon 339
+Sorcerer;1;0;;1;0;Player's Handbook
+Sorceress;1;0;;;D;Diablo 2
+Soul Reaper;1;0;;1;0;Dragon 312
 Spellsinger;1;0;;1;K;Players Guide to the Sovereign Lands
-Spellthief;1;0;;1;0;CompAdv
-Spirit Shaman;0;1;;1;0;CompDiv
-Spirit Speaker;0;1;;;;
-Sublime Chord;1;0;;0;0;CompArc
-Suel Arcanamach;1;0;;0;0;CompArc
-Taker;1;0;;0;0;Dragon
-Telflammar Shadowlord;1;0;;0;OA;UE
+Spellthief;1;0;;1;0;Complete Adventurer
+Spirit Shaman;0;1;;1;0;Complete Divine
+Spirit Speaker;0;1;;0;0;Dragon 323
+Sublime Chord;1;0;;0;0;Complete Arcane
+Suel Arcanamach;1;0;;0;0;Complete Arcane
+Taker;1;0;;0;0;Dragon 287
+Telflammar Shadowlord;1;0;;0;Oriental Adventures;Unapproachable East
 Templar;0;1;;0;DS;Dark Sun Campaign Setting
-Temple Raider of Olidammara;0;1;;0;0;CompDiv
-Thayan Slaver;1;0;;0;OA;UE
-Totemic Demonslayer;;;;0;;Dragon
+Temple Raider of Olidammara;0;1;;0;0;Complete Divine
+Thayan Slaver;1;0;;0;Oriental Adventures;Unapproachable East
+Totemic Demonslayer;;;;0;;Dragon 354
 Trapsmith;1;0;;0;0;Dungeonscape
-Ur-Priest;0;1;;0;0;CompDiv
+Ur-Priest;0;1;;0;0;Complete Divine
 Urban Adept;0;1;;1;F;Sharn
-Urban Druid;0;1;;1;0;DrCompendium
+Urban Druid;0;1;;1;0;Dragon Compendium
 Vadalis Beastkeeper;0;1;;0;E;Dragonmarked
-Vassal of Bahamut;0;1;;0;0;BoED
-Vigilante;1;0;;0;0;CompAdv
-Warlock (Warcraft);;;;;W;
-Warmage;1;0;;1;0;CompArc
-Wild Reaper;0;1;;1;0;Dragon
-Wind Walker;0;1;;1;0;Dragon
+Vassal of Bahamut;0;1;;0;0;Book of Exalted Deeds
+Vigilante;1;0;;0;0;Complete Adventurer
+Warlock (Warcraft);;;;;W;Warcraft
+Warmage;1;0;;1;0;Complete Arcane
+Wild Reaper;0;1;;1;0;Dragon 311
+Wind Walker;0;1;;1;0;Dragon 311
 Windrider;0;1;;0;0;Masters of the Wild
-Winter Warden;0;1;;1;0;Dragon
-Witch;1;0;;1;0;Core
-Wizard;1;0;;1;0;Core
-Wu Jen;1;0;;1;0;CompArc
+Winter Warden;0;1;;1;0;Dragon 311
+Witch;1;0;;1;0;Dungeon Master's Guide
+Wizard;1;0;;1;0;Player's Handbook
+Wu Jen;1;0;;1;0;Complete Arcane

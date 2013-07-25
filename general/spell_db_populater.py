@@ -116,10 +116,6 @@ def table_setup(name, db_cursor):
             id INTEGER PRIMARY KEY, alt_spell_name TINYTEXT,\
             spell_id INT)")
 
-    elif(name == 'web_abbrev'):
-        db_cursor.execute("CREATE TABLE web_abbrev (\
-            id INTEGER PRIMARY KEY, abbrev TINYTEXT, name TINYTEXT)")
-
 
 def preload_tables(db_cursor):
     """
@@ -178,13 +174,6 @@ def preload_tables(db_cursor):
             db_cursor.execute("INSERT INTO class VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)",
                               (line[0], line[1], line[2], line[3], line[4], line[5], line[6]))
 
-    #Create a memoizie table of Web abbreviations
-    web_abbrevation_file = csv.reader(open('data/web-source-abbrev.txt', 'rU'), delimiter=">", quotechar='"')
-    for line in web_abbrevation_file:
-        db_cursor.execute("SELECT id FROM web_abbrev WHERE abbrev = ?", (line[0],))
-        if not db_cursor.fetchone():
-            db_cursor.execute("INSERT INTO web_abbrev VALUES (NULL, ?, ?)", (line[0], line[1]))
-
 
 def stitch_together_parens(level_lines):
     paran_sections = []
@@ -240,11 +229,6 @@ def get_book_info(book_info, db_cursor):
             page = None
             book_name = book_info[x]
 
-        #Handle web abbreviations
-        db_cursor.execute("SELECT name FROM web_abbrev WHERE abbrev = ?", (book_name,))
-        found = db_cursor.fetchone()
-        if found:
-            book_name = found[0]
         book_info[x] = [book_name, page]
 
     return book_info
@@ -481,7 +465,7 @@ def insert_into_spell_db(db_cursor, spell_info):
 tables = ['spell', 'spell_class', 'class', 'spell_domain_feat', 'domain_feat']
 tables.extend(['book', 'spell_book', 'school', 'spell_school', 'subschool'])
 tables.extend(['spell_subschool', 'descriptor', 'spell_descriptor', 'component'])
-tables.extend(['spell_component', 'alt_spell', 'web_abbrev'])
+tables.extend(['spell_component', 'alt_spell'])
 
 db_conn = sqlite3.connect('spells.db')
 db_conn.text_factory = str
