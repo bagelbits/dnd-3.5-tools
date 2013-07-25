@@ -42,8 +42,7 @@ def table_setup(name, db_cursor):
             (id INTEGER PRIMARY KEY, name TINYTEXT,\
             cast_time TINYTEXT, range TINYTEXT,\
             target TINYTEXT, effect TINYTEXT, area TINYTEXT, duration TINYTEXT,\
-            saving_throw TINYTEXT, spell_resist TINYTEXT, description TINYTEXT,\
-            components TINYTEXT)")
+            saving_throw TINYTEXT, spell_resist TINYTEXT, description TINYTEXT)")
 
     elif(name == 'class'):
         db_cursor.execute("CREATE TABLE class (\
@@ -117,10 +116,6 @@ def table_setup(name, db_cursor):
             id INTEGER PRIMARY KEY, alt_spell_name TINYTEXT,\
             spell_id INT)")
 
-    elif(name == 'web_abbrev'):
-        db_cursor.execute("CREATE TABLE web_abbrev (\
-            id INTEGER PRIMARY KEY, abbrev TINYTEXT, name TINYTEXT)")
-
 
 def preload_tables(db_cursor):
     """
@@ -136,13 +131,35 @@ def preload_tables(db_cursor):
 
     #Add in the normal spell components
     spell_components = {
+        'None': 'None',
         'V': 'Verbal',
         'S': 'Somatic',
         'M': 'Material',
         'F': 'Focus',
         'DF': 'Divine Focus',
         'XP': 'XP Cost',
-        'T': 'Truename'
+        'T': 'Truename',
+        'Fiend': 'Fiend',
+        'Corrupt': 'Corrupt',
+        'Demon': 'Demon',
+        'Essentia': 'Essentia',
+        'Coldfire': 'Coldfire',
+        'Sacrifice': 'Sacrifice',
+        'Drow': 'Drow',
+        'Shifter': 'Shifter',
+        'Archon': 'Archon',
+        'Abstinence': 'Abstinence',
+        'Frostfell': 'Frostfell',
+        'Drug': 'Drug',
+        'Undead': 'Undead',
+        'Dragon Magic': 'Dragon Magic',
+        'Soul': 'Soul',
+        'Celestial': 'Celestial',
+        'Disease': 'Disease',
+        'Dwarf': 'Dwarf',
+        'Devil': 'Devil',
+        'Halfling': 'Halfling',
+        'Location': 'Location'
     }
     for component_type in spell_components:
         db_cursor.execute("SELECT id FROM component WHERE short_hand = ?", (component_type,))
@@ -156,13 +173,6 @@ def preload_tables(db_cursor):
         if not db_cursor.fetchone():
             db_cursor.execute("INSERT INTO class VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)",
                               (line[0], line[1], line[2], line[3], line[4], line[5], line[6]))
-
-    #Create a memoizie table of Web abbreviations
-    web_abbrevation_file = csv.reader(open('data/web-source-abbrev.txt', 'rU'), delimiter=">", quotechar='"')
-    for line in web_abbrevation_file:
-        db_cursor.execute("SELECT id FROM web_abbrev WHERE abbrev = ?", (line[0],))
-        if not db_cursor.fetchone():
-            db_cursor.execute("INSERT INTO web_abbrev VALUES (NULL, ?, ?)", (line[0], line[1]))
 
 
 def stitch_together_parens(level_lines):
@@ -187,12 +197,11 @@ def break_out_class_subtype(character_class):
             "Spelldancer",
             "Pious Templar",
             "Maho-Tsukai",
-            "Spellsinger"
+            "Spellsinger",
+            "Flame Steward"
         ]
         if character_class[0] in classes_to_subtype:
             character_class[1] = character_class[1][:-1]
-            if character_class[0] == "Savant":
-                character_class[1] = character_class[1].split(" ")
         else:
             character_class = [" (".join(character_class)]
     else:
@@ -221,11 +230,6 @@ def get_book_info(book_info, db_cursor):
             page = None
             book_name = book_info[x]
 
-        #Handle web abbreviations
-        db_cursor.execute("SELECT name FROM web_abbrev WHERE abbrev = ?", (book_name,))
-        found = db_cursor.fetchone()
-        if found:
-            book_name = found[0]
         book_info[x] = [book_name, page]
 
     return book_info
@@ -250,7 +254,7 @@ def get_class_info(level_line):
     return classes
 
 
-def parse_spell(spell, alt_spells, all_descriptors):
+def parse_spell(spell, alt_spells):
     """
         Let's parse a spell chunk
     """
@@ -306,33 +310,21 @@ def parse_spell(spell, alt_spells, all_descriptors):
         # Magically, you have no description
         if len(spell) == 0:
             break
-        # Ah, sometimes descriptors can be multiline
-        spell_line = [spell.pop(0).strip()]
-        #while True and len(spell) > 0:
-        while True:
-            if re.match('\w+( \w+)*:', spell[0]):
-                break
-            if spell[0].startswith('    '):
-                break
-            if len(spell) == 0:
-                break
-            spell_line.append(spell.pop(0).strip())
-        spell_line = " ".join(spell_line)
+
+        spell_line = spell.pop(0).strip()
 
         spell_descriptor = re.match("(\w+( \w+)*): ", spell_line).group(1).lower()
         spell_descriptor = re.sub(" +", "_", spell_descriptor)
-        if spell_descriptor not in all_descriptors:
-            all_descriptors.append(spell_descriptor)
+        if spell_descriptor not in spell_info:
+            print "%s New Descriptor found: %s%s" % (colorz.RED, spell_descriptor, colorz.ENDC)
         spell_line = re.sub("\w+( \w+)*: ", '', spell_line, count=1)
         spell_info[spell_descriptor] = spell_line
 
     #Now stich together the rest of the description
     spell_info['description'] = "".join(spell).strip()
 
-    """
     if spell_info['components']:
         spell_info['components'] = spell_info['components'].split(", ")
-    """
 
     return spell_info
 
@@ -343,7 +335,7 @@ def insert_into_spell_db(db_cursor, spell_info):
     # Initial spell insert:
     db_cursor.execute("SELECT id from spell WHERE name = ? LIMIT 1", (spell_info['Name'],))
     if not db_cursor.fetchone():
-        db_cursor.execute("INSERT INTO spell VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        db_cursor.execute("INSERT INTO spell VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                           (spell_info['Name'],
                            spell_info['casting_time'],
                            spell_info['range'],
@@ -353,14 +345,12 @@ def insert_into_spell_db(db_cursor, spell_info):
                            spell_info['duration'],
                            spell_info['saving_throw'],
                            spell_info['spell_resistance'],
-                           spell_info['description'],
-                           spell_info['components']))
+                           spell_info['description']))
         db_cursor.execute("SELECT id from spell WHERE name = ? LIMIT 1", (spell_info['Name'],))
         spell_id = db_cursor.fetchone()[0]
 
         # Let's populate reference tables as we go:
         ## COMPONENTS ##
-        """
         for component in spell_info['components']:
             db_cursor.execute("SELECT id from component WHERE short_hand = ? LIMIT 1",
                              (component,))
@@ -376,7 +366,6 @@ def insert_into_spell_db(db_cursor, spell_info):
             component_id = component_id[0]
             db_cursor.execute("INSERT INTO spell_component VALUES(NULL, ?, ?)",
                               (component_id, spell_id))
-        """
 
         ## BOOK ##
         for book in spell_info['Books']:
@@ -473,12 +462,11 @@ def insert_into_spell_db(db_cursor, spell_info):
                                       (domain_id, spell_id, level))
 
 
-all_descriptors = []
 
 tables = ['spell', 'spell_class', 'class', 'spell_domain_feat', 'domain_feat']
 tables.extend(['book', 'spell_book', 'school', 'spell_school', 'subschool'])
 tables.extend(['spell_subschool', 'descriptor', 'spell_descriptor', 'component'])
-tables.extend(['spell_component', 'alt_spell', 'web_abbrev'])
+tables.extend(['spell_component', 'alt_spell'])
 
 db_conn = sqlite3.connect('spells.db')
 db_conn.text_factory = str
@@ -523,7 +511,7 @@ for line in all_spells_file:
     line = re.sub(" +$", "", line)
 
     if not line.strip():
-        spell_info = parse_spell(spell, alt_spells, all_descriptors)
+        spell_info = parse_spell(spell, alt_spells)
         if spell_info:
             insert_into_spell_db(db_cursor, spell_info)
             db_conn.commit()
