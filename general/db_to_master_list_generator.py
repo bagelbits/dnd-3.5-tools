@@ -20,6 +20,7 @@
 
 import sqlite3
 from sys import stdout
+from os import remove
 
 
 def spell_name_sort(spell_info):
@@ -82,12 +83,12 @@ def test_file_generator(db_cursor, all_spells, alt_spells, test_master_file):
             book[0] = db_cursor.fetchone()[0]
             if book[1]:
                 book[1] = str(book[1])
-                book[1] = "(pg " + book[1] + ")"
+                book[1] = "(pg %s)" % book[1]
             else:
                 book[1] = ''
             book = " ".join(book).strip()
             spell_books.append(book)
-        test_master_file.write("    " + spell[1] + " [" + ", ".join(spell_books) + "]\n")
+        test_master_file.write("    %s [%s]\n" % (spell[1], ", ".join(spell_books)))
 
     #####################################
     # School, subschool, and descriptor #
@@ -109,7 +110,7 @@ def test_file_generator(db_cursor, all_spells, alt_spells, test_master_file):
                 subschool_id = subschool[0]
                 db_cursor.execute("SELECT name FROM subschool WHERE id = ?", (subschool_id,))
                 spell_subschools.append(db_cursor.fetchone()[0])
-            test_master_file.write(" (" + ", ".join(spell_subschools) + ")")
+            test_master_file.write(" (%s)" % ", ".join(spell_subschools))
 
         db_cursor.execute("SELECT descriptor_id FROM spell_descriptor WHERE spell_id = ?", (spell_id,))
         descriptor_meta_info = db_cursor.fetchall()
@@ -119,7 +120,7 @@ def test_file_generator(db_cursor, all_spells, alt_spells, test_master_file):
                 descriptor_id = descriptor[0]
                 db_cursor.execute("SELECT name FROM descriptor WHERE id = ?", (descriptor_id,))
                 spell_descriptors.append(db_cursor.fetchone()[0])
-            test_master_file.write(" [" + ", ".join(spell_descriptors) + "]")
+            test_master_file.write(" [%s]" % ", ".join(spell_descriptors))
         test_master_file.write("\n")
 
     ############################
@@ -144,33 +145,46 @@ def test_file_generator(db_cursor, all_spells, alt_spells, test_master_file):
             db_cursor.execute("SELECT name FROM domain_feat WHERE id = ?", (class_id,))
             spell_classes.append(" ".join([db_cursor.fetchone()[0], str(character_class[1])]))
         spell_classes = sorted(spell_classes)
-        test_master_file.write("Level: " + ", ".join(spell_classes) + "\n")
+        test_master_file.write("Level: %s\n" % ", ".join(spell_classes))
+
+    #####################
+    # Spell Componentes #
+    #####################
+        #print spell[1]
+        db_cursor.execute("SELECT component_id FROM spell_component WHERE spell_id = ?", (spell_id,))
+        component_meta_info = db_cursor.fetchall()
+        spell_components = []
+        if component_meta_info:
+            for component_id in component_meta_info:
+                component_id = component_id[0]
+                db_cursor.execute("SELECT short_hand FROM component WHERE id = ?", (component_id,))
+                spell_components.append(db_cursor.fetchone()[0])
+            test_master_file.write("Components: %s\n" % ", ".join(spell_components))
+
 
     #####################
     # Spell Description #
     #####################
         db_cursor.execute("SELECT * FROM spell WHERE id = ?", (spell_id,))
         spell_meta_info = db_cursor.fetchone()
-        if spell_meta_info[11]:
-            test_master_file.write("Components: " + spell_meta_info[11] + "\n")
         if spell_meta_info[2]:
-            test_master_file.write("Casting Time: " + spell_meta_info[2] + "\n")
+            test_master_file.write("Casting Time: %s\n" % spell_meta_info[2])
         if spell_meta_info[3]:
-            test_master_file.write("Range: " + spell_meta_info[3] + "\n")
+            test_master_file.write("Range: %s\n" % spell_meta_info[3])
         if spell_meta_info[4]:
-            test_master_file.write("Target: " + spell_meta_info[4] + "\n")
+            test_master_file.write("Target: %s\n" % spell_meta_info[4])
         if spell_meta_info[5]:
-            test_master_file.write("Effect: " + spell_meta_info[5] + "\n")
+            test_master_file.write("Effect: %s\n" % spell_meta_info[5])
         if spell_meta_info[6]:
-            test_master_file.write("Area: " + spell_meta_info[6] + "\n")
+            test_master_file.write("Area: %s\n" % spell_meta_info[6])
         if spell_meta_info[7]:
-            test_master_file.write("Duration: " + spell_meta_info[7] + "\n")
+            test_master_file.write("Duration: %s\n" % spell_meta_info[7])
         if spell_meta_info[8]:
-            test_master_file.write("Saving Throw: " + spell_meta_info[8] + "\n")
+            test_master_file.write("Saving Throw: %s\n" % spell_meta_info[8])
         if spell_meta_info[9]:
-            test_master_file.write("Spell Resistance: " + spell_meta_info[9] + "\n")
+            test_master_file.write("Spell Resistance: %s\n" % spell_meta_info[9])
         if spell_meta_info[10]:
-            test_master_file.write("    " + spell_meta_info[10] + "\n")
+            test_master_file.write("    %s\n" % spell_meta_info[10])
 
         test_master_file.write("\n")
 
@@ -188,28 +202,36 @@ db_cursor.execute("SELECT id, name FROM spell ORDER BY name")
 test_master_file = open('data/test-all-spells.txt', 'w')
 
 all_spells = list(db_cursor.fetchall())
-#all_spells = sorted(all_spells, key=lambda name: name[1].lower())
 all_spells = sorted(all_spells, key=spell_name_sort)
 test_file_generator(db_cursor, all_spells, alt_spells, test_master_file)
+test_master_file.close()
 
-#This is temporary, take me out
-"""
+#Check for differences!
+mismatch_found = False
 test_master_file = list(open('data/test-all-spells.txt', 'r'))
 master_file = list(open('data/all-spells.txt', 'r'))
+mismatch_file = open('data/mismatch.txt', 'w')
 if len(test_master_file) != len(master_file):
-    print "Mismatch file length"
+    print len(test_master_file)
+    print len(master_file)
+    mismatch_file.write("Mismatch file length\n")
+    mismatch_found = True
 
 if len(test_master_file) < len(master_file):
     file_lines = len(test_master_file)
 else:
     file_lines = len(master_file)
-line_count = 0
+
 for x in range(file_lines):
-    line_count += 1
-    per = line_count / float(file_lines) * 100
-    #stdout.write("Checking against master list: %d%%" % per)
-    #stdout.flush()
     if test_master_file[x] != master_file[x]:
-        print "MISMATCH! On line %s" % x
-print " COMPLETE!"
-"""
+        mismatch_file.write("MISMATCH! On line %s\n" % str(x + 1))
+        mismatch_found = True
+print "Mismatch check COMPLETE!"
+if mismatch_found:
+    print "Mismatches found. Please check data/mismatch.txt!"
+else:
+    all_spells = open('data/all-spells.txt', 'w')
+    temp_spells = open('data/test-all-spells.txt', 'r')
+    for line in temp_spells:
+        all_spells.write(line)
+    remove('data/test-all-spells.txt')

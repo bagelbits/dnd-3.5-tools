@@ -14,13 +14,9 @@ TO DO:
 character/specific/krag_calc.py:
 * Clean up code again
 * Bear form bonus feat
-* Print out HP, Saves, AC at the end of round, and keep track if they're altered due to Rage or the like
-* Keep track of HP
 * GUI version
 
 general/spell_db_populater.py:
-* Populate spell_class and spell_domain tables
-* Import files for book, class, school, subtype, and component tables
 * General code clean up
 * Allow for the DM to set % for class. May want to just use types like Core, Uncommon, Rare, Nonexistant.
 

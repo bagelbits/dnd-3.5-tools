@@ -42,8 +42,7 @@ def table_setup(name, db_cursor):
             (id INTEGER PRIMARY KEY, name TINYTEXT,\
             cast_time TINYTEXT, range TINYTEXT,\
             target TINYTEXT, effect TINYTEXT, area TINYTEXT, duration TINYTEXT,\
-            saving_throw TINYTEXT, spell_resist TINYTEXT, description TINYTEXT,\
-            components TINYTEXT)")
+            saving_throw TINYTEXT, spell_resist TINYTEXT, description TINYTEXT)")
 
     elif(name == 'class'):
         db_cursor.execute("CREATE TABLE class (\
@@ -136,13 +135,35 @@ def preload_tables(db_cursor):
 
     #Add in the normal spell components
     spell_components = {
+        'None': 'None',
         'V': 'Verbal',
         'S': 'Somatic',
         'M': 'Material',
         'F': 'Focus',
         'DF': 'Divine Focus',
         'XP': 'XP Cost',
-        'T': 'Truename'
+        'T': 'Truename',
+        'Fiend': 'Fiend',
+        'Corrupt': 'Corrupt',
+        'Demon': 'Demon',
+        'Essentia': 'Essentia',
+        'Coldfire': 'Coldfire',
+        'Sacrifice': 'Sacrifice',
+        'Drow': 'Drow',
+        'Shifter': 'Shifter',
+        'Archon': 'Archon',
+        'Abstinence': 'Abstinence',
+        'Frostfell': 'Frostfell',
+        'Drug': 'Drug',
+        'Undead': 'Undead',
+        'Dragon Magic': 'Dragon Magic',
+        'Soul': 'Soul',
+        'Celestial': 'Celestial',
+        'Disease': 'Disease',
+        'Dwarf': 'Dwarf',
+        'Devil': 'Devil',
+        'Halfling': 'Halfling',
+        'Location': 'Location'
     }
     for component_type in spell_components:
         db_cursor.execute("SELECT id FROM component WHERE short_hand = ?", (component_type,))
@@ -317,10 +338,8 @@ def parse_spell(spell, alt_spells):
     #Now stich together the rest of the description
     spell_info['description'] = "".join(spell).strip()
 
-    """
     if spell_info['components']:
         spell_info['components'] = spell_info['components'].split(", ")
-    """
 
     return spell_info
 
@@ -331,7 +350,7 @@ def insert_into_spell_db(db_cursor, spell_info):
     # Initial spell insert:
     db_cursor.execute("SELECT id from spell WHERE name = ? LIMIT 1", (spell_info['Name'],))
     if not db_cursor.fetchone():
-        db_cursor.execute("INSERT INTO spell VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        db_cursor.execute("INSERT INTO spell VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                           (spell_info['Name'],
                            spell_info['casting_time'],
                            spell_info['range'],
@@ -341,14 +360,12 @@ def insert_into_spell_db(db_cursor, spell_info):
                            spell_info['duration'],
                            spell_info['saving_throw'],
                            spell_info['spell_resistance'],
-                           spell_info['description'],
-                           spell_info['components']))
+                           spell_info['description']))
         db_cursor.execute("SELECT id from spell WHERE name = ? LIMIT 1", (spell_info['Name'],))
         spell_id = db_cursor.fetchone()[0]
 
         # Let's populate reference tables as we go:
         ## COMPONENTS ##
-        """
         for component in spell_info['components']:
             db_cursor.execute("SELECT id from component WHERE short_hand = ? LIMIT 1",
                              (component,))
@@ -364,7 +381,6 @@ def insert_into_spell_db(db_cursor, spell_info):
             component_id = component_id[0]
             db_cursor.execute("INSERT INTO spell_component VALUES(NULL, ?, ?)",
                               (component_id, spell_id))
-        """
 
         ## BOOK ##
         for book in spell_info['Books']:
