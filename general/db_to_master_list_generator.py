@@ -138,7 +138,7 @@ def test_file_generator(db_cursor, all_spells, alt_spells, test_master_file):
             else:
                 spell_classes.append(" ".join([db_cursor.fetchone()[0], str(character_class[1])]))
         # Domain #
-        db_cursor.execute("SELECT domain_id, level FROM spell_domain_feat WHERE spell_id = ?", (spell_id,))
+        db_cursor.execute("SELECT domain_feat_id, level FROM spell_domain_feat WHERE spell_id = ?", (spell_id,))
         class_meta_info = db_cursor.fetchall()
         for character_class in class_meta_info:
             class_id = character_class[0]

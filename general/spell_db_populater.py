@@ -48,7 +48,7 @@ def table_setup(name, db_cursor):
         db_cursor.execute("CREATE TABLE class (\
             id INTEGER PRIMARY KEY, name TINYTEXT,\
             divine INT, arcane INT, frequency INT, base_class INT,\
-            setting TINYTEXT, book TINYTEXT)")
+            setting TINYTEXT)")
 
     elif(name == 'spell_class'):
         db_cursor.execute("CREATE TABLE spell_class (\
@@ -58,12 +58,17 @@ def table_setup(name, db_cursor):
     elif(name == 'domain_feat'):
         db_cursor.execute("CREATE TABLE domain_feat (\
             id INTEGER PRIMARY KEY, name TINYTEXT, domain INT,\
-            feat INT, class TINYTEXT, setting TINYTEXT, book TINYTEXT)")
+            feat INT, setting TINYTEXT, book TINYTEXT)")
 
     elif(name == 'spell_domain_feat'):
         db_cursor.execute("CREATE TABLE spell_domain_feat (\
-            id INTEGER PRIMARY KEY, domain_id INT,\
+            id INTEGER PRIMARY KEY, domain_feat_id INT,\
             spell_id INTEGER, level INT)")
+
+    elif(name == 'class_domain_feat'):
+        db_cursor.execute("CREATE TABLE class_domain_feat (\
+            id INTEGER PRIMARY KEY, domain_feat_id INT,\
+            class_id INT)")
 
     elif(name == 'book'):
         db_cursor.execute("CREATE TABLE book (\
@@ -73,6 +78,36 @@ def table_setup(name, db_cursor):
         db_cursor.execute("CREATE TABLE spell_book (\
             id INTEGER PRIMARY KEY, book_id INT,\
             spell_id INT, page INT)")
+
+    elif(name == 'class_book'):
+        db_cursor.execute("CREATE TABLE class_book (\
+            id INTEGER PRIMARY KEY, book_id INT,\
+            class_id INT)")
+
+    elif(name == 'domain_feat_book'):
+        db_cursor.execute("CREATE TABLE domain_feat_book (\
+            id INTEGER PRIMARY KEY, book_id INT,\
+            domain_feat_id INT)")
+
+    elif (name == 'setting'):
+        db_cursor.execute("CREATE TABLE setting (\
+            id INTEGER PRIMARY KEY, name TINYTEXT,\
+            short_hand TINYTEXT)")
+
+    elif (name == 'book_setting'):
+        db_cursor.execute("CREATE TABLE book_setting (\
+            id INTEGER PRIMARY KEY, setting_id INT,\
+            book_id INT)")
+
+    elif (name == 'class_setting'):
+        db_cursor.execute("CREATE TABLE class_setting (\
+            id INTEGER PRIMARY KEY, setting_id INT,\
+            class_id INT)")
+
+    elif (name == 'domain_feat_setting'):
+        db_cursor.execute("CREATE TABLE domain_feat_setting (\
+            id INTEGER PRIMARY KEY, setting_id INT,\
+            domain_feat_id INT)")
 
     elif(name == 'school'):
         db_cursor.execute("CREATE TABLE school (\
@@ -122,12 +157,6 @@ def preload_tables(db_cursor):
         Let's preload some of the tables:
     """
     #Load up all domains and feats
-    domain_feat_file = csv.reader(open('data/domain_feat.csv', 'rU'), delimiter=";", quotechar='"')
-    for line in domain_feat_file:
-        db_cursor.execute("SELECT id FROM domain_feat WHERE name = ?", (line[0], ))
-        if not db_cursor.fetchone():
-            db_cursor.execute("INSERT INTO domain_feat VALUES (NULL, ?, ?, ?, ?, ?, ?)",
-                              (line[0], line[1], line[2], line[3], line[4], line[5]))
 
     #Add in the normal spell components
     spell_components = {
@@ -168,11 +197,48 @@ def preload_tables(db_cursor):
                               (spell_components[component_type], component_type))
 
     class_file = csv.reader(open('data/classes.csv', 'rU'), delimiter=";", quotechar='"')
+    class_file.next()
     for line in class_file:
         db_cursor.execute("SELECT id FROM class WHERE name = ?", (line[0], ))
         if not db_cursor.fetchone():
-            db_cursor.execute("INSERT INTO class VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)",
-                              (line[0], line[1], line[2], line[3], line[4], line[5], line[6]))
+            db_cursor.execute("INSERT INTO class VALUES (NULL, ?, ?, ?, ?, ?, ?)",
+                              (line[0], line[1], line[2], line[3], line[4], line[5]))
+        db_cursor.execute("SELECT id FROM class WHERE name = ?", (line[0], ))
+        class_id = db_cursor.fetchone()[0]
+
+        db_cursor.execute("SELECT id FROM book WHERE name = ?", (line[6], ))
+        if not db_cursor.fetchone():
+            db_cursor.execute("INSERT INTO book VALUES (NULL, ?)", (line[6], ))
+        db_cursor.execute("SELECT id FROM book WHERE name = ?", (line[6], ))
+        book_id = db_cursor.fetchone()[0]
+
+        db_cursor.execute("INSERT INTO class_book VALUES (NULL, ?, ?)",
+                          (book_id, class_id))
+
+    domain_feat_file = csv.reader(open('data/domain_feat.csv', 'rU'), delimiter=";", quotechar='"')
+    domain_feat_file.next()
+    for line in domain_feat_file:
+        db_cursor.execute("SELECT id FROM domain_feat WHERE name = ?", (line[0], ))
+        if not db_cursor.fetchone():
+            db_cursor.execute("INSERT INTO domain_feat VALUES (NULL, ?, ?, ?, ?, ?)",
+                              (line[0], line[1], line[2], line[4], line[5]))
+            db_cursor.execute("SELECT id FROM domain_feat WHERE name = ?", (line[0], ))
+            domain_feat_id = db_cursor.fetchone()[0]
+            if line[3] == 'Any':
+                class_ids = [0]
+            elif line[3] == 'Cleric':
+                db_cursor.execute("SELECT id FROM class where name = 'Cleric'")
+                class_ids = [db_cursor.fetchone()[0]]
+                db_cursor.execute("SELECT id FROM class where name = 'Cloistered Cleric'")
+                class_ids.append(db_cursor.fetchone()[0])
+            else:
+                db_cursor.execute("SELECT id FROM class where name = ?", (line[3], ))
+                class_ids = [db_cursor.fetchone()[0]]
+
+            for class_id in class_ids:
+                db_cursor.execute("INSERT INTO class_domain_feat VALUES (NULL, ?, ?)",
+                                  (domain_feat_id, class_id))
+
 
 
 def stitch_together_parens(level_lines):
@@ -356,7 +422,7 @@ def insert_into_spell_db(db_cursor, spell_info):
                              (component,))
             component_id = db_cursor.fetchone()
             if not component_id:
-                print spell_info['Name']
+                print "\n%s" % spell_info['Name']
                 print "%s New component type added: %s%s" % (colorz.RED, component, colorz.ENDC)
                 db_cursor.execute("INSERT INTO component VALUES(NULL, NULL, ?)",
                                  (component,))
@@ -426,7 +492,7 @@ def insert_into_spell_db(db_cursor, spell_info):
                 db_cursor.execute("SELECT id FROM domain_feat WHERE name = ? LIMIT 1", (class_name,))
                 if not db_cursor.fetchone():
                     db_cursor.execute("INSERT INTO class VALUES(NULL, ?, 0, 0, NULL, NULL, NULL, NULL)", (class_name,))
-                    print "%s New Class added: %s from %s%s" % (colorz.RED, class_name, spell_info['Name'], colorz.ENDC)
+                    print "\n%s New Class added: %s from %s%s" % (colorz.RED, class_name, spell_info['Name'], colorz.ENDC)
 
             db_cursor.execute("SELECT id FROM class WHERE name = ? LIMIT 1", (class_name,))
             class_id = db_cursor.fetchone()
@@ -462,11 +528,12 @@ def insert_into_spell_db(db_cursor, spell_info):
                                       (domain_id, spell_id, level))
 
 
-
 tables = ['spell', 'spell_class', 'class', 'spell_domain_feat', 'domain_feat']
-tables.extend(['book', 'spell_book', 'school', 'spell_school', 'subschool'])
-tables.extend(['spell_subschool', 'descriptor', 'spell_descriptor', 'component'])
-tables.extend(['spell_component', 'alt_spell'])
+tables.extend(['class_domain_feat', 'book', 'spell_book', 'school', 'spell_school'])
+tables.extend(['subschool', 'spell_subschool', 'descriptor', 'spell_descriptor'])
+tables.extend(['component', 'spell_component', 'alt_spell', 'class_book'])
+tables.extend(['domain_feat_book', 'setting', 'book_setting', 'class_setting'])
+tables.extend(['domain_feat_setting'])
 
 db_conn = sqlite3.connect('spells.db')
 db_conn.text_factory = str
@@ -474,6 +541,7 @@ db_cursor = db_conn.cursor()
 
 db_cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
 table_results = db_cursor.fetchall()
+print "%sSetting up tables...%s" % (colorz.BLUE, colorz.ENDC)
 for table in tables:
     if not any(table == result[0] for result in table_results):
         try:
@@ -485,7 +553,7 @@ for table in tables:
             db_conn.close()
             exit(1)
 
-
+print "%sPreloading tables...%s" % (colorz.BLUE, colorz.ENDC)
 preload_tables(db_cursor)
 db_conn.commit()
 
@@ -493,6 +561,7 @@ db_conn.commit()
 """
     Now let's parse the spell list! :D
 """
+print "%sParsing and loading into db....%s" % (colorz.BLUE, colorz.ENDC)
 alt_spells = []
 all_spells_file = open('data/all-spells.txt', 'r')
 spell = []
