@@ -49,6 +49,9 @@ def weighted_choice(freq_weights):
 
 
 def full_spell_description(db_cursor, spell_id):
+    header_color = colorz.BLUE
+    text_color = colorz.WHITE
+
     #################
     # Name and Book #
     #################
@@ -68,7 +71,7 @@ def full_spell_description(db_cursor, spell_id):
             book[1] = ''
         book = " ".join(book).strip()
         spell_books.append(book)
-    stdout.write("    %s [%s]\n" % (spell_name, ", ".join(spell_books)))
+    stdout.write("    %s%s %s[%s]%s\n" % (text_color, spell_name, colorz.GREY, ", ".join(spell_books), colorz.ENDC))
 
     #####################################
     # School, subschool, and descriptor #
@@ -80,7 +83,7 @@ def full_spell_description(db_cursor, spell_id):
         school_id = school[0]
         db_cursor.execute("SELECT name FROM school WHERE id = ?", (school_id,))
         spell_schools.append(db_cursor.fetchone()[0])
-    stdout.write("/".join(spell_schools))
+    stdout.write("%s%s%s" % (text_color, "/".join(spell_schools), colorz.GREY))
 
     db_cursor.execute("SELECT subschool_id FROM spell_subschool WHERE spell_id = ?", (spell_id,))
     subschool_meta_info = db_cursor.fetchall()
@@ -101,7 +104,7 @@ def full_spell_description(db_cursor, spell_id):
             db_cursor.execute("SELECT name FROM descriptor WHERE id = ?", (descriptor_id,))
             spell_descriptors.append(db_cursor.fetchone()[0])
         stdout.write(" [%s]" % ", ".join(spell_descriptors))
-    stdout.write("\n")
+    stdout.write("\n%s" % (colorz.ENDC))
 
     ############################
     # Classes and spell levels #
@@ -125,7 +128,7 @@ def full_spell_description(db_cursor, spell_id):
         db_cursor.execute("SELECT name FROM domain_feat WHERE id = ?", (class_id,))
         spell_classes.append(" ".join([db_cursor.fetchone()[0], str(character_class[1])]))
     spell_classes = sorted(spell_classes)
-    stdout.write("Level: %s\n" % ", ".join(spell_classes))
+    stdout.write("%sLevel:%s %s%s\n" % (header_color, text_color, ", ".join(spell_classes), colorz.ENDC))
 
     #####################
     # Spell Componentes #
@@ -138,7 +141,7 @@ def full_spell_description(db_cursor, spell_id):
             component_id = component_id[0]
             db_cursor.execute("SELECT short_hand FROM component WHERE id = ?", (component_id,))
             spell_components.append(db_cursor.fetchone()[0])
-        stdout.write("Components: %s\n" % ", ".join(spell_components))
+        stdout.write("%sComponents:%s %s%s\n" % (header_color, text_color, ", ".join(spell_components), colorz.ENDC))
 
 
     #####################
@@ -147,35 +150,45 @@ def full_spell_description(db_cursor, spell_id):
     db_cursor.execute("SELECT * FROM spell WHERE id = ?", (spell_id,))
     spell_meta_info = db_cursor.fetchone()
     if spell_meta_info[2]:
-        stdout.write("Casting Time: %s\n" % spell_meta_info[2])
+        stdout.write("%sCasting Time:%s %s%s\n" % (header_color, text_color, spell_meta_info[2], colorz.ENDC))
     if spell_meta_info[3]:
-        stdout.write("Range: %s\n" % spell_meta_info[3])
+        stdout.write("%sRange:%s %s%s\n" % (header_color, text_color, spell_meta_info[3], colorz.ENDC))
     if spell_meta_info[4]:
-        stdout.write("Target: %s\n" % spell_meta_info[4])
+        stdout.write("%sTarget:%s %s%s\n" % (header_color, text_color, spell_meta_info[4], colorz.ENDC))
     if spell_meta_info[5]:
-        stdout.write("Effect: %s\n" % spell_meta_info[5])
+        stdout.write("%sEffect:%s %s%s\n" % (header_color, text_color, spell_meta_info[5], colorz.ENDC))
     if spell_meta_info[6]:
-        stdout.write("Area: %s\n" % spell_meta_info[6])
+        stdout.write("%sArea:%s %s%s\n" % (header_color, text_color, spell_meta_info[6], colorz.ENDC))
     if spell_meta_info[7]:
-        stdout.write("Duration: %s\n" % spell_meta_info[7])
+        stdout.write("%sDuration:%s %s%s\n" % (header_color, text_color, spell_meta_info[7], colorz.ENDC))
     if spell_meta_info[8]:
-        stdout.write("Saving Throw: %s\n" % spell_meta_info[8])
+        stdout.write("%sSaving Throw:%s %s%s\n" % (header_color, text_color, spell_meta_info[8], colorz.ENDC))
     if spell_meta_info[9]:
-        stdout.write("Spell Resistance: %s\n" % spell_meta_info[9])
+        stdout.write("%sSpell Resistance:%s %s%s\n" % (header_color, text_color, spell_meta_info[9], colorz.ENDC))
     if spell_meta_info[10]:
-        stdout.write("    %s\n" % spell_meta_info[10])
+        stdout.write("    %s%s%s\n" % (text_color, spell_meta_info[10], colorz.ENDC))
 
     stdout.write("\n")
 
 
-def random_spell(db_cursor, frequency_weights, general_class_weights, domain_class_weights, domain_feat_weights):
+def random_spell(db_cursor, choice_weights, spell_level, spell_type):
+    frequency_weights = choice_weights['frequency_weights']
+    general_class_weights = choice_weights['general_class_weights']
+    domain_class_weights = choice_weights['domain_class_weights']
+    domain_feat_weights = choice_weights['domain_feat_weights']
+
     print "%sPicking random spell....%s" % (colorz.PURPLE, colorz.ENDC)
     # Select either Common, Uncommon, or Rare
     select_freq = weighted_choice(frequency_weights)
     #print select_freq
 
     # Select class in that frequency category
-    db_cursor.execute("SELECT id, more_common FROM class WHERE frequency = ?", (select_freq, ))
+    if spell_type == 'arcane':
+        db_cursor.execute("SELECT id, more_common FROM class \
+                           WHERE frequency = ? AND arcane = 1", (select_freq, ))
+    else:
+        db_cursor.execute("SELECT id, more_common FROM class \
+                           WHERE frequency = ? AND divine = 1", (select_freq, ))
     class_weights = {}
     for returned_class in db_cursor.fetchall():
         if returned_class[1] == 0:
@@ -185,23 +198,24 @@ def random_spell(db_cursor, frequency_weights, general_class_weights, domain_cla
     select_class = weighted_choice(class_weights)
     db_cursor.execute("SELECT name FROM class WHERE id = ?", (select_class, ))
     class_name = db_cursor.fetchone()[0]
-    print "%s%s Spell%s" % (colorz.YELLOW, class_name, colorz.ENDC)
+    print "%s%s Spell (%s)%s" % (colorz.YELLOW, class_name, spell_type, colorz.ENDC)
 
     # Select if normal spells or domain/feats
     select_class_domain = weighted_choice(domain_class_weights)
 
     # Now select the spell
     if select_class_domain == 'class':
-        db_cursor.execute("SELECT spell_id FROM spell_class WHERE class_id = ?", (select_class, ))
+        db_cursor.execute("SELECT spell_id FROM spell_class\
+                           WHERE class_id = ? AND level = ?", (select_class, spell_level))
         class_spells = db_cursor.fetchall()
         select_spell = random.choice(class_spells)[0]
     else:
         #Class specific should be more likely than any class.
         db_cursor.execute("SELECT domain_feat_id FROM class_domain_feat\
-                       WHERE class_id = ?", (select_class, ))
+                           WHERE class_id = ?", (select_class, ))
         any_domain_feat = db_cursor.fetchall()
         db_cursor.execute("SELECT domain_feat_id FROM class_domain_feat\
-                       WHERE class_id = 0")
+                           WHERE class_id = 0")
         class_domain_feat = db_cursor.fetchall()
 
         if weighted_choice(domain_feat_weights) == 'class' and class_domain_feat:
@@ -210,38 +224,46 @@ def random_spell(db_cursor, frequency_weights, general_class_weights, domain_cla
             select_domain_feat = random.choice(any_domain_feat)[0]
 
         #Now pick the spell
-        db_cursor.execute("SELECT spell_id FROM spell_domain_feat WHERE domain_feat_id = ?", (select_domain_feat, ))
+        db_cursor.execute("SELECT spell_id FROM spell_domain_feat\
+                           WHERE domain_feat_id = ? AND level = ?",
+                          (select_domain_feat, spell_level))
         domain_feat_spells = db_cursor.fetchall()
         select_spell = random.choice(domain_feat_spells)[0]
     full_spell_description(db_cursor, select_spell)
 
-
-frequency_weights = {
-    'Common': 89,
-    'Uncommon': 20,
-    'Rare': 1,
-    'None': 0
+choice_weights = {
+    'frequency_weights': {
+        'Common': 89,
+        'Uncommon': 20,
+        'Rare': 1,
+        'None': 0
+    },
+    'general_class_weights': {
+        'more_common': 10,
+        'regular': 1
+    },
+    'domain_class_weights': {
+        'domain': 1,
+        'class': 20
+    },
+    'domain_feat_weights': {
+        'class': 3,
+        'any': 1
+    }
 }
 
-general_class_weights = {
-    'more_common': 10,
-    'regular': 1
-}
-
-domain_class_weights = {
-    'domain': 1,
-    'class': 20
-}
-
-domain_feat_weights = {
-    'class': 3,
-    'any': 1
-}
+spell_level = raw_input("%sSpell level for scroll? %s" % (colorz.CYAN, colorz.ENDC))
+spell_type = raw_input("%sArcane or Divine? %s" % (colorz.CYAN, colorz.ENDC))
+if spell_type.lower().startswith('a'):
+    spell_type = 'arcane'
+elif spell_type.lower().startswith('d'):
+    spell_type = 'divine'
+else:
+    print "%sThat's not a valid type.%s" % (colorz.RED, colorz.ENDC)
+    system.exit()
 
 db_conn = sqlite3.connect('spells.db')
 db_conn.text_factory = str
 db_cursor = db_conn.cursor()
 
-for x in range(1):
-#for x in range(100):
-    random_spell(db_cursor, frequency_weights, general_class_weights, domain_class_weights, domain_feat_weights)
+random_spell(db_cursor, choice_weights, spell_level, spell_type)
