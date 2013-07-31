@@ -23,6 +23,15 @@ from sys import stdout
 from os import remove
 
 
+class colorz:
+    PURPLE = '\033[95m'
+    BLUE = '\033[94m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+    ENDC = '\033[0m'
+
+
 def spell_name_sort(spell_info):
     roman_numerals = {
         "i": 1,
@@ -51,12 +60,11 @@ def test_file_generator(db_cursor, all_spells, alt_spells, test_master_file):
     for spell in all_spells:
         line_count += 1
         per = line_count / float(len(all_spells)) * 100
-        stdout.write("\rGenerating: %d%%" % per)
+        stdout.write("%s\rGenerating: %d%%%s" % (colorz.PURPLE, per, colorz.ENDC))
         stdout.flush()
 
         # Handle alt spells
         if alt_spells:
-            curr_spell = alt_spells[0]
             while True:
                 if spell_name_sort(alt_spells[0]) < spell_name_sort(spell):
                     db_cursor.execute("SELECT name FROM spell WHERE id = ?", (alt_spells[0][0],))
@@ -188,7 +196,7 @@ def test_file_generator(db_cursor, all_spells, alt_spells, test_master_file):
 
         test_master_file.write("\n")
 
-    print " COMPLETE!"
+    print "%s COMPLETE%s" % (colorz.PURPLE, colorz.ENDC)
 
 db_conn = sqlite3.connect('spells.db')
 db_conn.text_factory = str
