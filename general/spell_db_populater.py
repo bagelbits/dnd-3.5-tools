@@ -33,6 +33,9 @@ class colorz:
     GREEN = '\033[92m'
     YELLOW = '\033[93m'
     RED = '\033[91m'
+    GREY = '\033[90m'
+    CYAN = '\033[96m'
+    WHITE = '\033[97m'
     ENDC = '\033[0m'
 
 
@@ -47,8 +50,9 @@ def table_setup(name, db_cursor):
     elif(name == 'class'):
         db_cursor.execute("CREATE TABLE class (\
             id INTEGER PRIMARY KEY, name TINYTEXT,\
-            divine INT, arcane INT, frequency INT, base_class INT,\
-            setting TINYTEXT)")
+            arcane INT, divine INT, base_class INT,\
+            setting TINYTEXT, frequency TINYTEXT,\
+            more_common INT)")
 
     elif(name == 'spell_class'):
         db_cursor.execute("CREATE TABLE spell_class (\
@@ -168,6 +172,7 @@ def preload_tables(db_cursor):
         'DF': 'Divine Focus',
         'XP': 'XP Cost',
         'T': 'Truename',
+        'BV': 'Bard only verbal',
         'Fiend': 'Fiend',
         'Corrupt': 'Corrupt',
         'Demon': 'Demon',
@@ -201,8 +206,8 @@ def preload_tables(db_cursor):
     for line in class_file:
         db_cursor.execute("SELECT id FROM class WHERE name = ?", (line[0], ))
         if not db_cursor.fetchone():
-            db_cursor.execute("INSERT INTO class VALUES (NULL, ?, ?, ?, ?, ?, ?)",
-                              (line[0], line[1], line[2], line[3], line[4], line[5]))
+            db_cursor.execute("INSERT INTO class VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)",
+                              (line[0], line[1], line[2], line[3], line[4], line[6], line[7]))
         db_cursor.execute("SELECT id FROM class WHERE name = ?", (line[0], ))
         class_id = db_cursor.fetchone()[0]
 
@@ -572,7 +577,7 @@ for line in all_spells_file:
     #End of the file
     line_count += 1
     per = line_count / float(len(all_spells_file)) * 100
-    stdout.write("\rLoading: %d%%" % per)
+    stdout.write("%s\rLoading: %d%%%s" % (colorz.YELLOW, per, colorz.ENDC))
     stdout.flush()
     if re.match('\-+', line):
         break
@@ -588,7 +593,7 @@ for line in all_spells_file:
         #break
         continue
     spell.append(line)
-print " COMPLETE"
+print "%s COMPLETE%s" % (colorz.YELLOW, colorz.ENDC)
 
 # We need to stick these in after the fact.
 for spell in alt_spells:
