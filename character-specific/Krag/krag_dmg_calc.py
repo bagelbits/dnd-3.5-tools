@@ -35,6 +35,9 @@ class colorz:
     GREEN = '\033[92m'
     YELLOW = '\033[93m'
     RED = '\033[91m'
+    GREY = '\033[90m'
+    CYAN = '\033[96m'
+    WHITE = '\033[97m'
     ENDC = '\033[0m'
 
 
