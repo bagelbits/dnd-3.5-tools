@@ -172,7 +172,6 @@ def test_file_generator(db_cursor, all_spells, alt_spells, test_master_file):
                 spell_components.append(db_cursor.fetchone()[0])
             test_master_file.write("Components: %s\n" % ", ".join(spell_components))
 
-
     #####################
     # Spell Description #
     #####################
