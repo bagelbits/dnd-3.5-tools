@@ -175,15 +175,16 @@ def reformat_return(answer):
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-l', '--spell_level', nargs=1, dest='spell_level',
-                    help='Spell level')
+                    help='Set spell level')
 parser.add_argument('-f', '--full_list', action='store_true', default=False,
                     dest='full_spell_list',
                     help='Show full spell list up to level')
 
 args = parser.parse_args()
-spell_level = int(args.spell_level[0])
 
-if not spell_level:
+if args.spell_level:
+    spell_level = int(args.spell_level[0])
+else:
     spell_level = int(raw_input("Generate spell list for what level? "))
 
 
@@ -215,7 +216,7 @@ sorc_id = db_cursor.fetchone()[0]
 ############################################
 # Now generate all possible for that level #
 ############################################
-stdout.write("Finding all spells....")
+stdout.write("Finding all relevent spells....")
 stdout.flush()
 
 # FIXME: sort by spell name
