@@ -23,6 +23,13 @@ import sqlite3
 from sys import stdout
 
 
+###################################################################
+#                    SPELL LIST GENERATOR                         #
+# General use method. Will take a list of spell ids and print out #
+# the full spell info to a provided file handler. Can actually be #
+# used to print them to stdout.                                   #
+###################################################################
+
 def spell_list_generator(db_cursor, all_spells, shadowcraft_list):
     line_count = 0
     for spell_id in all_spells:
@@ -152,6 +159,10 @@ def spell_list_generator(db_cursor, all_spells, shadowcraft_list):
     print " COMPLETE!"
 
 
+###################################################################
+#                      REFORMAT SQL RETURN                        #
+# Just reformats the sql fetch into a normal list                 #
+###################################################################
 def reformat_return(answer):
     for x in range(len(answer)):
         answer[x] = answer[x][0]
@@ -207,6 +218,7 @@ sorc_id = db_cursor.fetchone()[0]
 stdout.write("Finding all spells....")
 stdout.flush()
 
+# FIXME: sort by spell name
 if args.full_spell_list:
     db_cursor.execute("SELECT spell_id FROM spell_class\
                        WHERE (class_id = ? OR class_id = ?) AND level <= ?\
@@ -229,7 +241,6 @@ else:
                                 OR spell_subschool.subschool_id = ?))\
                            OR spell_school.school_id = ?)",
                       (wiz_id, sorc_id, spell_level, conj_id, summon_id, creat_id, evoc_id))
-#May not need all of this
 spells_to_check = reformat_return(db_cursor.fetchall())
 print "DONE"
 

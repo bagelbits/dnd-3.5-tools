@@ -231,6 +231,12 @@ def random_spell(db_cursor, choice_weights, spell_level, spell_type):
         select_spell = random.choice(domain_feat_spells)[0]
     full_spell_description(db_cursor, select_spell)
 
+
+##########################################################
+# At some point these should be easily alterable and not #
+# hardcoded                                              #
+##########################################################
+
 choice_weights = {
     'frequency_weights': {
         'Common': 89,
