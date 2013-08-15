@@ -18,11 +18,19 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>
 """
 
+import argparse
 import sqlite3
 from sys import stdout
 
 
-def spell_list_generator(db_cursor, all_spells, bar_fen_list):
+###################################################################
+#                    SPELL LIST GENERATOR                         #
+# General use method. Will take a list of spell ids and print out #
+# the full spell info to a provided file handler. Can actually be #
+# used to print them to stdout.                                   #
+###################################################################
+
+def spell_list_generator(db_cursor, all_spells, shadowcraft_list):
     line_count = 0
     for spell_id in all_spells:
         line_count += 1
@@ -50,7 +58,7 @@ def spell_list_generator(db_cursor, all_spells, bar_fen_list):
                 book[1] = ''
             book = " ".join(book).strip()
             spell_books.append(book)
-        bar_fen_list.write("    " + spell_name + " [" + ", ".join(spell_books) + "]\n")
+        shadowcraft_list.write("    " + spell_name + " [" + ", ".join(spell_books) + "]\n")
 
     #####################################
     # School, subschool, and descriptor #
@@ -62,7 +70,7 @@ def spell_list_generator(db_cursor, all_spells, bar_fen_list):
             school_id = school[0]
             db_cursor.execute("SELECT name FROM school WHERE id = ?", (school_id,))
             spell_schools.append(db_cursor.fetchone()[0])
-        bar_fen_list.write("/".join(spell_schools))
+        shadowcraft_list.write("/".join(spell_schools))
 
         db_cursor.execute("SELECT subschool_id FROM spell_subschool WHERE spell_id = ?", (spell_id,))
         subschool_meta_info = db_cursor.fetchall()
@@ -72,7 +80,7 @@ def spell_list_generator(db_cursor, all_spells, bar_fen_list):
                 subschool_id = subschool[0]
                 db_cursor.execute("SELECT name FROM subschool WHERE id = ?", (subschool_id,))
                 spell_subschools.append(db_cursor.fetchone()[0])
-            bar_fen_list.write(" (" + ", ".join(spell_subschools) + ")")
+            shadowcraft_list.write(" (" + ", ".join(spell_subschools) + ")")
 
         db_cursor.execute("SELECT descriptor_id FROM spell_descriptor WHERE spell_id = ?", (spell_id,))
         descriptor_meta_info = db_cursor.fetchall()
@@ -82,8 +90,8 @@ def spell_list_generator(db_cursor, all_spells, bar_fen_list):
                 descriptor_id = descriptor[0]
                 db_cursor.execute("SELECT name FROM descriptor WHERE id = ?", (descriptor_id,))
                 spell_descriptors.append(db_cursor.fetchone()[0])
-            bar_fen_list.write(" [" + ", ".join(spell_descriptors) + "]")
-        bar_fen_list.write("\n")
+            shadowcraft_list.write(" [" + ", ".join(spell_descriptors) + "]")
+        shadowcraft_list.write("\n")
 
     ############################
     # Classes and spell levels #
@@ -100,59 +108,98 @@ def spell_list_generator(db_cursor, all_spells, bar_fen_list):
             else:
                 spell_classes.append(" ".join([db_cursor.fetchone()[0], str(character_class[1])]))
         # Domain #
-        db_cursor.execute("SELECT domain_id, level FROM spell_domain_feat WHERE spell_id = ?", (spell_id,))
+        db_cursor.execute("SELECT domain_feat_id, level FROM spell_domain_feat WHERE spell_id = ?", (spell_id,))
         class_meta_info = db_cursor.fetchall()
         for character_class in class_meta_info:
             class_id = character_class[0]
             db_cursor.execute("SELECT name FROM domain_feat WHERE id = ?", (class_id,))
             spell_classes.append(" ".join([db_cursor.fetchone()[0], str(character_class[1])]))
         spell_classes = sorted(spell_classes)
-        bar_fen_list.write("Level: " + ", ".join(spell_classes) + "\n")
+        shadowcraft_list.write("Level: " + ", ".join(spell_classes) + "\n")
+
+    #####################
+    # Spell Componentes #
+    #####################
+        db_cursor.execute("SELECT component_id FROM spell_component WHERE spell_id = ?", (spell_id,))
+        component_meta_info = db_cursor.fetchall()
+        spell_components = []
+        if component_meta_info:
+            for component_id in component_meta_info:
+                component_id = component_id[0]
+                db_cursor.execute("SELECT short_hand FROM component WHERE id = ?", (component_id,))
+                spell_components.append(db_cursor.fetchone()[0])
+            shadowcraft_list.write("Components: %s\n" % ", ".join(spell_components))
 
     #####################
     # Spell Description #
     #####################
         db_cursor.execute("SELECT * FROM spell WHERE id = ?", (spell_id,))
         spell_meta_info = db_cursor.fetchone()
-        if spell_meta_info[11]:
-            bar_fen_list.write("Components: " + spell_meta_info[11] + "\n")
         if spell_meta_info[2]:
-            bar_fen_list.write("Casting Time: " + spell_meta_info[2] + "\n")
+            shadowcraft_list.write("Casting Time: " + spell_meta_info[2] + "\n")
         if spell_meta_info[3]:
-            bar_fen_list.write("Range: " + spell_meta_info[3] + "\n")
+            shadowcraft_list.write("Range: " + spell_meta_info[3] + "\n")
         if spell_meta_info[4]:
-            bar_fen_list.write("Target: " + spell_meta_info[4] + "\n")
+            shadowcraft_list.write("Target: " + spell_meta_info[4] + "\n")
         if spell_meta_info[5]:
-            bar_fen_list.write("Effect: " + spell_meta_info[5] + "\n")
+            shadowcraft_list.write("Effect: " + spell_meta_info[5] + "\n")
         if spell_meta_info[6]:
-            bar_fen_list.write("Area: " + spell_meta_info[6] + "\n")
+            shadowcraft_list.write("Area: " + spell_meta_info[6] + "\n")
         if spell_meta_info[7]:
-            bar_fen_list.write("Duration: " + spell_meta_info[7] + "\n")
+            shadowcraft_list.write("Duration: " + spell_meta_info[7] + "\n")
         if spell_meta_info[8]:
-            bar_fen_list.write("Saving Throw: " + spell_meta_info[8] + "\n")
+            shadowcraft_list.write("Saving Throw: " + spell_meta_info[8] + "\n")
         if spell_meta_info[9]:
-            bar_fen_list.write("Spell Resistance: " + spell_meta_info[9] + "\n")
+            shadowcraft_list.write("Spell Resistance: " + spell_meta_info[9] + "\n")
         if spell_meta_info[10]:
-            bar_fen_list.write("    " + spell_meta_info[10] + "\n")
+            shadowcraft_list.write("    " + spell_meta_info[10] + "\n")
 
-        bar_fen_list.write("\n")
+        shadowcraft_list.write("\n")
 
     print " COMPLETE!"
 
 
+###################################################################
+#                      REFORMAT SQL RETURN                        #
+# Just reformats the sql fetch into a normal list                 #
+###################################################################
 def reformat_return(answer):
     for x in range(len(answer)):
         answer[x] = answer[x][0]
     return answer
 
-spells_to_check = []
-spell_level = 6
+
+#######################
+# ARGUMENT PROCESSING #
+#######################
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-l', '--spell_level', nargs=1, dest='spell_level',
+                    help='Set spell level')
+parser.add_argument('-f', '--full_list', action='store_true', default=False,
+                    dest='full_spell_list',
+                    help='Show full spell list up to level')
+
+args = parser.parse_args()
+
+if args.spell_level:
+    spell_level = int(args.spell_level[0])
+else:
+    spell_level = int(raw_input("Generate spell list for what level? "))
+
+
+###############################################
+# Setup db connections and grab necessary ids #
+###############################################
 
 db_conn = sqlite3.connect('../../general/spells.db')
 db_conn.text_factory = str
 db_cursor = db_conn.cursor()
 
-# Let's grab all relevent ids
+###############################
+# Let's grab all relevent ids #
+###############################
+
 db_cursor.execute("SELECT id FROM school WHERE name = 'Evocation'")
 evoc_id = db_cursor.fetchone()[0]
 db_cursor.execute("SELECT id FROM school WHERE name = 'Conjuration'")
@@ -166,58 +213,42 @@ wiz_id = db_cursor.fetchone()[0]
 db_cursor.execute("SELECT id FROM class WHERE name = 'Sorcerer'")
 sorc_id = db_cursor.fetchone()[0]
 
+############################################
+# Now generate all possible for that level #
+############################################
+stdout.write("Finding all relevent spells....")
+stdout.flush()
 
-db_cursor.execute("SELECT spell_id FROM spell_school WHERE school_id = ?", (evoc_id,))
-spells_to_check.extend(reformat_return(db_cursor.fetchall()))
-db_cursor.execute("SELECT spell_id FROM spell_school\
-                   WHERE school_id = ?", (conj_id,))
-conj_spells = reformat_return(db_cursor.fetchall())
-line_count = 0
-for x in range(len(conj_spells)):
-    line_count += 1
-    per = line_count / float(len(conj_spells)) * 100
-    stdout.write("\rChecking conjuration: %d%%" % per)
-    stdout.flush()
-    creat_or_summon = False
-    db_cursor.execute("SELECT id FROM spell_subschool\
-                       WHERE subschool_id = ? AND spell_id = ?",
-                      (creat_id, conj_spells[x]))
-    if db_cursor.fetchone():
-        creat_or_summon = True
-    db_cursor.execute("SELECT id FROM spell_subschool\
-                       WHERE subschool_id = ? AND spell_id = ?",
-                      (summon_id, conj_spells[x]))
-    if db_cursor.fetchone():
-        creat_or_summon = True
-    if not creat_or_summon:
-        conj_spells[x] = ''
-print " COMPLETE!"
-spells_to_check.extend(filter(None, conj_spells))
-spells_to_check = sorted(list(set(spells_to_check)))
+# FIXME: sort by spell name
+if args.full_spell_list:
+    db_cursor.execute("SELECT spell_id FROM spell_class\
+                       WHERE (class_id = ? OR class_id = ?) AND level <= ?\
+                       AND spell_id IN \
+                           (SELECT spell_school.spell_id FROM spell_school, spell_subschool\
+                           WHERE (spell_school.school_id = ?\
+                           AND spell_school.spell_id = spell_subschool.spell_id\
+                           AND (spell_subschool.subschool_id = ?\
+                                OR spell_subschool.subschool_id = ?))\
+                           OR spell_school.school_id = ?)",
+                      (wiz_id, sorc_id, spell_level, conj_id, summon_id, creat_id, evoc_id))
+else:
+    db_cursor.execute("SELECT spell_id FROM spell_class\
+                       WHERE (class_id = ? OR class_id = ?) AND level = ?\
+                       AND spell_id IN \
+                           (SELECT spell_school.spell_id FROM spell_school, spell_subschool\
+                           WHERE (spell_school.school_id = ?\
+                           AND spell_school.spell_id = spell_subschool.spell_id\
+                           AND (spell_subschool.subschool_id = ?\
+                                OR spell_subschool.subschool_id = ?))\
+                           OR spell_school.school_id = ?)",
+                      (wiz_id, sorc_id, spell_level, conj_id, summon_id, creat_id, evoc_id))
+spells_to_check = reformat_return(db_cursor.fetchall())
+print "DONE"
 
-#Now to see which are Wizard or Sorcerer spells
-line_count = 0
-for x in range(len(spells_to_check)):
-    line_count += 1
-    per = line_count / float(len(spells_to_check)) * 100
-    stdout.write("\rChecking classes: %d%%" % per)
-    stdout.flush()
-    wiz_or_sorc = False
-    db_cursor.execute("SELECT id FROM spell_class\
-                       WHERE class_id = ? AND spell_id = ? AND level <= ?",
-                      (wiz_id, spells_to_check[x], spell_level))
-    if db_cursor.fetchone():
-        wiz_or_sorc = True
-    db_cursor.execute("SELECT id FROM spell_class\
-                       WHERE class_id = ? AND spell_id = ? AND level <= ?",
-                      (sorc_id, spells_to_check[x], spell_level))
-    if db_cursor.fetchone():
-        wiz_or_sorc = True
-    if not wiz_or_sorc:
-        spells_to_check[x] = ''
-print " COMPLETE!"
-spells_to_check = filter(None, spells_to_check)
-print spells_to_check
 
-bar_fen_list = open('Bar-fen-spell-list.txt', 'w')
-spell_list_generator(db_cursor, spells_to_check, bar_fen_list)
+#################################################
+# Now print that shit out to a handy dandy file #
+#################################################
+
+shadowcraft_list = open('shadowcraft-spell-list.txt', 'w')
+spell_list_generator(db_cursor, spells_to_check, shadowcraft_list)

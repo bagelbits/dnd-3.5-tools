@@ -35,6 +35,12 @@ class colorz:
     ENDC = '\033[0m'
 
 
+#####################################################
+#                 SPELL NAME SORT                   #
+# Sort function to sort roman numerals like numbers #
+# and sort commas before spaces.                    #
+#####################################################
+
 def spell_name_sort(spell_info):
     roman_numerals = {
         "i": 1,
@@ -47,10 +53,13 @@ def spell_name_sort(spell_info):
         "viii": 8,
         "ix": 9
     }
+
+    # Because commas come after spaces in the ASCII table
+    # and that's not the behavior we want here.
     name = spell_info[1].lower()
     name = name.replace(",", "\t")
 
-    #Because fuck you roman numerals
+    # Because fuck you roman numerals, y u no number
     name = name.split(" ")
     if name[-1] in roman_numerals:
         name[-1] = str(roman_numerals[name[-1]])
@@ -58,7 +67,16 @@ def spell_name_sort(spell_info):
     return name
 
 
+##############################################################
+#                   TEST FILE GENERATOR                      #
+# Actually generates a readable file from the SQLite db. Not #
+# Sure if I can shorten it much but I will attempt to clean  #
+# it up.                                                     #
+##############################################################
+
 def test_file_generator(db_cursor, all_spells, alt_spells, test_master_file):
+
+    # Requesite progress text
     line_count = 0
     for spell in all_spells:
         line_count += 1
@@ -67,6 +85,7 @@ def test_file_generator(db_cursor, all_spells, alt_spells, test_master_file):
         stdout.flush()
 
         # Handle alt spells
+        # They should be placed in the same alphabetical order as regular spells
         if alt_spells:
             while True:
                 if spell_name_sort(alt_spells[0]) < spell_name_sort(spell):
@@ -171,7 +190,6 @@ def test_file_generator(db_cursor, all_spells, alt_spells, test_master_file):
                 db_cursor.execute("SELECT short_hand FROM component WHERE id = ?", (component_id,))
                 spell_components.append(db_cursor.fetchone()[0])
             test_master_file.write("Components: %s\n" % ", ".join(spell_components))
-
 
     #####################
     # Spell Description #
