@@ -6,22 +6,18 @@ Consists of:
 * General skill roller with xml importer
 * GUI version of skill roller
 * Spell database populater
-* Random magic scroll generator (Coming soon)
+* Random magic scroll generator
 
 TO DO:  
 ================
 
 character/specific/krag_calc.py:
-* Clean up code again
 * Bear form bonus feat
-* GUI version
+* GUI version (Try to make it more general use so it can easily be swapped)
 
 general/spell_db_populater.py:
 * General code clean up
-* Allow for the DM to set % for class. May want to just use types like Core, Uncommon, Rare, Nonexistant.
 
 general/scroll_generator.py
-* Interface with spell.db
-* Deal with special case classes like All, Sanctified, and Corrupt
+* Deal with special case classes like Sanctified, and Corrupt
 * Randomly pick arcane or divine if both options are there.
-* Generally just write it.
