@@ -223,7 +223,7 @@ db_conn = sqlite3.connect('spells.db')
 db_conn.text_factory = str
 db_cursor = db_conn.cursor()
 
-db_cursor.execute("SELECT spell_id, alt_spell_name FROM alt_spell ORDER BY alt_spell_name")
+db_cursor.execute("SELECT spell_id, name FROM alt_spell ORDER BY name")
 alt_spells = list(db_cursor.fetchall())
 alt_spells = sorted(alt_spells, key=spell_name_sort)
 db_cursor.execute("SELECT id, name FROM spell ORDER BY name")

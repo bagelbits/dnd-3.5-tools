@@ -1,320 +1,321 @@
-WB60>Fey Feature- Seelie Court's Turning of the Seasons Celebrations
-WB1>Mind's Eye Compiled Lists 1
-WB61>Fey Feature- Unseelie Court's Phases of the Moon Celebrations
-WB2>Mind's Eye Compiled Lists 2
-WB3>Mind's Eye Compiled Lists 3
-WB62>Fey Feature- The Darkest Hunter
-WB4>The Mind's Eye- Heroes of Horror Part 1
-WB63>Fey Feature- Magic of Delight and Despair 1
-WB5>The Mind's Eye- Heroes of Horror Part 2
-WB64>Fey Feature- Magic of Delight and Despair 2
-WB6>The Mind's Eye- Psionic Bestiary- Euralden Eye
-WB65>Fey Feature- Garrek
-WB7>The Mind's Eye- Psionics of Incarnum
-WB66>Random Encounters- Demons
-WB8>The Mind's Eye- Three Psionic Vestiges
-WB67>Random Encounters- Cult of Tharizdun
-WB9>The Mind's Eye- Weapons of Legacy Part 1
-WB68>Random Encounters- What's Bugging You
-WB10>The Mind's Eye- Weapons of Legacy Part 2
-WB69>Cityscape 1- New Alternate Class Abilities
-WB11>Ghostwalk 3.0- New Templates
-WB70>Cityscape 2- New Vestiges and Mysteries
-WB12>Expanded Classes- Expanded Psionics Handbook 1
-WB71>Cityscape 3- New Items
-WB13>Expanded Classes- Expanded Psionics Handbook 2
-WB72>Clockwork Wonders 1
-WB14>Expanded Classes- Expanded Psionics Handbook 3
-WB73>Clockwork Wonders 2
-WB15>Expanded Classes- Complete Psionics
-WB74>Clockwork Wonders 3
-WB16>Book of Vile Darkness- Archfiends
-WB75>Clockwork Wonders 4
-WB17>Complete Divine- New Prestige Classes
-WB76>Clockwork Wonders 5
-WB18>Living Greyhawk Deities version 2
-WB77>Clockwork Wonders 6
-WB19>Epic Insights- Epic Warlock Feats
-WB78>Clockwork Wonders 7
-WB20>Manual of the Planes- New Plane
-WB79>Clockwork Wonders 8
-WB21>Epic Insights- Epic Divine Feats
-WB80>Clockwork Wonders 9
-WB22>Epic Insights- Epic Swordfighters
-WB81>Clockwork Wonders 10- Clockwork Armor
-WB23>Epic Insights- Epic Miniatures Handbook
-WB82>Clockwork Wonders 11
-WB24>Epic Insights- Epic Compilition
-WB83>Clockwork Wonders 12
-WB25>Epic Insights- Epic Shapechangers
-WB84>Clockwork Wonders 13
-WB26>Building a City
-WB85>Clockwork Wonders 14
-WB27>Epic Insights- Dragons of the Glacier and Grave
-WB86>Far Corners- Cathedral of Leaves- Magic Items
-WB28>Manual of the Planes- Modrons
-WB87>Far Corners- Cathedral of Leaves- Monsters
-WB29>Magic Items- Transferring Xp Costs
-WB88>Far Corners- Cathedral of Leaves- Spells
-WB30>Adventure- Lost Caverns of Tsojcanth
-WB89>Far Corners- Fire and Ash- Magic Items
-WB31>Kobolds- Alternate Racial Features
-WB90>Far Corners- Fire and Ash- Monsters
-WB32>Kobolds- Traps
-WB91>Far Corners- Fire and Ash- Spells
-WB33>Prestige Class- The Avenger
-WB92>Far Corners- Foundations of Stone- Magic Items
-WB34>Prestige Class- Dwarven Chanter
-WB93>Far Corners- Foundations of Stone- Monsters
-WB35>Prestige Class- Eleven Eyes of Xanathar
-WB94>Far Corners- Foundations of Stone- Spells
-WB36>Prestige Class- Eye of the Xanathar
-WB95>Far Corners- Mire and Mud- Magic Items
-WB37>Prestige Class- Swiftblade
-WB96>Far Corners- Mire and Mud- Monsters
-WB38>Prestige Class- Halfling Whistler
-WB97>Far Corners- Mire and Mud- Spells
-WB39>Monster Manuel I- Half-Fiend Variants
-WB98>Far Corners- Sand and Sun- Magic Items
-WB40>Fiendish Codex I- Fiendish Aspects- Demon Lords
-WB99>Far Corners- Sand and Sun- Monsters
-WB41>Fiendish Codex I- New Demon
 WB100>Far Corners- Sand and Sun- Spells
-WB42>Fiendish Codex I- New Layers
 WB101>Far Corners- Shadows of Glory- Magic Items
-WB43>Fiendish Codex I- New Layers II
 WB102>Far Corners- Shadows of Glory- Monsters
-WB44>Fiendish Codex II- Fiendish Aspects- Archdevils
 WB103>Far Corners- Shadows of Glory- Spells
-WB45>Demonicon of Graz'zt
 WB104>Far Corners- Snow and Ice- Magic Items
-WB46>Fey Feature- Energy Fey- Bile Wrapped in Beauty
 WB105>Far Corners- Snow and Ice- Monsters
-WB47>Fey Feature- Energy Fey- Forestfolk
 WB106>Far Corners- Snow and Ice- Spells
-WB48>Fey Feature- Lifecycles and Deathcycles
 WB107>Far Corners- The Hidden Depths Below- Magic Items
-WB49>Fey Feature- Sleeping Blossum Sprites
 WB108>Far Corners- The Hidden Depths Below- Monsters
-WB50>Fey Feature- The Dark Hunter
 WB109>Far Corners- The Hidden Depths Below- Spells
-WB51>Fey Feature- Cold Iron Warrior
+WB10>The Mind's Eye- Weapons of Legacy Part 2
 WB110>Far Corners- The Hidden Realms Above- Magic Items
-WB52>Fey Feature- Immortality and Mortality
 WB111>Far Corners- The Hidden Realms Above- Monsters
-WB53>Fey Feature- Fey Feuds
 WB112>Far Corners- The Hidden Realms Above- Spells
-WB54>Fey Feature- Fey Kelir Magics
 WB113>Far Corners- The Lost Coast- Magic Items
-WB55>Fey Feature- Life in a Noble House
 WB114>Far Corners- The Lost Coast- Monsters
-WB56>Fey Feature- Energy Fey- Hoarfroster
 WB115>Far Corners- The Lost Coast- Spells
-WB57>Fey Feature- Energy Fey- Storm Riders
 WB116>Far Corners- Toxic Paradise- Magic Items
-WB58>Fey Feature- Energy Fey- Caliento
 WB117>Far Corners- Toxic Paradise- Monsters
-WB59>Fey Feature- Seelie and Unseelie Courts
 WB118>Far Corners- Toxic Paradise- Spells
 WB119>Wild Life- Animals for Everyone
-WB180>Forgotten Realms- Wyrms of the North- Balagos
+WB11>Ghostwalk 3.0- New Templates
 WB120>Wild Life- Silverwood Arcanist
-WB181>Forgotten Realms- Wyrms of the North- Claugiylimatar
 WB121>Wild Life- Silverwood Outrider
 WB122>Wild Life- Tricks and Training for Animals
-WB182>Forgotten Realms- Wyrms of the North- Daurgothoth
 WB123>Character Class- Dead Levels
-WB183>Forgotten Realms- Wyrms of the North- Deszeldaryndun
 WB124>Character Class- Dead Levels 2
 WB125>Character Class- Jezzen
-WB184>Forgotten Realms- Wyrms of the North- Eldenser
 WB126>Fight Club- Ambush Drake
-WB185>Forgotten Realms- Wyrms of the North- Felgolos
 WB127>Fight Club- Dracotaur
-WB186>Forgotten Realms- Wyrms of the North- Galadaeros
 WB128>Fight Club- Ethereal Filcher
-WB187>Forgotten Realms- Wyrms of the North- Gaulauntyr
 WB129>Crawling Jungle- Cult
-WB188>Forgotten Realms- Wyrms of the North- Hoondarrh
+WB12>Expanded Classes- Expanded Psionics Handbook 1
 WB130>Crawling Jungle- Hazards
-WB189>Forgotten Realms- Wyrms of the North- Iymrith
 WB131>Gold- Golden Guardian
-WB190>Forgotten Realms- Wyrms of the North- Jalavaloss
 WB132>Gold- Golden Spells
-WB191>Forgotten Realms- Wyrms of the North- Klauth
 WB133>Legacy of Aramitama Yurei- Yurei's Komono
-WB192>Forgotten Realms- Wyrms of the North- Lhammaruntosz
 WB134>Legacy of Aramitama Yurei- Yurei's Siangham
 WB135>Ways of the Sword- Arcane DuelisT
-WB193>Forgotten Realms- Wyrms of the North- Malaeragoth
 WB136>Ways of the Sword- Cat's Claw Dueling Pride
-WB194>Forgotten Realms- Wyrms of the North- Miirym
 WB137>Celebrity Game Table
-WB195>Forgotten Realms- Wyrms of the North- Mornaugoth
 WB138>Denizens of Stone Bog- Bog Mummy
-WB196>Forgotten Realms- Wyrms of the North- Nurvureem
 WB139>Dragonshard- Blades of the Quori
-WB197>Forgotten Realms- Wyrms of the North- Nymmurh
+WB13>Expanded Classes- Expanded Psionics Handbook 2
 WB140>Fharlanghn's Garden- Guardian of the Road
-WB198>Forgotten Realms- Wyrms of the North- Olothontor
 WB141>Kaorti Ubercyst- Thruocks
-WB199>Forgotten Realms- Wyrms of the North- Palarandusk
 WB142>Monks of the Burning Tiger- Rod
-WB200>Forgotten Realms- Wyrms of the North- Raulothim
 WB143>Part of the Pack- New Items and Spells
-WB201>Forgotten Realms- Wyrms of the North- Saryndalaghothtor
 WB144>Pets of Any Stripe- Spells
 WB145>Spider, Spider- Sword of Selvetarm
-WB202>Forgotten Realms- Wyrms of the North- Thalagyrt
 WB146>Random Encounters- The Shadow Guard- Shadow-Bound
-WB203>Forgotten Realms- Wyrms of the North- Tostyn Alaerthmaugh
 WB147>Monster Manuel II- More Half-Golems
-WB204>Forgotten Realms- Wyrms of the North- Valamaracdace
 WB148>Monster Manuel II- Characters
 WB149>Elite Opponents- More Half-Fiendish Variety
-WB205>Forgotten Realms- Wyrms of the North- Voaraghamanthar
+WB14>Expanded Classes- Expanded Psionics Handbook 3
 WB150>Forgotten Realms: City of Splendors Noble House
 WB151>Forgotten Realms- Faiths and Pantheons- Leaves of Learning
-WB206>Forgotten Realms- Wyrms of the North- Zundaerazylym
 WB152>Forgotten Realms: Serpent Kingdoms
-WB207>Forgotten Realms- Magic of Faerun
 WB153>Forgotten Realms: Silver Marches
-WB208>Forgotten Realms- Underdark
 WB154>Forgotten Realms- Faiths and Pantheons- Deity's Dos and Don'ts
-WB209>Forgotten Realms- Campiagn Setting- Deity Descriptions
 WB155>Forgotten Realms: Champions of Valor
-WB210>Forgotten Realms- Unapproachable East- A Call to Arms
 WB156>Forgotten Realms: City of Splendors
 WB157>FR- Class Chronicles- Psionic Races 2
-WB211>Complete Adventurer- Fochluchan College
 WB158>FR- Class Chronicles- Swashbucklers, Marshals, Dragonfire Adept
-WB212>Complete Arcane- Tarth Moorda
-WB213>Complete Warrior- The Order of the Chalice Expansion
 WB159>FR- Class Chronicles- Warlocks 1
+WB15>Expanded Classes- Complete Psionics
 WB160>FR- Class Chronicles- Warlocks 2
-WB214>Deep Horizon- Ruined Gatehouse
 WB161>FR- Class Chronicles- Binders
-WB215>Defenders of the Faith- Quests
 WB162>FR- Class Chronicles- Blues, Duergar, Elans
-WB216>Adventure- Diseased!
 WB163>FR- Class Chronicles- Factotums and Spellthieves
-WB217>Draconomicon- Half-Dragons are Twice as Fun
 WB164>FR- Magic Books of Faerun- Hate of the Cobra
-WB218>Draconomicon- Volcano Lair
 WB165>FR- Magic Books of Faerun- Kaupaer's Quick Book
-WB219>Dragonlance- Dragon Overlords
 WB166>FR- Magic Books of Faerun- Lesser Testament of Vraer
-WB220>Frostburn- Curse of the Rusty Walrus
-WB221>Hellspike Prison Web Enhancement
 WB167>FR- Magic Books of Faerun- Master Tactician
-WB222>Heroes of Battle- Theaters of Death
 WB168>FR- Magic Books of Faerun- Nybor's Small Codex
-WB223>Libris Mortis- Tarus Banquet
 WB169>FR- Magic Books of Faerun- Obsul Ssussun- The Door to Light
-WB224>Lords of Madness- The Flow of Fresh Brains
-WB225>Forgotten Realms- Lost Empires of Faerûn- Secrets of Imaskar
+WB16>Book of Vile Darkness- Archfiends
 WB170>FR- Magic Books of Faerun- Tar'Ael Veluuthra
 WB171>FR- Magic Books of Faerun- The Codicil of White
-WB226>Luck of the Draw
 WB172>FR- Magic Books of Faerun- Treasure of the Golden Hills
+WB173>FR- Magic Books of Faerun- A Harper's Companion 3
+WB174>FR- Magic Books of Faerun- Barb of the Mind
+WB175>FR- Magic Books of Faerun- Earthmother's Weapons
+WB176>FR- Magic Books of Faerun- Guidebook of the Watchful Order
+WB177>Forgotten Realms- Wyrms of the North- Dragons Ruled and Divided
+WB178>Forgotten Realms- Wyrms of the North- Arauthator
+WB179>Forgotten Realms- Wyrms of the North- Arveiaturace
+WB17>Complete Divine- New Prestige Classes
+WB180>Forgotten Realms- Wyrms of the North- Balagos
+WB181>Forgotten Realms- Wyrms of the North- Claugiylimatar
+WB182>Forgotten Realms- Wyrms of the North- Daurgothoth
+WB183>Forgotten Realms- Wyrms of the North- Deszeldaryndun
+WB184>Forgotten Realms- Wyrms of the North- Eldenser
+WB185>Forgotten Realms- Wyrms of the North- Felgolos
+WB186>Forgotten Realms- Wyrms of the North- Galadaeros
+WB187>Forgotten Realms- Wyrms of the North- Gaulauntyr
+WB188>Forgotten Realms- Wyrms of the North- Hoondarrh
+WB189>Forgotten Realms- Wyrms of the North- Iymrith
+WB18>Living Greyhawk Deities version 2
+WB190>Forgotten Realms- Wyrms of the North- Jalavaloss
+WB191>Forgotten Realms- Wyrms of the North- Klauth
+WB192>Forgotten Realms- Wyrms of the North- Lhammaruntosz
+WB193>Forgotten Realms- Wyrms of the North- Malaeragoth
+WB194>Forgotten Realms- Wyrms of the North- Miirym
+WB195>Forgotten Realms- Wyrms of the North- Mornaugoth
+WB196>Forgotten Realms- Wyrms of the North- Nurvureem
+WB197>Forgotten Realms- Wyrms of the North- Nymmurh
+WB198>Forgotten Realms- Wyrms of the North- Olothontor
+WB199>Forgotten Realms- Wyrms of the North- Palarandusk
+WB19>Epic Insights- Epic Warlock Feats
+WB1>Mind's Eye Compiled Lists 1
+WB200>Forgotten Realms- Wyrms of the North- Raulothim
+WB201>Forgotten Realms- Wyrms of the North- Saryndalaghothtor
+WB202>Forgotten Realms- Wyrms of the North- Thalagyrt
+WB203>Forgotten Realms- Wyrms of the North- Tostyn Alaerthmaugh
+WB204>Forgotten Realms- Wyrms of the North- Valamaracdace
+WB205>Forgotten Realms- Wyrms of the North- Voaraghamanthar
+WB206>Forgotten Realms- Wyrms of the North- Zundaerazylym
+WB207>Forgotten Realms- Magic of Faerun
+WB208>Forgotten Realms- Underdark
+WB209>Forgotten Realms- Campiagn Setting- Deity Descriptions
+WB20>Manual of the Planes- New Plane
+WB210>Forgotten Realms- Unapproachable East- A Call to Arms
+WB211>Complete Adventurer- Fochluchan College
+WB212>Complete Arcane- Tarth Moorda
+WB213>Complete Warrior- The Order of the Chalice Expansion
+WB214>Deep Horizon- Ruined Gatehouse
+WB215>Defenders of the Faith- Quests
+WB216>Adventure- Diseased!
+WB217>Draconomicon- Half-Dragons are Twice as Fun
+WB218>Draconomicon- Volcano Lair
+WB219>Dragonlance- Dragon Overlords
+WB21>Epic Insights- Epic Divine Feats
+WB220>Frostburn- Curse of the Rusty Walrus
+WB221>Hellspike Prison Web Enhancement
+WB222>Heroes of Battle- Theaters of Death
+WB223>Libris Mortis- Tarus Banquet
+WB224>Lords of Madness- The Flow of Fresh Brains
+WB225>Forgotten Realms- Lost Empires of Faerûn- Secrets of Imaskar
+WB226>Luck of the Draw
 WB227>Dead Life
 WB228>Masters of the Wild
-WB173>FR- Magic Books of Faerun- A Harper's Companion 3
 WB229>Races of Destiny- The Finalveil Cabal
-WB174>FR- Magic Books of Faerun- Barb of the Mind
+WB22>Epic Insights- Epic Swordfighters
 WB230>Forgotten Realms- Races of Faerûn- Tower of Life
-WB175>FR- Magic Books of Faerun- Earthmother's Weapons
 WB231>Races of Stone- Raiders of the High Citadel
-WB176>FR- Magic Books of Faerun- Guidebook of the Watchful Order
 WB232>Races of the Wild- Rifinti Cliff Dwelling
 WB233>Red Hand of Doom Web Enhancement
-WB177>Forgotten Realms- Wyrms of the North- Dragons Ruled and Divided
 WB234>Sandstorm- Temple of the Gleaming Sands
 WB235>Secrets of Sarlona- Character Backgrounds
-WB178>Forgotten Realms- Wyrms of the North- Arauthator
 WB236>Secrets of Sarlona- Character Themes
-WB179>Forgotten Realms- Wyrms of the North- Arveiaturace
 WB237>Sharn- Lyrandar Tower
 WB238>Forgotten Realms- Shining South- Wemic Camp
-WB278>Epic Insight- Epic Level Magic
 WB239>Forgotten Realms- Son of Gruumsh- Tougher Sons of Gruumsh
-WB279>Epic Insight- Faiths and Pantheons
-WB280>Epic Insight- Forgotten Realms Campaign Setting
+WB23>Epic Insights- Epic Miniatures Handbook
 WB240>Song and Silence- Hand of the Highwayman
-WB281>Epic Insight- Magic of Faerûn
 WB241>Speak in Dreams- All Around the Town
-WB282>Epic Insight- Oriental Adventures
 WB242>Stormwrack- Kopru Ruins
-WB283>Epic Insight- Races of Faerûn
 WB243>The Book of Challenges- Going for a Jaunt
-WB284>Epic Insight- Transformational
 WB244>The Book of Challenges- Stay Out of the Dark
-WB285>Monster Mayhem- Abominations of Praetorius
 WB245>The Wavering Path
-WB286>Monster Mayhem- Aurumvorax
 WB246>Forgotten Realms- Underdark Web 1
-WB287>Monster Mayhem- Black Loper
 WB247>Forgotten Realms- Underdark Web 2
-WB288>Monster Mayhem- Blood Mother
 WB248>Forgotten Realms- Dragons of Faerûn 2
-WB289>Monster Mayhem- Coal Golem
 WB249>Forgotten Realms- Champions of Ruin- Vanrakdoom
-WB290>Monster Mayhem- Crystal Beetle Swarm
+WB24>Epic Insights- Epic Compilition
 WB250>Forgotten Realms- City of the Spider Queen- Underdark Adventures
+WB251>Forgotten Realms- Dragons of Faerûn- City of Wyrmshadows
+WB252>Deities and Demigods- New Deities
+WB253>Jungle Secrets
+WB254>Oriental Adventures- Mahasarpa
+WB255>Planar Handbook- Planar Touchstones
+WB256>Psionics Handbook- New Monsters
+WB257>Vampire Lord
+WB258>Savage Species
+WB259>White Plume Mountain- Outside the Mountain
+WB25>Epic Insights- Epic Shapechangers
+WB260>Secrets of Sarlona 3
+WB261>Forgotten Realms- Lords of Darkness- Malark
+WB262>Adventure- The Plague Tree
+WB263>Adventure- Touch of Madness
+WB264>Adventure- Witching Season
+WB265>Book of Exalted Deeds- Celestial Paragons
+WB266>Eberron Campaign Setting Adventure
+WB267>Ecology of the Death Knight
+WB268>Lich and Weretiger Savage Progressions
+WB269>Miniature's Handbook Adventure
+WB26>Building a City
+WB270>Monster Manual 3 Adventure
+WB271>Return of the Temple of Elemental Evil
+WB272>Return of the Temple of the Frog
+WB273>Stronghold Builder's Guide- The Al-Qalinde Guildhouse
+WB274>Epic Insight- Book of Vile Darkness
+WB275>Epic Insight- Epic Ghostwalk
+WB276>Epic Insight- Epic Illithid Savant
+WB277>Epic Insight- Epic Level Combatants                                          
+WB278>Epic Insight- Epic Level Magic
+WB279>Epic Insight- Faiths and Pantheons
+WB27>Epic Insights- Dragons of the Glacier and Grave
+WB280>Epic Insight- Forgotten Realms Campaign Setting
+WB281>Epic Insight- Magic of Faerûn
+WB282>Epic Insight- Oriental Adventures
+WB283>Epic Insight- Races of Faerûn
+WB284>Epic Insight- Transformational
+WB285>Monster Mayhem- Abominations of Praetorius
+WB286>Monster Mayhem- Aurumvorax
+WB287>Monster Mayhem- Black Loper
+WB288>Monster Mayhem- Blood Mother
+WB289>Monster Mayhem- Coal Golem
+WB28>Manual of the Planes- Modrons
+WB290>Monster Mayhem- Crystal Beetle Swarm
 WB291>Monster Mayhem- Diamondback Viper
 WB292>Monster Mayhem- Drider Template
-WB251>Forgotten Realms- Dragons of Faerûn- City of Wyrmshadows
 WB293>Monster Mayhem- Dwellers of the Void
 WB294>Monster Mayhem- Elder Treant
-WB252>Deities and Demigods- New Deities
 WB295>Monster Mayhem- Feverclaw
-WB253>Jungle Secrets
 WB296>Monster Mayhem- Flesh-Mulcher Tree
-WB254>Oriental Adventures- Mahasarpa
 WB297>Monster Mayhem- Glaistig
-WB255>Planar Handbook- Planar Touchstones
 WB298>Monster Mayhem- Gutpuppet
-WB256>Psionics Handbook- New Monsters
 WB299>Monster Mayhem- Leanan Sidhe
-WB257>Vampire Lord
+WB29>Magic Items- Transferring Xp Costs
+WB2>Mind's Eye Compiled Lists 2
 WB301>Monster Mayhem- Lurker Above
-WB258>Savage Species
 WB302>Monster Mayhem- Malgoren
-WB259>White Plume Mountain- Outside the Mountain
 WB303>Monster Mayhem- Mercury Dragon
-WB260>Secrets of Sarlona 3
 WB304>Monster Mayhem- Mindstealer
-WB261>Forgotten Realms- Lords of Darkness- Malark
 WB305>Monster Mayhem- Mist Dragon
-WB262>Adventure- The Plague Tree
 WB306>Monster Mayhem- Multiheaded Template
-WB263>Adventure- Touch of Madness
 WB307>Monster Mayhem- Nuchlavis
-WB264>Adventure- Witching Season
 WB308>Monster Mayhem- Out of the Swamp
-WB265>Book of Exalted Deeds- Celestial Paragons
 WB309>Monster Mayhem- Quillflinger
-WB266>Eberron Campaign Setting Adventure
+WB30>Adventure- Lost Caverns of Tsojcanth
 WB310>Monster Mayhem- Razor Golem
-WB267>Ecology of the Death Knight
 WB311>Monster Mayhem- Root of All Evil
-WB268>Lich and Weretiger Savage Progressions
 WB312>Monster Mayhem- Skeleton 2 Template
-WB269>Miniature's Handbook Adventure
 WB313>Monster Mayhem- Slaver Fungus
-WB270>Monster Manual 3 Adventure
 WB314>Monster Mayhem- Stellar Deva
-WB271>Return of the Temple of Elemental Evil
 WB315>Monster Mayhem- Temporal Drake
-WB272>Return of the Temple of the Frog
 WB316>Monster Mayhem- Time Wight
-WB273>Stronghold Builder's Guide- The Al-Qalinde Guildhouse
 WB317>Monster Mayhem- Ululatrix
 WB318>Monster Mayhem- Unseelie Nymph
-WB274>Epic Insight- Book of Vile Darkness
 WB319>Monster Mayhem- Vrill
-WB275>Epic Insight- Epic Ghostwalk
+WB31>Kobolds- Alternate Racial Features
 WB320>Monster Mayhem- Zombie 2 Template
-WB276>Epic Insight- Epic Illithid Savant
 WB321>Forgotten Realms- Magic of Faerûn Errata
-WB277>Epic Insight- Epic Level Combatants                                          
+WB322>Forgotten Realms- Portals in Time
+WB32>Kobolds- Traps
+WB33>Prestige Class- The Avenger
+WB34>Prestige Class- Dwarven Chanter
+WB35>Prestige Class- Eleven Eyes of Xanathar
+WB36>Prestige Class- Eye of the Xanathar
+WB37>Prestige Class- Swiftblade
+WB38>Prestige Class- Halfling Whistler
+WB39>Monster Manuel I- Half-Fiend Variants
+WB3>Mind's Eye Compiled Lists 3
+WB40>Fiendish Codex I- Fiendish Aspects- Demon Lords
+WB41>Fiendish Codex I- New Demon
+WB42>Fiendish Codex I- New Layers
+WB43>Fiendish Codex I- New Layers II
+WB44>Fiendish Codex II- Fiendish Aspects- Archdevils
+WB45>Demonicon of Graz'zt
+WB46>Fey Feature- Energy Fey- Bile Wrapped in Beauty
+WB47>Fey Feature- Energy Fey- Forestfolk
+WB48>Fey Feature- Lifecycles and Deathcycles
+WB49>Fey Feature- Sleeping Blossum Sprites
+WB4>The Mind's Eye- Heroes of Horror Part 1
+WB50>Fey Feature- The Dark Hunter
+WB51>Fey Feature- Cold Iron Warrior
+WB52>Fey Feature- Immortality and Mortality
+WB53>Fey Feature- Fey Feuds
+WB54>Fey Feature- Fey Kelir Magics
+WB55>Fey Feature- Life in a Noble House
+WB56>Fey Feature- Energy Fey- Hoarfroster
+WB57>Fey Feature- Energy Fey- Storm Riders
+WB58>Fey Feature- Energy Fey- Caliento
+WB59>Fey Feature- Seelie and Unseelie Courts
+WB5>The Mind's Eye- Heroes of Horror Part 2
+WB60>Fey Feature- Seelie Court's Turning of the Seasons Celebrations
+WB61>Fey Feature- Unseelie Court's Phases of the Moon Celebrations
+WB62>Fey Feature- The Darkest Hunter
+WB63>Fey Feature- Magic of Delight and Despair 1
+WB64>Fey Feature- Magic of Delight and Despair 2
+WB65>Fey Feature- Garrek
+WB66>Random Encounters- Demons
+WB67>Random Encounters- Cult of Tharizdun
+WB68>Random Encounters- What's Bugging You
+WB69>Cityscape 1- New Alternate Class Abilities
+WB6>The Mind's Eye- Psionic Bestiary- Euralden Eye
+WB70>Cityscape 2- New Vestiges and Mysteries
+WB71>Cityscape 3- New Items
+WB72>Clockwork Wonders 1
+WB73>Clockwork Wonders 2
+WB74>Clockwork Wonders 3
+WB75>Clockwork Wonders 4
+WB76>Clockwork Wonders 5
+WB77>Clockwork Wonders 6
+WB78>Clockwork Wonders 7
+WB79>Clockwork Wonders 8
+WB7>The Mind's Eye- Psionics of Incarnum
+WB80>Clockwork Wonders 9
+WB81>Clockwork Wonders 10- Clockwork Armor
+WB82>Clockwork Wonders 11
+WB83>Clockwork Wonders 12
+WB84>Clockwork Wonders 13
+WB85>Clockwork Wonders 14
+WB86>Far Corners- Cathedral of Leaves- Magic Items
+WB87>Far Corners- Cathedral of Leaves- Monsters
+WB88>Far Corners- Cathedral of Leaves- Spells
+WB89>Far Corners- Fire and Ash- Magic Items
+WB8>The Mind's Eye- Three Psionic Vestiges
+WB90>Far Corners- Fire and Ash- Monsters
+WB91>Far Corners- Fire and Ash- Spells
+WB92>Far Corners- Foundations of Stone- Magic Items
+WB93>Far Corners- Foundations of Stone- Monsters
+WB94>Far Corners- Foundations of Stone- Spells
+WB95>Far Corners- Mire and Mud- Magic Items
+WB96>Far Corners- Mire and Mud- Monsters
+WB97>Far Corners- Mire and Mud- Spells
+WB98>Far Corners- Sand and Sun- Magic Items
+WB99>Far Corners- Sand and Sun- Monsters
+WB9>The Mind's Eye- Weapons of Legacy Part 1
