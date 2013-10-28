@@ -1,0 +1,206 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>D&amp;D 3.5 Spell Database Correction From</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+  <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+</head>
+
+<body>
+
+<div id="correction-form" class="container">
+
+<ul id="corrections-nav" class="nav nav-tabs">
+  <li class="active"><a href="#add" data-toggle="tab">Add</a></li>
+  <li><a href="#update" data-toggle="tab">Update</a></li>
+  <li><a href="#remove" data-toggle="tab">Remove</a></li>
+</ul>
+
+<!-- TODO: allow multiple entries of books, class, etc.-->
+
+<div id="corrections-nav-content" class="tab-content">
+  <div class="tab-pane active" id="add">
+    <form>
+      <ol>
+        <li>
+          <label for="spell-name">Spell name:</label>
+          <input id="spell-name" type="text" required>
+        </li>
+        <li>
+          <label for="school">School:</label>
+          <input id="school" type="text" required>
+        </li>
+        <li>
+          <label for="subschool">Subschool:</label>
+          <input id="subschool" type="text" required>
+        </li>
+        <li>
+          <label for="descriptor">Descriptor:</label>
+          <input id="descriptor" type="text" required>
+        </li>
+        <li>
+          <label for="class">Level:</label>
+          <input id="class" type="text" required>
+        </li>
+        <li>
+          <label for="casting_time">Casting Time:</label>
+          <textarea id="casting_time"></textarea>
+        </li>
+        <li>
+          <label for="range">Range:</label>
+          <input id="range" type="text">
+        </li>
+        <li>
+          <label for="target">Target:</label>
+          <input id="target" type="text">
+        </li>
+        <li>
+          <label for="effect">Effect:</label>
+          <input id="effect" type="text">
+        </li>
+        <li>
+          <label for="area">Area:</label>
+          <input id="area" type="text">
+        </li>
+        <li>
+          <label for="duration">Duration:</label>
+          <input id="duration" type="text">
+        </li>
+        <li>
+          <label for="saving_throw">Saving Throw:</label>
+          <input id="saving_throw" type="text">
+        </li>
+        <li>
+          <label for="spell_resistance">Spell Resistance:</label>
+          <input id="spell_resistance" type="text">
+        </li>
+        <li>
+          <label for="description">Description:</label>
+          <textarea id="description"></textarea>
+        </li>
+        <li>
+          <label for="email">Your email:</label>
+          <input type="email">
+        </li>
+        <li>
+          <input type="submit" value="Go">
+        </li>
+      </ol>
+    </form>
+  </div>
+  <div class="tab-pane" id="update">
+    <form>
+      <ol>
+        <li>
+          <fieldset>
+            <legend>Update type</legend>
+            <ol>
+              <li>
+                <input type="radio" name="update-type" value="append">Append<br>
+              </li>
+              <li>
+                <input type="radio" name="update-type" value="overwrite">Overwrite<br>
+              </li>
+            </ol>
+          </fieldset>
+        </li>
+        <li>
+          <label for="spell-name">Spell name:</label>
+          <input id="spell-name" type="text" required>
+        </li>
+        <li class="append overwrite">
+          <label for="school">School:</label>
+          <input id="school" type="text" required>
+        </li>
+        <li >
+          <label for="subschool">Subschool:</label>
+          <input id="subschool" type="text" required>
+        </li>
+        <li>
+          <label for="descriptor">Descriptor:</label>
+          <input id="descriptor" type="text" required>
+        </li>
+        <li>
+          <label for="class">Level:</label>
+          <input id="class" type="text" required>
+        </li>
+        <li>
+          <label for="casting_time">Casting Time:</label>
+          <textarea id="casting_time"></textarea>
+        </li>
+        <li>
+          <label for="range">Range:</label>
+          <input id="range" type="text">
+        </li>
+        <li>
+          <label for="target">Target:</label>
+          <input id="target" type="text">
+        </li>
+        <li>
+          <label for="effect">Effect:</label>
+          <input id="effect" type="text">
+        </li>
+        <li>
+          <label for="area">Area:</label>
+          <input id="area" type="text">
+        </li>
+        <li>
+          <label for="duration">Duration:</label>
+          <input id="duration" type="text">
+        </li>
+        <li>
+          <label for="saving_throw">Saving Throw:</label>
+          <input id="saving_throw" type="text">
+        </li>
+        <li>
+          <label for="spell_resistance">Spell Resistance:</label>
+          <input id="spell_resistance" type="text">
+        </li>
+        <li>
+          <label for="description">Description:</label>
+          <textarea id="description"></textarea>
+        </li>
+        <li>
+          <label for="email">Your email:</label>
+          <input type="email">
+        </li>
+        <li>
+          <input type="submit" value="Go">
+        </li>
+      </ol>
+    </form>
+  </div>
+  <div class="tab-pane" id="remove">
+    <form>
+      <ol>
+        <li>
+          <label>Spell name:</label><input type="text" required>
+        </li>
+        <li>
+          <label>Reason:</label>
+          <textarea id = "removal-reason" rows = "3" cols = "80">Removal reason</textarea>
+        </li>
+        <li>
+          <label>Your email: <input type="email"></label>
+          <input type="submit" value="Go">
+        </li>
+      </ol>
+    </form>
+  </div>
+</div>
+
+If you run into any issues, please email bagel@fuzzybyt.es
+</div>
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $('#corrections-nav').tab();
+    });
+</script>
+
+<script type="text/javascript" src="js/bootstrap.js"></script>
+
+</body>
+</html> 
