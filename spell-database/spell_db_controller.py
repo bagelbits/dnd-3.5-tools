@@ -20,9 +20,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>
 """
 
-import sqlite3
-import re
-from sys import exit, stdout
+from sys import stdout
+import csv
 
 
 class colorz:
@@ -193,55 +192,55 @@ def preload_tables(db_cursor):
   'Location': 'Location'
   }
   for component_type in spell_components:
-  db_cursor.execute("SELECT id FROM component WHERE short_hand = ?", (component_type,))
-  if not db_cursor.fetchone():
-    db_cursor.execute("INSERT INTO component VALUES (NULL, ?, ?)",
-        (spell_components[component_type], component_type))
+    db_cursor.execute("SELECT id FROM component WHERE short_hand = ?", (component_type,))
+    if not db_cursor.fetchone():
+      db_cursor.execute("INSERT INTO component VALUES (NULL, ?, ?)",
+          (spell_components[component_type], component_type))
 
   # Preload classes
   class_file = csv.reader(open('data/classes.csv', 'rU'), delimiter=";", quotechar='"')
   class_file.next()
   for line in class_file:
-  db_cursor.execute("SELECT id FROM class WHERE name = ?", (line[0], ))
-  if not db_cursor.fetchone():
-    db_cursor.execute("INSERT INTO class VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)",
-        (line[0], line[1], line[2], line[3], line[4], line[6], line[7]))
-  db_cursor.execute("SELECT id FROM class WHERE name = ?", (line[0], ))
-  class_id = db_cursor.fetchone()[0]
+    db_cursor.execute("SELECT id FROM class WHERE name = ?", (line[0], ))
+    if not db_cursor.fetchone():
+      db_cursor.execute("INSERT INTO class VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)",
+          (line[0], line[1], line[2], line[3], line[4], line[6], line[7]))
+    db_cursor.execute("SELECT id FROM class WHERE name = ?", (line[0], ))
+    class_id = db_cursor.fetchone()[0]
 
-  db_cursor.execute("SELECT id FROM book WHERE name = ?", (line[6], ))
-  if not db_cursor.fetchone():
-    db_cursor.execute("INSERT INTO book VALUES (NULL, ?)", (line[6], ))
-  db_cursor.execute("SELECT id FROM book WHERE name = ?", (line[6], ))
-  book_id = db_cursor.fetchone()[0]
+    db_cursor.execute("SELECT id FROM book WHERE name = ?", (line[6], ))
+    if not db_cursor.fetchone():
+      db_cursor.execute("INSERT INTO book VALUES (NULL, ?)", (line[6], ))
+    db_cursor.execute("SELECT id FROM book WHERE name = ?", (line[6], ))
+    book_id = db_cursor.fetchone()[0]
 
-  db_cursor.execute("INSERT INTO class_book VALUES (NULL, ?, ?)",
-        (book_id, class_id))
+    db_cursor.execute("INSERT INTO class_book VALUES (NULL, ?, ?)",
+          (book_id, class_id))
 
   # Preload domains and feats
   domain_feat_file = csv.reader(open('data/domain_feat.csv', 'rU'), delimiter=";", quotechar='"')
   domain_feat_file.next()
   for line in domain_feat_file:
-  db_cursor.execute("SELECT id FROM domain_feat WHERE name = ?", (line[0], ))
-  if not db_cursor.fetchone():
-    db_cursor.execute("INSERT INTO domain_feat VALUES (NULL, ?, ?, ?, ?, ?)",
-      (line[0], line[1], line[2], line[4], line[5]))
     db_cursor.execute("SELECT id FROM domain_feat WHERE name = ?", (line[0], ))
-    domain_feat_id = db_cursor.fetchone()[0]
-    if line[3] == 'Any':
-    class_ids = [0]
-    elif line[3] == 'Cleric':
-    db_cursor.execute("SELECT id FROM class where name = 'Cleric'")
-    class_ids = [db_cursor.fetchone()[0]]
-    db_cursor.execute("SELECT id FROM class where name = 'Cloistered Cleric'")
-    class_ids.append(db_cursor.fetchone()[0])
-    else:
-    db_cursor.execute("SELECT id FROM class where name = ?", (line[3], ))
-    class_ids = [db_cursor.fetchone()[0]]
+    if not db_cursor.fetchone():
+      db_cursor.execute("INSERT INTO domain_feat VALUES (NULL, ?, ?, ?, ?, ?)",
+        (line[0], line[1], line[2], line[4], line[5]))
+      db_cursor.execute("SELECT id FROM domain_feat WHERE name = ?", (line[0], ))
+      domain_feat_id = db_cursor.fetchone()[0]
+      if line[3] == 'Any':
+        class_ids = [0]
+      elif line[3] == 'Cleric':
+        db_cursor.execute("SELECT id FROM class where name = 'Cleric'")
+        class_ids = [db_cursor.fetchone()[0]]
+        db_cursor.execute("SELECT id FROM class where name = 'Cloistered Cleric'")
+        class_ids.append(db_cursor.fetchone()[0])
+      else:
+        db_cursor.execute("SELECT id FROM class where name = ?", (line[3], ))
+        class_ids = [db_cursor.fetchone()[0]]
 
-    for class_id in class_ids:
-    db_cursor.execute("INSERT INTO class_domain_feat VALUES (NULL, ?, ?)",
-          (domain_feat_id, class_id))
+      for class_id in class_ids:
+        db_cursor.execute("INSERT INTO class_domain_feat VALUES (NULL, ?, ?)",
+              (domain_feat_id, class_id))
 
 ########################################################
 #      PRINT FULL SPELL DESCRIPTION        #
@@ -418,7 +417,7 @@ def insert_spell_class(db_cursor, class_info, spell_name, spell_id):
         db_cursor.execute("INSERT INTO spell_domain_feat VALUES(NULL, ?, ?, ?)",
                   (domain_id, spell_id, level))
 
-def insert_spell_book(db_cursor, book_info, spell_name, spell_id):
+def insert_spell_book(db_cursor, book_info, spell_id):
   for book in book_info:
     db_cursor.execute("SELECT id FROM book WHERE name = ? LIMIT 1", (book[0],))
     book_id = db_cursor.fetchone()
@@ -522,7 +521,7 @@ def insert_spell_into_db(db_cursor, spell_info):
     insert_spell_descriptor(db_cursor, spell_info['Descriptors'], spell_id)
   
     ## Classes ##
-    import_spell_class(db_cursor, spell_info['Classes'], spell_info['Name'], spell_id)
+    insert_spell_class(db_cursor, spell_info['Classes'], spell_info['Name'], spell_id)
 
 def insert_alt_spell_into_db(db_cursor, spell_info):
   db_cursor.execute("SELECT id FROM alt_spell WHERE name = ?", (spell_info["Name"],))
@@ -531,4 +530,3 @@ def insert_alt_spell_into_db(db_cursor, spell_info):
     spell_id = db_cursor.fetchone()
     if spell_id:
       db_cursor.execute("INSERT INTO alt_spell VALUES(NULL, ?, ?)", (spell_info["Name"], spell_id[0]))
-      db_conn.commit()

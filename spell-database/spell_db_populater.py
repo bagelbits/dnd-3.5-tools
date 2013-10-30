@@ -266,6 +266,7 @@ print "%s COMPLETE%s" % (colorz.YELLOW, colorz.ENDC)
 # We need to stick these in after the fact.
 for spell in alt_spells:
   insert_alt_spell_into_db(db_cursor, spell)
+  db_conn.commit()
 
 
 db_cursor.close()
