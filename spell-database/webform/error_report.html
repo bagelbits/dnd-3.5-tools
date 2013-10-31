@@ -23,7 +23,7 @@
 
 <div id="corrections-nav-content" class="tab-content">
   <div class="tab-pane active" id="add">
-    <form id="add_spell" action="">
+    <form id="add" action="">
       <ol>
         <li>
           <label for="spell_name">Spell name:</label>
@@ -102,12 +102,16 @@
       <ol>
         <li>
           <label>Update type</label>
-                <input type="radio" name="update-type" value="append">Append<br>
-                <input type="radio" name="update-type" value="overwrite">Overwrite<br>
+                <input type="radio" name="update-type" class="update" value="append">Append<br>
+                <input type="radio" name="update-type" class="update" value="overwrite">Overwrite<br>
         </li>
         <li>
-          <label for="spell-name">Spell name:</label>
-          <input id="spell-name" type="text" required>
+          <label for="spell_name">Spell name:</label>
+          <input class="update" id="spell_name" type="text" required>
+        </li>
+        <li class="append overwrite">
+          <label for="book">Books:</label>
+          <input id="book" type="text" placeholder="e.g. Magic of Rokugan (pg 85), Player's Guide to the Sovereign Lands (pg 219)">
         </li>
         <li class="append overwrite">
           <label for="school">School:</label>
@@ -123,7 +127,7 @@
         </li>
         <li class="append overwrite">
           <label for="class">Level:</label>
-          <input id="class" type="text">
+          <input id="class" type="text" placeholder="e.g. Anagakok 1, Beholder Mage 1, Deathwalker 1, Fleshcrafter 1">
         </li>
         <li class="overwrite">
           <label for="casting_time">Casting Time:</label>
@@ -163,7 +167,7 @@
         </li>
         <li>
           <label for="email">Your email:</label>
-          <input type="email" required><br>
+          <input class="update" type="email" required><br>
         </li>
       </ol>
       <button type="submit">Submit!</button>
@@ -173,14 +177,16 @@
     <form>
       <ol>
         <li>
-          <label>Spell name:</label><input type="text" required>
+          <label for="spell_name">Spell name:</label>
+          <input class="remove" id="spell_name" type="text" required>
         </li>
         <li>
           <label>Reason:</label>
-          <textarea id = "removal-reason" rows = "3" cols = "80" placeholder="Removal reason" required></textarea>
+          <textarea id="removal_reason" class="remove" rows = "3" cols = "80" placeholder="Removal reason" required></textarea>
         </li>
         <li>
-          <label>Your email:</label><input type="email" required><br>
+          <label>Your email:</label>
+          <input class="remove" type="email" required><br>
         </li>
       </ol>
       <button type="submit">Submit!</button>
