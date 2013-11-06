@@ -48,8 +48,7 @@ def table_setup(name, db_cursor):
     db_cursor.execute("CREATE TABLE class (\
       id INTEGER PRIMARY KEY, name TINYTEXT,\
       arcane INT, divine INT, base_class INT,\
-      setting TINYTEXT, frequency TINYTEXT,\
-      more_common INT)")
+      frequency TINYTEXT, more_common INT)")
 
   elif(name == 'spell_class'):
     db_cursor.execute("CREATE TABLE spell_class (\
@@ -59,7 +58,7 @@ def table_setup(name, db_cursor):
   elif(name == 'domain_feat'):
     db_cursor.execute("CREATE TABLE domain_feat (\
       id INTEGER PRIMARY KEY, name TINYTEXT, domain INT,\
-      feat INT, setting TINYTEXT, book TINYTEXT)")
+      feat INT)")
 
   elif(name == 'spell_domain_feat'):
     db_cursor.execute("CREATE TABLE spell_domain_feat (\
@@ -160,36 +159,47 @@ def preload_tables(db_cursor):
 
   #Add in the normal spell components
   spell_components = {
-  'None': 'None',
-  'V': 'Verbal',
-  'S': 'Somatic',
-  'M': 'Material',
-  'F': 'Focus',
-  'DF': 'Divine Focus',
-  'XP': 'XP Cost',
-  'T': 'Truename',
-  'BV': 'Bard only verbal',
-  'Fiend': 'Fiend',
-  'Corrupt': 'Corrupt',
-  'Demon': 'Demon',
-  'Essentia': 'Essentia',
-  'Coldfire': 'Coldfire',
-  'Sacrifice': 'Sacrifice',
-  'Drow': 'Drow',
-  'Shifter': 'Shifter',
-  'Archon': 'Archon',
-  'Abstinence': 'Abstinence',
-  'Frostfell': 'Frostfell',
-  'Drug': 'Drug',
-  'Undead': 'Undead',
-  'Dragon Magic': 'Dragon Magic',
-  'Soul': 'Soul',
-  'Celestial': 'Celestial',
-  'Disease': 'Disease',
-  'Dwarf': 'Dwarf',
-  'Devil': 'Devil',
-  'Halfling': 'Halfling',
-  'Location': 'Location'
+    'None': 'None',
+    'V': 'Verbal',
+    'S': 'Somatic',
+    'M': 'Material',
+    'F': 'Focus',
+    'DF': 'Divine Focus',
+    'XP': 'XP Cost',
+    'T': 'Truename',
+    'BV': 'Bard only verbal',
+    'Fiend': 'Fiend',
+    'Corrupt': 'Corrupt',
+    'Demon': 'Demon',
+    'Essentia': 'Essentia',
+    'Coldfire': 'Coldfire',
+    'Sacrifice': 'Sacrifice',
+    'Drow': 'Drow',
+    'Shifter': 'Shifter',
+    'Archon': 'Archon',
+    'Abstinence': 'Abstinence',
+    'Frostfell': 'Frostfell',
+    'Drug': 'Drug',
+    'Undead': 'Undead',
+    'Dragon Magic': 'Dragon Magic',
+    'Soul': 'Soul',
+    'Celestial': 'Celestial',
+    'Disease': 'Disease',
+    'Dwarf': 'Dwarf',
+    'Devil': 'Devil',
+    'Halfling': 'Halfling',
+    'Location': 'Location'
+  }
+
+  settings_shorthand = {
+    '0': 'Greyhawk',
+    'D': 'Diablo',
+    'E': 'Eberron',
+    'F': 'Forgotten Realms',
+    'K': 'Kalamar',
+    'OA': 'Oriental Adventures',
+    'R': 'Rokugan',
+    'W': 'Warcraft',
   }
   for component_type in spell_components:
     db_cursor.execute("SELECT id FROM component WHERE short_hand = ?", (component_type,))
@@ -203,19 +213,40 @@ def preload_tables(db_cursor):
   for line in class_file:
     db_cursor.execute("SELECT id FROM class WHERE name = ?", (line[0], ))
     if not db_cursor.fetchone():
-      db_cursor.execute("INSERT INTO class VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)",
-          (line[0], line[1], line[2], line[3], line[4], line[6], line[7]))
-    db_cursor.execute("SELECT id FROM class WHERE name = ?", (line[0], ))
-    class_id = db_cursor.fetchone()[0]
+      db_cursor.execute("INSERT INTO class VALUES (NULL, ?, ?, ?, ?, ?, ?)",
+          (line[0], line[1], line[2], line[3], line[6], line[7]))
+      db_cursor.execute("SELECT id FROM class WHERE name = ?", (line[0], ))
+      class_id = db_cursor.fetchone()[0]
 
-    db_cursor.execute("SELECT id FROM book WHERE name = ?", (line[6], ))
-    if not db_cursor.fetchone():
-      db_cursor.execute("INSERT INTO book VALUES (NULL, ?)", (line[6], ))
-    db_cursor.execute("SELECT id FROM book WHERE name = ?", (line[6], ))
-    book_id = db_cursor.fetchone()[0]
+      if line[4]:
+        db_cursor.execute("SELECT id FROM setting WHERE short_hand = ?", (line[4], ))
+        if not db_cursor.fetchone():
+          db_cursor.execute("INSERT INTO setting VALUES (NULL, ?, ?)",
+            (settings_shorthand[line[4]], line[4]))
+        db_cursor.execute("SELECT id FROM setting WHERE short_hand = ?", (line[4], ))
+        setting_id = db_cursor.fetchone()[0]
 
-    db_cursor.execute("INSERT INTO class_book VALUES (NULL, ?, ?)",
-          (book_id, class_id))
+        db_cursor.execute("INSERT INTO class_setting VALUES (NULL, ?, ?)",
+          (setting_id, class_id))
+
+
+      if line[5]:
+        db_cursor.execute("SELECT id FROM book WHERE name = ?", (line[6], ))
+        if not db_cursor.fetchone():
+          db_cursor.execute("INSERT INTO book VALUES (NULL, ?)", (line[6], ))
+        db_cursor.execute("SELECT id FROM book WHERE name = ?", (line[6], ))
+        book_id = db_cursor.fetchone()[0]
+
+        db_cursor.execute("INSERT INTO class_book VALUES (NULL, ?, ?)",
+              (book_id, class_id))
+
+        if setting_id:
+          db_cursor.execute("SELECT id FROM book_setting WHERE book_id = ? AND setting_id = ?",
+            (book_id, setting_id))
+          if not db_cursor.fetchone():
+            db_cursor.execute("INSERT INTO book_setting VALUES (NULL, ?, ?)",
+              (setting_id, book_id))
+
 
   # Preload domains and feats
   domain_feat_file = csv.reader(open('data/domain_feat.csv', 'rU'), delimiter=";", quotechar='"')
@@ -223,8 +254,8 @@ def preload_tables(db_cursor):
   for line in domain_feat_file:
     db_cursor.execute("SELECT id FROM domain_feat WHERE name = ?", (line[0], ))
     if not db_cursor.fetchone():
-      db_cursor.execute("INSERT INTO domain_feat VALUES (NULL, ?, ?, ?, ?, ?)",
-        (line[0], line[1], line[2], line[4], line[5]))
+      db_cursor.execute("INSERT INTO domain_feat VALUES (NULL, ?, ?, ?)",
+        (line[0], line[1], line[2]))
       db_cursor.execute("SELECT id FROM domain_feat WHERE name = ?", (line[0], ))
       domain_feat_id = db_cursor.fetchone()[0]
       if line[3] == 'Any':
@@ -241,6 +272,35 @@ def preload_tables(db_cursor):
       for class_id in class_ids:
         db_cursor.execute("INSERT INTO class_domain_feat VALUES (NULL, ?, ?)",
               (domain_feat_id, class_id))
+
+
+      if line[4]:
+        db_cursor.execute("SELECT id FROM setting WHERE short_hand = ?", (line[4], ))
+        if not db_cursor.fetchone():
+          db_cursor.execute("INSERT INTO setting VALUES (NULL, ?, ?)",
+            (settings_shorthand[line[4]], line[4]))
+        db_cursor.execute("SELECT id FROM setting WHERE short_hand = ?", (line[4], ))
+        setting_id = db_cursor.fetchone()[0]
+
+        db_cursor.execute("INSERT INTO domain_feat_setting VALUES (NULL, ?, ?)",
+          (setting_id, domain_feat_id))
+
+      if line[5]:
+        db_cursor.execute("SELECT id FROM book WHERE name = ?", (line[6], ))
+        if not db_cursor.fetchone():
+          db_cursor.execute("INSERT INTO book VALUES (NULL, ?)", (line[6], ))
+        db_cursor.execute("SELECT id FROM book WHERE name = ?", (line[6], ))
+        book_id = db_cursor.fetchone()[0]
+
+        db_cursor.execute("INSERT INTO domain_feat_book VALUES (NULL, ?, ?)",
+              (book_id, domain_feat_id))
+
+        if setting_id:
+          db_cursor.execute("SELECT id FROM book_setting WHERE book_id = ? AND setting_id = ?",
+            (book_id, setting_id))
+          if not db_cursor.fetchone():
+            db_cursor.execute("INSERT INTO book_setting VALUES (NULL, ?, ?)",
+              (setting_id, book_id))
 
 ########################################################
 #      PRINT FULL SPELL DESCRIPTION        #

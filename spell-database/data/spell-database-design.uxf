@@ -2,10 +2,80 @@
 <diagram program="umlet" version="12.0">
   <zoom_level>10</zoom_level>
   <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1040</x>
+      <y>850</y>
+      <w>50</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;60</additional_attributes>
+  </element>
+  <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>570</x>
-      <y>10</y>
+      <x>160</x>
+      <y>580</y>
+      <w>160</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;component&gt;&gt;
+{Unique Key: id}
+--
+*-id: int*
+-name: tinytext
+-short_hand: tinytext</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>860</x>
+      <y>620</y>
+      <w>410</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;110;390;110;390;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1190</x>
+      <y>340</y>
+      <w>150</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;domain_feat_book&gt;&gt;
+{Unique Key: id}
+--
+*-id: int*
+-book_id INT
+-domain_feat_id INT</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1200</x>
+      <y>550</y>
+      <w>140</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;class_book&gt;&gt;
+{Unique Key: id}
+--
+*-id: int*
+-book_id INT
+-class_id INT</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>450</x>
+      <y>130</y>
       <w>140</w>
       <h>80</h>
     </coordinates>
@@ -19,64 +89,186 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>720</x>
-      <y>530</y>
-      <w>120</w>
-      <h>50</h>
+      <x>1130</x>
+      <y>270</y>
+      <w>330</w>
+      <h>690</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;100;30</additional_attributes>
+    <additional_attributes>30;30;310;30;310;670;260;670</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>560</x>
+      <y>500</y>
+      <w>50</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;150;30;30</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>800</x>
-      <y>310</y>
+      <x>160</x>
+      <y>410</y>
       <w>150</w>
-      <h>180</h>
+      <h>100</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;class&gt;&gt;
+    <panel_attributes>&lt;&lt;spell_component&gt;&gt;
 {Unique Key: id}
 --
 *-id: int*
--name: tinytext
--divine: INT
--arcane: INT
--frequency INT
--base_class INT
--setting TINYTEXT
--book TINYTEXT</panel_attributes>
+-component_id: int
+-spell_id: int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>270</x>
+      <y>130</y>
+      <w>130</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;spell_descriptor&gt;&gt;
+{Unique Key: id}
+--
+*-id: int*
+-descriptor_id: int
+-spell_id: int
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>650</x>
+      <y>110</y>
+      <w>130</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;spell_school&gt;&gt;
+{Unique Key: id}
+--
+*-id: int*
+-school_id: int
+-spell_id: int
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>610</x>
-      <y>60</y>
-      <w>80</w>
-      <h>110</h>
+      <x>560</x>
+      <y>130</y>
+      <w>110</w>
+      <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>60;30;30;90</additional_attributes>
+    <additional_attributes>90;30;30;30</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>460</x>
-      <y>230</y>
-      <w>190</w>
-      <h>110</h>
+      <x>910</x>
+      <y>330</y>
+      <w>130</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;90;170;30</additional_attributes>
+    <additional_attributes>30;80;30;30;110;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>610</x>
+      <y>480</y>
+      <w>110</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>90;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>860</x>
+      <y>360</y>
+      <w>530</w>
+      <h>420</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;400;510;400;510;30;480;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>200</x>
+      <y>140</y>
+      <w>90</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>70;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>870</x>
+      <y>930</y>
+      <w>150</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;130;30</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>820</x>
-      <y>510</y>
+      <x>170</x>
+      <y>260</y>
       <w>140</w>
-      <h>160</h>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;alternative_spell&gt;&gt;
+{Unique Key: id}
+--
+*-id: int*
+-spell_id: int
+-name: tinytext</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>900</x>
+      <y>480</y>
+      <w>140</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;80;120;80</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>210</x>
+      <y>480</y>
+      <w>50</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;100</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1020</x>
+      <y>280</y>
+      <w>140</w>
+      <h>130</h>
     </coordinates>
     <panel_attributes>&lt;&lt;domain_feat&gt;&gt;
 {Unique Key: id}
@@ -85,38 +277,25 @@
 -name: tinytext
 -domain INT
 -feat INT
--class TINYTEXT
--setting TINYTEXT
--book TINYTEXT</panel_attributes>
+-class TINYTEXT</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>50</x>
-      <y>520</y>
-      <w>90</w>
-      <h>150</h>
+      <x>610</x>
+      <y>340</y>
+      <w>100</w>
+      <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>70;30;30;130</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>300</x>
-      <y>50</y>
-      <w>80</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>60;100;30;30</additional_attributes>
+    <additional_attributes>80;30;30;30</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>210</x>
-      <y>0</y>
+      <x>370</x>
+      <y>750</y>
       <w>130</w>
       <h>80</h>
     </coordinates>
@@ -130,53 +309,8 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>420</x>
-      <y>670</y>
-      <w>120</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;spell_book&gt;&gt;
-{Unique Key: id}
---
-*-id: int*
--book_id: int
--spell_id: int
--page: int</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>330</x>
-      <y>230</y>
-      <w>90</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;70;90</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>600</x>
-      <y>500</y>
-      <w>150</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;spell_domain_feat&gt;&gt;
-{Unique Key: id}
---
-*-id: int*
--domain_id: int
--spell_id: int
--level: int</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>290</x>
-      <y>150</y>
+      <x>380</x>
+      <y>590</y>
       <w>130</w>
       <h>110</h>
     </coordinates>
@@ -192,46 +326,19 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>490</x>
-      <y>370</y>
-      <w>120</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>100;30;30;40</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>30</x>
-      <y>250</y>
-      <w>140</w>
+      <x>450</x>
+      <y>500</y>
+      <w>50</w>
       <h>110</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;alternative_spell&gt;&gt;
-{Unique Key: id}
---
-*-id: int*
--spell_id: int
--name: tinytext</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>140</x>
-      <y>280</y>
-      <w>200</w>
-      <h>100</h>
-    </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>180;80;30;30</additional_attributes>
+    <additional_attributes>30;90;30;30</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>590</x>
-      <y>350</y>
+      <x>700</x>
+      <y>490</y>
       <w>140</w>
       <h>130</h>
     </coordinates>
@@ -250,35 +357,93 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>510</x>
-      <y>730</y>
-      <w>120</w>
-      <h>50</h>
+      <x>410</x>
+      <y>670</y>
+      <w>50</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;100;30</additional_attributes>
+    <additional_attributes>30;30;30;80</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>0</x>
-      <y>650</y>
-      <w>160</w>
+      <x>1240</x>
+      <y>880</y>
+      <w>150</w>
       <h>100</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;component&gt;&gt;
+    <panel_attributes>&lt;&lt;domain_feat_setting&gt;&gt;
+{Unique Key: id}
+--
+*-id: int*
+-setting_id INT
+-domain_feat_id INT</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>340</x>
+      <y>210</y>
+      <w>120</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;30;80;100;80</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>760</x>
+      <y>890</y>
+      <w>140</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;book_setting&gt;&gt;
+{Unique Key: id}
+--
+*-id: int*
+-setting_id INT
+-book_id INT</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1130</x>
+      <y>360</y>
+      <w>80</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;60;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1020</x>
+      <y>510</y>
+      <w>150</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;class&gt;&gt;
 {Unique Key: id}
 --
 *-id: int*
 -name: tinytext
--short_hand: tinytext</panel_attributes>
+-divine: INT
+-arcane: INT
+-base_class INT
+-frequency INT
+-more_common INT</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>320</x>
-      <y>320</y>
+      <x>440</x>
+      <y>280</y>
       <w>200</w>
       <h>250</h>
     </coordinates>
@@ -300,10 +465,168 @@
     <additional_attributes/>
   </element>
   <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>280</x>
+      <y>290</y>
+      <w>180</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>160;30;30;30</additional_attributes>
+  </element>
+  <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
+      <x>850</x>
+      <y>410</y>
+      <w>150</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;class_domain_feat&gt;&gt;
+{Unique Key: id}
+--
+*-id: int*
+-domain_feat_id INT
+-class_id INT</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>620</x>
+      <y>690</y>
+      <w>170</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;150;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1040</x>
+      <y>650</y>
+      <w>50</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;130;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>690</x>
+      <y>330</y>
+      <w>150</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;spell_domain_feat&gt;&gt;
+{Unique Key: id}
+--
+*-id: int*
+-domain_id: int
+-spell_id: int
+-level: int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
       <x>610</x>
-      <y>720</y>
+      <y>190</y>
+      <w>140</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>120;30;120;100;30;100</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>100</x>
+      <y>150</y>
+      <w>130</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;descriptor&gt;&gt;
+{Unique Key: id}
+--
+*-id: int*
+-name: tinytext</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1000</x>
+      <y>910</y>
+      <w>160</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;setting&gt;&gt;
+{Unique Key: id}
+--
+*-id: int*
+-name: tinytext
+-short_hand: tinytext</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>280</x>
+      <y>420</y>
+      <w>180</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;160;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1140</x>
+      <y>560</y>
+      <w>80</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>60;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>530</x>
+      <y>650</y>
+      <w>120</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;spell_book&gt;&gt;
+{Unique Key: id}
+--
+*-id: int*
+-book_id: int
+-spell_id: int
+-page: int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1130</x>
+      <y>910</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>110;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>770</x>
+      <y>710</y>
       <w>120</w>
       <h>80</h>
     </coordinates>
@@ -315,80 +638,52 @@
     <additional_attributes/>
   </element>
   <element>
-    <type>com.umlet.element.Class</type>
+    <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>530</x>
-      <y>150</y>
-      <w>130</w>
-      <h>110</h>
+      <x>810</x>
+      <y>310</y>
+      <w>230</w>
+      <h>50</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;spell_school&gt;&gt;
-{Unique Key: id}
---
-*-id: int*
--school_id: int
--spell_id: int
-</panel_attributes>
-    <additional_attributes/>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;210;30</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>380</x>
-      <y>540</y>
-      <w>110</w>
+      <x>800</x>
+      <y>760</y>
+      <w>50</w>
       <h>150</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>90;130;30;30</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>700</x>
-      <y>360</y>
-      <w>120</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;100;40</additional_attributes>
+    <additional_attributes>30;130;30;30</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>40</x>
-      <y>450</y>
-      <w>150</w>
+      <x>1000</x>
+      <y>780</y>
+      <w>140</w>
       <h>100</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;spell_component&gt;&gt;
+    <panel_attributes>&lt;&lt;class_setting&gt;&gt;
 {Unique Key: id}
 --
 *-id: int*
--component_id: int
--spell_id: int</panel_attributes>
+-setting_id INT
+-class_id INT</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>160</x>
-      <y>460</y>
-      <w>180</w>
-      <h>70</h>
+      <x>810</x>
+      <y>570</y>
+      <w>230</w>
+      <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>160;50;30;30</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>490</x>
-      <y>500</y>
-      <w>130</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>110;60;30;30</additional_attributes>
+    <additional_attributes>30;30;210;30</additional_attributes>
   </element>
 </diagram>
