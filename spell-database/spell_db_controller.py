@@ -192,13 +192,18 @@ def preload_tables(db_cursor):
   }
 
   settings_shorthand = {
-    '0': 'Greyhawk',
+    '0': 'Core',
     'D': 'Diablo',
+    'DS': 'Dark Sun',
     'E': 'Eberron',
     'F': 'Forgotten Realms',
+    'G': 'Ghostwalk',
     'K': 'Kalamar',
     'OA': 'Oriental Adventures',
-    'R': 'Rokugan',
+    'P': 'Planescape',
+    'RA': 'Ravenloft',
+    'RO': 'Rokugan',
+    'ST': 'Savage Tide',
     'W': 'Warcraft',
   }
   for component_type in spell_components:
@@ -219,6 +224,9 @@ def preload_tables(db_cursor):
       class_id = db_cursor.fetchone()[0]
 
       if line[4]:
+        if line[4] not in settings_shorthand:
+          print "%sSetting shorthand doesn't exist: %s" % (colorz.RED, line[4])
+          print line
         db_cursor.execute("SELECT id FROM setting WHERE short_hand = ?", (line[4], ))
         if not db_cursor.fetchone():
           db_cursor.execute("INSERT INTO setting VALUES (NULL, ?, ?)",
@@ -275,6 +283,9 @@ def preload_tables(db_cursor):
 
 
       if line[4]:
+        if line[4] not in settings_shorthand:
+          print "%sSetting shorthand doesn't exist: %s" % (colorz.RED, line[4])
+          print line
         db_cursor.execute("SELECT id FROM setting WHERE short_hand = ?", (line[4], ))
         if not db_cursor.fetchone():
           db_cursor.execute("INSERT INTO setting VALUES (NULL, ?, ?)",
