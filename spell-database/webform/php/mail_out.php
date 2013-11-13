@@ -91,6 +91,11 @@ function update_spell_mail_out($form_data){
     $email_contents .= ucwords($key) . ": " . $value . "\n";
   }
 
+  echo "spells@fuzzybyt.es";
+  echo $headers;
+  echo $email_subject;
+  echo $email_contents;
+
   mail("spells@fuzzybyt.es", $email_subject, $email_contents, $headers);
 }
 

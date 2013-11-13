@@ -11,6 +11,9 @@ $("#add, #remove").submit(function(event){
   
   $.post( "php/mail_out.php", JSON.stringify(spell_form_data));
   
+  alert("Thank you for submitting!");
+  $("input." + crud_type + ", textarea." + crud_type).val("");
+  event.preventDefault();
   event.stopPropagation();
 });
 
@@ -36,5 +39,9 @@ $("#update").submit(function(event){
 
   $.post( "php/mail_out.php", JSON.stringify(update_spell_form_data));
 
+  alert("Thank you for submitting!");
+
+  $("input, textarea").val("");
+  event.preventDefault();
   event.stopPropagation();
 });
