@@ -1,5 +1,14 @@
+#!/usr/bin/env python2.7
+# -*- coding: utf-8 -*-
 """
-Pick CR in range from 1 to max
+    Hacked together random CR encounter generator.
+    No GUI planned.
+
+    By Chris Ward
+"""
+
+"""
+All for random CR: Pick CR in range from 1 to max
 Pick CR of first set of monsters between 1/4 and max CR
 Pick random monster in that CR
 See if you can add more of that monster

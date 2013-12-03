@@ -192,7 +192,7 @@ else:
 # Setup db connections and grab necessary ids #
 ###############################################
 
-db_conn = sqlite3.connect('../../general/spells.db')
+db_conn = sqlite3.connect('../../spell-database/spells.db')
 db_conn.text_factory = str
 db_cursor = db_conn.cursor()
 
