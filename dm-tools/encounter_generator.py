@@ -17,19 +17,57 @@ def coin_flip():
 def encounter_var(set_cr):
   d100_roll = randint(0, 99)
   # Distribution pulled from DMG pg. 49
+
+  #Each teir has distribution now so really hard and really easy are less likely
   if d100_roll < 10:
-    set_cr -= 2
+    # Easy
+    d100_roll = randint(0, 99)
+    if d100_roll < 52:
+      set_cr -= 1
+    elif d100_roll < 79:
+      set_cr -= 2
+    elif d100_roll < 93:
+      set_cr -= 3
+    elif d100_roll < 98:
+      set_cr -= 4
+    else:
+      set_cr -= 5
+
   elif d100_roll < 30:
     print "\nNote to DM: This encounter is easy if done right!"
+    print "Addendum: Don't forget to lower the rewarded XP!"
     set_cr += randint(0, 4)
+
   elif d100_roll < 80:
+    # Challenging
     pass
+
   elif d100_roll < 95:
-    set_cr += randint(1, 4)
+    # Very difficult
+    d100_roll = randint(0, 99)
+    if d100_roll < 52:
+      set_cr += 1
+    elif d100_roll < 79:
+      set_cr += 2
+    elif d100_roll < 93:
+      set_cr += 3
+    else:
+      set_cr += 4
+
   else:
-    set_cr += 5
-    # Should be this:
-    #set_cr += randint(5, 8)
+    # Overpowering
+    d100_roll = randint(0, 99)
+    if d100_roll < 55:
+      set_cr += 5
+    elif d100_roll < 84:
+      set_cr += 6
+    else:
+      set_cr += 7
+
+  if set_cr < 1:
+    print "You may want to reroll this.... also bug Chris"
+
+  print "\nThe CR for this encounter is %s" % set_cr
   return set_cr
 
 def get_weird_same_cr(set_cr, total_creatures):
@@ -79,6 +117,24 @@ def random_creature_by_cr(creature_cr, monsters, set_creature_type=''):
   else:
     return random_creature_by_cr(creature_cr, monsters)
 
+def get_party_exp(party_levels, encounter_creatures, xp_table, monsters):
+  party_size = len(party_levels)
+  party_levels = list(set(party_levels))
+  for character_level in party_levels:
+    #Calculate xp and divide by number of party members
+    character_xp = 0
+    for creature in encounter_creatures:
+      creature_cr = monsters[creature[0]]['cr']
+      if '/' not in creature_cr:
+        creature_cr = int(creature_cr)
+        character_xp += (xp_table[character_level][creature_cr] * creature[1]) / party_size
+      else:
+        divisor = int(creature_cr.split('/')[1])
+        character_xp += (xp_table[character_level][1] * creature[1]) / (party_size * divisor)
+
+    print "Characters with level %s gain %sxp" % (character_level, character_xp)
+  pass
+
 ####################################################################################
 #                                 ARGUMENT PARSING                                 #
 ####################################################################################
@@ -92,6 +148,8 @@ parser.add_argument('-m', '--max-creatures', default='5',
 parser.add_argument('-t', '--type-enforcement', action='store_true',
   default=False, dest='type_enforcement',
   help='Attempt to enforce same type for all monsters in encounter')
+parser.add_argument('-p', '--party-level', nargs='*', dest='party_levels',
+  help="Level of each party member")
 
 # TODO: I know there is a lower limit for the encounter level. Won't find
 # until after testing.
@@ -107,6 +165,7 @@ else:
 set_cr = encounter_var(set_cr)
 max_creatures = int(args.max_creatures)
 type_enforcement = args.type_enforcement
+party_levels = args.party_levels
 
 ####################################################################################
 #                                 CSV PROCESSING                                   #
@@ -128,6 +187,20 @@ for line in monster_list:
   monsters[monster_name]['book'] = "%s, page %s" % (books[line[1]], line[2])
   monsters[monster_name]['type'] = line[3]
   monsters[monster_name]['cr'] = line[4]
+
+# TODO: Finish XP
+xp_table = {}
+xp_list = csv.reader(open('assets/xp_table.csv', 'rb'),
+  delimiter=',', quotechar='"')
+xp_list.next()
+for line in xp_list:
+  line[0] = int(line[0])
+  xp_table[line[0]] = {}
+  xp_cr = 1
+  for x in range(1, len(line)):
+    if '*' not in line[x]:
+      xp_table[line[0]][xp_cr] = int(line[x])
+    xp_cr += 1
 
 #This is pulled out of DMG pg. 49
 weird_mix_cr = {
@@ -199,7 +272,14 @@ for creature_cr in creature_group_cr:
   creature_name = random_creature_by_cr(creature_cr, monsters, set_creature_type)
   if type_enforcement:
     set_creature_type = monsters[creature_name]['type']
-  encounter_creatures.append([creature_name, num_of_creature_in_group])
+  #Combine repeat creatures
+  repeat_creature = False
+  for x in range(0, len(encounter_creatures)):
+    if creature_name == encounter_creatures[x][0]:
+      encounter_creatures[x][1] += num_of_creature_in_group
+      repeat_creature = True
+  if not repeat_creature:
+    encounter_creatures.append([creature_name, num_of_creature_in_group])
 
 print "\nOh joy! Your players are fighting:"
 for creature in encounter_creatures:
@@ -211,3 +291,9 @@ for creature in encounter_creatures:
       creature[0],
       monsters[creature[0]]['book'])
 print "May the dice be ever in your favor.\n"
+
+if party_levels:
+  print "And should they succeed:"
+  party_levels = map(int, party_levels)
+  get_party_exp(party_levels, encounter_creatures, xp_table, monsters)
+
