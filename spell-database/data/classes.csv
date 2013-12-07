@@ -1,6 +1,6 @@
 Class Name;Arcane;Divine;Base;Setting;Book;Frequency;More Common?
 Adept;0;1;1;0;Dungeon Master's Guide;Common;0
-All;1;1;1;R;Magic of Rokugan;Rare;0
+All;1;1;1;RO;Magic of Rokugan;Rare;0
 Anagakok;1;0;1;0;Dragon #344;Uncommon;0
 Anarch;0;1;1;0;Dragon #310;Uncommon;0
 Ancestral Speaker;0;1;1;0;Dragon #311;Uncommon;0
@@ -85,7 +85,7 @@ Knight of the Chase;0;1;0;0;Dragon #297;Uncommon;0
 Knight of the Middle Circle;0;1;0;0;Defenders of the Faith;Uncommon;0
 Knight of the Weave;1;0;0;F;Champions of Valor;Rare;0
 Magewright;1;0;1;E;Eberron Campaign Setting;Rare;0
-Maho-Tsukai;1;1;1;R;Oriental Adventures;Rare;0
+Maho-Tsukai;1;1;1;RO;Oriental Adventures;Rare;0
 Mask of Johydee;0;1;0;F;Dragon #302;Rare;0
 Master of the South Wind;1;0;0;F;Dragon #314;Rare;0
 Merchant Prince;1;0;0;F;Power of Faerun;Rare;0
@@ -117,12 +117,12 @@ Scaled Horror;0;1;0;0;Savage Species;Uncommon;0
 Sentinel;0;1;1;0;Dragon #310;Uncommon;0
 Sha'ir;1;0;1;0;Dragon Compendium;Uncommon;0
 Shade Hunter;1;0;0;F;Champions of Ruin;Rare;0
-Shadow Walker;1;0;0;R;Creatures of Rokugan;Rare;0
+Shadow Walker;1;0;0;RO;Creatures of Rokugan;Rare;0
 Shaman;0;1;1;0;Oriental Adventures;Uncommon;0
 Shaman (Kalamar);0;1;1;K;Players Guide to the Sovereign Lands;Rare;0
 Shaman (Oriental Adventures);0;1;1;0;Oriental Adventures;Uncommon;0
 Shaman (Warcraft);0;1;1;W;Warcraft;None;0
-Shosuro Tejina;1;0;0;R;Way of the Ninja;Rare;0
+Shosuro Tejina;1;0;0;RO;Way of the Ninja;Rare;0
 Shugenja;0;1;1;0;Complete Divine;Uncommon;0
 Sinker;1;0;0;P;Dragon #287;Rare;0
 Slayer of Domiel;0;1;0;0;Book of Exalted Deeds;Uncommon;0

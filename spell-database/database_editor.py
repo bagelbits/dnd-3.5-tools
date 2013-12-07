@@ -131,7 +131,7 @@ def update_spell_in_db(db_cursor, spell,  crud_type):
     while spell:
       if spell[0].startswith("Class:"):
         db_cursor.execute("DELETE FROM spell_class WHERE spell_id = ?", (matched_id,))
-        spell[0] = re.sub('Class: ', '', spell[0], count=1)
+        spell[0] = re.sub('class: ', '', spell[0], count=1)
         class_info = get_class_info(spell[0])
         insert_spell_class(db_cursor, class_info, spell_name, matched_id)
 
@@ -161,8 +161,8 @@ def update_spell_in_db(db_cursor, spell,  crud_type):
         spell[0] = re.sub('Components: ', '', spell[0], count=1).split(", ")
         insert_spell_component(db_cursor, spell[0], spell_name, matched_id)
 
-      if spell[0].startswith("Casting Time:"):
-        spell[0] = re.sub('Casting Time: ', '', spell[0], count=1)
+      if spell[0].startswith("Casting_time:"):
+        spell[0] = re.sub('Casting_time: ', '', spell[0], count=1)
         db_cursor.execute("UPDATE spell SET cast_time = ? WHERE id = ?", (spell[0], matched_id))
 
       if spell[0].startswith("Range:"):
@@ -185,12 +185,12 @@ def update_spell_in_db(db_cursor, spell,  crud_type):
         spell[0] = re.sub('Duration: ', '', spell[0], count=1)
         db_cursor.execute("UPDATE spell SET duration = ? WHERE id = ?", (spell[0], matched_id))
 
-      if spell[0].startswith("Saving Throw:"):
-        spell[0] = re.sub('Saving Throw: ', '', spell[0], count=1)
+      if spell[0].startswith("Saving_throw:"):
+        spell[0] = re.sub('Saving_throw: ', '', spell[0], count=1)
         db_cursor.execute("UPDATE spell SET saving_throw = ? WHERE id = ?", (spell[0], matched_id))
 
-      if spell[0].startswith("Spell Resistance:"):
-        spell[0] = re.sub('Spell Resistance: ', '', spell[0], count=1)
+      if spell[0].startswith("Spell_resistance:"):
+        spell[0] = re.sub('Spell_resistance: ', '', spell[0], count=1)
         db_cursor.execute("UPDATE spell SET spell_resist = ? WHERE id = ?", (spell[0], matched_id))
 
       if spell[0].startswith("Description:"):
