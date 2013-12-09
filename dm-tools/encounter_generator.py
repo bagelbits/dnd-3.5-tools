@@ -120,20 +120,30 @@ def random_creature_by_cr(creature_cr, monsters, set_creature_type=''):
 def get_party_exp(party_levels, encounter_creatures, xp_table, monsters):
   party_size = len(party_levels)
   party_levels = list(set(party_levels))
+
   for character_level in party_levels:
     #Calculate xp and divide by number of party members
+    low_cr_found = False
     character_xp = 0
     for creature in encounter_creatures:
       creature_cr = monsters[creature[0]]['cr']
       if '/' not in creature_cr:
-        creature_cr = int(creature_cr)
-        character_xp += (xp_table[character_level][creature_cr] * creature[1]) / party_size
+        creature_xp = xp_table[character_level][int(creature_cr)]
+        divisor = party_size
       else:
-        divisor = int(creature_cr.split('/')[1])
-        character_xp += (xp_table[character_level][1] * creature[1]) / (party_size * divisor)
+        creature_xp = xp_table[character_level][1]
+        divisor = int(creature_cr.split('/')[1]) * party_size
+
+      if creature_xp == 0:
+        low_cr_found = True
+
+      character_xp += (creature_xp * creature[1]) / divisor
 
     print "Characters with level %s gain %sxp" % (character_level, character_xp)
-  pass
+
+    if low_cr_found:
+      print "Note: Some of these creature have a CR less than 8 the character's level"
+      print "and thus aren't awarded xp."
 
 ####################################################################################
 #                                 ARGUMENT PARSING                                 #
@@ -184,11 +194,12 @@ monster_list = csv.reader(open('assets/monsters_by_cr.csv', 'rb'),
 for line in monster_list:
   monster_name = line[0]
   monsters[monster_name] = {}
-  monsters[monster_name]['book'] = "%s, page %s" % (books[line[1]], line[2])
+  monsters[monster_name]['book'] = "%s, pg. %s" % (books[line[1]], line[2])
   monsters[monster_name]['type'] = line[3]
   monsters[monster_name]['cr'] = line[4]
 
-# TODO: Finish XP
+
+
 xp_table = {}
 xp_list = csv.reader(open('assets/xp_table.csv', 'rb'),
   delimiter=',', quotechar='"')
@@ -200,6 +211,8 @@ for line in xp_list:
   for x in range(1, len(line)):
     if '*' not in line[x]:
       xp_table[line[0]][xp_cr] = int(line[x])
+    if line[x] == '*':
+      xp_table[line[0]][xp_cr] = 0
     xp_cr += 1
 
 #This is pulled out of DMG pg. 49
@@ -255,6 +268,7 @@ set_creature_type = ''
 encounter_creatures = []
 
 # Randomly select number of creatures, try and conform to type
+# TODO: Breaking up might not work
 for creature_cr in creature_group_cr:
   #Select number of creatures:
   num_of_creature_in_group = 1
