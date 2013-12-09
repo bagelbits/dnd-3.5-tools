@@ -259,7 +259,7 @@ for x in range(0, number_of_creature_types):
       # Same level type
       if set_cr < 7:
         creature_cr, set_cr = get_weird_same_cr(set_cr, number_of_creature_types_left)
-      else:number_of_creature_types
+      else:
         creature_cr = set_cr - number_of_creature_types_left
         set_cr += number_of_creature_types_left - 4
 
@@ -280,6 +280,8 @@ for creature_cr in creature_group_cr:
     if coin_flip():
       # Lower bound is 0 because it shouldn't count itself.
       num_of_creature_in_group += randint(0, max_creatures - number_of_creatures)
+      # Need to update number of creatures otherwise you don't cap at 5
+      number_of_creatures += num_of_creature_in_group - 1
       if num_of_creature_in_group > 1:
         # Have to handle those weird cases where it can be two cr
         if creature_cr < 7:
