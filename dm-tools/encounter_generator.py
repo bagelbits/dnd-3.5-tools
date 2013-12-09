@@ -224,6 +224,10 @@ weird_mix_cr = {
 
 
 number_of_creature_types = randint(1, 3)
+
+if number_of_creature_types > max_creatures:
+  number_of_creature_types = max_creatures
+
 number_of_creature_types_left = number_of_creature_types
 number_of_creatures = number_of_creature_types
 creature_group_cr = []
@@ -236,7 +240,7 @@ for x in range(0, number_of_creature_types):
     creature_group_cr.append(set_cr)
     continue
 
-  if x != number_of_creature_types - 1:
+  if x !=  - 1:
     if coin_flip():
       # Mixed level type
       # We flip again because it can go either way
@@ -255,7 +259,7 @@ for x in range(0, number_of_creature_types):
       # Same level type
       if set_cr < 7:
         creature_cr, set_cr = get_weird_same_cr(set_cr, number_of_creature_types_left)
-      else:
+      else:number_of_creature_types
         creature_cr = set_cr - number_of_creature_types_left
         set_cr += number_of_creature_types_left - 4
 
