@@ -15,8 +15,8 @@ def coin_flip():
   return randint(0, 1)
 
 def encounter_var(set_cr):
-  d100_roll = randint(0, 99)
   # Distribution pulled from DMG pg. 49
+  d100_roll = randint(0, 99)
 
   #Each teir has distribution now so really hard and really easy are less likely
   if d100_roll < 10:
@@ -65,7 +65,16 @@ def encounter_var(set_cr):
       set_cr += 7
 
   if set_cr < 1:
-    print "You may want to reroll this.... also bug Chris"
+    if set_cr == 0:
+      set_cr = '1/2'
+    elif set_cr == -1:
+      set_cr = '1/3'
+    elif set_cr == -2:
+      set_cr = '1/4'
+    elif set_cr == -3:
+      set_cr = '1/6'
+    else:
+      set_cr = '1/8'
 
   print "\nThe CR for this encounter is %s" % set_cr
   return set_cr
@@ -236,6 +245,7 @@ creature_group_cr = []
 for x in range(0, number_of_creature_types):
   # Because fuck you I'm not dealing with CR's smaller than 1
   # You'll get an encounter slightly easier. So what.
+  # TODO: Actually, I should fix this. But nothing should be smaller than CR 1/8
   if isinstance(set_cr, str):
     creature_group_cr.append(set_cr)
     continue
@@ -272,7 +282,6 @@ set_creature_type = ''
 encounter_creatures = []
 
 # Randomly select number of creatures, try and conform to type
-# TODO: Breaking up might not work
 for creature_cr in creature_group_cr:
   #Select number of creatures:
   num_of_creature_in_group = 1
