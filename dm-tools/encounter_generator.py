@@ -79,34 +79,41 @@ def encounter_var(set_cr):
   print "\nThe CR for this encounter is %s" % set_cr
   return set_cr
 
+def trans_to_weird_same_cr_table(total_creatures):
+  if total_creatures < 5:
+    return total_creatures - 2
+  elif total_creatures < 7:
+    return 3
+  elif total_creatures < 10:
+    return 4
+  else:
+    return 5
+
 def get_weird_same_cr(set_cr, total_creatures):
   # Pulled out of DMG pg. 49
-  # Only goes up to 5 creatures because I'm not dealing with any more yet.
+  total_creatures = trans_to_weird_same_cr_table(total_creatures)
+
   weird_same_cr = {
-    1 : ['1/2', '1/3', '1/4', '1/6'],
-    2 : [1, ['1/2', 1], '1/2', '1/3'],
-    3 : [[1, 2], 1, ['1/2', 1], '1/2'],
-    4 : [2, [1, 2], 1, ['1/2', 1]],
-    5 : [3, 2, [1, 2], 1],
-    6 : [4, 3, 2, [1,2]],
+    1 : ['1/2', '1/3', '1/4', '1/6', '1/8', '1/8'],
+    2 : [1, ['1/2', 1], '1/2', '1/3', '1/4', '1/8'],
+    3 : [[1, 2], 1, ['1/2', 1], '1/2', '1/3', '1/4'],
+    4 : [2, [1, 2], 1, ['1/2', 1], '1/2', '1/3'],
+    5 : [3, 2, [1, 2], 1, '1/2', '1/2'],
+    6 : [4, 3, 2, [1,2], 1, '1/2'],
   }
   # Need to have total creatures conform to list
   # Janky as fuck but it works
 
-  total_creatures -= 2
-
   creature_cr = weird_same_cr[set_cr][total_creatures]
+  # For conistency's sake. The flip should set the other
+  # result to the new cr
   if isinstance(creature_cr, list):
-    creature_cr = creature_cr[coin_flip()]
-
-  new_set_cr = creature_cr
-  if total_creatures:
-    for el in weird_same_cr:
-      comparable_cr = weird_same_cr[el][total_creatures - 1]
-      if isinstance(comparable_cr, list):
-        comparable_cr = comparable_cr[coin_flip()]
-      if comparable_cr == creature_cr:
-        new_set_cr = comparable_cr
+    flip_result = coin_flip()
+    new_set_cr = creature_cr[flip_result]
+    del creature_cr[flip_result]
+    creature_cr = creature_cr[0]
+  else:
+    new_set_cr = creature_cr
 
   return creature_cr, new_set_cr
 
@@ -120,19 +127,27 @@ def random_creature_by_cr(creature_cr, monsters, set_creature_type=''):
       if set_creature_type in monsters[monster_name]['type']:
         proper_cr_monsters.append(monster_name)
 
-  #Now momment of truth: Pick a random monster
+  # Now momment of truth: Pick a random monster
   if proper_cr_monsters:
     return proper_cr_monsters[randint(0, len(proper_cr_monsters) - 1)]
   else:
-    return random_creature_by_cr(creature_cr, monsters)
+    # Need to catch the recursion loop that can occur here
+    if not set_creature_type:
+      print "\nError: You have hit parameters that no monster can be generated for."
+      print "Please double check your settings and try again."
+      quit()
+    else:
+      return random_creature_by_cr(creature_cr, monsters)
 
 def get_party_exp(party_levels, encounter_creatures, xp_table, monsters):
   party_size = len(party_levels)
   party_levels = list(set(party_levels))
 
+  low_cr_found = False
+  high_cr_found = False
+
   for character_level in party_levels:
     #Calculate xp and divide by number of party members
-    low_cr_found = False
     character_xp = 0
     for creature in encounter_creatures:
       creature_cr = monsters[creature[0]]['cr']
@@ -143,23 +158,33 @@ def get_party_exp(party_levels, encounter_creatures, xp_table, monsters):
         creature_xp = xp_table[character_level][1]
         divisor = int(creature_cr.split('/')[1]) * party_size
 
-      if creature_xp == 0:
+      if creature_xp == '*':
         low_cr_found = True
+        creature_xp = 0
+
+      if creature_xp == '**':
+        high_cr_found = True
+        creature_xp
 
       character_xp += (creature_xp * creature[1]) / divisor
 
     print "Characters with level %s gain %sxp" % (character_level, character_xp)
 
-    if low_cr_found:
-      print "Note: Some of these creature have a CR less than 8 the character's level"
-      print "and thus aren't awarded xp."
+  if low_cr_found:
+    print "    Note: Some of these creature have a CR less than 8 the character's level"
+    print "    and thus aren't awarded xp."
+
+  if high_cr_found:
+    print "    Note: some of these creatures have a CR greater than 8 the character's level"
+    print "    and thus aren't awarded xp."
+
+  print ""
 
 ####################################################################################
 #                                 ARGUMENT PARSING                                 #
 ####################################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument('-r', '--random', nargs=2, dest='random_cr_range',
-  help="Range for random CR")
+
 parser.add_argument('-c', '--cr', default='1', dest='requested_cr',
   help="Set random encounter CR")
 parser.add_argument('-m', '--max-creatures', default='5',
@@ -170,16 +195,11 @@ parser.add_argument('-t', '--type-enforcement', action='store_true',
 parser.add_argument('-p', '--party-level', nargs='*', dest='party_levels',
   help="Level of each party member")
 
-# TODO: I know there is a lower limit for the encounter level. Won't find
-# until after testing.
+# TODO: Option for no encounter varience
 
 args=parser.parse_args()
-set_cr = 1
-if args.random_cr_range:
-  cr_range = map(int, args.random_cr_range)
-  set_cr = randint(cr_range[0], cr_range[1])
-else:
-  set_cr = int(args.requested_cr)
+
+set_cr = int(args.requested_cr)
 
 set_cr = encounter_var(set_cr)
 max_creatures = int(args.max_creatures)
@@ -220,12 +240,16 @@ for line in xp_list:
   for x in range(1, len(line)):
     if '*' not in line[x]:
       xp_table[line[0]][xp_cr] = int(line[x])
-    if line[x] == '*':
-      xp_table[line[0]][xp_cr] = 0
+    else:
+      xp_table[line[0]][xp_cr] = line[x]
     xp_cr += 1
 
 #This is pulled out of DMG pg. 49
 weird_mix_cr = {
+  '1/6' : ['1/8', '1/8'],
+  '1/4' : ['1/6', '1/8'],
+  '1/3' : ['1/4', '1/6'],
+  '1/2' : ['1/3', '1/4'],
   1 : ['1/3', '1/2'],
   2 : ['1/2', 1],
   3 : [1, 2],
@@ -237,34 +261,33 @@ number_of_creature_types = randint(1, 3)
 if number_of_creature_types > max_creatures:
   number_of_creature_types = max_creatures
 
+number_of_creature_types = 3
+
 number_of_creature_types_left = number_of_creature_types
 number_of_creatures = number_of_creature_types
 creature_group_cr = []
 # This should handle all 12 (I think it's 12, could be more) possible distribution cases for 
 # 1 - 3 groups of subtypes. Technically should be able to do 1 - n
 for x in range(0, number_of_creature_types):
-  # Because fuck you I'm not dealing with CR's smaller than 1
-  # You'll get an encounter slightly easier. So what.
-  # TODO: Actually, I should fix this. But nothing should be smaller than CR 1/8
-  if isinstance(set_cr, str):
+  # We can't break anything into smaller that CR 1/8
+  if set_cr == '1/8':
     creature_group_cr.append(set_cr)
     continue
 
-  if x !=  - 1:
-    if coin_flip():
+  if x !=  number_of_creature_types - 1:
+    if coin_flip() or isinstance(set_cr, str) or number_of_creature_types - x != 2:
       # Mixed level type
-      # We flip again because it can go either way
       if set_cr in weird_mix_cr:
         mixed_cr = weird_mix_cr[set_cr]
       else:
         mixed_cr = [set_cr - 1, set_cr - 3]
+      # We flip again because it can go either way
+      # This also handles mix/same for anything with more than 2 creatures
       flip_result = coin_flip()
       creature_cr = mixed_cr[flip_result]
       del mixed_cr[flip_result]
       set_cr = mixed_cr[0]
-      creature_group_cr.append(creature_cr)
-      number_of_creature_types_left -= 1
-      test_bool = False
+
     else:
       # Same level type
       if set_cr < 7:
@@ -273,8 +296,8 @@ for x in range(0, number_of_creature_types):
         creature_cr = set_cr - number_of_creature_types_left
         set_cr += number_of_creature_types_left - 4
 
-      number_of_creature_types_left -= 1
-      creature_group_cr.append(creature_cr)
+    number_of_creature_types_left -= 1
+    creature_group_cr.append(creature_cr)
   else:
     creature_group_cr.append(set_cr)
 
@@ -288,16 +311,25 @@ for creature_cr in creature_group_cr:
   if number_of_creatures < max_creatures and isinstance(creature_cr, int):
     if coin_flip():
       # Lower bound is 0 because it shouldn't count itself.
-      num_of_creature_in_group += randint(0, max_creatures - number_of_creatures)
+      #num_of_creature_in_group += randint(0, max_creatures - number_of_creatures)
+      num_of_creature_in_group += randint(1, max_creatures - number_of_creatures)
+
+      #There isn't really a way to split this into a smaller encounter.
+      if num_of_creature_in_group > 12:
+        print "You shouldn't have more than 12 creatures in an encounter. Setting to 12...."
+        num_of_creature_in_group = 12
       # Need to update number of creatures otherwise you don't cap at 5
       number_of_creatures += num_of_creature_in_group - 1
+
       if num_of_creature_in_group > 1:
         # Have to handle those weird cases where it can be two cr
         if creature_cr < 7:
           new_cr = get_weird_same_cr(creature_cr, num_of_creature_in_group)[0]
         else:
-          new_cr = creature_cr - num_of_creature_in_group
+          #Have to call the method anyways since large groups can group the cr together
+          new_cr = creature_cr - trans_to_weird_same_cr_table(num_of_creature_in_group) - 2
         creature_cr = new_cr
+
   creature_name = random_creature_by_cr(creature_cr, monsters, set_creature_type)
   if type_enforcement:
     set_creature_type = monsters[creature_name]['type']
@@ -313,12 +345,12 @@ for creature_cr in creature_group_cr:
 print "\nOh joy! Your players are fighting:"
 for creature in encounter_creatures:
   if creature[1] == 1:
-    print "%s; see %s" % (creature[0],
-      monsters[creature[0]]['book'])
+    print "%s; see %s CR: %s" % (creature[0],
+      monsters[creature[0]]['book'], monsters[creature[0]]['cr'])
   else:
-    print "%s %s; see %s" % (creature[1],
+    print "%s %s; see %s CR: %s" % (creature[1],
       creature[0],
-      monsters[creature[0]]['book'])
+      monsters[creature[0]]['book'], monsters[creature[0]]['cr'])
 print "May the dice be ever in your favor.\n"
 
 if party_levels:
