@@ -248,6 +248,7 @@ for line in monster_list:
   monsters[monster_name]['cr'] = line[4]
 
 # Load xp table
+# TODO: Just make this a table in a separate file ... maybe do this with all of them
 xp_table = {}
 xp_list = csv.reader(open('assets/xp_table.csv', 'rb'),
   delimiter=',', quotechar='"')
