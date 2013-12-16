@@ -1,15 +1,30 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 """
-    Hacked together random CR encounter generator.
-    No GUI planned.
+  Hacked together random CR encounter generator.
+  No GUI planned.
 
-    By Chris Ward
+  Written by Christopher Durien Ward
+  With help from Noah Reson-Brown
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>
 """
 
 import argparse
-import csv
 from random import randint
+from creature_db_setup import db_setup
+import assets.dmg_tables as dmg_tables
 
 def coin_flip():
   return randint(0, 1)
@@ -93,18 +108,10 @@ def get_weird_same_cr(set_cr, total_creatures):
   # Pulled out of DMG pg. 49
   total_creatures = trans_to_weird_same_cr_table(total_creatures)
 
-  weird_same_cr = {
-    1 : ['1/2', '1/3', '1/4', '1/6', '1/8', '1/8'],
-    2 : [1, ['1/2', 1], '1/2', '1/3', '1/4', '1/8'],
-    3 : [[1, 2], 1, ['1/2', 1], '1/2', '1/3', '1/4'],
-    4 : [2, [1, 2], 1, ['1/2', 1], '1/2', '1/3'],
-    5 : [3, 2, [1, 2], 1, '1/2', '1/2'],
-    6 : [4, 3, 2, [1,2], 1, '1/2'],
-  }
   # Need to have total creatures conform to list
   # Janky as fuck but it works
 
-  creature_cr = weird_same_cr[set_cr][total_creatures]
+  creature_cr = dmg_tables.weird_same_cr[set_cr][total_creatures]
   # For conistency's sake. The flip should set the other
   # result to the new cr
   if isinstance(creature_cr, list):
@@ -117,29 +124,162 @@ def get_weird_same_cr(set_cr, total_creatures):
 
   return creature_cr, new_set_cr
 
-#Yeah... this'll be way better with a db. Oh well. That's for v 1.1
-def random_creature_by_cr(creature_cr, monsters, set_creature_type=''):
-  creature_cr = str(creature_cr)
+def get_creature_list(db_cursor, creature_cr, set_creature_type=''):
   proper_cr_monsters = []
 
-  for monster_name in monsters:
-    if monsters[monster_name]['cr'] == creature_cr:
-      if set_creature_type in monsters[monster_name]['type']:
-        proper_cr_monsters.append(monster_name)
+  #Get type and subtype ids
+
+  db_cursor.execute('SELECT id FROM creature WHERE cr = ?', (creature_cr,))
+  
+  for creature_id in [x[0] for x in db_cursor.fetchall()]:
+    type_match = True
+    if set_creature_type:
+      # Weed out type mismatch
+      if set_creature_type['type_id']:
+        db_cursor.execute('SELECT creature_id FROM creature_type\
+          WHERE creature_id = ? AND type_id = ? LIMIT 1',
+          (creature_id, set_creature_type['type_id']))
+        if not db_cursor.fetchone():
+          type_match = False
+
+      if set_creature_type['subtype_id']:
+        for subtype_id in set_creature_type['subtype_id']:
+          db_cursor.execute('SELECT creature_id FROM creature_subtype\
+            WHERE creature_id = ? AND subtype_id = ? LIMIT 1', (creature_id, subtype_id))
+
+          if not db_cursor.fetchone():
+            type_match = False
+
+    if type_match:
+      proper_cr_monsters.append(creature_id)
+
+  return proper_cr_monsters
+
+def random_creature_by_cr(db_cursor, creature_cr, set_creature_type=''):
+  
+  """
+  TODO: More concise type enforcing
+  Try exact type
+  Keep only element, alignment, type
+  Drop type
+  Drop alignment
+  Try fucking anything (though try and keep in mind want alignment they usually are)
+  """
+
+  alignment = []
+
+  # Type matching
+  if set_creature_type:
+    # Try exact type
+    proper_cr_monsters = get_creature_list(db_cursor, creature_cr, set_creature_type)
+
+    #Drop everying element, alignment, type
+    if not proper_cr_monsters:
+      new_subtype_list = []
+      for subtype_id in set_creature_type['subtype_id']:
+        db_cursor.execute('SELECT subtype_id FROM element WHERE subtype_id = ? LIMIT 1', 
+          (subtype_id,))
+        if db_cursor.fetchone():
+          new_subtype_list.append(subtype_id)
+          continue
+
+        db_cursor.execute('SELECT subtype_id FROM alignment WHERE subtype_id = ? LIMIT 1', 
+          (subtype_id,))
+        if db_cursor.fetchone():
+          new_subtype_list.append(subtype_id)
+      
+      set_creature_type['subtype_id'] = new_subtype_list
+      proper_cr_monsters = get_creature_list(db_cursor, creature_cr, set_creature_type)
+
+    # Drop type
+    if not proper_cr_monsters:
+      set_creature_type['type_id'] = 0
+      proper_cr_monsters = get_creature_list(db_cursor, creature_cr, set_creature_type)
+
+    # Drop alignment but store it for later
+    if not proper_cr_monsters:
+      new_subtype_list = []
+      for subtype_id in set_creature_type['subtype_id']:
+        db_cursor.execute('SELECT subtype_id FROM element WHERE subtype_id = ? LIMIT 1', 
+          (subtype_id,))
+        if db_cursor.fetchone():
+          new_subtype_list.append(subtype_id)
+        else:
+          alignment.append(subtype_id)
+      
+      set_creature_type['subtype_id'] = new_subtype_list
+      proper_cr_monsters = get_creature_list(db_cursor, creature_cr, set_creature_type)
+
+    if not proper_cr_monsters:
+      set_creature_type = ''
+
+  # Try anything
+  # TODO: Once we store alignment types, try and keep alignment the same
+  if not set_creature_type:
+    db_cursor.execute('SELECT id FROM creature WHERE cr = ?', (creature_cr,))
+    proper_cr_monsters = [x[0] for x in db_cursor.fetchall()]
+
+
 
   # Now momment of truth: Pick a random monster
   if proper_cr_monsters:
     return proper_cr_monsters[randint(0, len(proper_cr_monsters) - 1)]
   else:
-    # Need to catch the recursion loop that can occur here
-    if not set_creature_type:
-      print "\nError: You have hit parameters that no monster can be generated for."
-      print "Please double check your settings and try again."
-      quit()
-    else:
-      return random_creature_by_cr(creature_cr, monsters)
+    print "\nError: You have hit parameters that no monster can be generated for."
+    print "Please double check your settings and try again."
+    quit()
 
-def get_party_exp(party_levels, encounter_creatures, xp_table, monsters):
+def get_creature_data(db_cursor, creature_id):
+  # Let's pull all of the storecd data for that creature
+  creature_data = {'id': creature_id}
+  
+  db_cursor.execute('SELECT name, cr FROM creature WHERE id = ? LIMIT 1', (creature_id,))
+  creature_data['name'], creature_data['cr'] = db_cursor.fetchone()
+
+  db_cursor.execute('SELECT book_id, page FROM creature_book WHERE creature_id = ? LIMIT 1',
+    (creature_id,))
+  book_id, page_num = db_cursor.fetchone()
+
+  db_cursor.execute('SELECT name FROM book WHERE id = ? LIMIT 1', (book_id,))
+  creature_data['book'] = [db_cursor.fetchone()[0], page_num]
+
+  creature_data['type'] = {
+    'type_id' : 0,
+    'subtype_id' : [],
+  }
+  db_cursor.execute('SELECT type_id FROM creature_type WHERE creature_id = ? LIMIT 1',
+    (creature_id,))
+  creature_data['type']['type_id']= db_cursor.fetchone()[0]
+
+  db_cursor.execute('SELECT subtype_id FROM creature_subtype WHERE creature_id = ?',
+    (creature_id,))
+  creature_data['type']['subtype_id'] = [x[0] for x in db_cursor.fetchall()]
+
+  return creature_data
+
+def get_type_ids(db_cursor, creature_type):
+  type_ids = {
+    'type_id' : 0,
+    'subtype_id' : [],
+  }
+
+  for type_name in creature_type:
+    db_cursor.execute('SELECT id FROM type WHERE name = ? LIMIT 1', (type_name,))
+    type_id = db_cursor.fetchone()
+    if type_id:
+      type_ids['type_id'] = type_id[0]
+      continue
+    else:
+      db_cursor.execute('SELECT id FROM subtype WHERE name = ? LIMIT 1', (type_name,))
+      subtype_id = db_cursor.fetchone()
+      if subtype_id:
+        type_ids['subtype_id'].append(subtype_id[0])
+      else:
+        print "Type not found: %s" % type_name
+
+  return type_ids
+
+def get_party_exp(db_cursor, party_levels, encounter_creatures):
   party_size = len(party_levels)
   party_levels = list(set(party_levels))
 
@@ -150,35 +290,46 @@ def get_party_exp(party_levels, encounter_creatures, xp_table, monsters):
     #Calculate xp and divide by number of party members
     character_xp = 0
     for creature in encounter_creatures:
-      creature_cr = monsters[creature[0]]['cr']
-      if '/' not in creature_cr:
-        creature_xp = xp_table[character_level][int(creature_cr)]
-        divisor = party_size
+      creature_data = creature[0]
+      creature_cr = creature_data['cr']
+      divisor = party_size
+      # Need to catch CRs less than 1
+      if isinstance(creature_cr, str):
+        cr_ecl_diff = 1 - character_level
       else:
-        creature_xp = xp_table[character_level][1]
-        divisor = int(creature_cr.split('/')[1]) * party_size
+        cr_ecl_diff = creature_cr - character_level
 
-      if creature_xp == '*':
+      # Check if CR is too high or too low
+      if cr_ecl_diff < -7:
         low_cr_found = True
         creature_xp = 0
-
-      if creature_xp == '**':
+      elif cr_ecl_diff > 7:
         high_cr_found = True
-        creature_xp
+      else:
+        if '/' not in creature_cr:
+          creature_xp = dmg_tables.xp_table[character_level][int(creature_cr)]
+        else:
+          creature_xp = dmg_tables.xp_table[character_level][1]
+          divisor *= int(creature_cr.split('/')[1])
 
       character_xp += (creature_xp * creature[1]) / divisor
 
     print "Characters with level %s gain %sxp" % (character_level, character_xp)
 
   if low_cr_found:
-    print "    Note: Some of these creature have a CR less than 8 the character's level"
+    print "\n    Note: Some of these creature have a CR less than 8 the character's level"
     print "    and thus aren't awarded xp."
 
   if high_cr_found:
-    print "    Note: some of these creatures have a CR greater than 8 the character's level"
+    print "\n    Note: some of these creatures have a CR greater than 8 the character's level"
     print "    and thus aren't awarded xp."
 
   print ""
+
+####################################################################################
+#                                  DATBASE SETUP                                   #
+####################################################################################
+db_conn, db_cursor = db_setup()
 
 ####################################################################################
 #                                 ARGUMENT PARSING                                 #
@@ -191,19 +342,31 @@ parser.add_argument('-m', '--max-creatures', default='5',
   dest='max_creatures', help="Set max number of creatures in an encounter")
 parser.add_argument('-k', '--max-creature-kinds', default='3',
   dest='number_of_creature_types', help="Set max number of creature kinds in an encounter")
-parser.add_argument('-t', '--type-enforcement', action='store_true',
+parser.add_argument('-e', '--type-enforcement', action='store_true',
   default=False, dest='type_enforcement',
   help='Attempt to enforce same type for all monsters in encounter')
 parser.add_argument('-p', '--party-level', nargs='*', dest='party_levels',
   help="Level of each party member")
+parser.add_argument('-V', '--no-varience', action='store_true',
+  default=False, dest='no_varience',
+  help="Hard set CR, do not vary based off varience tables")
+parser.add_argument('-t', '--set-types', nargs='*', dest='set_types',
+  help="Set types that you want. Please comment separate these.")
 
-# TODO: Option for no encounter varience
+# TODO: Option for setting types you want
 
 args=parser.parse_args()
 
 set_cr = int(args.requested_cr)
 
-set_cr = encounter_var(set_cr)
+if args.no_varience:
+  print "The CR for this encounter is %s" % set_cr
+else:
+  set_cr = encounter_var(set_cr)
+
+if args.set_types:
+  set_types = " ".join(args.set_types).split(", ")
+
 max_creatures = int(args.max_creatures)
 type_enforcement = args.type_enforcement
 party_levels = args.party_levels
@@ -214,52 +377,6 @@ number_of_creature_types = int(args.number_of_creature_types)
 ####################################################################################
 
 # TODO: Turn this into a sqlite db.
-
-# Load book abbrev.
-books = {}
-book_list = csv.reader(open('assets/books.csv', 'rb'),
-  delimiter=',', quotechar='"')
-for line in book_list:
-  books[line[0]] = line[1]
-
-# Load monster list
-monsters = {}
-monster_list = csv.reader(open('assets/monsters_by_cr.csv', 'rb'),
-  delimiter=',', quotechar='"')
-for line in monster_list:
-  monster_name = line[0]
-  monsters[monster_name] = {}
-  monsters[monster_name]['book'] = "%s, pg. %s" % (books[line[1]], line[2])
-  monsters[monster_name]['type'] = line[3]
-  monsters[monster_name]['cr'] = line[4]
-
-# Load xp table
-xp_table = {}
-xp_list = csv.reader(open('assets/xp_table.csv', 'rb'),
-  delimiter=',', quotechar='"')
-xp_list.next()
-for line in xp_list:
-  line[0] = int(line[0])
-  xp_table[line[0]] = {}
-  xp_cr = 1
-  for x in range(1, len(line)):
-    if '*' not in line[x]:
-      xp_table[line[0]][xp_cr] = int(line[x])
-    else:
-      xp_table[line[0]][xp_cr] = line[x]
-    xp_cr += 1
-
-#This is pulled out of DMG pg. 49
-weird_mix_cr = {
-  '1/6' : ['1/8', '1/8'],
-  '1/4' : ['1/6', '1/8'],
-  '1/3' : ['1/4', '1/6'],
-  '1/2' : ['1/3', '1/4'],
-  1 : ['1/3', '1/2'],
-  2 : ['1/2', 1],
-  3 : [1, 2],
-}
-
 
 number_of_creature_types = randint(1, number_of_creature_types)
 
@@ -283,8 +400,8 @@ for x in range(0, number_of_creature_types):
       # than 2 creatures
       # DMG doesn't say how to split apart anything less than CR 1 when it's the same.
     if coin_flip() or isinstance(set_cr, str) or number_of_creature_types - x != 2:
-      if set_cr in weird_mix_cr:
-        mixed_cr = weird_mix_cr[set_cr]
+      if set_cr in dmg_tables.weird_mix_cr:
+        mixed_cr = dmg_tables.weird_mix_cr[set_cr]
       else:
         mixed_cr = [set_cr - 1, set_cr - 3]
       # We flip again because it can go either way
@@ -309,6 +426,9 @@ for x in range(0, number_of_creature_types):
     creature_group_cr.append(set_cr)
 
 set_creature_type = ''
+if set_types:
+  set_creature_type = get_type_ids(db_cursor, set_types)
+  type_enforcement = True
 encounter_creatures = []
 
 # Randomly select number of creatures, try and conform to type
@@ -337,31 +457,38 @@ for creature_cr in creature_group_cr:
           new_cr = creature_cr - trans_to_weird_same_cr_table(num_of_creature_in_group) - 2
         creature_cr = new_cr
 
-  creature_name = random_creature_by_cr(creature_cr, monsters, set_creature_type)
-  if type_enforcement:
-    set_creature_type = monsters[creature_name]['type']
+  creature_id = random_creature_by_cr(db_cursor, creature_cr, set_creature_type)
+  creature_data = get_creature_data(db_cursor, creature_id)
+  if type_enforcement and not set_types:
+    set_creature_type = creature_data['type']
+  
   #Combine repeat creatures
   repeat_creature = False
   for x in range(0, len(encounter_creatures)):
-    if creature_name == encounter_creatures[x][0]:
+    if creature_data['name'] == encounter_creatures[x][0]['name']:
       encounter_creatures[x][1] += num_of_creature_in_group
       repeat_creature = True
   if not repeat_creature:
-    encounter_creatures.append([creature_name, num_of_creature_in_group])
+    encounter_creatures.append([creature_data, num_of_creature_in_group])
 
 print "\nOh joy! Your players are fighting:"
 for creature in encounter_creatures:
-  if creature[1] == 1:
-    print "%s; see %s CR: %s" % (creature[0],
-      monsters[creature[0]]['book'], monsters[creature[0]]['cr'])
+  creature_data = creature[0]
+  number_of_creatures = creature[1]
+  if number_of_creatures == 1:
+    print "%s; see %s, pg. %s CR: %s" % (creature_data['name'],
+      creature_data['book'][0], creature_data['book'][1],
+      creature_data['cr'])
   else:
-    print "%s %s; see %s CR: %s" % (creature[1],
-      creature[0],
-      monsters[creature[0]]['book'], monsters[creature[0]]['cr'])
+    print "%s %s; see %s, pg. %s CR: %s" % (number_of_creatures,
+      creature_data['name'], creature_data['book'][0],
+      creature_data['book'][1], creature_data['cr'])
 print "May the dice be ever in your favor.\n"
 
 if party_levels:
   print "And should they succeed:"
   party_levels = map(int, party_levels)
-  get_party_exp(party_levels, encounter_creatures, xp_table, monsters)
+  get_party_exp(db_cursor, party_levels, encounter_creatures)
 
+db_conn.commit()
+db_conn.close()

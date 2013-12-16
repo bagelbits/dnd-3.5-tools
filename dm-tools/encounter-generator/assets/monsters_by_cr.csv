@@ -17,7 +17,7 @@ Abomination Cult Leader,MM4,186,Monstrous Humanoid,9,Large
 "Abomination, Chichimec",EL,160,"Outsider (Air, Evil)",21,Medium
 "Abomination, Dream Larva",EL,161,"Outsider (Chaotic, Evil)",31,Large
 "Abomination, Hecatoncheires",EL,162,"Outsider (Chaotic, Evil)",57,Huge
-"Abomination, Infernal",EL,164,"Outsider (Evil, Chaotic/Lawful)",26,Large
+"Abomination, Infernal",EL,164,"Outsider (Evil, Chaotic, Lawful)",26,Large
 "Abomination, Phaethon",EL,165,"Outsider (Chaotic, Evil, Fire)",34,Gargantuan
 "Abomination, Phane",EL,166,"Outsider (Chaotic, Evil, Incorporeal)",25,Large
 "Abomination, Xixecal",EL,167,"Outsider (Chaotic, Cold, Evil)",36,Colossal
@@ -43,7 +43,6 @@ Amnizu (Baatezu),FCII,112,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",7,Medi
 Amphisbaena,SK,62,Magical Beast,5,Large
 Ancient Night Twist,MM3,111,Plant,20,Huge
 Androsphinx,MM,232,Magical Beast,9,Large
-Angel,MM,10,"Outsider (Angel, Extraplanar, Good)",14,
 Angel of Decay,LM,83,Undead,15,Large
 Anguillian,Sto,136,Aberration (Aquatic),2,Medium
 "Animated Object, Colossal",MM,14,Construct,10,Colossal
@@ -99,8 +98,8 @@ Ashworm,Sa,140,Magical Beast,2,Large
 Aspect of Asmodeus,FCII,155,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",27,Large
 Aspect of Asmodeus,MH,47,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",9,Large
 Aspect of Baalzebul,FCII,151,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",23,Huge
-Aspect of Bahamut,MH,48,Dragon (Extraplanar),10,Large
 Aspect of Bahamut,DM,108,Dragon (Extraplanar),12,Huge
+Aspect of Bahamut,MH,48,Dragon (Extraplanar),10,Large
 Aspect of Bel,FCII,142,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",20,Large
 Aspect of Belial,FCII,146,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",21,Medium
 Aspect of Demogorgon,MH,49,"Outsider (Chaotic, Evil, Extraplanar, Tanar'ri)",9,Large
@@ -117,8 +116,8 @@ Aspect of Mephistopheles,MH,52,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",9
 Aspect of Nerull,MH,52,"Outsider (Evil, Extraplanar)",12,Large
 Aspect of Obox-Ob,EDP,186,"Outsider (Chaotic, Evil, Extraplanar, Obyrith)",8,Large
 Aspect of Orcus,MH,53,"Outsider (Chaotic, Extraplanar, Evil, Tanar'ri)",9,Large
-Aspect of Tiamat,MH,54,Dragon (Extraplanar),10,Large
 Aspect of Tiamat,DM,110,Dragon (Extraplanar),13,Huge
+Aspect of Tiamat,MH,54,Dragon (Extraplanar),10,Large
 Aspect of Vecna,MH,54,Undead,10,Medium
 Aspect of Yeenoghu,EDP,188,"Outsider (Chaotic, Evil, Extraplanar, Tanar'ri)",10,Large
 Asperi,MM2,25,Magical Beast (Cold),4,Large
@@ -138,7 +137,7 @@ Astral Dreadnought,MP,159,Outsider,17,Gargantuan
 Astral Kraken,PlH,109,Vermin (Extraplanar),16,Gargantuan
 Astral Stalker,MM3,12,Outsider,12,Medium
 Asura,BE,164,"Outsider (Chaotic, Extraplanar, Good)",8,Medium
-Athach,MM,21,Aberrration,8,Huge
+Athach,MM,21,Aberration,8,Huge
 Atropal Scion,LM,84,Undead,11,Medium
 Aurumvorax,ERG,216,Magical Beast,8,Small
 "Automaton, Hammerer",MM2,27,Construct,3,Medium
@@ -226,7 +225,7 @@ Beholder,MM,25,Aberration,13,Large
 "Beholderkin, Spectator",LoM,140,Aberration (Extraplanar),4,Medium
 "Beholderkin, Spectator (Faerun)",Mag,182,Aberration,6,Medium
 Belker,MM,27,"Elemental (Air, Extraplanar)",6,Large
-Bheur,Una,63,Monstrous Humanoid,9,
+Bheur,Una,63,Monstrous Humanoid,9,Medium
 Bhuka,Sa,141,Humanoid,1/2,Medium
 Bhut,FF,20,Undead (Incorporeal),9,Medium
 Bisan,OA,147,Fey (Spirit),5,Medium
@@ -279,7 +278,7 @@ Bone Devil (Osyluth),MM,52,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",9,Lar
 Bonebat,Mon,18,Undead,2,Medium
 Boneclaw,MM3,17,Undead,5,Large
 Bonedrinker,MM3,18,Undead,6,Medium
-"Bonedrinker, Lesser",MM3,19,Undead ,4,Small
+"Bonedrinker, Lesser",MM3,19,Undead,4,Small
 Boneleaf,HH,143,Aberration,6,Large
 Bonespear,FF,24,Vermin (Extraplanar),12,Large
 Bonespur,MM5,156,Undead,3,Large
@@ -356,15 +355,15 @@ Chasme (Tanar'ri),BV,174,"Outsider (Chaotic, Evil, Tanar'ri)",10,Large
 Cheetah,MM,271,Animal,2,Medium
 Chekryan,Sa,142,Magical Beast,4,Large
 Chelicera,MM3,27,Vermin,6,Medium
-"Chiang Lung (River Dragon), Adult",OA,155,"Dragon (Spirit, Water)",14,
-"Chiang Lung (River Dragon), Ancient",OA,155,"Dragon (Spirit, Water)",22,
-"Chiang Lung (River Dragon), Great Wyrm",OA,155,"Dragon (Spirit, Water)",25,
-"Chiang Lung (River Dragon), Juvenile",OA,155,"Dragon (Spirit, Water)",9,
-"Chiang Lung (River Dragon), Mature Adult",OA,155,"Dragon (Spirit, Water)",17,
-"Chiang Lung (River Dragon), Old",OA,155,"Dragon (Spirit, Water)",19,
-"Chiang Lung (River Dragon), Very Old",OA,155,"Dragon (Spirit, Water)",20,
-"Chiang Lung (River Dragon), Wyrm",OA,155,"Dragon (Spirit, Water)",23,
-"Chiang Lung (River Dragon), Young Adult",OA,155,"Dragon (Spirit, Water)",12,
+"Chiang Lung (River Dragon), Adult",OA,155,"Dragon (Spirit, Water)",14,Huge
+"Chiang Lung (River Dragon), Ancient",OA,155,"Dragon (Spirit, Water)",22,Gargantuan
+"Chiang Lung (River Dragon), Great Wyrm",OA,155,"Dragon (Spirit, Water)",25,Colossal
+"Chiang Lung (River Dragon), Juvenile",OA,155,"Dragon (Spirit, Water)",9,Large
+"Chiang Lung (River Dragon), Mature Adult",OA,155,"Dragon (Spirit, Water)",17,Huge
+"Chiang Lung (River Dragon), Old",OA,155,"Dragon (Spirit, Water)",19,Gargantuan
+"Chiang Lung (River Dragon), Very Old",OA,155,"Dragon (Spirit, Water)",20,Gargantuan
+"Chiang Lung (River Dragon), Wyrm",OA,155,"Dragon (Spirit, Water)",23,Gargantuan
+"Chiang Lung (River Dragon), Young Adult",OA,155,"Dragon (Spirit, Water)",12,Huge
 Chilblain,Fr,114,Aberration (Cold),18,Large
 Chilling Fog,MM3,92,Ooze,9,Large
 Chimera,MM,34,Magical Beast,7,Large
@@ -418,7 +417,6 @@ Craa'ghoran Giant,MM4,60,Giant (Earth),10,Huge
 "Crab, Small Monstrous",Sto,141,Vermin,1/2,Small
 Crawling Apocalypse,Sa,143,Undead,11,Gargantuan
 Crawling Claw,Mon,29,Construct,1/3,Diminutive
-"Swarm, Crawling Claw",LE,163,Construct (Swarm),2,Tiny
 Crawling Gauntlet,MoE,155,Aberration (Symbiont),1,Tiny
 Crawling Head,FF,35,Undead,20,Huge
 Crazed Kuo-Toa,MM5,94,Monstrous Humanoid (Aquatic),3,Medium
@@ -543,7 +541,7 @@ Djinni,MM,114,"Outsider (Air, Extraplanar)",5,Large
 Doc Cu'o'c,OA,151,Outsider (Spirit),6,Medium
 Dog,MM,271,Animal,1/3,Small
 "Dog, Riding",MM,272,Animal,1,Medium
-Dokufu,OA,151,Shapechanger/Huge (Shadowlands),19,Medium
+Dokufu,OA,151,Shapechanger (Shadowlands),19,Medium
 Dolgaunt,ECS,281,Aberration,2,Medium
 Dolghast,MoE,143,Aberration,4,Medium
 Dolgrim,ECS,282,Aberration,1,Small
@@ -564,404 +562,404 @@ Draegloth,DrU,110,Outsider (Native),5,Large
 Dragon Eel,MM3,44,Dragon (Aquatic),11,Large
 Dragon Turtle,MM,88,Dragon (Water),9,Huge
 "Dragon, Adult Amethyst",MM2,79,Dragon (Earth),14,
-"Dragon, Adult Battle (Planar)",Dr,176,Dragon (Extraplanar),12,
+"Dragon, Adult Battle (Planar)",Dr,176,Dragon (Extraplanar),12,Large
 "Dragon, Adult Black",MM,70,Dragon (Water),11,
 "Dragon, Adult Blue",MM,72,Dragon (Earth),14,
 "Dragon, Adult Brass",MM,79,Dragon (Fire),12,
 "Dragon, Adult Bronze",MM,80,Dragon (Water),15,
 "Dragon, Adult Brown",Mon,38,Dragon (Earth),13,
-"Dragon, Adult Chaos (Planar)",Dr,177,"Dragon (Chaos, Extraplanar)",13,
+"Dragon, Adult Chaos (Planar)",Dr,177,"Dragon (Chaotic, Extraplanar)",13,Huge
 "Dragon, Adult Copper",MM,82,Dragon (Earth),14,
 "Dragon, Adult Crystal",MM2,81,Dragon (Air),12,
 "Dragon, Adult Deep",Mon,40,Dragon (Earth),14,
 "Dragon, Adult Emerald",MM2,82,Dragon (Air),14,
-"Dragon, Adult Ethereal (Planar)",Dr,179,Dragon (Extraplanar),10,
-"Dragon, Adult Fang",Dr,159,Dragon,10,
+"Dragon, Adult Ethereal (Planar)",Dr,179,Dragon (Extraplanar),10,Large
+"Dragon, Adult Fang",Dr,159,Dragon,10,Large
 "Dragon, Adult Gold",MM,84,Dragon (Fire),16,
 "Dragon, Adult Green",MM,74,Dragon (Air),13,
-"Dragon, Adult Howling (Planar)",Dr,180,Dragon (Extraplanar),14,
+"Dragon, Adult Howling (Planar)",Dr,180,Dragon (Extraplanar),14,Huge
 "Dragon, Adult Incarnum",MoI,172,"Dragon (Extraplanar, Incarnum)",13,
-"Dragon, Adult Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",13,
-"Dragon, Adult Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),13,
-"Dragon, Adult Radiant (Planar)",Dr,185,Dragon (Extraplanar),14,
+"Dragon, Adult Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",13,Huge
+"Dragon, Adult Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),13,Huge
+"Dragon, Adult Radiant (Planar)",Dr,185,Dragon (Extraplanar),14,Huge
 "Dragon, Adult Rattelyr",ShS,63,Dragon (Fire),10,
 "Dragon, Adult Red",MM,75,Dragon (Fire),15,
-"Dragon, Adult Rust (Planar)",Dr,186,Dragon (Extraplanar),13,
+"Dragon, Adult Rust (Planar)",Dr,186,Dragon (Extraplanar),13,Huge
 "Dragon, Adult Sand",Sa,152,Dragon (Earth),12,
 "Dragon, Adult Sapphire",MM2,84,Dragon (Earth),13,
-"Dragon, Adult Shadow",Dr,191,Dragon,13,
+"Dragon, Adult Shadow",Dr,191,Dragon,13,Large
 "Dragon, Adult Silver",MM,86,Dragon (Cold),15,
 "Dragon, Adult Song",Mon,44,Dragon (Electricity),13,
-"Dragon, Adult Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",12,
-"Dragon, Adult Tarterian (Planar)",Dr,189,Dragon (Extraplanar),14,
+"Dragon, Adult Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",12,Huge
+"Dragon, Adult Tarterian (Planar)",Dr,189,Dragon (Extraplanar),14,Huge
 "Dragon, Adult Topaz",MM2,85,Dragon (Water),14,
 "Dragon, Adult White",MM,77,Dragon (Cold),10,
 "Dragon, Ancient Amethyst",MM2,79,Dragon (Earth),21,
-"Dragon, Ancient Battle (Planar)",Dr,176,Dragon (Extraplanar),19,
+"Dragon, Ancient Battle (Planar)",Dr,176,Dragon (Extraplanar),19,Huge
 "Dragon, Ancient Black",MM,70,Dragon (Water),19,
 "Dragon, Ancient Blue",MM,72,Dragon (Earth),21,
 "Dragon, Ancient Brass",MM,79,Dragon (Fire),20,
 "Dragon, Ancient Bronze",MM,80,Dragon (Water),22,
 "Dragon, Ancient Brown",Mon,38,Dragon (Earth),20,
-"Dragon, Ancient Chaos (Planar)",Dr,177,"Dragon (Chaos, Extraplanar)",19,
+"Dragon, Ancient Chaos (Planar)",Dr,177,"Dragon (Chaotic, Extraplanar)",19,Gargantuan
 "Dragon, Ancient Copper",MM,82,Dragon (Earth),22,
 "Dragon, Ancient Crystal",MM2,81,Dragon (Air),20,
 "Dragon, Ancient Deep",Mon,40,Dragon (Earth),21,
 "Dragon, Ancient Emerald",MM2,82,Dragon (Air),21,
-"Dragon, Ancient Ethereal (Planar)",Dr,179,Dragon (Extraplanar),17,
-"Dragon, Ancient Fang",Dr,159,Dragon,18,
+"Dragon, Ancient Ethereal (Planar)",Dr,179,Dragon (Extraplanar),17,Huge
+"Dragon, Ancient Fang",Dr,159,Dragon,18,Gargantuan
 "Dragon, Ancient Gold",MM,84,Dragon (Fire),24,
 "Dragon, Ancient Green",MM,74,Dragon (Air),21,
-"Dragon, Ancient Howling (Planar)",Dr,180,Dragon (Extraplanar),21,
+"Dragon, Ancient Howling (Planar)",Dr,180,Dragon (Extraplanar),21,Gargantuan
 "Dragon, Ancient Incarnum",MoI,172,"Dragon (Extraplanar, Incarnum)",21,
-"Dragon, Ancient Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",20,
-"Dragon, Ancient Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),20,
-"Dragon, Ancient Radiant (Planar)",Dr,185,Dragon (Extraplanar),21,
+"Dragon, Ancient Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",20,Gargantuan
+"Dragon, Ancient Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),20,Gargantuan
+"Dragon, Ancient Radiant (Planar)",Dr,185,Dragon (Extraplanar),21,Gargantuan
 "Dragon, Ancient Rattelyr",ShS,63,Dragon (Fire),18,
 "Dragon, Ancient Red",MM,75,Dragon (Fire),23,
-"Dragon, Ancient Rust (Planar)",Dr,186,Dragon (Extraplanar),19,
+"Dragon, Ancient Rust (Planar)",Dr,186,Dragon (Extraplanar),19,Gargantuan
 "Dragon, Ancient Sand",Sa,152,Dragon (Earth),21,
 "Dragon, Ancient Sapphire",MM2,84,Dragon (Earth),21,
-"Dragon, Ancient Shadow",Dr,191,Dragon,21,
+"Dragon, Ancient Shadow",Dr,191,Dragon,21,Huge
 "Dragon, Ancient Silver",MM,86,Dragon (Cold),23,
 "Dragon, Ancient Song",Mon,44,Dragon (Electricity),21,
-"Dragon, Ancient Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",19,
-"Dragon, Ancient Tarterian (Planar)",Dr,189,Dragon (Extraplanar),21,
+"Dragon, Ancient Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",19,Gargantuan
+"Dragon, Ancient Tarterian (Planar)",Dr,189,Dragon (Extraplanar),21,Gargantuan
 "Dragon, Ancient Topaz",MM2,85,Dragon (Water),22,
 "Dragon, Ancient White",MM,77,Dragon (Cold),18,
 "Dragon, Faerie",Dr,158,Dragon,6,Small
 "Dragon, Ghostly Adult Green",Dr,161,Undead (Incorporeal),14,Huge
 "Dragon, Great Wyrm Amethyst",MM2,79,Dragon (Earth),25,
-"Dragon, Great Wyrm Battle (Planar)",Dr,176,Dragon (Extraplanar),22,
+"Dragon, Great Wyrm Battle (Planar)",Dr,176,Dragon (Extraplanar),22,Gargantuan
 "Dragon, Great Wyrm Black",MM,70,Dragon (Water),22,
 "Dragon, Great Wyrm Blue",MM,72,Dragon (Earth),25,
 "Dragon, Great Wyrm Brass",MM,79,Dragon (Fire),23,
 "Dragon, Great Wyrm Bronze",MM,80,Dragon (Water),25,
 "Dragon, Great Wyrm Brown",Mon,38,Dragon (Earth),24,
-"Dragon, Great Wyrm Chaos (Planar)",Dr,177,"Dragon (Chaos, Extraplanar)",22,
+"Dragon, Great Wyrm Chaos (Planar)",Dr,177,"Dragon (Chaotic, Extraplanar)",22,Gargantuan
 "Dragon, Great Wyrm Copper",MM,82,Dragon (Earth),25,
 "Dragon, Great Wyrm Crystal",MM2,81,Dragon (Air),23,
 "Dragon, Great Wyrm Deep",Mon,40,Dragon (Earth),24,
 "Dragon, Great Wyrm Emerald",MM2,82,Dragon (Air),24,
-"Dragon, Great Wyrm Ethereal (Planar)",Dr,179,Dragon (Extraplanar),19,
-"Dragon, Great Wyrm Fang",Dr,159,Dragon,21,
+"Dragon, Great Wyrm Ethereal (Planar)",Dr,179,Dragon (Extraplanar),19,Gargantuan
+"Dragon, Great Wyrm Fang",Dr,159,Dragon,21,Gargantuan
 "Dragon, Great Wyrm Gold",MM,84,Dragon (Fire),27,
 "Dragon, Great Wyrm Green",MM,74,Dragon (Air),24,
-"Dragon, Great Wyrm Howling (Planar)",Dr,180,Dragon (Extraplanar),23,
+"Dragon, Great Wyrm Howling (Planar)",Dr,180,Dragon (Extraplanar),23,Colossal
 "Dragon, Great Wyrm Incarnum",MoI,172,"Dragon (Extraplanar, Incarnum)",24,
-"Dragon, Great Wyrm Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",22,
-"Dragon, Great Wyrm Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),22,
-"Dragon, Great Wyrm Radiant (Planar)",Dr,185,Dragon (Extraplanar),23,
+"Dragon, Great Wyrm Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",22,Colossal
+"Dragon, Great Wyrm Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),22,Colossal
+"Dragon, Great Wyrm Radiant (Planar)",Dr,185,Dragon (Extraplanar),23,Colossal
 "Dragon, Great Wyrm Rattelyr",ShS,63,Dragon (Fire),20,
 "Dragon, Great Wyrm Red",MM,75,Dragon (Fire),26,
-"Dragon, Great Wyrm Rust (Planar)",Dr,186,Dragon (Extraplanar),22,
+"Dragon, Great Wyrm Rust (Planar)",Dr,186,Dragon (Extraplanar),22,Gargantuan
 "Dragon, Great Wyrm Sand",Sa,152,Dragon (Earth),27,
 "Dragon, Great Wyrm Sapphire",MM2,84,Dragon (Earth),24,
-"Dragon, Great Wyrm Shadow",Dr,191,Dragon,24,
+"Dragon, Great Wyrm Shadow",Dr,191,Dragon,24,Gargantuan
 "Dragon, Great Wyrm Silver",MM,86,Dragon (Cold),26,
 "Dragon, Great Wyrm Song",Mon,44,Dragon (Electricity),24,
-"Dragon, Great Wyrm Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",22,
-"Dragon, Great Wyrm Tarterian (Planar)",Dr,189,Dragon (Extraplanar),23,
+"Dragon, Great Wyrm Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",22,Gargantuan
+"Dragon, Great Wyrm Tarterian (Planar)",Dr,189,Dragon (Extraplanar),23,Colossal
 "Dragon, Great Wyrm Topaz",MM2,85,Dragon (Water),25,
 "Dragon, Great Wyrm White",MM,77,Dragon (Cold),21,
 "Dragon, Juvenile Amethyst",MM2,79,Dragon (Earth),8,
-"Dragon, Juvenile Battle (Planar)",Dr,176,Dragon (Extraplanar),8,
+"Dragon, Juvenile Battle (Planar)",Dr,176,Dragon (Extraplanar),8,Medium
 "Dragon, Juvenile Black",MM,70,Dragon (Water),7,
 "Dragon, Juvenile Blue",MM,72,Dragon (Earth),8,
 "Dragon, Juvenile Brass",MM,79,Dragon (Fire),8,
 "Dragon, Juvenile Bronze",MM,80,Dragon (Water),9,
 "Dragon, Juvenile Brown",Mon,38,Dragon (Earth),7,
-"Dragon, Juvenile Chaos (Planar)",Dr,177,"Dragon (Chaos, Extraplanar)",8,
+"Dragon, Juvenile Chaos (Planar)",Dr,177,"Dragon (Chaotic, Extraplanar)",8,Large
 "Dragon, Juvenile Copper",MM,82,Dragon (Earth),9,
 "Dragon, Juvenile Crystal",MM2,81,Dragon (Air),7,
 "Dragon, Juvenile Deep",Mon,40,Dragon (Earth),8,
 "Dragon, Juvenile Emerald",MM2,82,Dragon (Air),8,
-"Dragon, Juvenile Ethereal (Planar)",Dr,179,Dragon (Extraplanar),7,
-"Dragon, Juvenile Fang",Dr,159,Dragon,6,
+"Dragon, Juvenile Ethereal (Planar)",Dr,179,Dragon (Extraplanar),7,Medium
+"Dragon, Juvenile Fang",Dr,159,Dragon,6,Large
 "Dragon, Juvenile Gold",MM,84,Dragon (Fire),11,
 "Dragon, Juvenile Green",MM,74,Dragon (Air),8,
-"Dragon, Juvenile Howling (Planar)",Dr,180,Dragon (Extraplanar),10,
+"Dragon, Juvenile Howling (Planar)",Dr,180,Dragon (Extraplanar),10,Large
 "Dragon, Juvenile Incarnum",MoI,172,"Dragon (Extraplanar, Incarnum)",9,
-"Dragon, Juvenile Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",9,
-"Dragon, Juvenile Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),9,
-"Dragon, Juvenile Radiant (Planar)",Dr,185,Dragon (Extraplanar),10,
+"Dragon, Juvenile Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",9,Large
+"Dragon, Juvenile Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),9,Large
+"Dragon, Juvenile Radiant (Planar)",Dr,185,Dragon (Extraplanar),10,Large
 "Dragon, Juvenile Rattelyr",ShS,63,Dragon (Fire),6,
 "Dragon, Juvenile Red",MM,75,Dragon (Fire),10,
-"Dragon, Juvenile Rust (Planar)",Dr,186,Dragon (Extraplanar),8,
+"Dragon, Juvenile Rust (Planar)",Dr,186,Dragon (Extraplanar),8,Large
 "Dragon, Juvenile Sand",Sa,152,Dragon (Earth),7,
 "Dragon, Juvenile Sapphire",MM2,84,Dragon (Earth),8,
-"Dragon, Juvenile Shadow",Dr,191,Dragon,8,
+"Dragon, Juvenile Shadow",Dr,191,Dragon,8,Medium
 "Dragon, Juvenile Silver",MM,86,Dragon (Cold),10,
 "Dragon, Juvenile Song",Mon,44,Dragon (Electricity),8,
-"Dragon, Juvenile Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",8,
-"Dragon, Juvenile Tarterian (Planar)",Dr,189,Dragon (Extraplanar),10,
+"Dragon, Juvenile Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",8,Large
+"Dragon, Juvenile Tarterian (Planar)",Dr,189,Dragon (Extraplanar),10,Large
 "Dragon, Juvenile Topaz",MM2,85,Dragon (Water),9,
 "Dragon, Juvenile White",MM,77,Dragon (Cold),6,
 "Dragon, Mature Adult Amethyst",MM2,79,Dragon (Earth),16,
-"Dragon, Mature Adult Battle (Planar)",Dr,176,Dragon (Extraplanar),14,
+"Dragon, Mature Adult Battle (Planar)",Dr,176,Dragon (Extraplanar),14,Huge
 "Dragon, Mature Adult Black",MM,70,Dragon (Water),14,
 "Dragon, Mature Adult Blue",MM,72,Dragon (Earth),16,
 "Dragon, Mature Adult Brass",MM,79,Dragon (Fire),15,
 "Dragon, Mature Adult Bronze",MM,80,Dragon (Water),17,
 "Dragon, Mature Adult Brown",Mon,38,Dragon (Earth),15,
-"Dragon, Mature Adult Chaos (Planar)",Dr,177,"Dragon (Chaos, Extraplanar)",15,
+"Dragon, Mature Adult Chaos (Planar)",Dr,177,"Dragon (Chaotic, Extraplanar)",15,Huge
 "Dragon, Mature Adult Copper",MM,82,Dragon (Earth),16,
 "Dragon, Mature Adult Crystal",MM2,81,Dragon (Air),15,
 "Dragon, Mature Adult Deep",Mon,40,Dragon (Earth),16,
 "Dragon, Mature Adult Emerald",MM2,82,Dragon (Air),16,
-"Dragon, Mature Adult Ethereal (Planar)",Dr,179,Dragon (Extraplanar),13,
-"Dragon, Mature Adult Fang",Dr,159,Dragon,12,
+"Dragon, Mature Adult Ethereal (Planar)",Dr,179,Dragon (Extraplanar),13,Huge
+"Dragon, Mature Adult Fang",Dr,159,Dragon,12,Huge
 "Dragon, Mature Adult Gold",MM,84,Dragon (Fire),19,
 "Dragon, Mature Adult Green",MM,74,Dragon (Air),16,
-"Dragon, Mature Adult Howling (Planar)",Dr,180,Dragon (Extraplanar),117,
+"Dragon, Mature Adult Howling (Planar)",Dr,180,Dragon (Extraplanar),117,Huge
 "Dragon, Mature Adult Incarnum",MoI,172,"Dragon (Extraplanar, Incarnum)",16,
-"Dragon, Mature Adult Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",16,
-"Dragon, Mature Adult Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),16,
-"Dragon, Mature Adult Radiant (Planar)",Dr,185,Dragon (Extraplanar),17,
+"Dragon, Mature Adult Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",16,Huge
+"Dragon, Mature Adult Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),16,Huge
+"Dragon, Mature Adult Radiant (Planar)",Dr,185,Dragon (Extraplanar),17,Huge
 "Dragon, Mature Adult Rattelyr",ShS,63,Dragon (Fire),12,
 "Dragon, Mature Adult Red",MM,75,Dragon (Fire),18,
-"Dragon, Mature Adult Rust (Planar)",Dr,186,Dragon (Extraplanar),15,
+"Dragon, Mature Adult Rust (Planar)",Dr,186,Dragon (Extraplanar),15,Huge
 "Dragon, Mature Adult Sand",Sa,152,Dragon (Earth),14,
 "Dragon, Mature Adult Sapphire",MM2,84,Dragon (Earth),15,
-"Dragon, Mature Adult Shadow",Dr,191,Dragon,16,
+"Dragon, Mature Adult Shadow",Dr,191,Dragon,16,Large
 "Dragon, Mature Adult Silver",MM,86,Dragon (Cold),18,
 "Dragon, Mature Adult Song",Mon,44,Dragon (Electricity),15,
-"Dragon, Mature Adult Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",14,
-"Dragon, Mature Adult Tarterian (Planar)",Dr,189,Dragon (Extraplanar),17,
+"Dragon, Mature Adult Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",14,Huge
+"Dragon, Mature Adult Tarterian (Planar)",Dr,189,Dragon (Extraplanar),17,Huge
 "Dragon, Mature Adult Topaz",MM2,85,Dragon (Water),17,
 "Dragon, Mature Adult White",MM,77,Dragon (Cold),12,
 "Dragon, Old Amethyst",MM2,79,Dragon (Earth),18,
-"Dragon, Old Battle (Planar)",Dr,176,Dragon (Extraplanar),17,
+"Dragon, Old Battle (Planar)",Dr,176,Dragon (Extraplanar),17,Huge
 "Dragon, Old Black",MM,70,Dragon (Water),16,
 "Dragon, Old Blue",MM,72,Dragon (Earth),18,
 "Dragon, Old Brass",MM,79,Dragon (Fire),17,
 "Dragon, Old Bronze",MM,80,Dragon (Water),19,
 "Dragon, Old Brown",Mon,38,Dragon (Earth),17,
-"Dragon, Old Chaos (Planar)",Dr,177,"Dragon (Chaos, Extraplanar)",16,
+"Dragon, Old Chaos (Planar)",Dr,177,"Dragon (Chaotic, Extraplanar)",16,Huge
 "Dragon, Old Copper",MM,82,Dragon (Earth),19,
 "Dragon, Old Crystal",MM2,81,Dragon (Air),17,
 "Dragon, Old Deep",Mon,40,Dragon (Earth),18,
 "Dragon, Old Emerald",MM2,82,Dragon (Air),18,
-"Dragon, Old Ethereal (Planar)",Dr,179,Dragon (Extraplanar),15,
-"Dragon, Old Fang",Dr,159,Dragon,15,
+"Dragon, Old Ethereal (Planar)",Dr,179,Dragon (Extraplanar),15,Huge
+"Dragon, Old Fang",Dr,159,Dragon,15,Huge
 "Dragon, Old Gold",MM,84,Dragon (Fire),21,
 "Dragon, Old Green",MM,74,Dragon (Air),18,
-"Dragon, Old Howling (Planar)",Dr,180,Dragon (Extraplanar),19,
+"Dragon, Old Howling (Planar)",Dr,180,Dragon (Extraplanar),19,Gargantuan
 "Dragon, Old Incarnum",MoI,172,"Dragon (Extraplanar, Incarnum)",18,
-"Dragon, Old Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",18,
-"Dragon, Old Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),18,
-"Dragon, Old Radiant (Planar)",Dr,185,Dragon (Extraplanar),19,
+"Dragon, Old Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",18,Huge
+"Dragon, Old Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),18,Gargantuan
+"Dragon, Old Radiant (Planar)",Dr,185,Dragon (Extraplanar),19,Gargantuan
 "Dragon, Old Rattelyr",ShS,63,Dragon (Fire),14,
 "Dragon, Old Red",MM,75,Dragon (Fire),20,
-"Dragon, Old Rust (Planar)",Dr,186,Dragon (Extraplanar),16,
+"Dragon, Old Rust (Planar)",Dr,186,Dragon (Extraplanar),16,Huge
 "Dragon, Old Sand",Sa,152,Dragon (Earth),16,
 "Dragon, Old Sapphire",MM2,84,Dragon (Earth),18,
-"Dragon, Old Shadow",Dr,191,Dragon,18,
+"Dragon, Old Shadow",Dr,191,Dragon,18,Huge
 "Dragon, Old Silver",MM,86,Dragon (Cold),20,
 "Dragon, Old Song",Mon,44,Dragon (Electricity),18,
-"Dragon, Old Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",17,
-"Dragon, Old Tarterian (Planar)",Dr,189,Dragon (Extraplanar),19,
+"Dragon, Old Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",17,Huge
+"Dragon, Old Tarterian (Planar)",Dr,189,Dragon (Extraplanar),19,Gargantuan
 "Dragon, Old Topaz",MM2,85,Dragon (Water),19,
 "Dragon, Old White",MM,77,Dragon (Cold),15,
 "Dragon, Skeletal Mature Adult Black",Dr,192,Undead,7,Huge
 "Dragon, Spiretop",Sh,185,Dragon,1,Tiny
 "Dragon, Vampiric Mature Adult Red",Dr,195,Undead,20,Huge
 "Dragon, Very Old Amethyst",MM2,79,Dragon (Earth),19,
-"Dragon, Very Old Battle (Planar)",Dr,176,Dragon (Extraplanar),18,
+"Dragon, Very Old Battle (Planar)",Dr,176,Dragon (Extraplanar),18,Huge
 "Dragon, Very Old Black",MM,70,Dragon (Water),18,
 "Dragon, Very Old Blue",MM,72,Dragon (Earth),19,
 "Dragon, Very Old Brass",MM,79,Dragon (Fire),19,
 "Dragon, Very Old Bronze",MM,80,Dragon (Water),20,
 "Dragon, Very Old Brown",Mon,38,Dragon (Earth),18,
-"Dragon, Very Old Chaos (Planar)",Dr,177,"Dragon (Chaos, Extraplanar)",17,
+"Dragon, Very Old Chaos (Planar)",Dr,177,"Dragon (Chaotic, Extraplanar)",17,Huge
 "Dragon, Very Old Copper",MM,82,Dragon (Earth),20,
 "Dragon, Very Old Crystal",MM2,81,Dragon (Air),18,
 "Dragon, Very Old Deep",Mon,40,Dragon (Earth),19,
 "Dragon, Very Old Emerald",MM2,82,Dragon (Air),19,
-"Dragon, Very Old Ethereal (Planar)",Dr,179,Dragon (Extraplanar),16,
-"Dragon, Very Old Fang",Dr,159,Dragon,17,
+"Dragon, Very Old Ethereal (Planar)",Dr,179,Dragon (Extraplanar),16,Huge
+"Dragon, Very Old Fang",Dr,159,Dragon,17,Gargantuan
 "Dragon, Very Old Gold",MM,84,Dragon (Fire),22,
 "Dragon, Very Old Green",MM,74,Dragon (Air),19,
-"Dragon, Very Old Howling (Planar)",Dr,180,Dragon (Extraplanar),20,
+"Dragon, Very Old Howling (Planar)",Dr,180,Dragon (Extraplanar),20,Gargantuan
 "Dragon, Very Old Incarnum",MoI,172,"Dragon (Extraplanar, Incarnum)",20,
-"Dragon, Very Old Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",19,
-"Dragon, Very Old Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),19,
-"Dragon, Very Old Radiant (Planar)",Dr,185,Dragon (Extraplanar),20,
+"Dragon, Very Old Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",19,Huge
+"Dragon, Very Old Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),19,Gargantuan
+"Dragon, Very Old Radiant (Planar)",Dr,185,Dragon (Extraplanar),20,Gargantuan
 "Dragon, Very Old Rattelyr",ShS,63,Dragon (Fire),16,
 "Dragon, Very Old Red",MM,75,Dragon (Fire),21,
-"Dragon, Very Old Rust (Planar)",Dr,186,Dragon (Extraplanar),17,
+"Dragon, Very Old Rust (Planar)",Dr,186,Dragon (Extraplanar),17,Huge
 "Dragon, Very Old Sand",Sa,152,Dragon (Earth),18,
 "Dragon, Very Old Sapphire",MM2,84,Dragon (Earth),19,
-"Dragon, Very Old Shadow",Dr,191,Dragon,19,
+"Dragon, Very Old Shadow",Dr,191,Dragon,19,Huge
 "Dragon, Very Old Silver",MM,86,Dragon (Cold),21,
 "Dragon, Very Old Song",Mon,44,Dragon (Electricity),19,
-"Dragon, Very Old Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",18,
-"Dragon, Very Old Tarterian (Planar)",Dr,189,Dragon (Extraplanar),20,
+"Dragon, Very Old Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",18,Huge
+"Dragon, Very Old Tarterian (Planar)",Dr,189,Dragon (Extraplanar),20,Gargantuan
 "Dragon, Very Old Topaz",MM2,85,Dragon (Water),20,
 "Dragon, Very Old White",MM,77,Dragon (Cold),17,
 "Dragon, Very Young Amethyst",MM2,79,Dragon (Earth),4,
-"Dragon, Very Young Battle (Planar)",Dr,176,Dragon (Extraplanar),4,
+"Dragon, Very Young Battle (Planar)",Dr,176,Dragon (Extraplanar),4,Small
 "Dragon, Very Young Black",MM,70,Dragon (Water),4,
 "Dragon, Very Young Blue",MM,72,Dragon (Earth),4,
 "Dragon, Very Young Brass",MM,79,Dragon (Fire),4,
 "Dragon, Very Young Bronze",MM,80,Dragon (Water),5,
 "Dragon, Very Young Brown",Mon,38,Dragon (Earth),3,
-"Dragon, Very Young Chaos (Planar)",Dr,177,"Dragon (Chaos, Extraplanar)",4,
+"Dragon, Very Young Chaos (Planar)",Dr,177,"Dragon (Chaotic, Extraplanar)",4,Medium
 "Dragon, Very Young Copper",MM,82,Dragon (Earth),5,
 "Dragon, Very Young Crystal",MM2,81,Dragon (Air),3,
 "Dragon, Very Young Deep",Mon,40,Dragon (Earth),4,
 "Dragon, Very Young Emerald",MM2,82,Dragon (Air),4,
-"Dragon, Very Young Ethereal (Planar)",Dr,179,Dragon (Extraplanar),4,
-"Dragon, Very Young Fang",Dr,159,Dragon,3,
+"Dragon, Very Young Ethereal (Planar)",Dr,179,Dragon (Extraplanar),4,Small
+"Dragon, Very Young Fang",Dr,159,Dragon,3,Small
 "Dragon, Very Young Gold",MM,84,Dragon (Fire),7,
 "Dragon, Very Young Green",MM,74,Dragon (Air),4,
-"Dragon, Very Young Howling (Planar)",Dr,180,Dragon (Extraplanar),6,
+"Dragon, Very Young Howling (Planar)",Dr,180,Dragon (Extraplanar),6,Large
 "Dragon, Very Young Incarnum",MoI,172,"Dragon (Extraplanar, Incarnum)",5,
-"Dragon, Very Young Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",5,
-"Dragon, Very Young Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),5,
-"Dragon, Very Young Radiant (Planar)",Dr,185,Dragon (Extraplanar),6,
+"Dragon, Very Young Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",5,Medium
+"Dragon, Very Young Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),5,Large
+"Dragon, Very Young Radiant (Planar)",Dr,185,Dragon (Extraplanar),6,Large
 "Dragon, Very Young Rattelyr",ShS,63,Dragon (Fire),3,
 "Dragon, Very Young Red",MM,75,Dragon (Fire),5,
-"Dragon, Very Young Rust (Planar)",Dr,186,Dragon (Extraplanar),4,
+"Dragon, Very Young Rust (Planar)",Dr,186,Dragon (Extraplanar),4,Medium
 "Dragon, Very Young Sand",Sa,152,Dragon (Earth),3,
 "Dragon, Very Young Sapphire",MM2,84,Dragon (Earth),4,
-"Dragon, Very Young Shadow",Dr,191,Dragon,4,
+"Dragon, Very Young Shadow",Dr,191,Dragon,4,Small
 "Dragon, Very Young Silver",MM,86,Dragon (Cold),5,
 "Dragon, Very Young Song",Mon,44,Dragon (Electricity),4,
-"Dragon, Very Young Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",4,
-"Dragon, Very Young Tarterian (Planar)",Dr,189,Dragon (Extraplanar),6,
+"Dragon, Very Young Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",4,Medium
+"Dragon, Very Young Tarterian (Planar)",Dr,189,Dragon (Extraplanar),6,Large
 "Dragon, Very Young Topaz",MM2,85,Dragon (Water),4,
 "Dragon, Very Young White",MM,77,Dragon (Cold),3,
 "Dragon, Wyrm Amethyst",MM2,79,Dragon (Earth),23,
-"Dragon, Wyrm Battle (Planar)",Dr,176,Dragon (Extraplanar),20,
+"Dragon, Wyrm Battle (Planar)",Dr,176,Dragon (Extraplanar),20,Huge
 "Dragon, Wyrm Black",MM,70,Dragon (Water),20,
 "Dragon, Wyrm Blue",MM,72,Dragon (Earth),23,
 "Dragon, Wyrm Brass",MM,79,Dragon (Fire),21,
 "Dragon, Wyrm Bronze",MM,80,Dragon (Water),23,
 "Dragon, Wyrm Brown",Mon,38,Dragon (Earth),22,
-"Dragon, Wyrm Chaos (Planar)",Dr,177,"Dragon (Chaos, Extraplanar)",20,
+"Dragon, Wyrm Chaos (Planar)",Dr,177,"Dragon (Chaotic, Extraplanar)",20,Gargantuan
 "Dragon, Wyrm Copper",MM,82,Dragon (Earth),23,
 "Dragon, Wyrm Crystal",MM2,81,Dragon (Air),21,
 "Dragon, Wyrm Deep",Mon,40,Dragon (Earth),22,
 "Dragon, Wyrm Emerald",MM2,82,Dragon (Air),22,
-"Dragon, Wyrm Ethereal (Planar)",Dr,179,Dragon (Extraplanar),18,
-"Dragon, Wyrm Fang",Dr,159,Dragon,19,
+"Dragon, Wyrm Ethereal (Planar)",Dr,179,Dragon (Extraplanar),18,Gargantuan
+"Dragon, Wyrm Fang",Dr,159,Dragon,19,Gargantuan
 "Dragon, Wyrm Gold",MM,84,Dragon (Fire),25,
 "Dragon, Wyrm Green",MM,74,Dragon (Air),22,
-"Dragon, Wyrm Howling (Planar)",Dr,180,Dragon (Extraplanar),22,
+"Dragon, Wyrm Howling (Planar)",Dr,180,Dragon (Extraplanar),22,Colossal
 "Dragon, Wyrm Incarnum",MoI,172,"Dragon (Extraplanar, Incarnum)",22,
-"Dragon, Wyrm Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",21,
-"Dragon, Wyrm Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),21,
-"Dragon, Wyrm Radiant (Planar)",Dr,185,Dragon (Extraplanar),22,
+"Dragon, Wyrm Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",21,Gargantuan
+"Dragon, Wyrm Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),21,Gargantuan
+"Dragon, Wyrm Radiant (Planar)",Dr,185,Dragon (Extraplanar),22,Colossal
 "Dragon, Wyrm Rattelyr",ShS,63,Dragon (Fire),19,
 "Dragon, Wyrm Red",MM,75,Dragon (Fire),24,
-"Dragon, Wyrm Rust (Planar)",Dr,186,Dragon (Extraplanar),20,
+"Dragon, Wyrm Rust (Planar)",Dr,186,Dragon (Extraplanar),20,Gargantuan
 "Dragon, Wyrm Sand",Sa,152,Dragon (Earth),24,
 "Dragon, Wyrm Sapphire",MM2,84,Dragon (Earth),22,
-"Dragon, Wyrm Shadow",Dr,191,Dragon,22,
+"Dragon, Wyrm Shadow",Dr,191,Dragon,22,Gargantuan
 "Dragon, Wyrm Silver",MM,86,Dragon (Cold),24,
 "Dragon, Wyrm Song",Mon,44,Dragon (Electricity),22,
-"Dragon, Wyrm Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",20,
-"Dragon, Wyrm Tarterian (Planar)",Dr,189,Dragon (Extraplanar),22,
+"Dragon, Wyrm Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",20,Gargantuan
+"Dragon, Wyrm Tarterian (Planar)",Dr,189,Dragon (Extraplanar),22,Colossal
 "Dragon, Wyrm Topaz",MM2,85,Dragon (Water),23,
 "Dragon, Wyrm White",MM,77,Dragon (Cold),19,
 "Dragon, Wyrmling Amethyst",MM2,79,Dragon (Earth),3,
-"Dragon, Wyrmling Battle (Planar)",Dr,176,Dragon (Extraplanar),3,
+"Dragon, Wyrmling Battle (Planar)",Dr,176,Dragon (Extraplanar),3,Tiny
 "Dragon, Wyrmling Black",MM,70,Dragon (Water),3,
 "Dragon, Wyrmling Blue",MM,72,Dragon (Earth),3,
 "Dragon, Wyrmling Brass",MM,79,Dragon (Fire),3,
 "Dragon, Wyrmling Bronze",MM,80,Dragon (Water),3,
 "Dragon, Wyrmling Brown",Mon,38,Dragon (Earth),2,
-"Dragon, Wyrmling Chaos (Planar)",Dr,177,"Dragon (Chaos, Extraplanar)",3,
+"Dragon, Wyrmling Chaos (Planar)",Dr,177,"Dragon (Chaotic, Extraplanar)",3,Small
 "Dragon, Wyrmling Copper",MM,82,Dragon (Earth),3,
 "Dragon, Wyrmling Crystal",MM2,81,Dragon (Air),2,
 "Dragon, Wyrmling Deep",Mon,40,Dragon (Earth),2,
 "Dragon, Wyrmling Emerald",MM2,82,Dragon (Air),2,
-"Dragon, Wyrmling Ethereal (Planar)",Dr,179,Dragon (Extraplanar),3,
-"Dragon, Wyrmling Fang",Dr,159,Dragon,2,
+"Dragon, Wyrmling Ethereal (Planar)",Dr,179,Dragon (Extraplanar),3,Tiny
+"Dragon, Wyrmling Fang",Dr,159,Dragon,2,Tiny
 "Dragon, Wyrmling Gold",MM,84,Dragon (Fire),5,
 "Dragon, Wyrmling Green",MM,74,Dragon (Air),3,
-"Dragon, Wyrmling Howling (Planar)",Dr,180,Dragon (Extraplanar),5,
+"Dragon, Wyrmling Howling (Planar)",Dr,180,Dragon (Extraplanar),5,Medium
 "Dragon, Wyrmling Incarnum",MoI,172,"Dragon (Extraplanar, Incarnum)",4,
-"Dragon, Wyrmling Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",4,
-"Dragon, Wyrmling Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),4,
-"Dragon, Wyrmling Radiant (Planar)",Dr,185,Dragon (Extraplanar),5,
+"Dragon, Wyrmling Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",4,Small
+"Dragon, Wyrmling Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),4,Medium
+"Dragon, Wyrmling Radiant (Planar)",Dr,185,Dragon (Extraplanar),5,Medium
 "Dragon, Wyrmling Rattelyr",ShS,63,Dragon (Fire),2,
 "Dragon, Wyrmling Red",MM,75,Dragon (Fire),4,
-"Dragon, Wyrmling Rust (Planar)",Dr,186,Dragon (Extraplanar),3,
+"Dragon, Wyrmling Rust (Planar)",Dr,186,Dragon (Extraplanar),3,Small
 "Dragon, Wyrmling Sand",Sa,152,Dragon (Earth),2,
 "Dragon, Wyrmling Sapphire",MM2,84,Dragon (Earth),2,
-"Dragon, Wyrmling Shadow",Dr,191,Dragon,3,
+"Dragon, Wyrmling Shadow",Dr,191,Dragon,3,Tiny
 "Dragon, Wyrmling Silver",MM,86,Dragon (Cold),4,
 "Dragon, Wyrmling Song",Mon,44,Dragon (Electricity),2,
-"Dragon, Wyrmling Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",3,
-"Dragon, Wyrmling Tarterian (Planar)",Dr,189,Dragon (Extraplanar),5,
+"Dragon, Wyrmling Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",3,Small
+"Dragon, Wyrmling Tarterian (Planar)",Dr,189,Dragon (Extraplanar),5,Medium
 "Dragon, Wyrmling Topaz",MM2,85,Dragon (Water),3,
 "Dragon, Wyrmling White",MM,77,Dragon (Cold),2,
 "Dragon, Young Adult Amethyst",MM2,79,Dragon (Earth),11,
-"Dragon, Young Adult Battle (Planar)",Dr,176,Dragon (Extraplanar),10,
+"Dragon, Young Adult Battle (Planar)",Dr,176,Dragon (Extraplanar),10,Large
 "Dragon, Young Adult Black",MM,70,Dragon (Water),9,
 "Dragon, Young Adult Blue",MM,72,Dragon (Earth),11,
 "Dragon, Young Adult Brass",MM,79,Dragon (Fire),10,
 "Dragon, Young Adult Bronze",MM,80,Dragon (Water),12,
 "Dragon, Young Adult Brown",Mon,38,Dragon (Earth),10,
-"Dragon, Young Adult Chaos (Planar)",Dr,177,"Dragon (Chaos, Extraplanar)",11,
+"Dragon, Young Adult Chaos (Planar)",Dr,177,"Dragon (Chaotic, Extraplanar)",11,Large
 "Dragon, Young Adult Copper",MM,82,Dragon (Earth),11,
 "Dragon, Young Adult Crystal",MM2,81,Dragon (Air),10,
 "Dragon, Young Adult Deep",Mon,40,Dragon (Earth),11,
 "Dragon, Young Adult Emerald",MM2,82,Dragon (Air),11,
-"Dragon, Young Adult Ethereal (Planar)",Dr,179,Dragon (Extraplanar),9,
-"Dragon, Young Adult Fang",Dr,159,Dragon,8,
+"Dragon, Young Adult Ethereal (Planar)",Dr,179,Dragon (Extraplanar),9,Large
+"Dragon, Young Adult Fang",Dr,159,Dragon,8,Large
 "Dragon, Young Adult Gold",MM,84,Dragon (Fire),14,
 "Dragon, Young Adult Green",MM,74,Dragon (Air),11,
-"Dragon, Young Adult Howling (Planar)",Dr,180,Dragon (Extraplanar),13,
+"Dragon, Young Adult Howling (Planar)",Dr,180,Dragon (Extraplanar),13,Huge
 "Dragon, Young Adult Incarnum",MoI,172,"Dragon (Extraplanar, Incarnum)",11,
-"Dragon, Young Adult Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",12,
-"Dragon, Young Adult Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),12,
-"Dragon, Young Adult Radiant (Planar)",Dr,185,Dragon (Extraplanar),13,
+"Dragon, Young Adult Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",12,Large
+"Dragon, Young Adult Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),12,Huge
+"Dragon, Young Adult Radiant (Planar)",Dr,185,Dragon (Extraplanar),13,Huge
 "Dragon, Young Adult Rattelyr",ShS,63,Dragon (Fire),8,
 "Dragon, Young Adult Red",MM,75,Dragon (Fire),13,
-"Dragon, Young Adult Rust (Planar)",Dr,186,Dragon (Extraplanar),11,
+"Dragon, Young Adult Rust (Planar)",Dr,186,Dragon (Extraplanar),11,Large
 "Dragon, Young Adult Sand",Sa,152,Dragon (Earth),9,
 "Dragon, Young Adult Sapphire",MM2,84,Dragon (Earth),10,
-"Dragon, Young Adult Shadow",Dr,191,Dragon,11,
+"Dragon, Young Adult Shadow",Dr,191,Dragon,11,Medium
 "Dragon, Young Adult Silver",MM,86,Dragon (Cold),13,
 "Dragon, Young Adult Song",Mon,44,Dragon (Electricity),10,
-"Dragon, Young Adult Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",10,
-"Dragon, Young Adult Tarterian (Planar)",Dr,189,Dragon (Extraplanar),13,
+"Dragon, Young Adult Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",10,Large
+"Dragon, Young Adult Tarterian (Planar)",Dr,189,Dragon (Extraplanar),13,Huge
 "Dragon, Young Adult Topaz",MM2,85,Dragon (Water),12,
 "Dragon, Young Adult White",MM,77,Dragon (Cold),8,
 "Dragon, Young Amethyst",MM2,79,Dragon (Earth),6,
-"Dragon, Young Battle (Planar)",Dr,176,Dragon (Extraplanar),6,
+"Dragon, Young Battle (Planar)",Dr,176,Dragon (Extraplanar),6,Medium
 "Dragon, Young Black",MM,70,Dragon (Water),5,
 "Dragon, Young Blue",MM,72,Dragon (Earth),6,
 "Dragon, Young Brass",MM,79,Dragon (Fire),6,
 "Dragon, Young Bronze",MM,80,Dragon (Water),7,
 "Dragon, Young Brown",Mon,38,Dragon (Earth),5,
-"Dragon, Young Chaos (Planar)",Dr,177,"Dragon (Chaos, Extraplanar)",6,
+"Dragon, Young Chaos (Planar)",Dr,177,"Dragon (Chaotic, Extraplanar)",6,Medium
 "Dragon, Young Copper",MM,82,Dragon (Earth),7,
 "Dragon, Young Crystal",MM2,81,Dragon (Air),4,
 "Dragon, Young Deep",Mon,40,Dragon (Earth),6,
 "Dragon, Young Emerald",MM2,82,Dragon (Air),6,
-"Dragon, Young Ethereal (Planar)",Dr,179,Dragon (Extraplanar),6,
-"Dragon, Young Fang",Dr,159,Dragon,4,
+"Dragon, Young Ethereal (Planar)",Dr,179,Dragon (Extraplanar),6,Medium
+"Dragon, Young Fang",Dr,159,Dragon,4,Medium
 "Dragon, Young Gold",MM,84,Dragon (Fire),9,
 "Dragon, Young Green",MM,74,Dragon (Air),5,
-"Dragon, Young Howling (Planar)",Dr,180,Dragon (Extraplanar),8,
+"Dragon, Young Howling (Planar)",Dr,180,Dragon (Extraplanar),8,Large
 "Dragon, Young Incarnum",MoI,172,"Dragon (Extraplanar, Incarnum)",7,
-"Dragon, Young Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",6,
-"Dragon, Young Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),6,
-"Dragon, Young Radiant (Planar)",Dr,185,Dragon (Extraplanar),8,
+"Dragon, Young Oceanus (Planar)",Dr,181,"Dragon (Aquatic, Extraplanar)",6,Medium
+"Dragon, Young Pyroclastic (Planar)",Dr,182,Dragon (Extraplanar),6,Large
+"Dragon, Young Radiant (Planar)",Dr,185,Dragon (Extraplanar),8,Large
 "Dragon, Young Rattelyr",ShS,63,Dragon (Fire),4,
 "Dragon, Young Red",MM,75,Dragon (Fire),7,
-"Dragon, Young Rust (Planar)",Dr,186,Dragon (Extraplanar),6,
+"Dragon, Young Rust (Planar)",Dr,186,Dragon (Extraplanar),6,Medium
 "Dragon, Young Sand",Sa,152,Dragon (Earth),5,
 "Dragon, Young Sapphire",MM2,84,Dragon (Earth),6,
-"Dragon, Young Shadow",Dr,191,Dragon,6,
+"Dragon, Young Shadow",Dr,191,Dragon,6,Small
 "Dragon, Young Silver",MM,86,Dragon (Cold),7,
 "Dragon, Young Song",Mon,44,Dragon (Electricity),6,
-"Dragon, Young Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",6,
-"Dragon, Young Tarterian (Planar)",Dr,189,Dragon (Extraplanar),8,
+"Dragon, Young Styx (Planar)",Dr,187,"Dragon (Aquatic, Extraplanar)",6,Medium
+"Dragon, Young Tarterian (Planar)",Dr,189,Dragon (Extraplanar),8,Large
 "Dragon, Young Topaz",MM2,85,Dragon (Water),6,
 "Dragon, Young White",MM,77,Dragon (Cold),4,
 "Dragon, Zombie Young Adult Whitye",Dr,198,Undead,5,Large
@@ -988,7 +986,7 @@ Dread Guard,MM2,87,Construct,2,Medium
 Dread Ram,Gh,160,Undead,3,Large
 Dread Warrior,Mon,46,Undead,3,Medium
 Dread Wraith,MM,258,Undead (Incorporeal),11,Large
-Dreadful Lasher,MM4,193,"Outsider (Evil Extraplanar, Yugoloth)",9,Huge
+Dreadful Lasher,MM4,193,"Outsider (Evil, Extraplanar, Yugoloth)",9,Huge
 Dream Serpent,SX,76,Magical Beast,6,Large
 Dream Vestige,LM,96,Undead (Incorporeal),16,Huge
 Dretch (Demon),MM,42,"Outsider (Chaotic, Extraplanar, Evil, Tanar'ri)",2,Small
@@ -1103,7 +1101,7 @@ Ember Guard,MM5,52,"Outsider (Evil, Extraplanar, Fire, Lawful)",13,Huge
 "Energon, Xac-Yel",PlH,119,"Outsider (Extraplanar, Fire, Incorporeal)",5,Medium
 "Energon, Xac-Yij",PlH,120,"Outsider (Extraplanar, Incorporeal)",5,Medium
 "Energon, Xag-Ya",MP,169,Outsider (Incorporeal),4,Medium
-"Energon, Xap-Yaup",PlH,121,"Otusider (Extraplanar, Incorporeal)",5,Medium
+"Energon, Xap-Yaup",PlH,121,"Outsider (Extraplanar, Incorporeal)",5,Medium
 "Energon, Xeg-Yi",MP,169,Outsider (Incorporeal),5,Medium
 "Energon, Xong-Yong",PlH,121,"Outsider (Extraplanar, Incorporeal)",5,Medium
 "Energon, Xor-Yost",PlH,122,"Outsider (Cold, Extraplanar, Incorporeal)",5,Medium
@@ -1142,7 +1140,6 @@ Ethereal Doppleganger,MM2,94,Shapechanger,15,Medium
 Ethereal Filcher,MM,104,Aberration,3,Medium
 Ethereal Marauder,MM,105,Magical Beast (Extraplanar),3,Medium
 Ethereal Slayer,MM2,96,"Outsider (Chaotic, Evil)",12,Medium
-Ethergaunt,FF,64,Aberration (Extraplanar),17,
 "Ethergaunt, Black",FF,65,Aberration (Extraplanar),17,Medium
 "Ethergaunt, Red",FF,66,Aberration (Extraplanar),9,Medium
 "Ethergaunt, White",FF,67,Aberration (Extraplanar),13,Medium
@@ -1286,7 +1283,7 @@ Gloura,Und,88,Fey,7,Medium
 Glyptodon,Fr,116,Animal,5,Large
 Gnoll,MM,130,Humanoid (Gnoll),1,Medium
 "Gnoll, Flind",MM3,62,Humanoid (Gnoll),2,Medium
-Goatfolk (Ibixian),MM3,63,Monstrous Humanoid (Medium),2,
+Goatfolk (Ibixian),MM3,63,Monstrous Humanoid,2,Medium
 Goblin,MM,133,Humanoid (Goblinoid),1/3,Small
 "Goblin, Dekanter",Mon,53,Monstrous Humanoid (Goblinoid),1,Medium
 "Goblin, Snow",Fr,136,Humanoid (Goblinoid),1/2,Small
@@ -1361,7 +1358,7 @@ Grisgol,MM3,76,Construct,15,Large
 Grizzly Mastodon,MM2,123,Beast,13,Huge
 Groundling,Mon,57,Monstrous Humanoid,2,Medium
 Guardgoyle,CSW,135,Construct,2,Small
-"Guardinal, Avoral",MM,141,"Outsider (Extraplanar, Good, Guradinal)",9,Medium
+"Guardinal, Avoral",MM,141,"Outsider (Extraplanar, Good, Guardinal)",9,Medium
 "Guardinal, Cervidal",MM2,43,"Outsider (Extraplanar, Good, Guardinal)",3,Medium
 "Guardinal, Equinal",BE,173,"Outsider (Extraplanar, Good, Guardinal)",6,Large
 "Guardinal, Lupinal",MM2,43,"Outsider (Extraplanar, Good, Guardinal)",5,Medium
@@ -1386,7 +1383,7 @@ Hadrimoi,MM5,185,Monstrous Humanoid,5,Medium
 Half-Farspawn,LoM,151,Outsider (Native),10,Large
 Half-Fey Centaur,FF,89,Fey,4,Large
 Half-Fiend (Durzagon),MM2,124,"Outsider (Evil, Extraplanar, Lawful)",4,Medium
-Half-Fiend Gnoll Warlock,MM4,68,"Outsider (Augmented humanoid, native)",6,Medium
+Half-Fiend Gnoll Warlock,MM4,68,"Outsider (Augmented Humanoid, Native)",6,Medium
 Half-Giant,XPH,200,Giant (Psionic),1,Medium
 "Half-Golem, Clay",MM2,211,Construct,4,Medium
 "Half-Golem, Flesh",MM2,211,Construct,4,Medium
@@ -1411,7 +1408,7 @@ Hawk,MM,273,Animal,1/3,Tiny
 "Hawk, Dire",RW,189,Animal,2,Medium
 Hebi-No-Onna,OA,167,Monstrous Humanoid (Spirit),15,Medium
 Hell Hound,MM,151,"Outsider (Evil, Extraplanar, Fire, Lawful)",3,Medium
-"Hell Hound, Nessian Warhound",MM,151,"Large Outsider (Evil, Extraplanar, Fire, Lawful)",9,
+"Hell Hound, Nessian Warhound",MM,151,"Outsider (Evil, Extraplanar, Fire, Lawful)",9,Large
 Hellcat (Bezekira),MM,54,"Outsider (Evil, Extraplanar, Lawful)",7,Large
 Hellfire Engine,FCII,119,Construct,19,Huge
 Hellfire Wyrm,MM2,125,Dragon (Fire),26,Huge
@@ -1434,7 +1431,7 @@ Hobgoblin Spellscourge,MM5,85,Monstrous Humanoid (Goblinoid),5,Medium
 Hobgoblin Warcaster,MM5,86,Monstrous Humanoid (Goblinoid),4,Medium
 Hobgoblin Warsoul,MM5,87,Monstrous Humanoid (Goblinoid),8,Medium
 Hobyah,StS,31,Outsider,3,Tiny
-Hollyphant,BE,176,"Outsider/Large (Extraplanar, Good)",8,Small
+Hollyphant,BE,176,"Outsider (Extraplanar, Good)",8,Small
 Holocaust Disciple (Fire Avatar),MM4,11,"Elemental (Extraplanar, Fire)",15,Large
 Homunculus,MM,154,Construct,1,Tiny
 "Homunculus, Dedicated Wright",ECS,285,Construct,1/2,Tiny
@@ -1516,7 +1513,7 @@ Ixzan,LE,177,Aberration (Aquatic),4,Medium
 Jackal,Sa,194,Animal,1,Small
 Jackal Lord,FF,105,Monstrous Humanoid,8,Medium
 "Jackal, Dire",Sa,150,Animal,2,Large
-Jackelwere,FF,107,Magical Beast/Medium (Shapechanger),2,Small
+Jackelwere,FF,107,Magical Beast (Shapechanger),2,Small
 Jaculi,SK,66,Magical Beast,3,Medium
 Jaebrin,MM5,92,Fey,1,Medium
 Jahi,MM2,130,Undead (Incorporeal),16,Tiny
@@ -1535,7 +1532,7 @@ Justicator,MM3,85,Outsider (Lawful),13,Large
 Justice Archon,MM4,80,"Outsider (Archon, Extraplanar, Good, Lawful)",6,Medium
 Justice Archon Champion,MM4,81,"Outsider (Archon, Extraplanar, Good, Lawful)",10,Medium
 Kalabon,FCII,120,"Outsider (Evil, Extraplanar, Lawful)",1/2,Small
-Kalaraq Quori,SoS,156,"Outsider (Evil, Extraplanar, Incorporeal, Lawful, Psionic, Quori),Medium""""",20,
+Kalaraq Quori,SoS,156,"Outsider (Evil, Extraplanar, Incorporeal, Lawful, Psionic, Quori)",20,
 Kaorti,FF,108,"Outsider (Evil, Extraplanar)",1,Medium
 Kappa,OA,169,Monstrous Humanoid (Aquatic),2,Small
 Karrnathi Dread Marshal,FW,150,Undead,5,Medium
@@ -1606,7 +1603,7 @@ Legendary Tiger,MW,40,Animal,10,Large
 Legendary Wolf,MW,40,Animal,7,Medium
 Legion Devil (Merregon),FCII,122,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",3,Medium
 Lemure (Devil),MM,57,"Outsider (Evil, Extraplanar, Lawful)",1,Medium
-Leonal,MM,142,"Outsider (Extraplanar, Good, Guradinal)",12,Medium
+Leonal,MM,142,"Outsider (Extraplanar, Good, Guardinal)",12,Medium
 "Leonal, Celestial (Guardinal)",MP,162,Outsider (Good),12,Medium
 Leopard,MM,274,Animal,2,Medium
 LeShay,EL,202,Fey,28,Medium
@@ -1617,15 +1614,15 @@ Leucrotta,Mon,63,Magical Beast,4,Large
 "Leucrotta, Changesteed",CSW,137,Magical Beast (Shapechanger),5,Large
 Leviathan,MM2,139,Magical Beast (Aquatic),25,Colossal
 Lhosk,MM3,90,Monstrous Humanoid,4,Large
-"Li Lung (Earth Dragon), Adult",OA,156,"Dragon (Earth, Spirit)",13,
-"Li Lung (Earth Dragon), Ancient",OA,156,"Dragon (Earth, Spirit)",21,
-"Li Lung (Earth Dragon), Great Wyrm",OA,156,"Dragon (Earth, Spirit)",24,
-"Li Lung (Earth Dragon), Juvenile",OA,156,"Dragon (Earth, Spirit)",8,
-"Li Lung (Earth Dragon), Mature Adult",OA,156,"Dragon (Earth, Spirit)",15,
-"Li Lung (Earth Dragon), Old",OA,156,"Dragon (Earth, Spirit)",18,
-"Li Lung (Earth Dragon), Very Old",OA,156,"Dragon (Earth, Spirit)",19,
-"Li Lung (Earth Dragon), Wyrm",OA,156,"Dragon (Earth, Spirit)",22,
-"Li Lung (Earth Dragon), Young Adult",OA,156,"Dragon (Earth, Spirit)",10,
+"Li Lung (Earth Dragon), Adult",OA,156,"Dragon (Earth, Spirit)",13,Huge
+"Li Lung (Earth Dragon), Ancient",OA,156,"Dragon (Earth, Spirit)",21,Gargantuan
+"Li Lung (Earth Dragon), Great Wyrm",OA,156,"Dragon (Earth, Spirit)",24,Colossal
+"Li Lung (Earth Dragon), Juvenile",OA,156,"Dragon (Earth, Spirit)",8,Large
+"Li Lung (Earth Dragon), Mature Adult",OA,156,"Dragon (Earth, Spirit)",15,Huge
+"Li Lung (Earth Dragon), Old",OA,156,"Dragon (Earth, Spirit)",18,Gargantuan
+"Li Lung (Earth Dragon), Very Old",OA,156,"Dragon (Earth, Spirit)",19,Gargantuan
+"Li Lung (Earth Dragon), Wyrm",OA,156,"Dragon (Earth, Spirit)",22,Gargantuan
+"Li Lung (Earth Dragon), Young Adult",OA,156,"Dragon (Earth, Spirit)",10,Huge
 Lilitu,FCI,43,"Outsider (Chaotic, Evil, Extraplanar, Tanar'ri)",12,Medium
 Lillend,MM,168,"Outsider (Chaotic, Extraplanar, Good)",7,Large
 Limbo Stalker,PlH,126,"Magical Beast (Chaotic, Extraplanar)",8,Large
@@ -1669,15 +1666,15 @@ Lumi,MM3,98,Outsider,2,Medium
 Lumi Crusader,MM3,99,Outsider,8,Medium
 Luna Moth,HB,154,Magical Beast,4,Large
 Lunar Ravager,MM4,95,Fey,7,Large
-"Lung Wang (Sea Dragon), Adult",OA,157,"Dragon (Spirit, Water)",15,
-"Lung Wang (Sea Dragon), Ancient",OA,157,"Dragon (Spirit, Water)",23,
-"Lung Wang (Sea Dragon), Great Wyrm",OA,157,"Dragon (Spirit, Water)",26,
-"Lung Wang (Sea Dragon), Juvenile",OA,157,"Dragon (Spirit, Water)",10,
-"Lung Wang (Sea Dragon), Mature Adult",OA,157,"Dragon (Spirit, Water)",18,
-"Lung Wang (Sea Dragon), Old",OA,157,"Dragon (Spirit, Water)",20,
-"Lung Wang (Sea Dragon), Very Old",OA,157,"Dragon (Spirit, Water)",21,
-"Lung Wang (Sea Dragon), Wyrm",OA,157,"Dragon (Spirit, Water)",24,
-"Lung Wang (Sea Dragon), Young Adult",OA,157,"Dragon (Spirit, Water)",13,
+"Lung Wang (Sea Dragon), Adult",OA,157,"Dragon (Spirit, Water)",15,Huge
+"Lung Wang (Sea Dragon), Ancient",OA,157,"Dragon (Spirit, Water)",23,Gargantuan
+"Lung Wang (Sea Dragon), Great Wyrm",OA,157,"Dragon (Spirit, Water)",26,Colossal
+"Lung Wang (Sea Dragon), Juvenile",OA,157,"Dragon (Spirit, Water)",10,Large
+"Lung Wang (Sea Dragon), Mature Adult",OA,157,"Dragon (Spirit, Water)",18,Huge
+"Lung Wang (Sea Dragon), Old",OA,157,"Dragon (Spirit, Water)",20,Huge
+"Lung Wang (Sea Dragon), Very Old",OA,157,"Dragon (Spirit, Water)",21,Gargantuan
+"Lung Wang (Sea Dragon), Wyrm",OA,157,"Dragon (Spirit, Water)",24,Gargantuan
+"Lung Wang (Sea Dragon), Young Adult",OA,157,"Dragon (Spirit, Water)",13,Large
 Lurker,Und,94,Aberration,3,Large
 Lurking Strangler,MM3,100,Aberration,2,Tiny
 "Lycanthrope, Drow Werebat",LE,178,Humanoid,4,
@@ -1711,7 +1708,6 @@ Malebranche (Baatezu),MM2,67,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",9,H
 "Malikizid, the Branded King",CR,155,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",27,Large
 Mamono,OA,172,Shapechanger (Shadowlands),4,Medium
 Mane,FCI,45,"Outsider (Chaotic, Evil, Extraplanar, Tanar'ri)",1,Small
-Mane (Tanar'ri),BV,169,"Outsider (Chaotic, Evil, Tanar'ri)",1,Small
 Manta Ray,MM,275,Animal (Aquatic),1,Large
 Manticore,MM,179,Magical Beast,5,Large
 Mantimera,ShS,68,Magical Beast,8,Large
@@ -1823,7 +1819,7 @@ Nabassu,FCI,48,"Outsider (Chaotic, Evil, Extraplanar, Tanar'ri)",5,Medium
 "Naga, Water",MM,193,Aberration (Aquatic),7,Large
 Nagahydra,SK,77,Aberration,18,Huge
 Nagatha,MM4,102,Monstrous Humanoid,4,Medium
-Naityan Rakshasa,ToB,151,"Outsider (Native),Medium",7,
+Naityan Rakshasa,ToB,151,"Outsider (Native)",7,Medium
 Nalfeshnee (Demon),MM,45,"Outsider (Chaotic, Extraplanar, Evil, Tanar'ri)",14,Huge
 Narzugon,FCII,125,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",5,Medium
 "Narzugon, Devil (Baatezu)",MP,167,"Outsider (Evil, Lawful)",9,Medium
@@ -1856,7 +1852,7 @@ Nifern,SK,79,Animal,2,Medium
 Night Hunter,Mon,18,Beast,1,Medium
 Night Twist,MM3,110,Plant,12,Large
 Nightcrawler,MM,195,Undead (Extraplanar),18,Gargantuan
-Nightmare,MM,194,"Outsider (Evil, Extaraplanar)",5,Large
+Nightmare,MM,194,"Outsider (Evil, Extraplanar)",5,Large
 Nightmare Beast,MM2,161,Magical Beast,15,Huge
 "Nightmare, Cauchemar",MM,195,"Outsider (Evil, Extraplanar)",11,Huge
 "Nightmare, Lesser",PlH,127,"Outsider (Evil, Extraplanar)",4,Large
@@ -1932,7 +1928,7 @@ Orb Wraith,CSQ,122,Undead,19,Huge
 Orc,MM,203,Humanoid (Orc),1/2,Medium
 Orc Battle Priest,MM4,115,Humanoid,1,Medium
 Orc Berserker,MM4,114,Humanoid,4,Medium
-Orc Plague Speaker,MM4,116,"Outsider (augmented humanoid, evil, native)",7,Medium
+Orc Plague Speaker,MM4,116,"Outsider (Augmented Humanoid, Evil, Native)",7,Medium
 "Orc, Snow Shaman",Fr,146,Humanoid (Orc),2,Medium
 Orca,MM,283,Animal,5,Huge
 Orcwort,MM2,165,Plant,20,Colossal
@@ -1952,15 +1948,15 @@ Paeliryon (Baatezu),FCII,130,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",18,
 Pain Devil (Excruciarch),FCII,132,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",7,Medium
 Painspeaker,TM,269,Undead,4,Medium
 Palrethee (Tanar'ri),MM2,58,"Outsider (Chaotic, Extraplanar, Evil, Tanar'ri)",8,Medium
-"Pan Lung (Coiled Dragon), Adult",OA,158,"Dragon (Spirit, Water)",11,
-"Pan Lung (Coiled Dragon), Ancient",OA,158,"Dragon (Spirit, Water)",19,
-"Pan Lung (Coiled Dragon), Great Wyrm",OA,158,"Dragon (Spirit, Water)",22,
-"Pan Lung (Coiled Dragon), Juvenile",OA,158,"Dragon (Spirit, Water)",7,
-"Pan Lung (Coiled Dragon), Mature Adult",OA,158,"Dragon (Spirit, Water)",14,
-"Pan Lung (Coiled Dragon), Old",OA,158,"Dragon (Spirit, Water)",16,
-"Pan Lung (Coiled Dragon), Very Old",OA,158,"Dragon (Spirit, Water)",18,
-"Pan Lung (Coiled Dragon), Wyrm",OA,158,"Dragon (Spirit, Water)",20,
-"Pan Lung (Coiled Dragon), Young Adult",OA,158,"Dragon (Spirit, Water)",9,
+"Pan Lung (Coiled Dragon), Adult",OA,158,"Dragon (Spirit, Water)",11,Large
+"Pan Lung (Coiled Dragon), Ancient",OA,158,"Dragon (Spirit, Water)",19,Huge
+"Pan Lung (Coiled Dragon), Great Wyrm",OA,158,"Dragon (Spirit, Water)",22,Gargantuan
+"Pan Lung (Coiled Dragon), Juvenile",OA,158,"Dragon (Spirit, Water)",7,Medium
+"Pan Lung (Coiled Dragon), Mature Adult",OA,158,"Dragon (Spirit, Water)",14,Huge
+"Pan Lung (Coiled Dragon), Old",OA,158,"Dragon (Spirit, Water)",16,Huge
+"Pan Lung (Coiled Dragon), Very Old",OA,158,"Dragon (Spirit, Water)",18,Huge
+"Pan Lung (Coiled Dragon), Wyrm",OA,158,"Dragon (Spirit, Water)",20,Gargantuan
+"Pan Lung (Coiled Dragon), Young Adult",OA,158,"Dragon (Spirit, Water)",9,Large
 Pegasus,MM,206,Magical Beast,3,Large
 Penguin,Fr,166,Animal,1/6,Tiny
 "Persistent Harrier, Homunculus",MoE,153,Construct,1,Small
@@ -2056,7 +2052,7 @@ Rage Drake,MM3,130,Dragon,9,Large
 "Rage Drake, Fiendish",MM3,131,Dragon,13,Large
 Ragewalker,MM3,132,Fey,14,Large
 Ragewind,MM2,173,Undead,19,Large
-"Raggamoffyn, Common",MM2,175,Construct ,3,Medium
+"Raggamoffyn, Common",MM2,175,Construct,3,Medium
 "Raggamoffyn, Guttersnipe",MM2,175,Construct,5,Medium
 "Raggamoffyn, Shrapnyl",MM2,175,Construct,7,Large
 "Raggamoffyn, Tatterdemanimal",MM2,175,Construct,1,Small
@@ -2090,7 +2086,7 @@ Reekmurk,FF,18,Ooze (Aquatic),6,Huge
 Rejkar,MM3,140,Outsider (Cold),5,Large
 Remmanon,MM5,34,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",15,Medium
 Remorhaz,MM,214,Magical Beast,7,Huge
-Reth Dekala,ToB,154,"Outsider (Evil, Extraplanar, Lawful),Medium",4,
+Reth Dekala,ToB,154,"Outsider (Evil, Extraplanar, Lawful)",4,Medium
 Retriever (Demon),MM,46,Construct (Extraplanar),11,Huge
 Rhek,BE,181,Monstrous Humanoid (Extraplanar),4,Medium
 "Rhek, Chaosgrinder",BE,181,Monstrous Humanoid (Extraplanar),12,Medium
@@ -2129,7 +2125,7 @@ Rylkar Harridan,MM5,136,Magical Beast,9,Huge
 Rylkar Madclaw,MM5,137,Magical Beast,3,Small
 Rylkar Tormentor,MM5,138,Magical Beast,6,Medium
 Rylkspawn Swarm,MM5,138,Magical Beast (Swarm),4,Tiny
-Sacred Watcher,BE,182,Deathless (Augmented Humaniod),7,Medium
+Sacred Watcher,BE,182,Deathless (Augmented Humanoid),7,Medium
 Saguaro Sentinel,Sa,181,Plant,9,Huge
 Sahuagin,MM,217,Monstrous Humanoid (Aquatic),2,Medium
 Sailsnake,MM4,124,Animal,2,Medium
@@ -2196,15 +2192,15 @@ Shardsoul Slayer,MM5,150,Construct,5,Medium
 Sharn,An,153,Aberration,8,Large
 Shator (Demodand),FF,45,"Outsider (Evil, Extraplanar)",16,Large
 Shedu,FF,153,Magical Beast,10,Large
-"Shen Lung (Spirit Dragon), Adult",OA,159,"Dragon (Spirit, Water)",14,
-"Shen Lung (Spirit Dragon), Ancient",OA,159,"Dragon (Spirit, Water)",21,
-"Shen Lung (Spirit Dragon), Great Wyrm",OA,159,"Dragon (Spirit, Water)",24,
-"Shen Lung (Spirit Dragon), Juvenile",OA,159,"Dragon (Spirit, Water)",8,
-"Shen Lung (Spirit Dragon), Mature Adult",OA,159,"Dragon (Spirit, Water)",16,
-"Shen Lung (Spirit Dragon), Old",OA,159,"Dragon (Spirit, Water)",18,
-"Shen Lung (Spirit Dragon), Very Old",OA,159,"Dragon (Spirit, Water)",19,
-"Shen Lung (Spirit Dragon), Wyrm",OA,159,"Dragon (Spirit, Water)",22,
-"Shen Lung (Spirit Dragon), Young Adult",OA,159,"Dragon (Spirit, Water)",11,
+"Shen Lung (Spirit Dragon), Adult",OA,159,"Dragon (Spirit, Water)",14,Huge
+"Shen Lung (Spirit Dragon), Ancient",OA,159,"Dragon (Spirit, Water)",21,Gargantuan
+"Shen Lung (Spirit Dragon), Great Wyrm",OA,159,"Dragon (Spirit, Water)",24,Colossal
+"Shen Lung (Spirit Dragon), Juvenile",OA,159,"Dragon (Spirit, Water)",8,Large
+"Shen Lung (Spirit Dragon), Mature Adult",OA,159,"Dragon (Spirit, Water)",16,Huge
+"Shen Lung (Spirit Dragon), Old",OA,159,"Dragon (Spirit, Water)",18,Gargantuan
+"Shen Lung (Spirit Dragon), Very Old",OA,159,"Dragon (Spirit, Water)",19,Gargantuan
+"Shen Lung (Spirit Dragon), Wyrm",OA,159,"Dragon (Spirit, Water)",22,Gargantuan
+"Shen Lung (Spirit Dragon), Young Adult",OA,159,"Dragon (Spirit, Water)",11,Huge
 Shield Guardian,MM,223,Construct,8,Large
 Shifter,MM3,150,Humanoid (Shapechanger),1/2,Medium
 Shikki-Gaki,OA,164,Undead (Spirit),4,Medium
@@ -2341,7 +2337,7 @@ Spitting Spider,DrU,141,Vermin,5,Large
 Splinterwaif,MM3,164,Fey,2,Medium
 Splinterwaif Knave,MM3,165,Fey,6,Medium
 Sporebat,FF,161,Plant,10,Medium
-Spriggan,FF,162,Fey/Large,3,Small
+Spriggan,FF,162,Fey,3,Small
 Squid,MM,281,Animal (Aquatic),1,Medium
 "Squid, Giant",MM,281,Animal (Aquatic),9,Huge
 Ssvaklor,MM3,166,Dragon,10,Medium
@@ -2370,20 +2366,21 @@ Succubus (Demon),MM,47,"Outsider (Chaotic, Extraplanar, Evil, Tanar'ri)",7,Mediu
 Sunwyrm,FF,164,Dragon,14,Large
 Susurrus,MM3,170,Aberration,7,Large
 Swamplight Lynx,MM2,191,Magical Beast,7,Large
-"Swarm, Abyssal Ant",FF,166,"Aberration (Extraplanar, Swarm of Diminutive Creatures)",16,Medium
+"Swarm, Abyssal Ant",FF,166,"Aberration (Extraplanar, Swarm)",16,Medium
 "Swarm, Air Elementite",PlH,114,"Elemental (Air, Extraplanar, Swarm)",4,Tiny
 "Swarm, Apocalypse Frog",BE,188,Magical Beast (Swarm),4,Diminutive
 "Swarm, Bat",MM,237,Animal (Swarm),2,Diminutive
-"Swarm, Bloodfiend Locust",FF,170,"Vermin (Extraplanar, Swarm of Fine Creatures)",8,Medium
+"Swarm, Bloodfiend Locust",FF,170,"Vermin (Extraplanar, Swarm)",8,Medium
 "Swarm, Bone Rat",LM,88,Undead (Swarm),3,Tiny
 "Swarm, Bronze Locust",BE,188,Construct (Swarm),17,Fine
 "Swarm, Brood Keeper Larva",MM3,21,Magical Beast (Swarm),12,Tiny
 "Swarm, Centipede",MM,238,Vermin (Swarm),4,Diminutive
 "Swarm, Cinder",MM3,29,"Elemental (Fire, Swarm)",13,Fine
 "Swarm, Corpse Rat",LM,92,Undead (Swarm),4,Tiny
-"Swarm, Cranium Rat Average Pack",FF,168,"Magical Beast (Extraplanar, Swarm of Diminutive ,Medium""Creatures)""",5,
-"Swarm, Cranium Rat Greater Pack",FF,169,"Magical Beast (Extraplanar, Swarm of Diminutive ,Medium""Creatures)""",11,
-"Swarm, Cranium Rat Lesser Pack",FF,167,"Magical Beast (Extraplanar, Swarm of Diminutive ,Medium""Creatures)""",2,
+"Swarm, Cranium Rat Average Pack",FF,168,"Magical Beast (Extraplanar, Swarm)",5,Medium
+"Swarm, Cranium Rat Greater Pack",FF,169,"Magical Beast (Extraplanar, Swarm)",11,Medium
+"Swarm, Cranium Rat Lesser Pack",FF,167,"Magical Beast (Extraplanar, Swarm)",2,Medium
+"Swarm, Crawling Claw",LE,163,Construct (Swarm),2,Tiny
 "Swarm, Deathraven",BE,189,Magical Beast (Swarm),20,Tiny
 "Swarm, Dread Blossom",MM3,45,"Plant (Extraplanar, Swarm)",6,Tiny
 "Swarm, Earth Elementite",PlH,115,"Elemental (Earth, Extraplanar, Swarm)",4,Tiny
@@ -2397,22 +2394,31 @@ Swamplight Lynx,MM2,191,Magical Beast,7,Large
 "Swarm, Murder of Crows",TM,87,Animal (Swarm),2,Tiny
 "Swarm, Needletooth",MM3,109,Animal (Swarm),6,Tiny
 "Swarm, Piranha",Sto,162,"Animal (Aquatic, Swarm)",4,Tiny
-"Swarm, Plague Ant",FF,167,Vermin (Swarm of Fine Creatures),5,Medium
+"Swarm, Plague Ant",FF,167,Vermin (Swarm),5,Medium
 "Swarm, Rancid Beetle",Sh,182,Vermin (Swarm),6,Fine
-"Swarm, Rapture Locust",FF,170,Vermin (Swarm of Fine Creatures),6,Medium
+"Swarm, Rapture Locust",FF,170,Vermin (Swarm),6,Medium
 "Swarm, Rat",MM,239,Animal (Swarm),2,Tiny
 "Swarm, Ruin",EL,213,Ooze,23,Colossal
-"Swarm, Scarab Beetle",FF,171,Vermin (Swarm of Fine Creatures),10,Medium
+"Swarm, Scarab Beetle",FF,171,Vermin (Swarm),10,Medium
 "Swarm, Scarab Death",Sa,184,Undead (Swarm),7,Diminutive
 "Swarm, Scorpion",Sa,185,Vermin (Swarm),5,Diminutive
 "Swarm, Shimmerling ",MM3,152,Fey (Swarm),8,Fine
 "Swarm, Spider",MM,239,Vermin (Swarm),1,Diminutive
 "Swarm, Sunfly",BE,190,"Outsider (Extraplanar, Good, Swarm)",10,Diminutive
 "Swarm, Swamp Strider",MM3,171,Vermin (Swarm),5,Diminutive
-"Swarm, Viper",FF,172,Animal (Swarm of Diminutive Creatures),3,Medium
-"Swarm, Wasp",FF,172,Vermin (Swarm of Fine Creatures),2,Medium
+"Swarm, Viper",FF,172,Animal (Swarm),3,Medium
+"Swarm, Wasp",FF,172,Vermin (Swarm),2,Medium
 "Swarm, Water Elementite",PlH,116,"Elemental (Extraplanar, Swarm, Water)",4,Tiny
 Sylph,MM2,192,"Outsider (Air, Extraplanar)",5,Small
+"T’ien Lung (Celestial Dragon), Adult",OA,161,"Dragon (Air, Spirit)",15,Huge
+"T’ien Lung (Celestial Dragon), Ancient",OA,161,"Dragon (Air, Spirit)",23,Gargantuan
+"T’ien Lung (Celestial Dragon), Great Wyrm",OA,161,"Dragon (Air, Spirit)",26,Colossal
+"T’ien Lung (Celestial Dragon), Juvenile",OA,161,"Dragon (Air, Spirit)",10,Large
+"T’ien Lung (Celestial Dragon), Mature Adult",OA,161,"Dragon (Air, Spirit)",18,Huge
+"T’ien Lung (Celestial Dragon), Old",OA,161,"Dragon (Air, Spirit)",20,Gargantuan
+"T’ien Lung (Celestial Dragon), Very Old",OA,161,"Dragon (Air, Spirit)",21,Gargantuan
+"T’ien Lung (Celestial Dragon), Wyrm",OA,161,"Dragon (Air, Spirit)",24,Colossal
+"T’ien Lung (Celestial Dragon), Young Adult",OA,161,"Dragon (Air, Spirit)",13,Huge
 Taer,Una,72,Giant (Cold),1,Medium
 "Taint Elemental, Elder",HH,146,Elemental (Evil),13,Huge
 "Taint Elemental, Greater",HH,146,Elemental (Evil),11,Huge
@@ -2474,7 +2480,7 @@ Tirbana Eyewing,MM5,172,Magical Beast,1/2,Tiny
 Tirbana Slayer,MM5,173,Magical Beast,4,Medium
 Tirbana Spawner,MM5,174,Magical Beast,5,Medium
 Titan,MM,242,"Outsider (Chaotic, Extraplanar)",21,Huge
-"Titan, Elder",EL,221,Outsider ,30,Colossal
+"Titan, Elder",EL,221,Outsider,30,Colossal
 Tlalusk,Fr,157,Magical Beast (Cold),11,Huge
 "Toad, Dire",MM2,75,Animal,3,Medium
 "Toad, Fire",OA,196,Magical Beast (Fire),2,Small
@@ -2515,6 +2521,15 @@ Troll Hunter,MM,248,Giant,11,Large
 Tsucora Quori,ECS,296,"Outsider (Evil, Extraplanar, Lawful, Psionic, Quori)",7,Medium
 Tsuno,OA,197,"Monstrous Humanoid (Shadowlands, Spirit)",6,Large
 Tumbling Mound,Sa,191,Plant,3,Medium
+"Tun Mi Lung (Typhoon Dragon), Adult",OA,162,"Dragon (Water, Spirit)",14,Huge
+"Tun Mi Lung (Typhoon Dragon), Ancient",OA,162,"Dragon (Water, Spirit)",22,Gargantuan
+"Tun Mi Lung (Typhoon Dragon), Great Wyrm",OA,162,"Dragon (Water, Spirit)",25,Colossal
+"Tun Mi Lung (Typhoon Dragon), Juvenile",OA,162,"Dragon (Water, Spirit)",9,Large
+"Tun Mi Lung (Typhoon Dragon), Mature Adult",OA,162,"Dragon (Water, Spirit)",17,Huge
+"Tun Mi Lung (Typhoon Dragon), Old",OA,162,"Dragon (Water, Spirit)",19,Gargantuan
+"Tun Mi Lung (Typhoon Dragon), Very Old",OA,162,"Dragon (Water, Spirit)",20,Gargantuan
+"Tun Mi Lung (Typhoon Dragon), Wyrm",OA,162,"Dragon (Water, Spirit)",23,Gargantuan
+"Tun Mi Lung (Typhoon Dragon), Young Adult",OA,162,"Dragon (Water, Spirit)",12,Huge
 Tunnel Terror,FF,179,Aberration,15,Huge
 Turlemoi,MM5,187,Monstrous Humanoid,8,Large
 Tusk Terror,MM5,182,Magical Beast,8,Medium
@@ -2547,7 +2562,7 @@ Urskan,Fr,159,Magical Beast (Cold),5,Large
 Uthraki,Una,79,Monstrous Humanoid (Shapechanger),3,Large
 Uvuudaum,EL,224,Outsider (Evil),27,Large
 Vaath,BV,182,Outsider,4,Large
-Valkyrie,ToB,156,"Outsider (Chaotic, Extraplanar),Large",9,
+Valkyrie,ToB,156,"Outsider (Chaotic, Extraplanar)",9,Large
 Valkyries' Mount,DD,201,Outsider,12,Large
 Vampire Spawn,MM,253,Undead,4,Medium
 Vaporighu,MM2,197,Outsider (Evil),9,Medium
@@ -2690,6 +2705,9 @@ Yeti,Fr,162,Monstrous Humanoid (Cold),3,Huge
 "Yeti, Abominable",Fr,163,Monstrous Humanoid (Cold),7,Large
 Yochlol,FCI,54,"Outsider (Chaotic, Evil, Extraplanar, Shapechanger)",8,Medium
 Yrthak,MM,262,Magical Beast,9,Huge
+"Yu Lung (Carp Dragon), Very Young",OA,154,"Dragon (Spirit, Water)",4,Small
+"Yu Lung (Carp Dragon), Wyrmling",OA,154,"Dragon (Spirit, Water)",2,Tiny
+"Yu Lung (Carp Dragon), Young",OA,154,"Dragon (Spirit, Water)",6,Medium
 Yuan-ti Anathema,FF,193,Aberration,18,Huge
 Yuan-ti Halfblood,MM,264,Monstrous Humanoid,5,Medium
 Yuan-ti Holy Guardian,SK,88,Monstrous Humanoid,8,Medium
