@@ -237,6 +237,8 @@ spell = []
 
 all_spells_file = list(all_spells_file)
 line_count = 0
+
+spell_count = 0
 for line in all_spells_file:
   #End of the file
   line_count += 1
@@ -255,6 +257,7 @@ for line in all_spells_file:
     if "alt_spell_name" in spell_info:
       alt_spells.append(spell_info)
     else:
+      spell_count += 1
       insert_spell_into_db(db_cursor, spell_info)
       db_conn.commit()
     del spell[:]
@@ -268,6 +271,7 @@ for spell in alt_spells:
   insert_alt_spell_into_db(db_cursor, spell)
   db_conn.commit()
 
+print "Total spells: %s" % spell_count
 
 db_cursor.close()
 db_conn.close()

@@ -292,6 +292,8 @@ def get_party_exp(db_cursor, party_levels, encounter_creatures):
     for creature in encounter_creatures:
       creature_data = creature[0]
       creature_cr = creature_data['cr']
+      if '/' not in creature_cr:
+        creature_cr = int(creature_cr)
       divisor = party_size
       # Need to catch CRs less than 1
       if isinstance(creature_cr, str):
@@ -305,8 +307,9 @@ def get_party_exp(db_cursor, party_levels, encounter_creatures):
         creature_xp = 0
       elif cr_ecl_diff > 7:
         high_cr_found = True
+        creature_xp = 0
       else:
-        if '/' not in creature_cr:
+        if not isinstance(creature_cr, str):
           creature_xp = dmg_tables.xp_table[character_level][int(creature_cr)]
         else:
           creature_xp = dmg_tables.xp_table[character_level][1]
@@ -325,6 +328,93 @@ def get_party_exp(db_cursor, party_levels, encounter_creatures):
     print "    and thus aren't awarded xp."
 
   print ""
+
+def break_up_encounter_cr(set_cr, number_of_creature_types):
+  number_of_creature_types_left = number_of_creature_types
+  creature_group_cr = []
+  for x in range(0, number_of_creature_types):
+    # We can't break anything into smaller that CR 1/8
+    if set_cr == '1/8':
+      creature_group_cr.append(set_cr)
+      continue
+
+    if x !=  number_of_creature_types - 1:
+      # Mixed level type
+        # Mixed type and same type are the exact same operation for when you have more
+        # than 2 creatures
+        # DMG doesn't say how to split apart anything less than CR 1 when it's the same.
+      if coin_flip() or isinstance(set_cr, str) or number_of_creature_types - x != 2:
+        if set_cr in dmg_tables.weird_mix_cr:
+          mixed_cr = dmg_tables.weird_mix_cr[set_cr]
+        else:
+          mixed_cr = [set_cr - 1, set_cr - 3]
+        # We flip again because it can go either way
+        # This also handles mix/same for anything with more than 2 creatures
+        flip_result = coin_flip()
+        creature_cr = mixed_cr[flip_result]
+        del mixed_cr[flip_result]
+        set_cr = mixed_cr[0]
+
+      # Same level type
+        # This should really only be reached with 2 creatuers left.
+      else:
+        if set_cr < 7:
+          creature_cr, set_cr = get_weird_same_cr(set_cr, number_of_creature_types_left)
+        else:
+          creature_cr = set_cr - number_of_creature_types_left
+          set_cr += number_of_creature_types_left - 4
+
+      number_of_creature_types_left -= 1
+      creature_group_cr.append(creature_cr)
+    else:
+      creature_group_cr.append(set_cr)
+
+  return creature_group_cr
+
+def get_encouter_creatures(creature_group_cr, number_of_creatures, set_creature_type, type_enforcement):
+  encounter_creatures = []
+  # Randomly select number of creatures, try and conform to type
+  for creature_cr in creature_group_cr:
+    #Select number of creatures:
+    num_of_creature_in_group = 1
+    if number_of_creatures < max_creatures and isinstance(creature_cr, int):
+      if coin_flip():
+        # Lower bound is 0 because it shouldn't count itself.
+        #num_of_creature_in_group += randint(0, max_creatures - number_of_creatures)
+        num_of_creature_in_group += randint(1, max_creatures - number_of_creatures)
+
+        #There isn't really a way to split this into a smaller encounter.
+        # Also, this should never be triggered.
+        if num_of_creature_in_group > 12:
+          print "You shouldn't have more than 12 creatures in an encounter. Setting to 12...."
+          num_of_creature_in_group = 12
+        # Need to update number of creatures otherwise you don't cap at 5
+        number_of_creatures += num_of_creature_in_group - 1
+
+        if num_of_creature_in_group > 1:
+          # Have to handle those weird cases where it can be two cr
+          if creature_cr < 7:
+            new_cr = get_weird_same_cr(creature_cr, num_of_creature_in_group)[0]
+          else:
+            #Have to call the method anyways since large groups can group the cr together
+            new_cr = creature_cr - trans_to_weird_same_cr_table(num_of_creature_in_group) - 2
+          creature_cr = new_cr
+
+    creature_id = random_creature_by_cr(db_cursor, creature_cr, set_creature_type)
+    creature_data = get_creature_data(db_cursor, creature_id)
+    if type_enforcement and not set_types:
+      set_creature_type = creature_data['type']
+    
+    #Combine repeat creatures
+    repeat_creature = False
+    for x in range(0, len(encounter_creatures)):
+      if creature_data['name'] == encounter_creatures[x][0]['name']:
+        encounter_creatures[x][1] += num_of_creature_in_group
+        repeat_creature = True
+    if not repeat_creature:
+      encounter_creatures.append([creature_data, num_of_creature_in_group])
+
+  return encounter_creatures
 
 ####################################################################################
 #                                  DATBASE SETUP                                   #
@@ -352,25 +442,40 @@ parser.add_argument('-V', '--no-varience', action='store_true',
   help="Hard set CR, do not vary based off varience tables")
 parser.add_argument('-t', '--set-types', nargs='*', dest='set_types',
   help="Set types that you want. Please comment separate these.")
+parser.add_argument('-n', '---encounters', default='1',
+  dest='max_encounters', help="Set max number of encounters to generate")
+parser.add_argument('--pokemon-mode', default=False, dest='pokemon_mode',
+  help='Set pokemon style vs. mode with CR')
 
 # TODO: Option for setting types you want
 
 args=parser.parse_args()
 
-set_cr = int(args.requested_cr)
+#Support pokemon mode
+if args.pokemon_mode:
+  set_cr = int(args.pokemon_mode)
+  max_encounters = 2
+  max_creatures = 1
+  number_of_creature_types = 1
+  set_types = ''
+  type_enforcement = False
+  party_levels = []
 
-if args.no_varience:
-  print "The CR for this encounter is %s" % set_cr
 else:
-  set_cr = encounter_var(set_cr)
+  set_cr = int(args.requested_cr)
 
-if args.set_types:
-  set_types = " ".join(args.set_types).split(", ")
+  
 
-max_creatures = int(args.max_creatures)
-type_enforcement = args.type_enforcement
-party_levels = args.party_levels
-number_of_creature_types = int(args.number_of_creature_types)
+  if args.set_types:
+    set_types = " ".join(args.set_types).split(", ")
+  else:
+    set_types = ''
+
+  max_creatures = int(args.max_creatures)
+  type_enforcement = args.type_enforcement
+  party_levels = args.party_levels
+  number_of_creature_types = int(args.number_of_creature_types)
+  max_encounters = int(args.max_encounters)
 
 ####################################################################################
 #                                 CSV PROCESSING                                   #
@@ -383,112 +488,55 @@ number_of_creature_types = randint(1, number_of_creature_types)
 if number_of_creature_types > max_creatures:
   number_of_creature_types = max_creatures
 
-number_of_creature_types_left = number_of_creature_types
-number_of_creatures = number_of_creature_types
-creature_group_cr = []
-# This should handle all 12 (I think it's 12, could be more) possible distribution cases for 
-# 1 - 3 groups of subtypes. Technically should be able to do 1 - n
-for x in range(0, number_of_creature_types):
-  # We can't break anything into smaller that CR 1/8
-  if set_cr == '1/8':
-    creature_group_cr.append(set_cr)
+for encounter in range(0, max_encounters):
+
+  if not args.pokemon_mode:
+    print "Encounter #%s" % (encounter + 1)
+    if args.no_varience:
+      print "The CR for this encounter is %s" % set_cr
+    else:
+      set_cr = encounter_var(set_cr)
+
+  creature_group_cr = break_up_encounter_cr(set_cr, number_of_creature_types)
+  # This should handle all 12 (I think it's 12, could be more) possible distribution cases for 
+  # 1 - 3 groups of subtypes. Technically should be able to do 1 - n
+
+  set_creature_type = ''
+  if set_types:
+    set_creature_type = get_type_ids(db_cursor, set_types)
+    type_enforcement = True
+  encounter_creatures = get_encouter_creatures(creature_group_cr, number_of_creature_types,
+    set_creature_type, type_enforcement)
+
+  if args.pokemon_mode:
+    creature_data = encounter_creatures[0][0]
+    if not encounter:
+      print "\nFight set!\n"
+    print "%s; see %s, pg. %s CR: %s\n" % (creature_data['name'],
+        creature_data['book'][0], creature_data['book'][1],
+        creature_data['cr'])
+    if not encounter:
+      print "VS.\n"
     continue
 
-  if x !=  number_of_creature_types - 1:
-    # Mixed level type
-      # Mixed type and same type are the exact same operation for when you have more
-      # than 2 creatures
-      # DMG doesn't say how to split apart anything less than CR 1 when it's the same.
-    if coin_flip() or isinstance(set_cr, str) or number_of_creature_types - x != 2:
-      if set_cr in dmg_tables.weird_mix_cr:
-        mixed_cr = dmg_tables.weird_mix_cr[set_cr]
-      else:
-        mixed_cr = [set_cr - 1, set_cr - 3]
-      # We flip again because it can go either way
-      # This also handles mix/same for anything with more than 2 creatures
-      flip_result = coin_flip()
-      creature_cr = mixed_cr[flip_result]
-      del mixed_cr[flip_result]
-      set_cr = mixed_cr[0]
-
-    # Same level type
-      # This should really only be reached with 2 creatuers left.
+  print "\nOh joy! Your players are fighting:"
+  for creature in encounter_creatures:
+    creature_data = creature[0]
+    number_of_creatures = creature[1]
+    if number_of_creatures == 1:
+      print "%s; see %s, pg. %s CR: %s" % (creature_data['name'],
+        creature_data['book'][0], creature_data['book'][1],
+        creature_data['cr'])
     else:
-      if set_cr < 7:
-        creature_cr, set_cr = get_weird_same_cr(set_cr, number_of_creature_types_left)
-      else:
-        creature_cr = set_cr - number_of_creature_types_left
-        set_cr += number_of_creature_types_left - 4
+      print "%s %s; see %s, pg. %s CR: %s" % (number_of_creatures,
+        creature_data['name'], creature_data['book'][0],
+        creature_data['book'][1], creature_data['cr'])
+  print "May the dice be ever in your favor.\n"
 
-    number_of_creature_types_left -= 1
-    creature_group_cr.append(creature_cr)
-  else:
-    creature_group_cr.append(set_cr)
-
-set_creature_type = ''
-if set_types:
-  set_creature_type = get_type_ids(db_cursor, set_types)
-  type_enforcement = True
-encounter_creatures = []
-
-# Randomly select number of creatures, try and conform to type
-for creature_cr in creature_group_cr:
-  #Select number of creatures:
-  num_of_creature_in_group = 1
-  if number_of_creatures < max_creatures and isinstance(creature_cr, int):
-    if coin_flip():
-      # Lower bound is 0 because it shouldn't count itself.
-      #num_of_creature_in_group += randint(0, max_creatures - number_of_creatures)
-      num_of_creature_in_group += randint(1, max_creatures - number_of_creatures)
-
-      #There isn't really a way to split this into a smaller encounter.
-      if num_of_creature_in_group > 12:
-        print "You shouldn't have more than 12 creatures in an encounter. Setting to 12...."
-        num_of_creature_in_group = 12
-      # Need to update number of creatures otherwise you don't cap at 5
-      number_of_creatures += num_of_creature_in_group - 1
-
-      if num_of_creature_in_group > 1:
-        # Have to handle those weird cases where it can be two cr
-        if creature_cr < 7:
-          new_cr = get_weird_same_cr(creature_cr, num_of_creature_in_group)[0]
-        else:
-          #Have to call the method anyways since large groups can group the cr together
-          new_cr = creature_cr - trans_to_weird_same_cr_table(num_of_creature_in_group) - 2
-        creature_cr = new_cr
-
-  creature_id = random_creature_by_cr(db_cursor, creature_cr, set_creature_type)
-  creature_data = get_creature_data(db_cursor, creature_id)
-  if type_enforcement and not set_types:
-    set_creature_type = creature_data['type']
-  
-  #Combine repeat creatures
-  repeat_creature = False
-  for x in range(0, len(encounter_creatures)):
-    if creature_data['name'] == encounter_creatures[x][0]['name']:
-      encounter_creatures[x][1] += num_of_creature_in_group
-      repeat_creature = True
-  if not repeat_creature:
-    encounter_creatures.append([creature_data, num_of_creature_in_group])
-
-print "\nOh joy! Your players are fighting:"
-for creature in encounter_creatures:
-  creature_data = creature[0]
-  number_of_creatures = creature[1]
-  if number_of_creatures == 1:
-    print "%s; see %s, pg. %s CR: %s" % (creature_data['name'],
-      creature_data['book'][0], creature_data['book'][1],
-      creature_data['cr'])
-  else:
-    print "%s %s; see %s, pg. %s CR: %s" % (number_of_creatures,
-      creature_data['name'], creature_data['book'][0],
-      creature_data['book'][1], creature_data['cr'])
-print "May the dice be ever in your favor.\n"
-
-if party_levels:
-  print "And should they succeed:"
-  party_levels = map(int, party_levels)
-  get_party_exp(db_cursor, party_levels, encounter_creatures)
+  if party_levels:
+    print "And should they succeed:"
+    party_levels = map(int, party_levels)
+    get_party_exp(db_cursor, party_levels, encounter_creatures)
 
 db_conn.commit()
 db_conn.close()
