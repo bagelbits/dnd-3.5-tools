@@ -51,7 +51,6 @@ def stitch_together_parens(level_lines):
     level_lines[section[0]:section[1]+1] = [', '.join(level_lines[section[0]:section[1]+1])]
   return level_lines
 
-
 def break_out_class_subtype(character_class):
   if "(" in character_class:
     character_class = character_class.strip().split(" (")
@@ -73,7 +72,6 @@ def break_out_class_subtype(character_class):
     character_class = [character_class]
 
   return character_class
-
 
 ##############################
 #    Spell Parsing     #
@@ -99,7 +97,6 @@ def get_book_info(book_info):
 
   return book_info
 
-
 def get_class_info(level_line):
   if level_line.lower().startswith("level: "):
     classes = {}
@@ -117,7 +114,6 @@ def get_class_info(level_line):
       else:
         classes[character_class[0]] = [level]
   return classes
-
 
 def parse_spell(spell, alt_spells):
   """
@@ -157,15 +153,15 @@ def parse_spell(spell, alt_spells):
   # Because not every spell has a type.
   spell_info['Subschools'] = []
   spell_info['Descriptors'] = []
-  if not re.match("\w+( \w+)*:", spell[0]):
-    type_line = spell.pop(0)
-    spell_info['Schools'] = type_line.split()[0].split("/")
-    match = re.search('\((.+)\)', type_line)
-    if match:
-      spell_info['Subschools'].extend([sub_type.strip() for sub_type in match.group(1).split(",")])
-    match = re.search('\[(.+)\]', type_line)
-    if match:
-      spell_info['Descriptors'].extend([sub_type.strip() for sub_type in match.group(1).split(",")])
+  
+  type_line = spell.pop(0)
+  spell_info['Schools'] = type_line.split()[0].split("/")
+  match = re.search('\((.+)\)', type_line)
+  if match:
+    spell_info['Subschools'].extend([sub_type.strip() for sub_type in match.group(1).split(",")])
+  match = re.search('\[(.+)\]', type_line)
+  if match:
+    spell_info['Descriptors'].extend([sub_type.strip() for sub_type in match.group(1).split(",")])
 
   #Now let's grab the classes and levels
   spell_info['Classes'] = get_class_info(spell.pop(0))
@@ -246,11 +242,7 @@ for line in all_spells_file:
   stdout.write("%s\rLoading: %d%%%s" % (colorz.YELLOW, per, colorz.ENDC))
   stdout.flush()
 
-  #This may be useless now
-  if re.match('\-+', line):
-    break
-
-  line = re.sub(" +$", "", line)
+  line = line.rstrip()
 
   if not line.strip():
     spell_info = parse_spell(spell, alt_spells)
