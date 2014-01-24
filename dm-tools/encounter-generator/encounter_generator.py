@@ -119,48 +119,76 @@ def get_weird_same_cr(set_cr, total_creatures):
 
   # Need to have total creatures conform to list
   # Janky as fuck but it works
-
   creature_cr = dmg_tables.weird_same_cr[set_cr][total_creatures]
   # For conistency's sake. The flip should set the other
   # result to the new cr
   if isinstance(creature_cr, list):
     flip_result = coin_flip()
     new_set_cr = creature_cr[flip_result]
-    del creature_cr[flip_result]
-    creature_cr = creature_cr[0]
+    creature_cr = creature_cr[not flip_result]
   else:
     new_set_cr = creature_cr
 
   return creature_cr, new_set_cr
 
-def get_creature_list(db_cursor, creature_cr, set_creature_type=''):
-  proper_cr_monsters = []
+def get_creature_list(db_cursor, creature_cr, set_creature_type='', set_creature_book=''):
+  proper_cr_monsters = set([])
 
-  db_cursor.execute('SELECT id FROM creature WHERE cr = ?', (creature_cr,))
-  
-  for creature_id in [x[0] for x in db_cursor.fetchall()]:
-    type_match = True
-    if set_creature_type:
-      # Weed out type mismatch
-      if set_creature_type['type_id']:
-        db_cursor.execute('SELECT creature_id FROM creature_type\
-          WHERE creature_id = ? AND type_id = ? LIMIT 1',
-          (creature_id, set_creature_type['type_id']))
-        if not db_cursor.fetchone():
-          type_match = False
+  # Generate all creatures with that cr if nothing set
+  if not set_creature_type and not set_creature_book:
+    db_cursor.execute('SELECT id FROM creature WHERE cr = ?', (creature_cr,))
+    proper_cr_monsters = db_cursor.fetchall()
+    proper_cr_monsters = [_id[0] for _id in proper_cr_monsters]
+    return proper_cr_monsters
 
-      if set_creature_type['subtype_id']:
-        for subtype_id in set_creature_type['subtype_id']:
-          db_cursor.execute('SELECT creature_id FROM creature_subtype\
-            WHERE creature_id = ? AND subtype_id = ? LIMIT 1', (creature_id, subtype_id))
+  # Generate creatures with cr that match type or subtype
+  # by taking an intersection of the set
+  creature_by_type = []
+  creature_by_subtype = []
 
-          if not db_cursor.fetchone():
-            type_match = False
+  if set_creature_type:
+    if set_creature_type['type_id']:
+      db_cursor.execute('SELECT creature.id FROM creature_type, creature\
+        WHERE creature_type.type_id = ?\
+        AND creature.id = creature_type.creature_id\
+        AND creature.cr = ?', (set_creature_type['type_id'], creature_cr))
+      creature_by_type = db_cursor.fetchall()
+      if creature_by_type:
+        creature_by_type = [_id[0] for _id in creature_by_type]
 
-    if type_match:
-      proper_cr_monsters.append(creature_id)
+    if set_creature_type['subtype_id']:
+      for subtype_id in set_creature_type['subtype_id']:
+        db_cursor.execute('SELECT creature.id FROM creature_subtype, creature\
+          WHERE creature_subtype.subtype_id = ?\
+          AND creature.id = creature_subtype.creature_id\
+          AND creature.cr = ?', (subtype_id, creature_cr))
+        subtype_subgroup = db_cursor.fetchall()
+        if subtype_subgroup:
+          creature_by_subtype.append(set([_id[0] for _id in subtype_subgroup]))
+      
+  creature_by_type = set(creature_by_type)
+  if creature_by_subtype:
+    proper_cr_monsters = set.intersection(creature_by_type, *creature_by_subtype)
+  else:
+    proper_cr_monsters = creature_by_type
 
-  return proper_cr_monsters
+  # Generate creatures with cr that match any books and take union of all sets
+  if set_creature_book:
+    creature_by_book = []
+    for book_id in set_creature_book:
+      db_cursor.execute('SELECT creature.id FROM creature_book, creature\
+        WHERE creature_book.book_id = ?\
+        AND creature.id = creature_book.creature_id\
+        AND creature.cr = ?', (book_id, creature_cr))
+      creature_book_subgroup = db_cursor.fetchall()
+      if creature_book_subgroup:
+        creature_by_book.extend([_id[0] for _id in creature_book_subgroup])
+
+    creature_by_book = set(creature_by_book)
+    proper_cr_monsters = set.union(creature_by_book, proper_cr_monsters)
+
+
+  return list(proper_cr_monsters)
 
 def random_creature_by_cr(db_cursor, creature_cr, set_creature_type='', set_creature_book=''):
   
@@ -176,69 +204,58 @@ def random_creature_by_cr(db_cursor, creature_cr, set_creature_type='', set_crea
   alignment = []
   proper_cr_monsters = []
 
-  # Type matching
-  if set_creature_type:
-    # Try exact type
+  # Attempt inital try with 
+  proper_cr_monsters.extend(get_creature_list(db_cursor, creature_cr,
+    set_creature_type, set_creature_book))
+
+  # Drop everying except element, alignment, type
+  if set_creature_type and not proper_cr_monsters:
+    new_subtype_list = []
+    for subtype_id in set_creature_type['subtype_id']:
+      db_cursor.execute('SELECT subtype_id FROM element WHERE subtype_id = ? LIMIT 1', 
+        (subtype_id,))
+      if db_cursor.fetchone():
+        new_subtype_list.append(subtype_id)
+        continue
+
+      db_cursor.execute('SELECT subtype_id FROM alignment WHERE subtype_id = ? LIMIT 1', 
+        (subtype_id,))
+      if db_cursor.fetchone():
+        new_subtype_list.append(subtype_id)
+    
+    set_creature_type['subtype_id'] = list(set(new_subtype_list))
     proper_cr_monsters.extend(get_creature_list(db_cursor, creature_cr,
-      type=set_creature_type))
+      set_creature_type, set_creature_book))
 
-    #Drop everying element, alignment, type
-    if not proper_cr_monsters:
-      new_subtype_list = []
-      for subtype_id in set_creature_type['subtype_id']:
-        db_cursor.execute('SELECT subtype_id FROM element WHERE subtype_id = ? LIMIT 1', 
-          (subtype_id,))
-        if db_cursor.fetchone():
-          new_subtype_list.append(subtype_id)
-          continue
+  # Drop type
+  if set_creature_type and not proper_cr_monsters:
+    set_creature_type['type_id'] = 0
+    proper_cr_monsters.extend(get_creature_list(db_cursor, creature_cr,
+      set_creature_type, set_creature_book))
 
-        db_cursor.execute('SELECT subtype_id FROM alignment WHERE subtype_id = ? LIMIT 1', 
-          (subtype_id,))
-        if db_cursor.fetchone():
-          new_subtype_list.append(subtype_id)
-      
-      set_creature_type['subtype_id'] = new_subtype_list
-      proper_cr_monsters.extend(get_creature_list(db_cursor, creature_cr,
-        type=set_creature_type))
-
-    # Drop type
-    if not proper_cr_monsters:
-      set_creature_type['type_id'] = 0
-      proper_cr_monsters.extend(get_creature_list(db_cursor, creature_cr,
-        type=set_creature_type))
-
-    # Drop alignment but store it for later
-    if not proper_cr_monsters:
-      new_subtype_list = []
-      for subtype_id in set_creature_type['subtype_id']:
-        db_cursor.execute('SELECT subtype_id FROM element WHERE subtype_id = ? LIMIT 1', 
-          (subtype_id,))
-        if db_cursor.fetchone():
-          new_subtype_list.append(subtype_id)
-        else:
-          alignment.append(subtype_id)
-      
-      set_creature_type['subtype_id'] = new_subtype_list
-      proper_cr_monsters.extend(get_creature_list(db_cursor, creature_cr,
-        type=set_creature_type))
-
-    if not proper_cr_monsters:
-      set_creature_type = ''
-
-  if set_creature_book:
+  # Drop alignment but store it for later
+  if set_creature_type and not proper_cr_monsters:
+    new_subtype_list = []
+    for subtype_id in set_creature_type['subtype_id']:
+      db_cursor.execute('SELECT subtype_id FROM element WHERE subtype_id = ? LIMIT 1', 
+        (subtype_id,))
+      if db_cursor.fetchone():
+        new_subtype_list.append(subtype_id)
+      else:
+        alignment.append(subtype_id)
+    
+    set_creature_type['subtype_id'] = new_subtype_list
+    proper_cr_monsters.extend(get_creature_list(db_cursor, creature_cr,
+      set_creature_type, set_creature_book))
 
 
   # Try anything
-  # TODO: Once we store alignment types, try and keep alignment the same
-  if not set_creature_type and not set_creature_book:
-    db_cursor.execute('SELECT id FROM creature WHERE cr = ?', (creature_cr,))
-    proper_cr_monsters = [x[0] for x in db_cursor.fetchall()]
-
-
+  if not proper_cr_monsters:
+    proper_cr_monsters.extend(get_creature_list(db_cursor, creature_cr))
 
   # Now momment of truth: Pick a random monster
   if proper_cr_monsters:
-    return proper_cr_monsters[randint(0, len(proper_cr_monsters) - 1)]
+    return proper_cr_monsters[randint(0, len(proper_cr_monsters) - 1)], alignment
   else:
     print "\nError: You have hit parameters that no monster can be generated for."
     print "Please double check your settings and try again."
@@ -268,7 +285,7 @@ def get_creature_data(db_cursor, creature_id):
 
   db_cursor.execute('SELECT subtype_id FROM creature_subtype WHERE creature_id = ?',
     (creature_id,))
-  creature_data['type']['subtype_id'] = [x[0] for x in db_cursor.fetchall()]
+  creature_data['type']['subtype_id'] = [_id[0] for _id in db_cursor.fetchall()]
 
   return creature_data
 
@@ -304,11 +321,11 @@ def get_book_ids(db_cursor, creature_books):
       book_ids.append(book_id[0])
       continue
     else:
-      db_cursor.execute('SELECT id FROM book WHERE name LIKE ? LIMIT 1',
+      db_cursor.execute('SELECT id FROM book WHERE name LIKE ?',
         ("%%%s%%" % book_name,))
-      book_id = db_cursor.fetchone()
+      book_id = db_cursor.fetchall()
       if book_id:
-        book_ids.append(book_id[0])
+        book_ids.extend([_id[0] for _id in book_id])
         continue
       else:
         print "%s%s could not be found. Please check book name.%s" % (colorz.RED,
@@ -366,21 +383,21 @@ def get_party_exp(db_cursor, party_levels, encounter_creatures):
 
   print ""
 
-def break_up_encounter_cr(set_cr, number_of_creature_types):
-  number_of_creature_types_left = number_of_creature_types
+def break_up_encounter_cr(set_cr, creatur_type_count):
+  creatur_type_count_left = creatur_type_count
   creature_group_cr = []
-  for x in range(0, number_of_creature_types):
+  for x in range(0, creatur_type_count):
     # We can't break anything into smaller that CR 1/8
     if set_cr == '1/8':
       creature_group_cr.append(set_cr)
       continue
 
-    if x !=  number_of_creature_types - 1:
+    if x !=  creatur_type_count - 1:
       # Mixed level type
         # Mixed type and same type are the exact same operation for when you have more
         # than 2 creatures
         # DMG doesn't say how to split apart anything less than CR 1 when it's the same.
-      if coin_flip() or isinstance(set_cr, str) or number_of_creature_types - x != 2:
+      if coin_flip() or isinstance(set_cr, str) or creatur_type_count - x != 2:
         if set_cr in dmg_tables.weird_mix_cr:
           mixed_cr = dmg_tables.weird_mix_cr[set_cr]
         else:
@@ -389,26 +406,25 @@ def break_up_encounter_cr(set_cr, number_of_creature_types):
         # This also handles mix/same for anything with more than 2 creatures
         flip_result = coin_flip()
         creature_cr = mixed_cr[flip_result]
-        del mixed_cr[flip_result]
-        set_cr = mixed_cr[0]
+        set_cr = mixed_cr[not flip_result]
 
       # Same level type
         # This should really only be reached with 2 creatuers left.
       else:
         if set_cr < 7:
-          creature_cr, set_cr = get_weird_same_cr(set_cr, number_of_creature_types_left)
+          creature_cr, set_cr = get_weird_same_cr(set_cr, creatur_type_count_left)
         else:
-          creature_cr = set_cr - number_of_creature_types_left
-          set_cr += number_of_creature_types_left - 4
+          creature_cr = set_cr - creatur_type_count_left
+          set_cr += creatur_type_count_left - 4
 
-      number_of_creature_types_left -= 1
+      creatur_type_count_left -= 1
       creature_group_cr.append(creature_cr)
     else:
       creature_group_cr.append(set_cr)
 
   return creature_group_cr
 
-def get_encouter_creatures(creature_group_cr, number_of_creatures, set_creature_data):
+def get_encouter_creatures(db_cursor, creature_group_cr, number_of_creatures, set_creature_data):
   type_enforce = set_creature_data['type_enforce']
   set_creature_type = set_creature_data['creature_type']
   book_enforce = set_creature_data['book_enforce']
@@ -443,14 +459,18 @@ def get_encouter_creatures(creature_group_cr, number_of_creatures, set_creature_
             new_cr = creature_cr - trans_to_weird_same_cr_table(num_of_creature_in_group) - 2
           creature_cr = new_cr
 
-    creature_id = random_creature_by_cr(db_cursor, creature_cr,
+    creature_id, creature_subtype_alignment = random_creature_by_cr(db_cursor, creature_cr,
       set_creature_type, set_creature_book)
     creature_data = get_creature_data(db_cursor, creature_id)
     if type_enforce and not set_creature_type:
-      set_creature_data['creature_type'] = creature_data['type']
+      set_creature_type = creature_data['type']
+      if 'alignment' in vars():
+        set_creature_type['subtype_id'].extend(alignment)
+      set_creature_type['subtype_id'] = list(set(
+        set_creature_type['subtype_id']))
     if book_enforce and not set_creature_book:
-      set_creature_data['creature_book'] = creature_data['book']
-    
+      set_creature_book = creature_data['book']
+
     #Combine repeat creatures
     repeat_creature = False
     for x in range(0, len(encounter_creatures)):
@@ -460,7 +480,7 @@ def get_encouter_creatures(creature_group_cr, number_of_creatures, set_creature_
     if not repeat_creature:
       encounter_creatures.append([creature_data, num_of_creature_in_group])
 
-  return encounter_creatures, set_creature_data
+  return encounter_creatures
 
 
 ####################################################################################
@@ -473,7 +493,7 @@ parser.add_argument('-c', '--cr', default='1', dest='requested_cr',
 parser.add_argument('-m', '--max-creatures', default='5',
   dest='max_creatures', help="Set max number of creatures in an encounter")
 parser.add_argument('-k', '--max-creature-kinds', default='3',
-  dest='number_of_creature_types', help="Set max number of creature kinds in an encounter")
+  dest='creatur_type_count', help="Set max number of creature kinds in an encounter")
 parser.add_argument('-e', '--type-enforcement', action='store_true',
   default=False, dest='type_enforce',
   help='Attempt to enforce same type for all monsters in encounter')
@@ -513,7 +533,7 @@ if args.pokemon_mode:
   set_cr = int(args.pokemon_mode)
   max_encounters = 2
   max_creatures = 1
-  number_of_creature_types = 1
+  creatur_type_count = 1
   set_types = ''
   set_books = ''
   type_enforce = False
@@ -529,7 +549,7 @@ else:
     set_types = " ".join(args.set_types).split(", ")
   else:
     set_types = ''
-  print set_types
+
   if args.set_books:
     set_books = " ".join(args.set_books).split(", ")
   else:
@@ -539,7 +559,7 @@ else:
   type_enforce = args.type_enforce
   book_enforce = args.book_enforce
   party_levels = args.party_levels
-  number_of_creature_types = int(args.number_of_creature_types)
+  creatur_type_count = int(args.creatur_type_count)
   max_encounters = int(args.max_encounters)
 
 ####################################################################################
@@ -548,21 +568,22 @@ else:
 
 # TODO: Turn this into a sqlite db.
 
-number_of_creature_types = randint(1, number_of_creature_types)
-
-if number_of_creature_types > max_creatures:
-  number_of_creature_types = max_creatures
-
 for encounter in range(0, max_encounters):
+  encounter_cr = set_cr
+  encounter_creatur_type_count = randint(1, creatur_type_count)
+
+  if encounter_creatur_type_count > max_creatures:
+    encounter_creatur_type_count = max_creatures
+
 
   if not args.pokemon_mode:
     print "Encounter #%s" % (encounter + 1)
     if args.no_varience:
-      print "The CR for this encounter is %s" % set_cr
+      print "The CR for this encounter is %s" % encounter_cr
     else:
-      set_cr = encounter_var(set_cr)
+      encounter_cr = encounter_var(encounter_cr)
 
-  creature_group_cr = break_up_encounter_cr(set_cr, number_of_creature_types)
+  creature_group_cr = break_up_encounter_cr(encounter_cr, encounter_creatur_type_count)
   # This should handle all 12 (I think it's 12, could be more) possible distribution cases for 
   # 1 - 3 groups of subtypes. Technically should be able to do 1 - n
 
@@ -572,9 +593,11 @@ for encounter in range(0, max_encounters):
   if set_types:
     set_creature_type = get_type_ids(db_cursor, set_types)
     type_enforce = True
+    set_types = ''
   if set_books:
     set_creature_book = get_book_ids(db_cursor, set_books)
     book_enforce = True
+    book_enforce = ''
 
   set_creature_data = {
     'type_enforce': type_enforce,
@@ -582,9 +605,9 @@ for encounter in range(0, max_encounters):
     'creature_type': set_creature_type,
     'creature_book': set_creature_book,
   }
-
-  encounter_creatures, set_creature_data = get_encouter_creatures(creature_group_cr,
-    number_of_creature_types, set_creature_data)
+  
+  encounter_creatures = get_encouter_creatures(db_cursor, creature_group_cr,
+    encounter_creatur_type_count, set_creature_data)
 
   if args.pokemon_mode:
     creature_data = encounter_creatures[0][0]
