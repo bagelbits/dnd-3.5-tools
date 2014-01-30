@@ -255,7 +255,6 @@ class CrusaderManeuverApp:
     self.character_stats_frame.grid_forget()
     self.maneuver_select_frame.grid(row=0)
 
-  # 
   def add_maneuver(self):
     added_maneuvers = self.maneuvers_possible_list.curselection()
 
@@ -384,6 +383,7 @@ class CrusaderManeuverApp:
       break
 
   def end_combat(self):
+    self.maneuvers_granted_list.delete(0, END)
     self.encounter_frame.grid_forget()
     self.maneuver_ready_frame.grid(row=1)
 

@@ -593,11 +593,11 @@ for encounter in range(0, max_encounters):
   if set_types:
     set_creature_type = get_type_ids(db_cursor, set_types)
     type_enforce = True
-    set_types = ''
+    #set_types = ''
   if set_books:
     set_creature_book = get_book_ids(db_cursor, set_books)
     book_enforce = True
-    book_enforce = ''
+    #book_enforce = ''
 
   set_creature_data = {
     'type_enforce': type_enforce,
