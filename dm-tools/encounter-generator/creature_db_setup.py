@@ -24,6 +24,7 @@
 from sys import stdout
 import sqlite3
 import csv
+import yaml
 import traceback
 
 
@@ -85,34 +86,36 @@ def table_setup(name, db_cursor):
       (subtype_id INTEGER,\
         FOREIGN KEY (subtype_id) REFERENCES subtype(id))")
 
-def insert_creature(db_cursor, line):
+def insert_creature(db_cursor, monster_name, monster_data):
 
-  db_cursor.execute('SELECT id FROM creature WHERE name = ? LIMIT 1', (line[0],))
+  db_cursor.execute('SELECT id FROM creature WHERE name = ? LIMIT 1', (monster_name,))
   if db_cursor.fetchone():
     db_cursor.execute('SELECT id FROM creature WHERE name = ? AND cr = ? LIMIT 1',
-      (line[0],line[4]))
+      (monster_name, monster_data['cr']))
     if db_cursor.fetchone():
       return
     else:
       #TODO: Print these after progress tracker
-      print "Potentially conflicting creatures: %s" % line[0]
+      print "Potentially conflicting creatures: %s" % monster_name
 
   # Load in creature
-  db_cursor.execute('INSERT INTO creature VALUES(NULL, ?, ?)', (line[0], line[4]))
+  db_cursor.execute('INSERT INTO creature VALUES(NULL, ?, ?)',
+    (monster_name, monster_data['cr']))
 
   db_cursor.execute('SELECT id FROM creature WHERE name = ? AND cr = ? LIMIT 1',
-    (line[0],line[4]))
+    (monster_name, monster_data['cr']))
   creature_id = db_cursor.fetchone()[0]
 
   # Link Books
-  db_cursor.execute('SELECT id FROM book WHERE short_hand = ? LIMIT 1', (line[1],))
+  db_cursor.execute('SELECT id FROM book WHERE short_hand = ? LIMIT 1',
+    (monster_data['book']['short_hand'],))
   book_id = db_cursor.fetchone()[0]
 
   db_cursor.execute('INSERT INTO creature_book VALUES(?, ?, ?)',
-    (creature_id, book_id, line[2]))
+    (creature_id, book_id, monster_data['book']['page']))
 
   # Load main type
-  main_type = line[3].split(' (')[0]
+  main_type = monster_data['types']['type']
 
   db_cursor.execute('SELECT id FROM type WHERE name = ? LIMIT 1', (main_type,))
   if not db_cursor.fetchone():
@@ -124,11 +127,8 @@ def insert_creature(db_cursor, line):
   db_cursor.execute('INSERT INTO creature_type VALUES(?, ?)', (creature_id, maint_type_id))
 
   # Load secondary types
-  subtypes = line[3].split(' (')
-  if len(subtypes) > 1:
-    subtypes = subtypes[1]
-    subtypes = subtypes.replace(')', '')
-    subtypes = subtypes.split(', ')
+  if 'subtype' in monster_data['types']:
+    subtypes = monster_data['types']['subtype']
 
     for subtype in subtypes:
       db_cursor.execute('SELECT id FROM subtype WHERE name = ? LIMIT 1', (subtype,))
@@ -218,23 +218,25 @@ def db_setup():
         exit(1)
   print " COMPLETE!%s" % colorz.ENDC
 
-  stdout.write("%sPopulating tables..." % colorz.BLUE)
+  stdout.write("%sPreloading tables..." % colorz.BLUE)
   preload_tables(db_cursor)
   print " COMPLETE!%s" % colorz.ENDC
 
-  book_list = csv.reader(open('assets/books.csv', 'rb'),
-    delimiter=',', quotechar='"')
+  book_list= yaml.load(open('assets/books.yaml', 'rb'))
   stdout.write("%sLoading books..." % colorz.BLUE)
-  for line in book_list:
-    db_cursor.execute("SELECT id FROM book WHERE short_hand = ? LIMIT 1", (line[0],))
+  for entry in book_list:
+    db_cursor.execute("SELECT id FROM book WHERE short_hand = ? LIMIT 1",
+      (entry['short_hand'],))
     if not db_cursor.fetchone():
-      db_cursor.execute("INSERT INTO book VALUES(NULL, ?, ?)", (line[1], line[0]))
+      db_cursor.execute("INSERT INTO book VALUES(NULL, ?, ?)",
+        (entry['name'], entry['short_hand']))
   db_conn.commit()
   print " COMPLETE!%s" % colorz.ENDC
 
-  monster_list = csv.reader(open('assets/monsters_by_cr.csv', 'rb'),
-    delimiter=',', quotechar='"')
-  monster_list = list(monster_list)
+  stdout.write("%sLoading monster yaml..." % colorz.BLUE)
+  monster_list = yaml.load(open('assets/monsters_by_cr.yaml', 'rb'))
+  print " COMPLETE!%s" % colorz.ENDC
+
   monster_list_length = len(monster_list)
   line_count = 0
   for line in monster_list:
@@ -242,7 +244,7 @@ def db_setup():
     per = line_count / float(monster_list_length) * 100
     stdout.write('\r%sLoading monsters... %d%%' % (colorz.BLUE, per))
     stdout.flush()
-    insert_creature(db_cursor, line)
+    insert_creature(db_cursor, line, monster_list[line])
     db_conn.commit()
 
   print " COMPLETE!%s" % colorz.ENDC

@@ -1,0 +1,132 @@
+- {name: 'Anauroch: The Empire of Shade', short_hand: An}
+- {name: Arms and Equipment Guide, short_hand: AE}
+- {name: Barrow of the Forgotten King, short_hand: BFK}
+- {name: Bastion of Broken Souls, short_hand: BB}
+- {name: 'Book of Challenges: Dungeon Rooms, Puzzles, and Traps', short_hand: BC}
+- {name: Book of Exalted Deeds, short_hand: BE}
+- {name: Book of Vile Darkness, short_hand: BV}
+- {name: Champions of Ruin, short_hand: CR}
+- {name: Champions of Valor, short_hand: CV}
+- {name: City of Peril, short_hand: CiP}
+- {name: 'City of Splendors: Waterdeep', short_hand: CSW}
+- {name: City of the Spider Queen, short_hand: CSQ}
+- {name: Cityscape, short_hand: Ci}
+- {name: Complete Adventurer, short_hand: CAd}
+- {name: Complete Arcane, short_hand: CAr}
+- {name: Complete Champion, short_hand: CC}
+- {name: Complete Divine, short_hand: CD}
+- {name: Complete Mage, short_hand: CM}
+- {name: Complete Psionic, short_hand: CP}
+- {name: Complete Scoundrel, short_hand: CS}
+- {name: Complete Warrior, short_hand: CW}
+- {name: 'Cormyr: The Tearing of the Weave', short_hand: Co}
+- {name: D&D Gazetteer, short_hand: DG}
+- {name: Deep Horizon, short_hand: DH}
+- {name: 'Defenders of the Faith: A Guidebook to Clerics and Paladins', short_hand: DF}
+- {name: Deities and Demigods, short_hand: DD}
+- {name: Draconomicon, short_hand: Dr}
+- {name: Dragon Magic, short_hand: DM}
+- {name: Dragonlance Campaign Setting, short_hand: DCS}
+- {name: Dragonmarked, short_hand: Dra}
+- {name: Dragons of Eberron, short_hand: DE}
+- {name: !!python/str "Dragons of Faer\xFBn", short_hand: DrF}
+- {name: Drow of the Underdark, short_hand: DrU}
+- {name: Dungeon Master's Guide v.3.5, short_hand: DMG}
+- {name: Dungeon Master's Guide II, short_hand: DMG2}
+- {name: Dungeonscape, short_hand: Du}
+- {name: Eberron Campaign Setting, short_hand: ECS}
+- {name: Elder Evils, short_hand: ElE}
+- {name: Enemies and Allies, short_hand: EA}
+- {name: Epic Level Handbook, short_hand: EL}
+- {name: Exemplars of Evil, short_hand: EE}
+- {name: Expanded Psionics Handbook, short_hand: XPH}
+- {name: Expedition to Castle Ravenloft, short_hand: Rav}
+- {name: Expedition to the Demonweb Pits, short_hand: EDP}
+- {name: Expedition to the Ruins of Greyhawk, short_hand: ERG}
+- {name: Expedition to Undermountain, short_hand: EU}
+- {name: Explorer's Handbook, short_hand: EH}
+- {name: Eyes of the Lich Queen, short_hand: ELQ}
+- {name: Faiths & Pantheons, short_hand: FP}
+- {name: Faiths of Eberron, short_hand: FE}
+- {name: 'Fantastic Locations: Fane of the Drow', short_hand: FLFD}
+- {name: 'Fantastic Locations: Fields of Ruin', short_hand: FLFR}
+- {name: 'Fantastic Locations: Hellspike Prison', short_hand: FLHP}
+- {name: Fiend Folio, short_hand: FF}
+- {name: 'Fiendish Codex I: Hordes of the Abyss', short_hand: FCI}
+- {name: 'Fiendish Codex II: Tyrants of the Nine Hells', short_hand: FCII}
+- {name: 'Forge of Fury, The', short_hand: Fo}
+- {name: 'Forge of War, The', short_hand: FW}
+- {name: Forgotten Realms Campaign Setting, short_hand: FRCS}
+- {name: Fortress of the Yuan-Ti, short_hand: FY}
+- {name: Frostburn, short_hand: Fr}
+- {name: Ghostwalk, short_hand: Gh}
+- {name: Grand History of the Realms, short_hand: GHR}
+- {name: Grasp of the Emerald Claw, short_hand: GC}
+- {name: Heart of Nightfang Spire, short_hand: HN}
+- {name: Hero Builder's Guidebook, short_hand: HBG}
+- {name: Heroes of Battle, short_hand: HB}
+- {name: Heroes of Horror, short_hand: HH}
+- {name: 'Libris Mortis: The Book of the Dead', short_hand: LM}
+- {name: Living Greyhawk Gazetteer, short_hand: LG}
+- {name: Lord of the Iron Fortress, short_hand: LF}
+- {name: Lords of Darkness, short_hand: LD}
+- {name: Lords of Madness, short_hand: LoM}
+- {name: !!python/str "Lost Empires of Faer\xFBn", short_hand: LE}
+- {name: Magic Item Compendium, short_hand: MIC}
+- {name: Magic of Eberron, short_hand: MoE}
+- {name: !!python/str "Magic of Faer\xFBn", short_hand: Mag}
+- {name: Magic of Incarnum, short_hand: MoI}
+- {name: Manual of the Planes, short_hand: MP}
+- {name: 'Masters of the Wild: A Guidebook to Barbarians, Druids, and Rangers', short_hand: MW}
+- {name: Miniatures Handbook, short_hand: MH}
+- {name: !!python/str "Monster Compendium: Monsters of Faer\xFBn", short_hand: Mon}
+- {name: Monster Manual V, short_hand: MM5}
+- {name: Monster Manual IV, short_hand: MM4}
+- {name: Monster Manual III, short_hand: MM3}
+- {name: Monster Manual II, short_hand: MM2}
+- {name: Monster Manual v.3.5, short_hand: MM}
+- {name: Mysteries of the Moonsea, short_hand: Mys}
+- {name: Oriental Adventures, short_hand: OA}
+- {name: Planar Handbook, short_hand: PlH}
+- {name: Player's Guide to Eberron, short_hand: PE}
+- {name: !!python/str "Player's Guide to Faer\xFBn", short_hand: PG}
+- {name: Player's Handbook v.3.5, short_hand: PH}
+- {name: Player's Handbook II, short_hand: PH2}
+- {name: !!python/str "Power of Faer\xFBn", short_hand: PF}
+- {name: Races of Destiny, short_hand: RD}
+- {name: Races of Eberron, short_hand: RE}
+- {name: !!python/str "Races of Faer\xFBn", short_hand: Rac}
+- {name: Races of Stone, short_hand: RS}
+- {name: Races of the Dragon, short_hand: RDr}
+- {name: Races of the Wild, short_hand: RW}
+- {name: Red Hand of Doom, short_hand: RH}
+- {name: Return to the Temple of Elemental Evil, short_hand: RT}
+- {name: Rules Compendium, short_hand: RC}
+- {name: Sandstorm, short_hand: Sa}
+- {name: Savage Species, short_hand: SS}
+- {name: Secrets of Sarlona, short_hand: SoS}
+- {name: Secrets of Xen'drik, short_hand: SX}
+- {name: Serpent Kingdoms, short_hand: SK}
+- {name: 'Shadowdale: The Scouring of the Land', short_hand: SSL}
+- {name: Shadows of the Last War, short_hand: SL}
+- {name: 'Sharn: City of Towers', short_hand: Sh}
+- {name: The Shattered Gates of Slaughtergarde, short_hand: ShG}
+- {name: Shining South, short_hand: ShS}
+- {name: Silver Marches, short_hand: SM}
+- {name: 'Sinister Spire, The', short_hand: SiS}
+- {name: 'Song and Silence: A Guidebook to Bards and Rogues', short_hand: SaS}
+- {name: Sons of Gruumsh, short_hand: SG}
+- {name: 'Speaker in Dreams, The', short_hand: SD}
+- {name: 'Standing Stone, The', short_hand: StS}
+- {name: Stormwrack, short_hand: Sto}
+- {name: Stronghold Builder's Guidebook, short_hand: SB}
+- {name: 'Sunless Citadel, The', short_hand: SC}
+- {name: 'Sword and Fist: A Guidebook to Monks and Fighters', short_hand: SF}
+- {name: 'Tome and Blood: A Guidebook to Wizards and Sorcerers', short_hand: TB}
+- {name: 'Tome of Battle: The Book of Nine Swords', short_hand: ToB}
+- {name: Tome of Magic, short_hand: TM}
+- {name: Unapproachable East, short_hand: Una}
+- {name: Underdark, short_hand: Und}
+- {name: Unearthed Arcana, short_hand: UA}
+- {name: Voyage of the Golden Dragon, short_hand: VGD}
+- {name: Whispers of the Vampire's Blade, short_hand: WB}

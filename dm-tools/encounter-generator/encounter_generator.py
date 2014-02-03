@@ -21,6 +21,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>
 """
 
+import time
 import argparse
 from random import randint
 from creature_db_setup import db_setup
@@ -521,7 +522,11 @@ args=parser.parse_args()
 ####################################################################################
 #                                  DATBASE SETUP                                   #
 ####################################################################################
+start = time.clock()
 db_conn, db_cursor = db_setup()
+elapsed = time.clock()
+elapsed = elapsed - start
+print "Time spent in (function name) is: ", elapsed
 
 
 ####################################################################################
