@@ -25,226 +25,226 @@ advancementList = [u'\u2014', "by character class", "hd", "special", "huge", "ga
 inputFile = "SRDMonsters.csv"
 outputFile = "SRDMonsters"+strftime("%Y-%m-%d %H:%M:%S")+".csv"
 for i in range(1, 31):
-  CRList.append(str(i))
+	CRList.append(str(i))
 
 #Grabs all relevant data from a single monster, given a link name (monster_data[0]).  Then outputs 
 #the data to a line in a file given in OutputFile
 def scrape_a_monster(monster_data, outputFile):
-  tableNumber = str(monster_data[1])
-  sideNumber = str(monster_data[2])
-  numVersions = str(monster_data[3])
-  monster = []
-  element_skips = 0
-  if tableNumber != "0":
-    driver.get(siteURL)
-    if monster_data[0] == "Will-O'-Wisp":
-      driver. get("http://www.d20srd.org/srd/monsters/willOWisp.htm")
-    else:
-      try:
-        driver.find_element_by_link_text(monster_data[0]).click()
-      except:
-        print "Unable to click on "+monster_data[0]+", " +str(sys.exc_info()[0])
-    for versions in range(int(numVersions)):
-      if monster_data[0] == "Will-O'-Wisp":
-        monster = ["Will-O'-Wisp"]
-      else:
-        if int(sideNumber) > 0:
-          try:
-            monster = [driver.find_element_by_xpath("//body/table["+tableNumber+"]/tbody/tr[1]/th["+str(int(sideNumber)+1+int(versions))+"]").text]
-          except NoSuchElementException:
-            monster = ["No Such Element:  //body/table["+tableNumber+"]/tbody/tr[1]/th["+str(int(sideNumber)+1+int(versions))+"]"]
-        else:
-          monster = [monster_data[0]]
-      for i in range(1,23):
-        if int(sideNumber) > 0:
-          try:
-            stat = driver.find_element_by_xpath("//body/table["+tableNumber+"]/tbody/tr["+str(i+element_skips+1)+"]/td["+sideNumber+"]").text
-            stepIncrease = verify_stat(i+element_skips, stat)
-            if stepIncrease == 0:
-              monster.append(stat)
-            else:
-              print monster[0]
-              element_skips = element_skips + stepIncrease
-              for i in range(stepIncrease+1):
-                monster.append("")
-              monster.append(stat)
-          except NoSuchElementException:
-            if i == 1:
-              element_skips = 1
-              monster.append(driver.find_element_by_xpath("//body/table["+tableNumber+"]/tbody/tr["+str(i+element_skips+1)+"]/td["+sideNumber+"]").text)
-            #else:
-              #monster.append("No Such Element: //body/table["+tableNumber+"]/tbody/tr["+str(i+1)+"]/td["+sideNumber+"]")
-        else:
-          try:
-            stat = driver.find_element_by_xpath("//body/table["+tableNumber+"]/tbody/tr["+str(i)+"]/td").text
-            stepIncrease = verify_stat(i+element_skips, stat)
-            if stepIncrease == 0:
-              monster.append(stat)
-            else:
-              print monster[0]
-              element_skips = element_skips + stepIncrease
-              for i in range(stepIncrease):
-                monster.append("")
-              monster.append(stat)
-          except NoSuchElementException:
-            pass
-            #monster.append("No Such Element:  //body/table["+tableNumber+"]/tbody/tr["+str(i)+"]/td")
-      if debug:
-        print monster
-      monster = [stat.replace(u'\u2014', '-') for stat in monster]
-      monster = [stat.replace(u'\xd8', '-') for stat in monster]
-      monster = [stat.replace(u'\xd7' , 'X') for stat in monster]
-      monster = [stat.replace(u'\xbd' , '1/2') for stat in monster]
-      monster = [stat.replace(u'\u2019', "'") for stat in monster]
-      monster = [stat.replace(u'\xbc', "1/4") for stat in monster]
-      monster = [stat.replace(u'\u2026', "...") for stat in monster]
-      outputFile.writerow(monster)
-      element_skips = 0
-  else:
-    outputFile.writerow([monster_data[0]])
+	tableNumber = str(monster_data[1])
+	sideNumber = str(monster_data[2])
+	numVersions = str(monster_data[3])
+	monster = []
+	element_skips = 0
+	if tableNumber != "0":
+		driver.get(siteURL)
+		if monster_data[0] == "Will-O'-Wisp":
+			driver. get("http://www.d20srd.org/srd/monsters/willOWisp.htm")
+		else:
+			try:
+				driver.find_element_by_link_text(monster_data[0]).click()
+			except:
+				print "Unable to click on "+monster_data[0]+", " +str(sys.exc_info()[0])
+		for versions in range(int(numVersions)):
+			if monster_data[0] == "Will-O'-Wisp":
+				monster = ["Will-O'-Wisp"]
+			else:
+				if int(sideNumber) > 0:
+					try:
+						monster = [driver.find_element_by_xpath("//body/table["+tableNumber+"]/tbody/tr[1]/th["+str(int(sideNumber)+1+int(versions))+"]").text]
+					except NoSuchElementException:
+						monster = ["No Such Element:  //body/table["+tableNumber+"]/tbody/tr[1]/th["+str(int(sideNumber)+1+int(versions))+"]"]
+				else:
+					monster = [monster_data[0]]
+			for i in range(1,23):
+				if int(sideNumber) > 0:
+					try:
+						stat = driver.find_element_by_xpath("//body/table["+tableNumber+"]/tbody/tr["+str(i+element_skips+1)+"]/td["+sideNumber+"]").text
+						stepIncrease = verify_stat(i+element_skips, stat)
+						if stepIncrease == 0:
+							monster.append(stat)
+						else:
+							print monster[0]
+							element_skips = element_skips + stepIncrease
+							for i in range(stepIncrease+1):
+								monster.append("")
+							monster.append(stat)
+					except NoSuchElementException:
+						if i == 1:
+							element_skips = 1
+							monster.append(driver.find_element_by_xpath("//body/table["+tableNumber+"]/tbody/tr["+str(i+element_skips+1)+"]/td["+sideNumber+"]").text)
+						#else:
+							#monster.append("No Such Element: //body/table["+tableNumber+"]/tbody/tr["+str(i+1)+"]/td["+sideNumber+"]")
+				else:
+					try:
+						stat = driver.find_element_by_xpath("//body/table["+tableNumber+"]/tbody/tr["+str(i)+"]/td").text
+						stepIncrease = verify_stat(i+element_skips, stat)
+						if stepIncrease == 0:
+							monster.append(stat)
+						else:
+							print monster[0]
+							element_skips = element_skips + stepIncrease
+							for i in range(stepIncrease):
+								monster.append("")
+							monster.append(stat)
+					except NoSuchElementException:
+						pass
+						#monster.append("No Such Element:  //body/table["+tableNumber+"]/tbody/tr["+str(i)+"]/td")
+			if debug:
+				print monster
+			monster = [stat.replace(u'\u2014', '-') for stat in monster]
+			monster = [stat.replace(u'\xd8', '-') for stat in monster]
+			monster = [stat.replace(u'\xd7' , 'X') for stat in monster]
+			monster = [stat.replace(u'\xbd' , '1/2') for stat in monster]
+			monster = [stat.replace(u'\u2019', "'") for stat in monster]
+			monster = [stat.replace(u'\xbc', "1/4") for stat in monster]
+			monster = [stat.replace(u'\u2026', "...") for stat in monster]
+			outputFile.writerow(monster)
+			element_skips = 0
+	else:
+		outputFile.writerow([monster_data[0]])
 
 #Switch statement used to verify that the correct stats are going in the correct fields.
 def verify_stat(position, stat_field):
-  try:
-    stat = stat_field.lower()
-  except AttributeError:
-    stat = stat_field.replace(u'\u2014', '-').replace(u'\xbd' , '1/2').replace(u'\xbc', "1/4").replace(u'\xe2', "-")
-  if position == 1:
-    for type in typeList:
-      if type in stat:
-        return 0
-    print stat+ " is not a size/type"
-    return -1 + verify_stat(position-1, stat)
-  if position == 2:
-    if "hp)" in stat:
-      return 0
-    else:
-      print stat+ " is not hit dice"
-      return -1 + verify_stat(position-1, stat)
-  if position == 3:
-    if "+" in stat or "-" in stat:
-      return 0
-    else:
-      print stat+ " is not an initiative bonus"
-      return -1 + verify_stat(position-1, stat)
-  if position == 4:
-    if "ft." in stat:
-      return 0
-    else:
-      print stat+ " is not a speed"
-      return -1 + verify_stat(position-1, stat) 
-  if position == 5:
-    if "touch" in stat or "natural" in stat:
-      return 0
-    else:
-      print stat+ " is not an AC"
-      return -1 + verify_stat(position-1, stat) 
-  if position == 6:
-    if "/" in stat:
-      return 0
-    else:
-      print stat+ " is not a base attack/grapple"
-      return -1 + verify_stat(position-1, stat) 
-  if position == 7:
-    if "melee" in stat or "ranged" in stat or "swarm" in stat or u'\u2014' in stat:
-      return 0
-    else:
-      print stat+ " is not an attack"
-      return -1 + verify_stat(position-1, stat) 
-  if position == 8:
-    if "melee" in stat or "ranged" in stat or "swarm" in stat or u'\u2014' in stat:
-      return 0
-    else:
-      print stat+ " is not a full attack"
-      return -1 + verify_stat(position-1, stat) 
-  if position == 9:
-    if "ft." in stat:
-      return 0
-    else:
-      print stat+ " is not a space/reach"
-      return -1 + verify_stat(position-1, stat)
-  if position == 10:
-    if "ft." in stat:
-      print stat+ " is not a list of Special Attacks"
-      return -1 + verify_stat(position-1, stat)
-    else:
-      return 0
-  if position == 11:
-    if "fort" in stat and "ref" in stat and "will" in stat:
-      print stat+ " is not a list of Special Qualities"
-      return -1 + verify_stat(position-1, stat)
-    else:
-      return 0
-  if position == 12:
-    if "fort" in stat and "ref" in stat and "will" in stat:
-      return 0
-    else:
-      print stat+ " is not a list of saves"
-      return -1 + verify_stat(position-1, stat) 
-  if position == 13:
-    if "str" in stat and "dex" in stat and "con" in stat and "int" in stat:
-      return 0
-    else:
-      print stat+ " is not a list of abilities"
-      return -1 + verify_stat(position-1, stat)
-  if position == 14:
-    for skill in skillList:
-      if skill in stat:
-        return 0
-    print stat+ " is not a skill list"
-    return +1 + verify_stat(position+1, stat)
-  if position == 15:
-    for feat in featList:
-      if feat in stat:
-        return 0
-    print stat+ " is not a feat list"
-    return +1 + verify_stat(position+1, stat) 
-  if position == 16:
-    for environment in environmentList:
-      if environment in stat:
-        return 0
-    print stat+ " is not an environment"
-    return +1 + verify_stat(position+1, stat) 
-  if position == 17:
-    for organization in organizationList:
-      if organization in stat:
-        return 0
-    print stat+ " is not an organization type"
-    return +1 + verify_stat(position+1, stat) 
-  if position == 18:
-    if stat in CRList:
-      return 0
-    else:
-      print stat+ " is not a valid CR!"
-      return +1 + verify_stat(position+1, stat)
-  if position == 19:
-    for treasure in treasureList:
-      if treasure in stat:
-        return 0
-    print stat+ " is not a treasure list"
-    return 1 + verify_stat(position+1, stat)  
-  if position == 20:
-    for alignment in alignmentList:
-      if alignment in stat:
-        return 0
-    print stat+ " is not an alignment"
-    return 1 + verify_stat(position+1, stat)  
-  if position == 21:
-    for advancement in advancementList:
-      if advancement in stat:
-        return 0
-    print stat+ " is not an advancement type"
-    return 1 + verify_stat(position+1, stat)  
-  if position == 22:
-    if "+" in stat or u'\u2014' in stat:
-      return 0
-    else:
-      print stat+" is not a level adjustment"
-      return +1 + verify_stat(position+1, stat)
-  if position == 23:
-    return 0
-  print "Position in verify_stat out of bounds! "+str(position)+", "+stat_field
-  return -10
+	try:
+		stat = stat_field.lower()
+	except AttributeError:
+		stat = stat_field.replace(u'\u2014', '-').replace(u'\xbd' , '1/2').replace(u'\xbc', "1/4").replace(u'\xe2', "-")
+	if position == 1:
+		for type in typeList:
+			if type in stat:
+				return 0
+		print stat+ " is not a size/type"
+		return -1 + verify_stat(position-1, stat)
+	if position == 2:
+		if "hp)" in stat:
+			return 0
+		else:
+			print stat+ " is not hit dice"
+			return -1 + verify_stat(position-1, stat)
+	if position == 3:
+		if "+" in stat or "-" in stat:
+			return 0
+		else:
+			print stat+ " is not an initiative bonus"
+			return -1 + verify_stat(position-1, stat)
+	if position == 4:
+		if "ft." in stat:
+			return 0
+		else:
+			print stat+ " is not a speed"
+			return -1 + verify_stat(position-1, stat)	
+	if position == 5:
+		if "touch" in stat or "natural" in stat:
+			return 0
+		else:
+			print stat+ " is not an AC"
+			return -1 + verify_stat(position-1, stat)	
+	if position == 6:
+		if "/" in stat:
+			return 0
+		else:
+			print stat+ " is not a base attack/grapple"
+			return -1 + verify_stat(position-1, stat)	
+	if position == 7:
+		if "melee" in stat or "ranged" in stat or "swarm" in stat or u'\u2014' in stat:
+			return 0
+		else:
+			print stat+ " is not an attack"
+			return -1 + verify_stat(position-1, stat)	
+	if position == 8:
+		if "melee" in stat or "ranged" in stat or "swarm" in stat or u'\u2014' in stat:
+			return 0
+		else:
+			print stat+ " is not a full attack"
+			return -1 + verify_stat(position-1, stat)	
+	if position == 9:
+		if "ft." in stat:
+			return 0
+		else:
+			print stat+ " is not a space/reach"
+			return -1 + verify_stat(position-1, stat)
+	if position == 10:
+		if "ft." in stat:
+			print stat+ " is not a list of Special Attacks"
+			return -1 + verify_stat(position-1, stat)
+		else:
+			return 0
+	if position == 11:
+		if "fort" in stat and "ref" in stat and "will" in stat:
+			print stat+ " is not a list of Special Qualities"
+			return -1 + verify_stat(position-1, stat)
+		else:
+			return 0
+	if position == 12:
+		if "fort" in stat and "ref" in stat and "will" in stat:
+			return 0
+		else:
+			print stat+ " is not a list of saves"
+			return -1 + verify_stat(position-1, stat)	
+	if position == 13:
+		if "str" in stat and "dex" in stat and "con" in stat and "int" in stat:
+			return 0
+		else:
+			print stat+ " is not a list of abilities"
+			return -1 + verify_stat(position-1, stat)
+	if position == 14:
+		for skill in skillList:
+			if skill in stat:
+				return 0
+		print stat+ " is not a skill list"
+		return +1 + verify_stat(position+1, stat)
+	if position == 15:
+		for feat in featList:
+			if feat in stat:
+				return 0
+		print stat+ " is not a feat list"
+		return +1 + verify_stat(position+1, stat)	
+	if position == 16:
+		for environment in environmentList:
+			if environment in stat:
+				return 0
+		print stat+ " is not an environment"
+		return +1 + verify_stat(position+1, stat)	
+	if position == 17:
+		for organization in organizationList:
+			if organization in stat:
+				return 0
+		print stat+ " is not an organization type"
+		return +1 + verify_stat(position+1, stat)	
+	if position == 18:
+		if stat in CRList:
+			return 0
+		else:
+			print stat+ " is not a valid CR!"
+			return +1 + verify_stat(position+1, stat)
+	if position == 19:
+		for treasure in treasureList:
+			if treasure in stat:
+				return 0
+		print stat+ " is not a treasure list"
+		return 1 + verify_stat(position+1, stat)	
+	if position == 20:
+		for alignment in alignmentList:
+			if alignment in stat:
+				return 0
+		print stat+ " is not an alignment"
+		return 1 + verify_stat(position+1, stat)	
+	if position == 21:
+		for advancement in advancementList:
+			if advancement in stat:
+				return 0
+		print stat+ " is not an advancement type"
+		return 1 + verify_stat(position+1, stat)	
+	if position == 22:
+		if "+" in stat or u'\u2014' in stat:
+			return 0
+		else:
+			print stat+" is not a level adjustment"
+			return +1 + verify_stat(position+1, stat)
+	if position == 23:
+		return 0
+	print "Position in verify_stat out of bounds! "+str(position)+", "+stat_field
+	return -10
 
 
 
@@ -255,21 +255,21 @@ def verify_stat(position, stat_field):
 #with a date of all the monsters.
 #try:
 with open(inputFile, "rU") as csvfile:
-  monsterReader = csv.reader(csvfile)
-  with open(outputFile, 'wb') as csvfile:
-    monsterWriter = csv.writer(csvfile, delimiter=',', quotechar='"')
-    monsterWriter.writerow(["Name", "Size/Type", "Hit Dice", "Initiative", "Speed", "Armor Class", "Base Attack/Grapple", "Attack", "Full Attack", "Space/Reach", "Special Attacks", "Special Qualities", "Saves", "Abilities", "Skills", "Feats", "Environment", "Organization", "Challenge Rating", "Treasure", "Alignment", "Advancement", "Level Adjustment"])
-    for data in monsterReader:
-      #try:
-      scrape_a_monster(data, monsterWriter)
-      #except:
-        #print data[0]+" Didn't work."
-        #print traceback.print_exc()
+	monsterReader = csv.reader(csvfile)
+	with open(outputFile, 'wb') as csvfile:
+		monsterWriter = csv.writer(csvfile, delimiter=',', quotechar='"')
+		monsterWriter.writerow(["Name", "Size/Type", "Hit Dice", "Initiative", "Speed", "Armor Class", "Base Attack/Grapple", "Attack", "Full Attack", "Space/Reach", "Special Attacks", "Special Qualities", "Saves", "Abilities", "Skills", "Feats", "Environment", "Organization", "Challenge Rating", "Treasure", "Alignment", "Advancement", "Level Adjustment"])
+		for data in monsterReader:
+			#try:
+			scrape_a_monster(data, monsterWriter)
+			#except:
+				#print data[0]+" Didn't work."
+				#print traceback.print_exc()
 print "Scraping complete."
-      
+			
 #except:
-  #print "Unexpected error while loading monster data file:", sys.exc_info()[0]
-  #print traceback.print_exc()
-  #print "Please make sure MonsterNames.csv is located in the same folder as this program"
-  #print sys.exc_info()[0]
+	#print "Unexpected error while loading monster data file:", sys.exc_info()[0]
+	#print traceback.print_exc()
+	#print "Please make sure MonsterNames.csv is located in the same folder as this program"
+	#print sys.exc_info()[0]
 driver.quit()
