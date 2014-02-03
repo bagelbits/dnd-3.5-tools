@@ -25,6 +25,7 @@ from sys import stdout
 import sqlite3
 import csv
 import traceback
+import os
 
 
 class colorz:
@@ -194,14 +195,22 @@ def preload_tables(db_cursor):
         db_cursor.execute('INSERT INTO alignment VALUES(?, 0)', (subtype_id,))
 
 
-def db_setup():
+def db_setup(reload_db):
   tables = ['size', 'creature', 'book', 'creature_book', 'type']
   tables.extend(['creature_type', 'subtype', 'creature_subtype'])
   tables.extend(['alignment', 'element'])
 
+  db_exists = False
+
+  if os.path.isfile('assets/creatures.db') and not reload_db:
+    db_exists = True
+
   db_conn = sqlite3.connect('assets/creatures.db')
   db_conn.text_factory = str
   db_cursor = db_conn.cursor()
+
+  if db_exists:
+    return db_conn, db_cursor
 
   db_cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
   table_results = db_cursor.fetchall()

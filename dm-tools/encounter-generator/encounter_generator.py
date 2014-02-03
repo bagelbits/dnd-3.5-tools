@@ -513,6 +513,9 @@ parser.add_argument('--pokemon-mode', default=False, dest='pokemon_mode',
   help='Set pokemon style vs. mode with CR')
 parser.add_argument('-b', '--set-books', nargs='*', dest='set_books',
   help="Set books that you want. Please comma separate these.")
+parser.add_argument('-r', '--reload-db', action='store_true',
+  default=False, dest='reload_db',
+  help='Cursory reload of db. This will really only add new monsters.\nFor other changes, please delete assets/creatures.db first.')
 
 # TODO: Option for setting types you want
 
@@ -521,7 +524,7 @@ args=parser.parse_args()
 ####################################################################################
 #                                  DATBASE SETUP                                   #
 ####################################################################################
-db_conn, db_cursor = db_setup()
+db_conn, db_cursor = db_setup(args.reload_db)
 
 
 ####################################################################################
