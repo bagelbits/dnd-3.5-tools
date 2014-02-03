@@ -1,0 +1,14 @@
+---
+
+#Special Materials: Five percent of armor or shields are made
+#of special materials, such as adamantine, darkwood, dragonhide,
+#or mithral. Tables 1-1 through 1-4 summarize the effects of the
+#most common special materials used in armor and shields; see
+#Special Materials, DMG 283, for more details. All adamantine,
+#darkwood, dragonhide, and mithral items are automatically of
+#masterwork quality, and the costs in Tables 1-1 through 1-4
+#include masterwork costs.
+
+
+Material:
+  
