@@ -25,6 +25,7 @@ from sys import stdout
 import sqlite3
 import csv
 import traceback
+import os
 
 
 class colorz:
@@ -199,9 +200,17 @@ def db_setup():
   tables.extend(['creature_type', 'subtype', 'creature_subtype'])
   tables.extend(['alignment', 'element'])
 
+  db_exists = False
+
+  if os.path.isfile('assets/creatures.db'):
+    db_exists = True
+
   db_conn = sqlite3.connect('assets/creatures.db')
   db_conn.text_factory = str
   db_cursor = db_conn.cursor()
+
+  if db_exists:
+    return db_conn, db_cursor
 
   db_cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
   table_results = db_cursor.fetchall()
