@@ -84,9 +84,12 @@ def random_spell(db_cursor, choice_weights, spell_level, spell_type):
     if spell_type == 'arcane':
         db_cursor.execute("SELECT id, more_common FROM class \
                            WHERE frequency = ? AND arcane = 1", (select_freq, ))
-    else:
+    elif spell_type == 'divine':
         db_cursor.execute("SELECT id, more_common FROM class \
                            WHERE frequency = ? AND divine = 1", (select_freq, ))
+    else:
+        db_cursor.execute("SELECT id, more_common FROM class \
+                           WHERE frequency = ?", (select_freq, ))
     class_weights = {}
     for returned_class in db_cursor.fetchall():
         if returned_class[1] == 0:
@@ -186,6 +189,8 @@ parser.add_argument('-a', '--arcane', action='store_true', default=False,
                     dest='arcane', help='Set spell type to arcane')
 parser.add_argument('-d', '--divine', action='store_true', default=False,
                     dest='divine', help='Set spell type to divine')
+parser.add_argument('-b', '--both', action='store_true', default=False,
+                    dest='both', help='Set spell type to arcane and divine')
 
 args = parser.parse_args()
 
@@ -213,6 +218,8 @@ if args.arcane:
     spell_type = 'arcane'
 if args.divine:
     spell_type = 'divine'
+if args.both:
+    spell_type = 'both'
 
 # TODO: This should randomly pick one instead
 if not args.arcane and not args.divine:
@@ -221,6 +228,8 @@ if not args.arcane and not args.divine:
         spell_type = 'arcane'
     elif spell_type.lower().startswith('d'):
         spell_type = 'divine'
+    elif spell_type.lower().startswith('b'):
+        spell_type = 'both'
     else:
         print "%sThat's not a valid type.%s" % (colorz.RED, colorz.ENDC)
         exit()
