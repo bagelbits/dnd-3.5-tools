@@ -4,6 +4,8 @@ import argparse
 import yaml
 import unicodedata
 import codecs
+from json import JSONEncoder
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-f', '--file') #file to parse
@@ -16,8 +18,26 @@ class ArmorProperty:
 	name = ''
 	subtype = ''
 	subtypeInfo = ''
+	price = ''
+	creationGP = -1
+	creationXP = -1
+	creationDays = -1
+	onArmor = False
+	onShield = False
+	casterLvl = -1
+	aura = ''
+	school = ''
+	description = ''
+	
 	def __str__(self):
-		return "{0} \n    Subtype: {1}".format(self.name, self.subtype)
+		encoder = JSONEncoder()
+		string = ''
+		items = self.__dict__.items()
+		items = [(key,value) for key,value in items if key != 'name']
+		string = '{0}\n'.format(self.name)
+		for key, value in items:
+			string += '    {0}: {1}'.format(key.capitalize(),value)
+		return string
 	
 
 def extractSubtype(line,prop):
