@@ -1,0 +1,631 @@
+ACIDIC 
+Price: +1 bonus Property: Armor or shield Caster Level: 6th Aura: Moderate; (DC 18) conjuration Activation: — 
+
+This item has a slick-looking, greenish sheen, and alight, acrid-smelling mist constantly rises from its surface. 
+A thin film of acid continuously covers the surface of this armor or shield, which is not damaged by this effect. An acidic suit of armor or shield deals 2d4 points of acid damage per full round of contact to each opponent grappling you, and to any object that remains in direct contact with it (except objects you are holding) for that amount of time. However, the acid deals no damage to creatures or objects that remain in contact with it for less than a full round, such as when a creature makes a melee attack against you. 
+Prerequisites: Craft Magic Arms and Armor, Melf's acid arrow. Cost to Create: Varies. 
+
+
+AGILITY Price: +500 gp Property: Armor Caster Level: 5th Aura: Faint; (DC 17) transmutation Activation: — 
+This suit of armor appears more streamlined and elegant than others of its type. It has a smoothly worked surface and no spikes or other accoutrements. 
+While wearing armor that has this prop. erty, you gain a +1 resistance bonus on Reflex saving throws. 
+Prerequisites: Craft Magic Arms and Armor, cat's grace, resistance. Cost to Create: 250 gp, 20 XP, 1 day. 
+
+
+AGILITY, GREATER 
+[SYNERGY] 
+Price: +8,000 gp Caster Level: 15th Aura: Strong; (DC 22) transmutation Synergy Prerequisite: Improved 
+agility 
+As agility, except the armor grants a +5 resistance bonus on Reflex saving throws. 
+Cost to Create: 4,000 gp, 320 XP, 8 days. 
+
+
+AGILITY, IMPROVED 
+[SYNERGY] 
+Price: +4,000 gp Caster Level: 9th Aura: Moderate; (DC 19) transmutation Synergy Prerequisite: Agility 
+As agility, except the armor grants a +3 resistance bonus on Reflex saving throws. 
+Cost to Create: 2,000 gp, 160 XP, 4 days. 
+
+
+ANCHORING 
+Price: +1 bonus 
+Property: Armor or shield 
+Caster Level: 5th 
+Aura: Faint; (DC 17) transmutation 
+Activation: — 
+
+Several images of stylized anchors cover this strangely dense-looking armor. 
+When wearing armor or a shield that has this property, you are difficult to move from your position during a fight. You gain a +5 enhancement bonus on any abil. ity check to resist a bull rush, overrun, or trip attack. 
+Prerequisites: Craft Magic Arms and Armor, bull's strength. Cost to Create: Varies. 
+
+
+ANCHORING, GREATER 
+[SYNERGY] 
+Price: +1 bonus Caster Level: 10th Aura: Moderate; (DC 20) transmutation Synergy Prerequisite: Anchoring 
+A single stylized anchor covers the chest of this hulking armor. 
+This armor functions as anchoring armor, except that it grants a +10 enhancement bonus on ability checks against bull rush, overrun, and trip attacks. 
+Cost to Create: Varies. 
+
+APORTER Price: +20,000 gp Property: Armor or shield Caster Level: 10th Aura: Moderate; (DC 20) conjuration Activation: Standard (mental) 
+Your eyes skip around this aqua-tinged item, as if having difficulty precisely locating it. 
+When it is activated, a suit of armor or shield that has this property transports you and your equipment to any spot within 800 feet that you can visualize or specify, as the dimension door spell. 
+
+The aporter property functions two times per day. Prerequisites: Craft Magic Arms and Armor, dimension door. Cost to Create: 10,000 gp, 800 XP, 20 days. 
+AVERTER 
+Price:+13,000 gp 
+Property: Shield 
+Caster Level: 5th 
+Aura: Faint; (DC 17) enchantment 
+Activation: Standard (mental) 
+
+This finely wrought black shield emanates an aura of barely contained menace. 
+When you activate an averter shield, all enemies who can see it must succeed on DC 14 Will saves or be overcome by a pow. erful aversion to the shield. For the next 3 rounds, affected creatures do not approach within 30 feet of you. This effect is a mind-affecting compulsion ability. 
+The averter property functions three times per day. Prerequisites: Craft Magic Arms and Armor, suggestion or aversion (EPH 79). Cost to Create: 6,500 gp, 520 XP, 13 days. 
+AXEBLOCK 
+Price: +2 bonus 
+Property: Armor or shield 
+Caster Level: 7th 
+Aura: Moderate; (DC 18) abjuration 
+Activation: — 
+
+The surface of this item appears serrated, sport. ing hundreds of tiny, knifelike edges. 
+An axeblock shield or suit of armor magi. cally turns away slashing weapons, such as axes and most swords. While wearing armor or carrying a shield that has this property, you gain damage reduction 5/ bludgeoning or piercing. 
+Prerequisites: Craft Magic Arms and Armor, stoneskin. Cost to Create: Varies. 
+BALANCE 
+Price:+3,750 gp 
+Property: Armor 
+Caster Level: 5th 
+Aura: Faint; (DC 17) abjuration 
+Activation: — 
+
+This elegant armor appears streamlined yet sturdy. Its surface is decorated with precise, perfectly symmetrical, geometric designs. 
+While wearing armor that has this prop. erty, you gain a +5 competence bonus on Balance checks. 
+Prerequisites: Craft Magic Arms and Armor, balancing lorecall (SC 23). Cost to Create: 1,875 gp, 150 XP, 4 days. 
+BALANCE, GREATER [SYNERGY] 
+Price:+18,750 gp 
+Caster Level: 15th 
+Aura: Strong; (DC 22) abjuration 
+Synergy Prerequisite: Improved 
+
+balance 
+
+As the balance property, except the armor grants a +15 competence bonus on Bal. ance checks. 
+Cost to Create: 9,375 gp, 750 XP, 19 days. 
+BALANCE, IMPROVED [SYNERGY] 
+Price:+11,250 gp 
+Caster Level: 10th 
+Aura: Moderate; (DC 20) abjuration 
+Synergy Prerequisite: Balance 
+
+As the balance property, except the armor grants a +10 competence bonus on Bal. ance checks. 
+Cost to Create: 5,625 gp, 450 XP, 12 days. 
+BANE BLIND 
+Price: +15,000 gp 
+Property: Armor 
+Caster Level: 7th 
+Aura: Moderate; (DC 18) illusion 
+Activation: Swift (mental) 
+
+This armor is patterned with muted colors, textures, and shading. On its chestpiece is an image of a beholder with its eyes closed. 
+Originally designed for rangers and bounty hunters, bane blind armor affects a specific type or subtype of creature. Three times per day while wearing this armor, you can render yourself imperceptible to creatures of the designated type or sub. type. Such creatures cannot detect your presence using any nonmagical sensory method (including scent, hearing, trem­orsense, blindsense, and the like). This effect lasts for 10 rounds or until you attack (as defined for the purpose of the invisibility spell; PH 245). 
+To randomly determine the armor's des. ignated creature, roll d% and consult the following table. On a result of Humanoid or Outsider, the DM chooses the specific subtype that this armor affects. 
+d%  Creature Type (Subtype)  
+01-06  Aberration  
+07-13  Animal  
+14-16  Construct  
+17-26  Dragon  
+27-29  Elemental  
+30-32  Fey  
+33-42  Giant  
+43-54  Humanoid  
+55-60  Magical  beast  
+61-65  Monstrous  humanoid  
+66-6 8  Ooze  
+69-71  Outsider, chaotic  
+72-74  Outsider,  lawful  
+75-81  Outsider, evil  
+82-83  Outsider, good  
+84-86  Plant  
+87-95  Undead  
+96-100  Vermin  
+
+Prerequisites: Craft Magic Arms and Armor, greater invisibility. Cost to Create: 7,500 gp, 600 XP, 15 days. 
+BEASTSKIN 
+Price: +2 bonus 
+Property: Armor 
+Caster Level: 13th Aura: Strong; (DC 21) transmutation Activation: — 
+This armor is lightly patterned with lines resembling fur, scales, and feathers. Its color. ation continuously shifts among muted tones of brown, green, and gray. 
+First created by powerful druids, armor that has this property is particularly useful to characters of that class. When. ever you use wild shape, you can expend one additional daily use of that ability to transform your beastskin armor along with you, rather than simply allowing it to merge with your body. When you do so, the armor transforms into a suit of armor of the same type, fitted for your new form. The armor's weight changes to match your new size (and shape, if you assume a form with a different body shape). 
+If you are proficient with your suit of beastskin armor in your natural form, then you are proficient with the trans. formed version as well, regardless of what shape you take. 
+Prerequisites: Craft Magic Arms and Armor, ironwood. 
+Cost to Create: Varies. 
+What's scarier than fighting a giant bear? 
+Fighting a giant bear wearing beastskin armor. 
+
+
+BLINKING 
+Price: +15,000 gp Property: Armor Caster Level: 10th Aura: Moderate; (DC 20) transmutation Activation: Standard (command) 
+Parts of this semitransparent armor seem to fade in and out of existence, there one moment and gone the next. 
+When you activate armor that has this property, you can "blink" back and forth between the Material Plane and the Ethe. real Plane, as if affected by a blink spell. 
+The blinking property functions once per day, and the effect lasts for 1 minute. Prerequisites: Craft Magic Arms and Armor, blink. Cost to Create: 7,500 gp, 600 XP, 15 days. 
+
+BLUESHINE 
+Price:+1,500 gp 
+Property: Metal armor 
+Caster Level: 12th 
+Aura: Strong; (DC 21) abjuration 
+Activation: — 
+
+This armor glistens with a blue-black sheen, as if it were covered in oily liquid sapphire. 
+A suit of armor imbued with this prop. erty never tarnishes and is immune to acid damage and rusting effects. While wearing blueshine armor, you gain a +2 competence bonus on Hide checks. 
+Prerequisites: Craft Magic Arms and Armor, Craft (alchemy) 5 ranks. Cost to Create: 750 gp, 60 XP, 2 days. 
+
+BLURRING 
+Price: +1 bonus 
+Property: Armor 
+Caster Level: 5th 
+Aura: Faint; (DC 17) illusion 
+Activation: Swift (command) 
+
+This armor appears indistinct, as though its edges were smeared. 
+When you activate this armor, your appearance becomes distorted and hazy, as if you were affected by a blur spell. 
+The blurring property functions three times per day, and the effect lasts for 5 rounds. 
+Prerequisites: Craft Magic Arms and Armor, blur. Cost to Create: Varies. 
+
+BLURRING, GREATER 
+[SYNERGY] 
+Price: +2 bonus 
+Caster Level: 12th 
+Aura: Strong; (DC 21) illusion 
+Synergy Prerequisite: Blurring 
+
+A light mist surrounds this armor, obscuring its exact details. 
+As blurring armor, except that the effect's duration is 10 minutes, and you can acti. vate the blurring property any number of times per day. 
+Cost to Create: Varies. 
+
+BUOYANT 
+Price: +4,000 gp 
+Property: Armor 
+Caster Level: 5th 
+
+Aura: Faint; (DC 17) transmutation 
+Activation: — 
+
+This bluish metal armor seems oddly light in your hands, with a liquid sheen. 
+This armor is buoyant in water or similar liquids. Armor that has this property does not apply an armor check penalty on your Swim checks. Additionally, it grants you a +2 competence bonus on Swim checks while you wear it. 
+Prerequisites: Craft Magic Arms and Armor, swim (SC 217). Cost to Create: 2,000 gp, 160 XP, 4 days. 
+CALLED Price: +2,000 gp Property: Armor or shield Caster Level: 9th Aura: Moderate; (DC 19) conjuration Activation: Standard (command) 
+At first glance, this armor or shield looks like any other item of its kind. Closer inspection reveals a small image of a beckoning hand inscribed on its surface. 
+Provided that you and your called armor or shield are on the same plane, you can call it to you by speaking the proper com. mand word, regardless of the intervening distance, if you aren't wearing armor at the time, a suit of called armor appears on your body, as though you had donned it in the normal fashion, if you are wearing other armor when you speak the command word, the called armor appears in your space or in an adjacent space you designate that is capable of holding it. A called shield appears on the proper arm if you are not already using another shield when you call it, or in your space or a designated adjacent space if you are. 
+If any other creature has worn your called armor or shield since you last wore it, you can no longer call it until you wear it again. 
+Prerequisites: Craft Magic Arms and Armor, teleport. Cost to Create: 1,000 gp, 80 XP, 2 days. 
+
+COMMANDER 
+Price: +2,000 gp 
+Property: Armor or shield 
+Caster Level: 5th 
+Aura: Faint; (DC 17) transmutation 
+Activation: — 
+
+This item looks particularly clean and bright—in fact, it almost seems to shine with its own light. 
+A suit of armor or shield that has this property always appears brilliant and gleaming, even in filthy or squalid condi. tions, though it doesn't shed any useful light. Attempts to paint over or obscure its finish do not diminish its brightness. 
+While wearing commander armor or carrying a commander shield, you gain a +2 competence bonus on Diplomacy checks, and each ally within 30 feet of you (not including yourself) gains a +1 morale bonus on Will saves. However, the shiny finish makes you so noticeable that you also take a -5 penalty on Hide checks (in addition to the normal armor check penalty). 
+Prerequisites: Craft Magic Arms and Armor, eagle's splendor. Cost to Create: 1,000 gp, 80 XP, 2 days. 
+
+DAYLIGHT 
+Price: +3,000 gp 
+Property: Armor or shield 
+Caster Level: 5th 
+
+Aura: Faint; (DC 17) evocation 
+Activation: Swift (command) 
+This brightly polished item bears an image of the sun and has a golden tinge. 
+When activated, a suit of armor or a shield that has this property glows with the brilliance of a daylight spell. This effect functions for up to 30 minutes per day, but the duration need not be continuous; you can turn the effect off with a swift action. 
+Prerequisites: Craft Magic Arms and 
+Armor, daylight. Cost to Create: 1,500 gp, 120 XP, 3 days. 
+DEATH WARD 
+Price: +1 bonus 
+Property: Armor or shield 
+Caster Level: 7th 
+Aura: Moderate; (DC 18) 
+necromancy 
+Activation: Immediate 
+(mental) 
+
+This black-enameled item has a 
+translucent quality, as through 
+it were not entirely of this world. 
+Small, white images of skulls 
+decorate the armor's shoulders, 
+like grotesque epaulets. 
+
+Armor and shields that have 
+this property are favored by 
+those dedicated to fighting 
+the foul art of necromancy. 
+While wearing or using death 
+ward armor or a death ward 
+
++1 menacing large steel shield, +1 anchoring small wooden
+shield, can activate the 
+ youarmor to ignore any death effect (including death spells, magical death effects, and energy drain) or negative energy effect (such as inflict spells or chill touch). 
+The death ward property functions once per day Prerequisites: Craft Magic Arms and Armor, death ward. Cost to Create: Varies. 
+DEEPDWELLER 
+Price: +12,000 gp Property: Armor Caster Level: 9th Aura: Moderate; (DC 19) transmutation Activation: — 
+Dull black, the substance of this armor is flecked with tiny particles and seems to swirl like the depths of the sea. 
+While wearing deepdweller armor, you can breathe water and are immune to damage from cold water and from pres. sure in extreme depths. Armor that has this property does not apply an armor check penalty on your Swim checks, and wearing deepdweller armor allows you to converse with any water-breathing crea. ture that has a language. Additionally, you can see twice as far underwater as normal (see DMG 93 for details on underwater effects and dangers). 
+Prerequisites: Craft Magic Arms and Armor, darkvision, water breathing. Cost to Create: 6,000 gp, 480 XP, 12 days. 
++1 blurring spiked full plate 
+
+DISPLACEMENT Price: +1 bonus Property: Armor Caster Level: 5th Aura: Faint; (DC 17) illusion Activation: Swift (command) 
+The shoulder pieces of this armor are embossed with tiny arrows pointing outward in opposite directions. 
+When you activate displacement armor, you appear to be standing right next to your actual location, as if affected by a displacement spell. 
+The displacement property functions once per day, and the effect lasts for 5 rounds. 
+Prerequisites: Craft Magic Arms and Armor, displacement. Cost to Create: Varies. 
+
+DRAGONDODGER Price: +1 bonus Property: Light armor Caster Level: 9th Aura: Moderate; (DC 19) transmutation Activation: — 
+This suit of light armor has a particularly hard and shiny finish. The protective glyphs that ring its collar and waist glow briefly when it is donned. 
+When wearing armor that has this prop. 
+erty, you gain the evasion ability (see 
+the monk class feature, PH 41), but only 
+shield, 
+against breath weapons. When. ever a breath weapon would normally allow you a Reflex saving throw for half damage, you instead take no damage on a successful save. 
+Prerequisites: Craft Magic Arms and Armor, cat's grace. Cost to Create: Varies. 
+EASY TRAVEL 
+Price: +1,500 gp 
+Property: Armor 
+Caster Level: 5th 
+Aura: Faint; (DC 17) 
+
+transmutation 
+Activation: — 
+This armor seems to weigh less than it should. 
+When wearing armor that has this property, you can carry up to a medium load as if it were a light load (ignoring the maxi. 
+mum Dexterity bonus, check penalty, and reduced speed normally incurred by a medium load). These reductions apply only to penalties for the load you carry, not to any reduction in speed caused by the armor itself. 
+In addition, you can walk for up to 10 hours in a day before having to make Con. stitution checks to avoid taking nonlethal damage (PH 164). 
+Prerequisites: Craft Magic Arms and Armor, bear's endurance. Cost to Create: 750 gp, 60 XP, 2 days. 
+
+ECTOPLASMIC FEEDBACK 
+Price: +1 bonus 
+Property: Armor 
+Caster Level: 5th 
+
+Aura: Faint; (DC 17) abjuration 
+Activation: — 
+This armor appears translucent. Holy symbols of a good-aligned deity decorate the armor, and they glow with a soft white light when it is donned. 
+A suit of armor that has this property cre. ates a backlash of positive energy against incorporeal attackers. Any time you are hit by an incorporeal touch attack while wearing it, the armor deals 1d6 points of damage to the attacker (with no miss chance for incorporealness). 
+Prerequisites: Craft Magic Arms and 
+Armor, ectoplasmic feedback (SC 78). 
+Cost to Create: Varies. 
+
+
+
+ECTOPLASMIC WALL 
+Price: +2 bonus Property: Shield Caster Level: 11th Aura: Moderate; (DC 20) conjuration Activation: Standard (command) 
+Composed of a substance so pale as to be trans. parent, this shield has four protrusions around the rim that hold it off the ground even when it is laid face down. 
+When you activate a shield that has this property and drop it at your feet, a wall of ectoplasm comes into being, as though cre. ated by the wall of ectoplasm psionic power. The wall has an area of up to ten 10-foot squares or forms a sphere or hemisphere with a radius of up to 10 feet. The shield is the point of origin for the effect. Once created, the wall is stationary. 
+The wall of ectoplasm is 2 inches thick and has 20 hit points and hardness 5. The Strength check DC to break through the wall is 19. The wall can be dispelled, but checks to dispel it are made with a -4 penalty. Spells, powers, and most effects can't pass through the opaque wall, nor can ethereal creatures, but it doesn't block teleportation. 
+The ectoplasmic wall property func. tions once per day; the effect lasts for 7 rounds or until you pick up the shield. 
+Prerequisites: Craft Magic Arms and Armor, wall of iron or wall of ectoplasm (EPH 140). 
+Cost to Create: Varies. 
+
+ENERGY DEFENSE 
+[SYNERGY] 
+Price: +1 bonus 
+Property: Armor or shield 
+Caster Level: 10th 
+Aura: Moderate; (DC 20) evocation 
+Activation: Immediate (command) 
+Synergy Prerequisite: Energy 
+
+resistance, improved energy 
+resistance, or greater energy 
+resistance 
+
+This item bears a stylized elemental motif. However, its flanges and spikes indicate that it has some offensive capability as well. 
+This armor continues to give you the benefit of its prerequisite property. In addition, while wearing or using this kind of armor or shield, you can wreathe it in the type of energy specified by its energy resistance. While this effect is active, any creature that strikes you with a natural weapon, unarmed attack, or nonreach manufactured melee weapon deals normal damage but also takes 1d6+10 points of energy damage of the specified type. 
+The energy defense property functions three times per day. The effect lasts for 5 rounds or until you dismiss it (a swift action). 
+Prerequisites: Craft Magic Arms and Armor, fire shield, resist energy. Cost to Create: Varies. 
+
+ENERGY IMMUNITY 
+Price: +2 bonus 
+Property: Armor or shield 
+Caster Level: 13th 
+Aura: Strong; (DC 21) abjuration 
+Activation: Immediate (mental) 
+
+This item is decorated with elemental motifs. No particular element is favored in the design; waves, flames, rock formations, and billows of wind are all represented equally in bright enamel. 
+Upon activating armor or a shield that has this property, you gain immunity to damage from one energy type of your choice (acid, cold, electricity, or fire). 
+Each type of energy immunity produces a corresponding minor effect that does not alter the item's function. For example, you feel a rush of warmth if the armor or shield is protecting you against cold damage, or a chill wind if it is protecting you against fire. A metallic tang fills your mouth and nostrils if electricity protection is in force, and an acrid tang pervades the air around you if acid protection has been activated. 
+The energy immunity property func. tions once per day. The effect lasts for 1 minute or until you dismiss it (a swift action). 
+Prerequisites: Craft Magic Arms and Armor, protection from energy. Cost to Create: Varies. 
+FEARSOME Price:+15,000 gp Property: Armor or shield Caster Level: 7th Aura: Moderate; (DC 18) necromancy Activation: Swift (command) 
+This item is dark in color, and anyone view. ing it sees fleeting, grotesque images on its surface. 
+When you activate armor or a shield that has this property, you create an aura of terror in a 20-foot radius around your. self. Every creature in this area briefly perceives a creature from its worst night. mare instead of you, becoming panicked for 1 round. On a successful DC 16 Will save, the creature is shaken for 1 round instead. 
+The fearsome property functions three times per day. Prerequisites: Craft Magic Arms and Armor, fear. Cost to Create: 7,500 gp, 600 XP, 15 days. 
+
+FREEDOM 
+Price: +5 bonus 
+Property: Armor 
+Caster Level: 7th 
+Aura: Moderate; (DC 18) abjuration 
+Activation: — 
+
+This armor exudes a slick of fine oil, giving it a scintillating sheen and a pungent scent. 
+While wearing armor that has this prop. erty, you move and attack normally, even under circumstances that impede movement, as if affected by a freedom of movement spell. 
+Prerequisites: Craft Magic Arms and Armor, freedom of movement. Cost to Create: Varies. 
+
+GHOST WARD 
+Price: +1 bonus 
+Property: Armor or shield 
+Caster Level: 5th 
+Aura: Faint; (DC 17) conjuration 
+Activation: — 
+
+This item appears normal at first glance, but closer examination reveals the image of a ghostly face on its surface. 
+A suit of armor or shield that has this prop. erty allows you to add its enhancement bonus (but not its armor or shield bonus) to your Armor Class against touch attacks (including incorporeal touch attacks). 
+Prerequisites: Craft Magic Arms and Armor, mage armor. Cost to Create: Varies. 
+GILLED Price:+6,000 gp Property: Armor Caster Level: 5th Aura: Faint; (DC 17) transmutation Activation: — 
+A decorative fluted border surrounds the neck of this scale-etched armor. 
+A water-breathing wearer of gilled armor can breathe and speak freely in air. 
+Prerequisites: Craft Magic Arms and Armor, air breathing (SC 8). Cost to Create: 3,000 gp, 240 XP, 6 days. 
+
+HAMMERBLOCK 
+Price: +2 bonus 
+Property: Armor or shield 
+Caster Level: 7th 
+Aura: Moderate; (DC 18) abjuration 
+Activation: — 
+
+The surface of this item is covered with a pat. tern of tiny indentations. 
+A hammerblock shield or suit of armor magically turns away bludgeoning weap. ons, such as maces and clubs. While wearing armor or carrying a shield that has this property, you gain damage reduc. tion 5/piercing or slashing. 
+Prerequisites: Craft Magic Arms and Armor, stoneskin. Cost to Create: Varies. 
+
+HEALING 
+Price: +8,000 gp Property: Armor Caster Level: 5th Aura: Faint; (DC 17) conjuration Activation: Swift (command) and —; 
+see text 
+
+This armor has a faint golden sheen, and its surface is embossed with healing runes. On its breastplate is a depiction of an open eye. 
+When activated, armor that has this prop. erty heals you of 2d8+5 points of damage. If your hit points are reduced to -1 to -9 , this effect occurs automatically, without requiring any action. 
+The healing property functions once per day. Prerequisites: Craft Magic Arms and Armor, cure moderate wounds. Cost to Create: 4,000 gp, 320 XP, 8 days. 
+
+HEALING, GREATER 
+[SYNERGY] 
+Price: +24,000 gp 
+Caster Level: 15th 
+Aura: Strong; (DC 22) conjuration 
+Synergy Prerequisite: Healing 
+
+As healing armor, except that greater healing armor heals you of 3d8+15 points of damage. 
+The greater healing property functions twice per day. 
+Prerequisites: Craft Magic Arms and 
+
+Armor, cure serious  wounds.  
+Cost  to  Create:  12,000 gp, 960 XP,  
+24 days.  
+
+
+HEARTENING 
+Price: +2,000 gp 
+
+Property: Shield Caster Level: 5th Aura: Faint; (DC 17) necromancy Activation: Immediate (mental) 
+This sturdy shield is reinforced with plates and rivets but is no heavier than normal. 
+When activated, a heartening shield grants you 5 temporary hit points, which last up to 5 minutes. These temporary hit points don't stack with temporary hit points from any other source. 
+The heartening property functions two times per day. Prerequisites: Craft Magic Arms and Armor, false life. Cost to Create: 1,000 gp, 80 XP, 1 day. 
+
+LANDING 
+Price: +4,000 gp 
+Property: Armor 
+Caster Level: 5th Aura: Faint; (DC 17) transmutation Activation: — 
+Although rotund in form, this silvery armor is no more encumbering than usual for its type. 
+A suit of armor that has this property allows you to ignore any damage dealt by the first 60 feet of a fall. Regardless of how far you fall, you can always land on your feet if you so choose. 
+Prerequisites: Craft Magic Arms and Armor, feather fall. Cost to Create: 2,000 gp, 160 XP, 4 days. 
+
+LINKED 
+Price: +6,000 gp Property: Armor or shield Caster Level: 7th Aura: Moderate; (DC 18) divination Activation: Standard (mental) 
+You sense this item's inner power more with your mind than your sight. 
+When you activate a suit of armor or a shield that has this property, you can form a telepathic bond with any or all known wearers of other linked items within 10 miles. Wearers can communicate tele¬ pathically through the bond even if they do not share a language. No special effect or influence is established as a result of the bond. 
+The linked property functions three times per day, and the effect lasts for 1 hour. 
+Prerequisites: Craft Magic Arms and Armor, Rary's telepathic bond or mindlink (EPH 120) 
+Cost to Create: 3,000 gp, 240 XP, 6 days. 
+
+MAGIC-EATING Price: +10,000 gp Property: Armor Caster Level: 16th Aura: Strong; (DC 23) abjuration Activation: — 
+Spirals and reliefs of fanged mouths cover this dull-colored armor. 
+While wearing magic-eating armor, whenever you succeed on a saving throw against a spell that targets you, the armor heals you of 1 point of damage per level of the spell. This healing occurs after the spell takes effect. 
+Prerequisites: Craft Magic Arms and Armor, spell resistance. Cost to Create: 5,000 gp, 400 XP, 10 days. 
+
+MANIFESTER Price: +6,000 gp Property: Shield Caster Level: 6th Aura: Moderate; (DC 18) abjuration Activation: Free (mental) 
+Faintly glowing with inner power, this shield seems to invigorate you. 
+While using a shield that has this prop. erty, you can draw 3 power points from it to manifest a psionic power. You must use all these points on the same power, which cannot use power points from any other source. 
+The manifester property functions once per day. Prerequisites: Craft Magic Arms and Armor, any 2nd-level psionic power. Cost to Create: 3,000 gp, 240 XP, 6 days. 
+
+MASKING Price: +40,000 gp Property: Armor Caster Level: 10th Aura: Moderate; (DC 20) abjuration Activation: — 
+Tendrils of dense black smoke stream from every opening in this dark armor, obscuring all detail. 
+Masking armor protects you and your gear from divination spells and items (such as crystal balls) as if you were constantly under the effect of a nondetection spell. Whenever a divination spell or effect is attempted against you, the caster must succeed on a DC 25 caster level check or the divination fails. 
+Prerequisites: Craft Magic Arms and Armor, nondetection. Cost to Create: 20,000 gp, 1,600 XP, 40 days. 
+
+MENACING 
+Price: +30,000 gp Property: Armor Caster Level: 9th Aura: Moderate; (DC 19) necromancy Activation: Standard (command) 
+The realistic visage of a heavily scarred, horned demon covers much of this armor. Seemingly crafted from fiendish flesh, the armor seems merely grisly... until it twitches. 
+When you activate menacing armor, you become frightening. Any one creature (your choice) within 30 feet and with fewer HD than you must make a success. ful Will saving throw (DC 10 + 1/2 your HD + your Cha modifier) or be panicked for 5 rounds. A creature that succeeds on the saving throw is shaken for 1 round instead, and is immune to further uses of this property from the same suit of armor for 24 hours. 
+The menacing property functions three times per day. Prerequisites: Craft Magic Arms and Armor, fear. Cost to Create: 15,000 gp, 1,200 XP, 30 days. 
+MINDARMOR Price: +3,000 gp Property: Armor or shield Caster Level: 5th Aura: Faint; (DC 17) enchantment Activation: Immediate (mental) 
+Constructed of seamless and tightly bound layers, this item steadies your thoughts when worn. 
+When activated, a suit of armor or a shield that has this property grants you a +5 bonus on Will saves to resist mind-
+affecting spells and abilities until the start of your next turn. The mindarmor property functions three times per day. Prerequisites: Craft Magic Arms and Armor, heroism or empty mind (EPH 99). Cost to Create: 1,500 gp, 120 XP, 3 days. 
+
+MOBILITY 
+Price: +1 bonus 
+Property: Light armor 
+Caster Level: 5th 
+Aura: Faint; (DC 17) transmutation 
+Activation: — 
+
+This suit of light armor seems exceptionally slick and supple. An abstract tracery in a silvery metal decorates the limbs and torso. 
+While wearing a suit of light armor that has this property, you gain the benefit of the Mobility feat, even if you do not meet its prerequisite. 
+Prerequisites: Craft Magic Arms and Armor, cat's grace. Cost to Create: Varies. 
+
+NIMBLENESS 
+Price: +1 bonus Property: Armor Caster Level: 8th Aura: Moderate; (DC 19) transmutation Activation: — 
+This suit of armor looks much less restrictive than others of its type. 
+A suit of armor that has this property has a maximum Dexterity bonus 1 higher than normal, and its armor check penalty is reduced by 2. 
+Prerequisites: Craft Magic Arms and Armor, cat's grace. Cost to Create: Varies. 
+
+QUICKNESS 
+Price: +5,000 gp 
+Property: Armor 
+Caster Level: 5th 
+Aura: Faint; (DC 17) transmutation 
+Activation: — 
+
+This silvery armor feels light and flexible to the touch. 
+A suit of armor that has this property grants a +5-foot enhancement bonus to your land speed. 
+Prerequisites: Craft Magic Arms and Armor, longstrider. Cost to Create: 2,500 gp, 200 XP, 5 days. 
+
+RADIANT 
+Price: +4 bonus 
+Property: Armor 
+Caster Level: 9th 
+Aura: Moderate; (DC 19) abjuration 
+Activation: — 
+
+This armor shimmers with a variety of hues, and it feels slick to the touch. 
+A suit of armor that has this property grants resistance 10 against all energy attacks (acid, cold, electricity, fire, and sonic). When you are the subject of an energy attack, the armor also radiates light for a number of rounds equal to the points of damage absorbed (to a maximum of 10 rounds). This light is sufficient to brightly illuminate a 30-foot-radius area and casts shadowy illumination in a 60­foot-radius area. 
+If the armor absorbs more energy damage while it is radiating light, the first effect overlaps (does not stack with) the effect that was already in place. For example, if the armor absorbs 4 points of damage from one attack and another 6 points from an attack 2 rounds later, it radiates light for a total of 8 consecutive rounds (4 -2 + 6). Likewise, if the armor absorbs 10 points from one attack and another 5 points from an attack 2 rounds later, it radiates light for 10 consecutive rounds (because 8 rounds remain from the earlier effect, continuing past the end of the second effect's 5 rounds). 
+Prerequisites: Craft Magic Arms and Armor, resist energy. Cost to Create: Varies. 
+
+RANGED 
+Price: +1 bonus 
+Property: Shield (except a tower 
+
+shields) 
+Caster Level: 5th 
+Aura: Faint; (DC 17) transmutation 
+Activation: — 
+
+This streamlined, gray metallic shield is keenly balanced and features a razor-sharp edge. 
+While using a ranged shield, you can throw it in combat. The thrown shield has a range increment of 30 feet. While in the air, the shield is treated in all ways as a ranged weapon, and it cannot be blocked or grabbed except by those with appropriate feats. Regardless of your size, a ranged buckler or ranged light shield deals 1d6 points of slashing damage, and a ranged heavy shield deals 1d8 points. You add your Strength modifier and the shield's enhancement bonus (but not its effective bonus from this or other special properties) to this base damage. 
+After you have thrown it, a ranged shield flies through the air back to you. It returns just before your next turn (and is therefore ready to use again on that turn). You do not benefit from its shield bonus to AC while it is not in your possession. 
+Catching a ranged shield when it comes back is a free action. If you can't catch it, or if you have moved since throwing it, the shield drops to the ground in the square from which it was thrown. 
+Prerequisites: Craft Magic Arms and Armor, hurl (SC 117) or far hand (EPH 106). 
+Cost to Create: Varies. 
+
+RETALIATION Price: +2 bonus Property: Armor Caster Level: 9th Aura: Moderate; (DC 19) necromancy Activation: — 
+The surface of this armor roils with pent-up energy. 
+A suit of armor that has this property strikes back at foes who hit hard in melee. While wearing retaliation armor, each time you take 10 or more points of damage from a single melee attack, the armor deals 1d6 points of damage to the attacker. If a single melee attack drops your hit points below 0, the armor strikes the attacker for 3d6 points of damage. 
+Damage from retaliation armor is treated as magic for the purpose of over. coming damage reduction. 
+Prerequisites: Craft Magic Arms and Armor, symbol of pain. Cost to Create: Varies. 
+
+ROARING Price: +3 bonus Property: Armor Caster Level: 13th Aura: Strong; (DC 21) divination Activation: — 
+The sculpted visage of a dragon adorns the chestpiece of this gleaming armor. Embel. lishments in the shapes of claws and draconic wings accent the rest of its intimidating appearance. 
+While you are wearing armor that has this property, you gain some protection from ranged attacks. Whenever you are hit by a nonmagical projectile that would deal 10 or fewer points of damage, you take no damage from that attack. The armor automatically turns back the projectile to strike the creature that fired it. Reroll the damage against the original attacker. 
+While you wear this armor, the embossed dragon head roars whenever battle is imminent, granting you a +4 competence bonus on initiative checks. 
+Prerequisites: Craft Magic Arms and Armor, protection from arrows, true seeing. Cost to Create: Varies. 
+SOULBOUND 
+Price: +1 bonus 
+Property: Armor or shield 
+Caster Level: 6th 
+Aura: Moderate; (DC 18) abjuration 
+Activation: Swift (mental) 
+
+This looks like a normal item of its kind except for a faint blue sheen. 
+A soulbound shield or suit of armor serves as a receptacle for your essentia, much like a soulmeld does. Every point of essentia invested in the shield or armor increases its enhancement bonus to Armor Class by 1, up to a maximum enhancement bonus of +3. 
+Each soulbound shield or suit of armor has an essentia capacity The maximum number of essentia points that can be invested in it equals this value or your normal essentia capacity (see Table 2-1: Essentia Capacity, Magic of Incarnum 19), whichever is lower. 
+A soulbound shield or suit of armor has a maximum essentia capacity of 2. 
+Chakra Bind: A soulbound shield or suit of armor grants bonuses when it is bound to a chakra, as described below. These effects function continuously, with no need for activation. See Bind. ing Items to Chakras (MoI 108) for more information. 
+Arms: Binding a soulbound shield to your arms chakra grants you a +4 insight bonus on checks or rolls made to avoid being bull rushed or overrun, or to avoid having the item sundered. 
+Soul: Binding soulbound armor to your soul chakra grants you a +4 insight bonus on saves made against the attacks of crea. tures whose alignments are opposed to yours in any way. For example, a lawful good character would gain this bonus against the spells, spell-like abilities, and supernatural attacks of chaotic or evil creatures, while a neutral good character would gain it only against the attacks of evil creatures. Neutral characters gain no benefit from this chakra bind. 
+Prerequisites: Craft Magic Arms and Armor, magic vestment, essentia pool 2. Cost to Create: Varies. 
+SOULBOUND, GREATER [SYNERGY] 
+Price: +2 bonus 
+Caster Level: 18th 
+Aura: Strong; (DC 24) abjuration 
+Synergy Prerequisite: Soulbound 
+
+This property functions as the soulbound property, except a greater soulbound shield or suit of armor has a maximum essentia capacity of 4, for a maximum enhancement bonus to AC of +5. 
+Prerequisites: Craft Magic Arms and Armor, magic vestment, essentia pool 4. 
+SPEARBLOCK Price: +2 bonus Property: Armor or shield Caster Level: 7th Aura: Moderate; (DC 18) abjuration Activation: — 
+The surface of this item appears rough, being covered with hundreds of tiny points reminis. cent of spearheads. 
+A spearblock shield or suit of armor magi. cally turns away piercing weapons, such as spears and arrows. While wearing armor or carrying a shield that has this property, you gain damage reduction 5/bludgeoning or slashing. 
+Prerequisites: Craft Magic Arms and Armor, stoneskin. Cost to Create: Varies. 
+SPEED Price: +6,000 gp Property: Armor or shield Caster Level: 5th Aura: Faint; (DC 17) transmutation Activation: Swift (mental) 
+This item is decorated with silvery arabesques and seems to vibrate with restless energy. 
+A suit of armor or shield that has this property can quicken your movements. Three times per day, you can command it to produce a haste effect on you (as the haste spell) that lasts for 1 round. 
+Prerequisites: Craft Magic Arms and Armor, haste. Cost to Create: 3,000 gp, 240 XP, 6 days. 
+
+
+STAMINA 
+Price: +500 gp 
+Property: Armor 
+Caster Level: 5th 
+Aura: Faint; (DC 17) transmutation 
+Activation: — 
+
+This armor appears sturdier than other armor of its type. 
+While wearing armor that has this prop. erty, you gain a +1 resistance bonus on Fortitude saving throws. 
+Prerequisites: Craft Magic Arms and Armor, bear's endurance, resistance. Cost to Create: 250 gp, 20 XP, 1 day. 
+
+STAMINA, GREATER 
+[SYNERGY] 
+Price: +8,000 gp Caster Level: 15th Aura: Strong; (DC 22) transmutation Synergy Prerequisite: Improved 
+stamina 
+As stamina, except the armor grants a +5 resistance bonus on Fortitude saving throws. 
+Cost to Create: 4,000 gp, 320 XP, 8 days. 
+
+STAMINA, IMPROVED 
+[SYNERGY] 
+Price: +4,000 gp Caster Level: 9th Aura: Moderate; (DC 19) transmutation Synergy Prerequisite: Stamina 
+As stamina, except the armor grants a +3 resistance bonus on Fortitude saving throws. 
+Cost to Create: 2,000 gp, 160 XP, 4 days. 
+
+STYPTIC 
+Price: +1 bonus 
+Property: Armor 
+Caster Level: 7th 
+Aura: Moderate; (DC 18) conjuration 
+Activation: — 
+
+This blood-red armor is lined with a chalky substance and has an astringent scent. 
+While wearing armor that has this prop. erty, you do not suffer ongoing blood loss for any reason. Regardless of their source, bleeding wounds automatically close. You sustain no further hit point loss and stabilize if you are dying. In addition, you have a 25% chance to be unaffected by any blood-draining attack that depletes Con. situation, such as a vampire's or stirge's blood drain ability, or the property of a wounding weapon. 
+Prerequisites: Craft Magic Arms and Armor, cure critical wounds, Heal 10 ranks. 
+Cost to Create: Varies. 
+
+TIME BUTTRESS 
+Price: +5 bonus Property: Shield Caster Level: 17th Aura: Strong; (DC 23) transmutation Activation: Standard (mental) 
+This magnificent platinum shield seems to pulse with an air of invincibility. 
+When you activate a shield that has this property, you can avoid injury by manipu. lating time. You are invulnerable to all attacks, spells, and powers (both harmful and helpful), beginning immediately after you activate the effect and ending at the end of your next turn. 
+The time buttress property functions once per day. 
+Prerequisites: Craft Magic Arms and Armor, temporal stasis or timeless body (EPH 138). 
+Cost to Create: Varies. 
+
+TWILIGHT 
+Price: +1 bonus 
+Property: Armor 
+Caster Level: 5th 
+Aura: Faint; (DC 17) transmutation 
+Activation: — 
+
+This armor possesses a faint, sunset-colored sheen. 
+Armor that has this property is favored by elves and other characters who mix arcane magic and melee combat. A suit of twilight armor looks translucent and semi-incor. poreal when donned, reducing the chance of arcane spell failure by 10%. 
+Prerequisites: Craft Magic Arms and Armor, cat's grace. Cost to Create: Varies. 
+VANISHING Price: +3 bonus Property: Armor or shield Caster Level: 5th Aura: Faint; (DC 17) enchantment Activation: Standard (mental) 
+This dull gray item appears unremarkable. Indeed, your eye easily strays from it. 
+A suit of armor or shield that has this prop. erty renders you and all your equipment completely imperceptible to other crea. tures. When you activate it, you become invisible and inaudible, and you cannot be detected by any nonmagical sensory method (including scent, hearing, trem­orsense, blindsense, and the like). Once activated, this effect lasts for 3 minutes or until you attack (as defined for the purpose of the invisibility spell; PH 245). Creatures immune to mind-affecting spells and abili. ties can perceive you normally. 
+The vanishing property functions two times per day. Prerequisites: Craft Magic Arms and Armor, suggestion or cloud mind (EPH 84). Cost to Create: Varies. 
+
+VARIABLE 
+Price: +1 bonus 
+Property: Shield 
+Caster Level: 5th 
+Aura: Faint; (DC 17) transmutation 
+Activation: Swift (mental) 
+
+This shield is made up of many smooth, over. lapping strips. 
+A variable shield can change its size, becoming a buckler, light shield, heavy shield, or tower shield (sized appropriately for you) upon activation. All the rules for carrying items while using shields apply to the new shield size (see Armor Descrip. tions, PH 124). 
+Prerequisites: Craft Magic Arms and Armor, shrink item. Cost to Create: Varies. 
+WOODWALK Price: +9,000 gp Property: Armor Caster Level: 9th Aura: Moderate; (DC 19) conjuration Activation: Standard (command) 
+This armor's surface is etched to look like a tree, with the chest serving as the trunk and lower branches, and the arms as thick boughs. 
+If you have the woodland stride class fea. ture, you can activate woodwalk armor to step into a tree and exit from another, as if affected by the tree stride spell. 
+The woodwalk property functions three times per day, and the effect lasts for 1 round. 
+Prerequisites: Craft Magic Arms and 
+Armor, tree stride. Cost to Create: 4,500 gp, 360 XP, 9 days. 
