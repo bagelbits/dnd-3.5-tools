@@ -13,6 +13,10 @@ parser.add_argument('-f', '--file') #file to parse
 args = parser.parse_args()
 
 class ArmorProperty:
+	Regexs = {
+		'price': re.compile(r'\bPrice:\s*(\+(?:\w|,)+\s(?:gp|bonus))'),
+		'onType': re.compile(r'\bProperty:\s*((:?Light)?(:?Metal)?\s*[Aa]rmor(:?\sor shield)?|Shield)')
+	}
 	ArmorSubtypes = ['[RELIC]','[SYNERGY]']
 	unprintedFields = ['name','initd','raw']
 	def __init__(self, other=None):
@@ -58,14 +62,37 @@ def extractSubtype(line,prop):
 		prop.subtype = line[subtypeIndex:].strip('[ ]').capitalize()
 	
 def parseArmorProperty(lines):
-	armorProp = ArmorProperty()
-	
-	#normalize the title by removing the subtype
-	armorProp.name = lines[0].split('[')[0].strip()
+	armorProp = None
+	propName = lines[0].split('[')[0].strip() #grab the name (minus any subtype)
+	commaIndex = propName.find(',') #check if it's a variant
+	baseName = ''
+	#construct it from it's base type if it is
+	if commaIndex != -1:
+		baseName = propName[:commaIndex]
+		assert baseName in ArmorProperties
+		armorProp = ArmorProperty(ArmorProperties[baseName])
+	else:
+		armorProp = ArmorProperty()
+		
+	armorProp.raw = lines
+	armorProp.name = propName
+	armorProp.baseName = baseName
 	
 	for line in lines:
 		if not armorProp.subtype : extractSubtype(line,armorProp)
-	print armorProp
+		if not armorProp.price : 
+			match = ArmorProperty.Regexs['price'].search(line)
+			if match:
+				armorProp.price = match.group(1)
+		if not armorProp.onType :
+			match = ArmorProperty.Regexs['onType'].search(line)
+			if match:
+				armorProp.onType = match.group(1)
+	
+	if armorProp.onType == '':
+		print armorProp
+		
+	return armorProp
 	
 
 
