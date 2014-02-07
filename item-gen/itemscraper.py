@@ -4,15 +4,13 @@ import argparse
 import yaml
 import unicodedata
 import codecs
+import re
 from json import JSONEncoder
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-f', '--file') #file to parse
 args = parser.parse_args()
-
-ArmorSubtypesRaw = [u'[SYNERGY]',u'[RELIC]']
-
 
 class ArmorProperty:
 	name = ''
@@ -28,6 +26,7 @@ class ArmorProperty:
 	aura = ''
 	school = ''
 	description = ''
+	ArmorSubtypes = ['[RELIC]','[SYNERGY]']
 	
 	def __str__(self):
 		encoder = JSONEncoder()
@@ -69,7 +68,7 @@ with codecs.open("assets\out.txt", encoding='utf-8',mode='w',) as outFile:
 	armorprop = []
 	for line in fileLines:
 		words = line.split()
-		if len(words) > 0 and all( word.isupper() for word in words) and (words[0] not in ArmorSubtypesRaw) :
+		if len(words) > 0 and all( word.isupper() for word in words) and (words[0] not in ArmorProperty.ArmorSubtypes ) :
 			
 			if len(armorprop) > 0 :
 				parseArmorProperty(armorprop)
