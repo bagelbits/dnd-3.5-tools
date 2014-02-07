@@ -14,6 +14,8 @@ args = parser.parse_args()
 
 class ArmorProperty:
 	Regexs = {
+		'name': re.compile(r'^((?:[A-Z]{3,}[ ,]*)+)'),
+		'baseName': re.compile(r'((?:[A-Z]{3,} *)+), '),
 		'price': re.compile(r'\bPrice:\s*(\+(?:\w|,)+\s(?:gp|bonus))'),
 		'onType': re.compile(r'\bProperty:\s*((:?Light)?(:?Metal)?\s*[Aa]rmor(:?\sor shield)?|Shield)')
 	}
