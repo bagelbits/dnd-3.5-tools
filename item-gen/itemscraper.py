@@ -54,6 +54,17 @@ class ArmorProperty:
 		for key, value in items:
 			string += '    {0}: {1}'.format(key.capitalize(),value)
 		return string
+	def __repr__(self):
+		string = 'ArmorProperty: {\n'
+		for key,value in self.__dict__.items() :
+			if key != 'initd':
+				try:
+					string += '\t{0}: "{1}"\n'.format(key,value)
+				#	break
+				except UnicodeEncodeError:
+					print repr(value)
+		string += '}'
+		return string
 	def __setattr__(self, name, value):
 		assert (not self.__dict__.get('initd',False)) or name in self.__dict__
 		self.__dict__[name] = value
@@ -97,10 +108,13 @@ def parseArmorProperty(title,data):
 
 with codecs.open("assets\out.txt", encoding='utf-8',mode='w',) as outFile:
 	fileContents = str()
+
 	with codecs.open(args.file, encoding='utf-8') as file:
 		fileContents = file.read()
 	
 	fileContents = fileContents.replace(u'\xad\n', '') #replace word-break dash
+	fileContents = fileContents.replace(u'\xad','')
+	fileContents = fileContents.replace(u'\xac ','')
 	fileContents = fileContents.replace(u'\u2014','--') #replace long-dash
 	
 	fileSplit = ArmorProperty.Regexs['name'].split(fileContents)
@@ -108,6 +122,5 @@ with codecs.open("assets\out.txt", encoding='utf-8',mode='w',) as outFile:
 	for title,data in zip(fileSplit[1::2],fileSplit[2::2]):
 		prop = parseArmorProperty(title,data)
 		ArmorProperties[prop.name] = prop
-		outFile.write('BEGIN_ARMORPROP'+'\n')
-		outFile.write(title+'\n'+data+'\n')
+		outFile.write(repr(prop) + '\n')
 		
