@@ -14,33 +14,29 @@ args = parser.parse_args()
 
 class ArmorProperty:
 	Regexs = {
-		'name': re.compile(r'^((?:[A-Z]{3,}[ ,]*)+)'),
+		'name': re.compile(r'^((?:[A-Z]{3,},*)(?:\s*\b[A-Z]{3,},*)*)'),
 		'baseName': re.compile(r'((?:[A-Z]{3,} *)+), '),
 		'price': re.compile(r'\bPrice:\s*(\+(?:\w|,)+\s(?:gp|bonus))'),
 		'onType': re.compile(r'\bProperty:\s*((:?Light)?(:?Metal)?\s*[Aa]rmor(:?\sor shield)?|Shield)')
 	}
 	ArmorSubtypes = ['[RELIC]','[SYNERGY]']
 	unprintedFields = ['name','initd','raw']
-	def __init__(self, other=None):
-		if other:
-			for (key,value) in other.__dict__.items():
-				self.__dict__[key] = value
-		else:
-			self.name = ''
-			self.baseName = ''
-			self.subtype = ''
-			self.subtypeInfo = ''
-			self.price = ''
-			self.creationGP = -1
-			self.creationXP = -1
-			self.creationDays = -1
-			self.onType = ''
-			self.casterLvl = -1
-			self.aura = ''
-			self.school = ''
-			self.description = ''
-			self.raw = ''
-			self.initd = True
+	def __init__(self):
+		self.name = None
+		self.baseName = None
+		self.subtype = None
+		self.subtypeInfo = None
+		self.price = None
+		self.creationGP = None
+		self.creationXP = None
+		self.creationDays = None
+		self.onType = None
+		self.casterLvl = None
+		self.aura = None
+		self.school = None
+		self.description = None
+		self.raw = None
+		self.initd = True
 	
 	def __str__(self):
 		encoder = JSONEncoder()
@@ -54,7 +50,9 @@ class ArmorProperty:
 	def __setattr__(self, name, value):
 		assert (not self.__dict__.get('initd',False)) or name in self.__dict__
 		self.__dict__[name] = value
-	
+	def LoadBaseType(self,other):
+		for (key,value) in other.__dict__.items():
+			if self.__dict__[key] == None : self.__dict__[key] = value
 
 ArmorProperties = {}
 
@@ -64,23 +62,20 @@ def extractSubtype(line,prop):
 		prop.subtype = line[subtypeIndex:].strip('[ ]').capitalize()
 	
 def parseArmorProperty(lines):
-	armorProp = None
-	propName = lines[0].split('[')[0].strip() #grab the name (minus any subtype)
-	commaIndex = propName.find(',') #check if it's a variant
-	baseName = ''
-	#construct it from it's base type if it is
-	if commaIndex != -1:
-		baseName = propName[:commaIndex]
-		assert baseName in ArmorProperties
-		armorProp = ArmorProperty(ArmorProperties[baseName])
-	else:
-		armorProp = ArmorProperty()
+	armorProp = ArmorProperty()
 		
 	armorProp.raw = lines
-	armorProp.name = propName
-	armorProp.baseName = baseName
 	
 	for line in lines:
+		if not armorProp.name : 
+			match = ArmorProperty.Regexs['name'].search(line)
+			if match: 
+				armorProp.name = match.group(1)
+				baseMatch = ArmorProperty.Regexs['baseName'].search(armorProp.name)
+				if baseMatch: 
+					armorProp.baseName = baseMatch.group(1)
+					armorProp.LoadBaseType(ArmorProperties[armorProp.baseName])
+			
 		if not armorProp.subtype : extractSubtype(line,armorProp)
 		if not armorProp.price : 
 			match = ArmorProperty.Regexs['price'].search(line)
@@ -93,7 +88,7 @@ def parseArmorProperty(lines):
 	
 	if armorProp.onType == '':
 		print armorProp
-		
+	
 	return armorProp
 	
 
@@ -107,15 +102,14 @@ with codecs.open("assets\out.txt", encoding='utf-8',mode='w',) as outFile:
 	fileContents = fileContents.replace(u'\u2014','--') #replace long-dash
 	fileLines = fileContents.splitlines()
 	
-	armorprop = []
-	for line in fileLines:
-		words = line.split()
-		if len(words) > 0 and all( word.isupper() for word in words) and (words[0] not in ArmorProperty.ArmorSubtypes ) :
-			
-			if len(armorprop) > 0 :
-				prop = parseArmorProperty(armorprop)
-				ArmorProperties[prop.name] = prop
-				armorprop = []
+	armorprop = fileLines[:1]
+	for line in fileLines[1:]:
+		
+		if ArmorProperty.Regexs['name'].search(line) :
+			assert len(armorprop) > 0
+			prop = parseArmorProperty(armorprop)
+			ArmorProperties[prop.name] = prop
+			armorprop = []
 			outFile.write('BEGIN_ARMORPROP'+'\n')
 		
 		outFile.write(line+'\n')
