@@ -6,7 +6,8 @@ A thin film of acid continuously covers the surface of this armor or shield, whi
 Prerequisites: Craft Magic Arms and Armor, Melf's acid arrow. Cost to Create: Varies. 
 
 
-AGILITY Price: +500 gp Property: Armor Caster Level: 5th Aura: Faint; (DC 17) transmutation Activation: — 
+AGILITY
+Price: +500 gp Property: Armor Caster Level: 5th Aura: Faint; (DC 17) transmutation Activation: — 
 This suit of armor appears more streamlined and elegant than others of its type. It has a smoothly worked surface and no spikes or other accoutrements. 
 While wearing armor that has this prop. erty, you gain a +1 resistance bonus on Reflex saving throws. 
 Prerequisites: Craft Magic Arms and Armor, cat's grace, resistance. Cost to Create: 250 gp, 20 XP, 1 day. 
