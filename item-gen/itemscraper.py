@@ -19,7 +19,10 @@ class ArmorProperty:
 		'price': re.compile(r'\bPrice:\s*(\+(?:\d|,)+\s(?:gp|bonus))', re.MULTILINE),
 		'onType': re.compile(r'\bProperty:\s*((:?Light)?(:?Metal)?\s*[Aa]rmor(:?\sor shield)?|Shield)', re.MULTILINE),
 		'casterLvl': re.compile(r'\bCaster Level: (\d*)(?:st|nd|rd|th)', re.MULTILINE),
-		'aura': re.compile(r'\bAura: \b\w+\b\; \(DC (\d+)\) \b\w+\b', re.MULTILINE)
+		'aura': re.compile(r'\bAura:\s+\b\w+\b;\s+\(DC (\d+)\)\s+\b\w+\b', re.MULTILINE),
+		'school': re.compile(r'\bAura:\s+\b\w+\b;\s+\(DC \d+\)\s+\b(\w+)\b', re.MULTILINE),
+		'activationSpeed': re.compile(r'\bActivation:\s*(\b\w+\b|--)(?:\s+\(\b\w+\b\))?'),
+		'activationMode': re.compile(r'\bActivation:\s*(?:\b\w+\b\s+)?\(?(\b\w+\b|--)\)?')
 	}
 	ArmorSubtypes = ['[RELIC]','[SYNERGY]']
 	unprintedFields = ['name','initd','raw']
@@ -36,6 +39,8 @@ class ArmorProperty:
 		self.casterLvl = None
 		self.aura = None
 		self.school = None
+		self.activationSpeed = None
+		self.activationMode = None
 		self.description = None
 		self.raw = None
 		self.initd = True
@@ -67,17 +72,21 @@ def parseArmorProperty(title,data):
 	armorProp = ArmorProperty()
 		
 	armorProp.name = title;
+	armorProp.raw = title+'\n'+data
 	baseNameMatch = ArmorProperty.Regexs['baseName'].search(title)
 	if baseNameMatch: armorProp.baseName = baseNameMatch.group(1)
 	
-	print 'Parsing Armor Property'
+	description = data
+	#print 'Parsing Armor Property'
 	for field,regex in ArmorProperty.Regexs.items():
 		if not getattr(armorProp,field):
 			match = regex.search(data)
 			if match:
-				if field == 'aura': print '  Matched {0}: {1}'.format(field, match.group(1))
+				#if field == 'activationMode': print '  Matched {0}: {1}'.format(field, match.group(1))
+				description = description.replace(match.group(0),'')
 				setattr(armorProp, field, match.group(1))
 	
+	armorProp.description = description.strip()
 	#Load the base type last so that new fields won't be overwritten
 	if armorProp.baseName :
 		armorProp.LoadBaseType(ArmorProperties[armorProp.baseName])
