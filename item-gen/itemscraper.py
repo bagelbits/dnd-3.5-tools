@@ -50,6 +50,8 @@ class ArmorProperty:
 		self.__dict__[name] = value
 	
 
+ArmorProperties = {}
+
 def extractSubtype(line,prop):
 	subtypeIndex = line.find('[')
 	if subtypeIndex != -1:
@@ -82,11 +84,14 @@ with codecs.open("assets\out.txt", encoding='utf-8',mode='w',) as outFile:
 		if len(words) > 0 and all( word.isupper() for word in words) and (words[0] not in ArmorProperty.ArmorSubtypes ) :
 			
 			if len(armorprop) > 0 :
-				parseArmorProperty(armorprop)
+				prop = parseArmorProperty(armorprop)
+				ArmorProperties[prop.name] = prop
 				armorprop = []
 			outFile.write('BEGIN_ARMORPROP'+'\n')
 		
 		outFile.write(line+'\n')
 		armorprop.append(line)
-		
+	#do the last one
+	prop = parseArmorProperty(armorprop)
+	ArmorProperties[prop.name] = prop
 	
