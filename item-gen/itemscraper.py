@@ -14,10 +14,12 @@ args = parser.parse_args()
 
 class ArmorProperty:
 	Regexs = {
-		'name': re.compile(r'^((?:[A-Z]{3,},*)(?:\s*\b[A-Z]{3,},*)*)'),
-		'baseName': re.compile(r'((?:[A-Z]{3,} *)+), '),
-		'price': re.compile(r'\bPrice:\s*(\+(?:\w|,)+\s(?:gp|bonus))'),
-		'onType': re.compile(r'\bProperty:\s*((:?Light)?(:?Metal)?\s*[Aa]rmor(:?\sor shield)?|Shield)')
+		'name': re.compile(r'^((?:[A-Z]{3,},*)(?:\s*\b[A-Z]{3,},*)*)', re.MULTILINE),
+		'baseName': re.compile(r'^([A-Z]{3,}),(?:\s*\b[A-Z]{3,})*', re.MULTILINE),
+		'price': re.compile(r'\bPrice:\s*(\+(?:\d|,)+\s(?:gp|bonus))', re.MULTILINE),
+		'onType': re.compile(r'\bProperty:\s*((:?Light)?(:?Metal)?\s*[Aa]rmor(:?\sor shield)?|Shield)', re.MULTILINE),
+		'casterLvl': re.compile(r'\bCaster Level: (\d*)(?:st|nd|rd|th)', re.MULTILINE),
+		'aura': re.compile(r'\bAura: \b\w+\b\; \(DC (\d+)\) \b\w+\b', re.MULTILINE)
 	}
 	ArmorSubtypes = ['[RELIC]','[SYNERGY]']
 	unprintedFields = ['name','initd','raw']
@@ -61,33 +63,24 @@ def extractSubtype(line,prop):
 	if subtypeIndex != -1:
 		prop.subtype = line[subtypeIndex:].strip('[ ]').capitalize()
 	
-def parseArmorProperty(lines):
+def parseArmorProperty(title,data):
 	armorProp = ArmorProperty()
 		
-	armorProp.raw = lines
+	armorProp.name = title;
+	baseNameMatch = ArmorProperty.Regexs['baseName'].search(title)
+	if baseNameMatch: armorProp.baseName = baseNameMatch.group(1)
 	
-	for line in lines:
-		if not armorProp.name : 
-			match = ArmorProperty.Regexs['name'].search(line)
-			if match: 
-				armorProp.name = match.group(1)
-				baseMatch = ArmorProperty.Regexs['baseName'].search(armorProp.name)
-				if baseMatch: 
-					armorProp.baseName = baseMatch.group(1)
-					armorProp.LoadBaseType(ArmorProperties[armorProp.baseName])
-			
-		if not armorProp.subtype : extractSubtype(line,armorProp)
-		if not armorProp.price : 
-			match = ArmorProperty.Regexs['price'].search(line)
+	print 'Parsing Armor Property'
+	for field,regex in ArmorProperty.Regexs.items():
+		if not getattr(armorProp,field):
+			match = regex.search(data)
 			if match:
-				armorProp.price = match.group(1)
-		if not armorProp.onType :
-			match = ArmorProperty.Regexs['onType'].search(line)
-			if match:
-				armorProp.onType = match.group(1)
+				if field == 'aura': print '  Matched {0}: {1}'.format(field, match.group(1))
+				setattr(armorProp, field, match.group(1))
 	
-	if armorProp.onType == '':
-		print armorProp
+	#Load the base type last so that new fields won't be overwritten
+	if armorProp.baseName :
+		armorProp.LoadBaseType(ArmorProperties[armorProp.baseName])
 	
 	return armorProp
 	
@@ -100,21 +93,12 @@ with codecs.open("assets\out.txt", encoding='utf-8',mode='w',) as outFile:
 	
 	fileContents = fileContents.replace(u'\xad\n', '') #replace word-break dash
 	fileContents = fileContents.replace(u'\u2014','--') #replace long-dash
-	fileLines = fileContents.splitlines()
 	
-	armorprop = fileLines[:1]
-	for line in fileLines[1:]:
-		
-		if ArmorProperty.Regexs['name'].search(line) :
-			assert len(armorprop) > 0
-			prop = parseArmorProperty(armorprop)
-			ArmorProperties[prop.name] = prop
-			armorprop = []
-			outFile.write('BEGIN_ARMORPROP'+'\n')
-		
-		outFile.write(line+'\n')
-		armorprop.append(line)
-	#do the last one
-	prop = parseArmorProperty(armorprop)
-	ArmorProperties[prop.name] = prop
+	fileSplit = ArmorProperty.Regexs['name'].split(fileContents)
 	
+	for title,data in zip(fileSplit[1::2],fileSplit[2::2]):
+		prop = parseArmorProperty(title,data)
+		ArmorProperties[prop.name] = prop
+		outFile.write('BEGIN_ARMORPROP'+'\n')
+		outFile.write(title+'\n'+data+'\n')
+		
