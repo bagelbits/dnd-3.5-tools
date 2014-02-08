@@ -12,6 +12,14 @@ class FieldData(namedtuple('FieldData',['name','regex','default'])):
 	def NameTuple(self):
 		return (self.name,self)
 		
+titleField = FieldData('title',	re.compile(r'^((?:[A-Z]{3,},*)(?:\s*\b[A-Z]{3,},*)*)', re.MULTILINE))
+subtypeField = FieldData('subtype',	re.compile(r'\[([A-Z]{3,})\]', re.MULTILINE))
+synergyField = FieldData('synergy',	re.compile(r'\bSynergy Prerequisite:\s*(\b\w+\b(?:\s*\b[a-z]+\b){,2})'))
+priceField = FieldData('price',	re.compile(r'\bPrice(?:\s+\(Item Level\)):\s*(\+(?:\d|,)+\s(?:gp|bonus))', re.MULTILINE))
+casterLvlField = FieldData('casterLvl', re.compile(r'\bCaster Level: (\d*)(?:st|nd|rd|th)', re.MULTILINE))
+auraField = FieldData('aura', re.compile(r'\bAura:\s+\b\w+\b;\s+\(DC (\d+)\)\s+\b\w+\b', re.MULTILINE))
+schoolField = FieldData('school', re.compile(r'\bAura:\s+\b\w+\b;\s+\(DC \d+\)\s+\b(\w+)\b', re.MULTILINE))
+
 class BookEntry:
 	_fieldDict = OrderedDict()
 	
