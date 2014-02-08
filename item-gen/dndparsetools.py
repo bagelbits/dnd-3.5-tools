@@ -5,7 +5,7 @@ from collections import namedtuple
 
 class FieldData(namedtuple('FieldData',['name','regex','default'])):
 	__slots__ = ()
-	#This is just sugar so we don't hve to put 'None' everywhere
+	#This is just sugar so we don't hve to put 'None' everywhere for default values
 	def __new__(self,name,regex,default=None):
 		return super(FieldData,self).__new__(self,name,regex,default)
 
@@ -15,7 +15,6 @@ class FieldData(namedtuple('FieldData',['name','regex','default'])):
 class BookEntry:
 	_fieldDict = OrderedDict()
 	
-		
 	def __init__(self):
 		for field, data in self._fieldDict.items() :
 			self.__dict__[field] = data.default
