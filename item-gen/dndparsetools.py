@@ -3,7 +3,12 @@ import re
 from collections import OrderedDict
 from collections import namedtuple
 
-FieldData = namedtuple('FieldData',['name','regex','default'])
+class FieldData(namedtuple('FieldData',['name','regex','default'])):
+	__slots__ = ()
+	#This is just sugar so we don't hve to put 'None' everywhere
+	def __new__(self,name,regex,default=None):
+		return super(FieldData,self).__new__(self,name,regex,default)
+
 
 class BookEntry:
 	_fieldData = OrderedDict()
