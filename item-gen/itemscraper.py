@@ -5,6 +5,10 @@ import yaml
 import unicodedata
 import codecs
 import re
+import dndparsetools
+from dndparsetools import FieldData
+from dndparsetools import BookEntry
+from collections import OrderedDict
 from json import JSONEncoder
 
 
@@ -12,103 +16,48 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-f', '--file') #file to parse
 args = parser.parse_args()
 
-class ArmorProperty:
-	Regexs = {
-		'name': re.compile(r'^((?:[A-Z]{3,},*)(?:\s*\b[A-Z]{3,},*)*)', re.MULTILINE),
-		'baseName': re.compile(r'^([A-Z]{3,}),(?:\s*\b[A-Z]{3,})*', re.MULTILINE),
-		'subtype': re.compile(r'\[([A-Z]{3,})\]', re.MULTILINE),
-		'synergy': re.compile(r'\bSynergy Prerequisite:\s*(\b\w+\b(?:\s*\b[a-z]+\b){,2})'),
-		'price': re.compile(r'\bPrice:\s*(\+(?:\d|,)+\s(?:gp|bonus))', re.MULTILINE),
-		'onType': re.compile(r'\bProperty:\s*((?:Light)?(?:Metal)?\s*[Aa]rmor(?:\sor shield)?|Shield)', re.MULTILINE),
-		'casterLvl': re.compile(r'\bCaster Level: (\d*)(?:st|nd|rd|th)', re.MULTILINE),
-		'aura': re.compile(r'\bAura:\s+\b\w+\b;\s+\(DC (\d+)\)\s+\b\w+\b', re.MULTILINE),
-		'school': re.compile(r'\bAura:\s+\b\w+\b;\s+\(DC \d+\)\s+\b(\w+)\b', re.MULTILINE),
-		'activationSpeed': re.compile(r'\bActivation:\s*(\b\w+\b|--)(?:\s+\(\b\w+\b\))?'),
-		'activationMode': re.compile(r'\bActivation:\s*(?:\b\w+\b\s+)?\(?(\b\w+\b|--)\)?'),
-		'creationPrereqs': re.compile(r'\bPrerequisites: (.*?)\.'),
-		'creationCost': re.compile(r'\bCost to Create:(.*?)\.')
-	}
-	ArmorSubtypes = ['[RELIC]','[SYNERGY]']
-	unprintedFields = ['name','initd','raw']
-	def __init__(self):
-		self.name = None
-		self.baseName = None
-		self.subtype = None
-		self.synergy = None
-		self.price = None
-		self.creationCost = None
-		self.creationPrereqs = None
-		self.onType = None
-		self.casterLvl = None
-		self.aura = None
-		self.school = None
-		self.activationSpeed = None
-		self.activationMode = None
-		self.description = None
-		self.raw = None
-		self.initd = True
-	
-	def __str__(self):
-		encoder = JSONEncoder()
-		string = ''
-		items = self.__dict__.items()
-		items = [(key,value) for key,value in items if key not in ArmorProperty.unprintedFields]
-		string = '{0}\n'.format(self.name)
-		for key, value in items:
-			string += '    {0}: {1}'.format(key.capitalize(),value)
-		return string
-	def __repr__(self):
-		string = 'ArmorProperty: {\n'
-		for key,value in self.__dict__.items() :
-			if key != 'initd':
-				try:
-					string += '\t{0}: "{1}"\n'.format(key,value)
-				#	break
-				except UnicodeEncodeError:
-					print 'Unicode encoding error:' + repr(value)
-		string += '}'
-		return string
-	def __setattr__(self, name, value):
-		assert (not self.__dict__.get('initd',False)) or name in self.__dict__
-		self.__dict__[name] = value
-	def LoadBaseType(self,other):
-		for (key,value) in other.__dict__.items():
-			if self.__dict__[key] == None : self.__dict__[key] = value
-
 ArmorProperties = {}
 
-def extractSubtype(line,prop):
-	subtypeIndex = line.find('[')
-	if subtypeIndex != -1:
-		prop.subtype = line[subtypeIndex:].strip('[ ]').capitalize()
+class ArmorPropertyEntry(BookEntry):
+	_fieldDict = OrderedDict([
+		FieldData('title',
+			re.compile(r'^((?:[A-Z]{3,},*)(?:\s*\b[A-Z]{3,},*)*)', re.MULTILINE)).NameTuple(),
+		FieldData('baseEntry',
+			re.compile(r'^([A-Z]{3,}),(?:\s*\b[A-Z]{3,})*', re.MULTILINE)).NameTuple(),
+		FieldData('subtype',
+			re.compile(r'\[([A-Z]{3,})\]', re.MULTILINE)).NameTuple(),
+		FieldData('synergy',
+			re.compile(r'\bSynergy Prerequisite:\s*(\b\w+\b(?:\s*\b[a-z]+\b){,2})')).NameTuple(),
+		FieldData('price',
+			re.compile(r'\bPrice:\s*(\+(?:\d|,)+\s(?:gp|bonus))', re.MULTILINE)).NameTuple(),
+		FieldData('onType',
+			re.compile(r'\bProperty:\s*((?:Light)?(?:Metal)?\s*[Aa]rmor(?:\sor shield)?|Shield)', re.MULTILINE)).NameTuple(),
+		FieldData('casterLvl',
+			re.compile(r'\bCaster Level: (\d*)(?:st|nd|rd|th)', re.MULTILINE)).NameTuple(),
+		FieldData('aura',
+			re.compile(r'\bAura:\s+\b\w+\b;\s+\(DC (\d+)\)\s+\b\w+\b', re.MULTILINE)).NameTuple(),
+		FieldData('school',
+			re.compile(r'\bAura:\s+\b\w+\b;\s+\(DC \d+\)\s+\b(\w+)\b', re.MULTILINE)).NameTuple(),
+		FieldData('activationSpeed',
+			re.compile(r'\bActivation:\s*(\b\w+\b|--)(?:\s+\(\b\w+\b\))?')).NameTuple(),
+		FieldData('activationMode',
+			re.compile(r'\bActivation:\s*(?:\b\w+\b\s+)?\(?(\b\w+\b|--)\)?')).NameTuple(),
+		FieldData('creationPrereqs',
+			re.compile(r'\bPrerequisites: (.*?)\.')).NameTuple(),
+		FieldData('creationCost',
+			re.compile(r'\bCost to Create:(.*?)\.')).NameTuple(),
+		FieldData('description',re.compile('()')).NameTuple()
+	])
 	
-def parseArmorProperty(title,data):
-	armorProp = ArmorProperty()
+	def parse(self,data,title):
+		unparsed = BookEntry.parse(self,title+'\n'+data,'title',title)
+		unparsed = unparsed.replace(title,'')
+		self.__dict__['description'] = re.sub(r'(\r?\n\s*)+',r'\n',unparsed).strip()
 		
-	armorProp.name = title;
-	armorProp.raw = title+'\n'+data
-	baseNameMatch = ArmorProperty.Regexs['baseName'].search(title)
-	if baseNameMatch: armorProp.baseName = baseNameMatch.group(1)
-	
-	description = data
-	#print 'Parsing Armor Property'
-	for field,regex in ArmorProperty.Regexs.items():
-		if not getattr(armorProp,field):
-			match = regex.search(data)
-			if match:
-				#if field == 'activationMode': print '  Matched {0}: {1}'.format(field, match.group(1))
-				description = description.replace(match.group(0),'')
-				
-				setattr(armorProp, field, re.sub(r'\s+',' ',match.group(1)))
-	
-	armorProp.description = description.strip()
-	#Load the base type last so that new fields won't be overwritten
-	if armorProp.baseName :
-		armorProp.LoadBaseType(ArmorProperties[armorProp.baseName])
-	
-	return armorProp
-	
-
+		#Load the base type last so that new fields won't be overwritten
+		if self.baseEntry :
+			self.loadOther(ArmorProperties[self.baseEntry])
+		return unparsed	
 
 with codecs.open("assets\out.txt", encoding='utf-8',mode='w',) as outFile:
 	fileContents = str()
@@ -121,10 +70,12 @@ with codecs.open("assets\out.txt", encoding='utf-8',mode='w',) as outFile:
 	fileContents = fileContents.replace(u'\xac ','')
 	fileContents = fileContents.replace(u'\u2014','--') #replace long-dash
 	
-	fileSplit = ArmorProperty.Regexs['name'].split(fileContents)
+	fileSplit = ArmorPropertyEntry._fieldDict['title'].regex.split(fileContents)
 	
 	for title,data in zip(fileSplit[1::2],fileSplit[2::2]):
-		prop = parseArmorProperty(title,data)
-		ArmorProperties[prop.name] = prop
-		outFile.write(repr(prop) + '\n')
+		prop = ArmorPropertyEntry()
+		prop.parse(data,title)
+		ArmorProperties[prop.title] = prop
+		outFile.write(str(prop) + '\n')
+		#print prop
 		
