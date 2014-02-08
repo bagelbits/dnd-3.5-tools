@@ -16,13 +16,17 @@ class ArmorProperty:
 	Regexs = {
 		'name': re.compile(r'^((?:[A-Z]{3,},*)(?:\s*\b[A-Z]{3,},*)*)', re.MULTILINE),
 		'baseName': re.compile(r'^([A-Z]{3,}),(?:\s*\b[A-Z]{3,})*', re.MULTILINE),
+		'subtype': re.compile(r'\[([A-Z]{3,})\]', re.MULTILINE),
+		'synergy': re.compile(r'\bSynergy Prerequisite:\s*(\b\w+\b(?:\s*\b[a-z]+\b){,2})'),
 		'price': re.compile(r'\bPrice:\s*(\+(?:\d|,)+\s(?:gp|bonus))', re.MULTILINE),
 		'onType': re.compile(r'\bProperty:\s*((?:Light)?(?:Metal)?\s*[Aa]rmor(?:\sor shield)?|Shield)', re.MULTILINE),
 		'casterLvl': re.compile(r'\bCaster Level: (\d*)(?:st|nd|rd|th)', re.MULTILINE),
 		'aura': re.compile(r'\bAura:\s+\b\w+\b;\s+\(DC (\d+)\)\s+\b\w+\b', re.MULTILINE),
 		'school': re.compile(r'\bAura:\s+\b\w+\b;\s+\(DC \d+\)\s+\b(\w+)\b', re.MULTILINE),
 		'activationSpeed': re.compile(r'\bActivation:\s*(\b\w+\b|--)(?:\s+\(\b\w+\b\))?'),
-		'activationMode': re.compile(r'\bActivation:\s*(?:\b\w+\b\s+)?\(?(\b\w+\b|--)\)?')
+		'activationMode': re.compile(r'\bActivation:\s*(?:\b\w+\b\s+)?\(?(\b\w+\b|--)\)?'),
+		'creationPrereqs': re.compile(r'\bPrerequisites: (.*?)\.'),
+		'creationCost': re.compile(r'\bCost to Create:(.*?)\.')
 	}
 	ArmorSubtypes = ['[RELIC]','[SYNERGY]']
 	unprintedFields = ['name','initd','raw']
@@ -30,11 +34,10 @@ class ArmorProperty:
 		self.name = None
 		self.baseName = None
 		self.subtype = None
-		self.subtypeInfo = None
+		self.synergy = None
 		self.price = None
-		self.creationGP = None
-		self.creationXP = None
-		self.creationDays = None
+		self.creationCost = None
+		self.creationPrereqs = None
 		self.onType = None
 		self.casterLvl = None
 		self.aura = None
@@ -62,7 +65,7 @@ class ArmorProperty:
 					string += '\t{0}: "{1}"\n'.format(key,value)
 				#	break
 				except UnicodeEncodeError:
-					print repr(value)
+					print 'Unicode encoding error:' + repr(value)
 		string += '}'
 		return string
 	def __setattr__(self, name, value):
@@ -95,7 +98,8 @@ def parseArmorProperty(title,data):
 			if match:
 				#if field == 'activationMode': print '  Matched {0}: {1}'.format(field, match.group(1))
 				description = description.replace(match.group(0),'')
-				setattr(armorProp, field, match.group(1))
+				
+				setattr(armorProp, field, re.sub(r'\s+',' ',match.group(1)))
 	
 	armorProp.description = description.strip()
 	#Load the base type last so that new fields won't be overwritten
