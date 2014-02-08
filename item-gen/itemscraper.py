@@ -17,7 +17,7 @@ class ArmorProperty:
 		'name': re.compile(r'^((?:[A-Z]{3,},*)(?:\s*\b[A-Z]{3,},*)*)', re.MULTILINE),
 		'baseName': re.compile(r'^([A-Z]{3,}),(?:\s*\b[A-Z]{3,})*', re.MULTILINE),
 		'price': re.compile(r'\bPrice:\s*(\+(?:\d|,)+\s(?:gp|bonus))', re.MULTILINE),
-		'onType': re.compile(r'\bProperty:\s*((:?Light)?(:?Metal)?\s*[Aa]rmor(:?\sor shield)?|Shield)', re.MULTILINE),
+		'onType': re.compile(r'\bProperty:\s*((?:Light)?(?:Metal)?\s*[Aa]rmor(?:\sor shield)?|Shield)', re.MULTILINE),
 		'casterLvl': re.compile(r'\bCaster Level: (\d*)(?:st|nd|rd|th)', re.MULTILINE),
 		'aura': re.compile(r'\bAura:\s+\b\w+\b;\s+\(DC (\d+)\)\s+\b\w+\b', re.MULTILINE),
 		'school': re.compile(r'\bAura:\s+\b\w+\b;\s+\(DC \d+\)\s+\b(\w+)\b', re.MULTILINE),
