@@ -67,9 +67,12 @@ with codecs.open("assets\out.txt", encoding='utf-8',mode='w',) as outFile:
 	fileSplit = ArmorItemEntry._fieldDict['title'].regex.split(fileContents)
 	
 	for title,data in zip(fileSplit[1::2],fileSplit[2::2]):
+		title = re.sub(r'[ \r\n]+',' ',title) #clean newlines in the title before we pass it along
 		prop = ArmorItemEntry()
 		prop.parse(data,title)
 		ArmorItems[prop.title] = prop
 		outFile.write(str(prop) + '\n')
 		#print prop
 		#break
+		unmatched = prop.unmatchedFields()
+		if unmatched: print prop.title + 'failed on:' + str(unmatched)

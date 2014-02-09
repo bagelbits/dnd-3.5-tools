@@ -60,8 +60,14 @@ class BookEntry:
 				if fieldData.verbose:
 					print 'Matched for ' + field + ':' + match.group(1)
 				unmatched = unmatched.replace(match.group(0),'')
-				setattr(self,field, re.sub(r'\s+',' ',match.group(1)))
+				setattr(self,field, re.sub(r'\s+',' ',match.group(1),re.MULTILINE))
 			elif fieldData.verbose:
 				print 'Match failed for ' + field + ': ' + data
 		
+		return unmatched
+	def unmatchedFields(self):
+		unmatched = []
+		for field, fieldData in self._fieldDict.items():
+			if not hasattr(self,field) or getattr(self,field) == fieldData.default:
+				unmatched.append(field)
 		return unmatched
