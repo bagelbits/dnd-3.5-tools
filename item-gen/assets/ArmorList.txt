@@ -369,6 +369,3 @@ flesh appear rotted and torn.
 This suit of +1 hide grants you damage reduction 5/slashing. Though the armor sports various holes and rents, these imperfections in no way compromise its integrity. 
 Prerequisites: Craft Magic Arms and Armor, animate dead, Knowledge (religion) 5 ranks. 
 Cost to Create: 8,000 gp (plus 165 gp for masterwork hide), 640 XP, 16 days. 
-ARMOR 
-
-

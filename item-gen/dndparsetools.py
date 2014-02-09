@@ -3,22 +3,24 @@ import re
 from collections import OrderedDict
 from collections import namedtuple
 
-class FieldData(namedtuple('FieldData',['name','regex','default'])):
+class FieldData(namedtuple('FieldData',['name','regex','default','verbose'])):
 	__slots__ = ()
 	#This is just sugar so we don't hve to put 'None' everywhere for default values
-	def __new__(self,name,regex,default=None):
-		return super(FieldData,self).__new__(self,name,regex,default)
+	def __new__(self,name,regex,default=None,verbose=False):
+		return super(FieldData,self).__new__(self,name,regex,default,verbose)
 
 	def NameTuple(self):
 		return (self.name,self)
 		
-titleField = FieldData('title',	re.compile(r'^((?:[A-Z]{3,},*)(?:\s*\b[A-Z]{3,},*)*)', re.MULTILINE))
+titleField = FieldData('title',	re.compile(r'^((?:[A-Z]{3,},*)(?:\s*\b[A-Z]{2,},*)*)', re.MULTILINE))
 subtypeField = FieldData('subtype',	re.compile(r'\[([A-Z]{3,})\]', re.MULTILINE))
 synergyField = FieldData('synergy',	re.compile(r'\bSynergy Prerequisite:\s*(\b\w+\b(?:\s*\b[a-z]+\b){,2})'))
-priceField = FieldData('price',	re.compile(r'\bPrice(?:\s+\(Item Level\)):\s*(\+(?:\d|,)+\s(?:gp|bonus))', re.MULTILINE))
+priceField = FieldData('price',	re.compile(r'\bPrice(?:\s+\(Item Level\)):\s*(\+?(?:\d|,)+\s(?:gp|bonus))', re.MULTILINE))
 casterLvlField = FieldData('casterLvl', re.compile(r'\bCaster Level: (\d*)(?:st|nd|rd|th)', re.MULTILINE))
 auraField = FieldData('aura', re.compile(r'\bAura:\s+\b\w+\b;\s+\(DC (\d+)\)\s+\b\w+\b', re.MULTILINE))
 schoolField = FieldData('school', re.compile(r'\bAura:\s+\b\w+\b;\s+\(DC \d+\)\s+\b(\w+)\b', re.MULTILINE))
+activationSpeedField = FieldData('activationSpeed', re.compile(r'\bActivation:\s*(\b\w+\b|--)(?:\s+\(\b\w+\b\))?'))
+activationModeField = FieldData('activationMode', re.compile(r'\bActivation:\s*(?:\b\w+\b\s+)?\(?(\b\w+\b|--)\)?'))
 
 class BookEntry:
 	_fieldDict = OrderedDict()
@@ -55,6 +57,11 @@ class BookEntry:
 				continue
 			match = fieldData.regex.search(data)
 			if match:
+				if fieldData.verbose:
+					print 'Matched for ' + field + ':' + match.group(1)
 				unmatched = unmatched.replace(match.group(0),'')
 				setattr(self,field, re.sub(r'\s+',' ',match.group(1)))
+			elif fieldData.verbose:
+				print 'Match failed for ' + field + ': ' + data
+		
 		return unmatched
