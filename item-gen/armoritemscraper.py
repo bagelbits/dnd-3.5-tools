@@ -53,6 +53,23 @@ class ArmorItemEntry(BookEntry):
 			self.loadOther(ArmorItems[self.baseEntry])
 		return unparsed	
 
+
+def buildRegex(fieldName,endPattern = "",optional = False, greedyData = True):
+	return r'(?:({0}):\s*(.*{1}){2}){3}'.format(fieldName,'?' if not greedyData else '', endPattern,'?' if optional else '')
+
+reg = 	buildRegex('Price \(Item Level\)') +\
+		buildRegex('Body Slot') +\
+		buildRegex('Caster Level') + \
+		buildRegex('Aura') +\
+		buildRegex('Activation') +\
+		buildRegex('Weight','\.', greedyData=False) + '()(.*?)' +\
+		buildRegex('Relic Power',optional=True, greedyData=False) +\
+		buildRegex('Lore', optional=True, greedyData=False) +\
+		buildRegex('Prerequisites') +\
+		buildRegex('Cost to Create')
+
+print reg
+
 with codecs.open("assets\out.txt", encoding='utf-8',mode='w',) as outFile:
 	fileContents = str()
 
@@ -66,13 +83,12 @@ with codecs.open("assets\out.txt", encoding='utf-8',mode='w',) as outFile:
 	
 	fileSplit = ArmorItemEntry._fieldDict['title'].regex.split(fileContents)
 	
+	testReg = re.compile(reg, re.DOTALL|re.MULTILINE)
 	for title,data in zip(fileSplit[1::2],fileSplit[2::2]):
 		title = re.sub(r'[ \r\n]+',' ',title) #clean newlines in the title before we pass it along
-		prop = ArmorItemEntry()
-		prop.parse(data,title)
-		ArmorItems[prop.title] = prop
-		outFile.write(str(prop) + '\n')
-		#print prop
-		#break
-		unmatched = prop.unmatchedFields()
-		if unmatched: print prop.title + 'failed on:' + str(unmatched)
+		exp = testReg.search(data)
+		expg = exp.groups()
+		print title
+		for field,data in zip(expg[0::2], expg[1::2]):
+			print "\t{0}:{1}".format(field if field and len(field) > 0 else 'description',data.strip() if data else data)
+		
