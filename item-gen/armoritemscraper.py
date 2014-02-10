@@ -22,7 +22,7 @@ class ArmorItemEntry(BookEntry):
 	_fieldDict = OrderedDict([
 		dndparsetools.titleField.NameTuple(),
 		FieldData('baseEntry',
-			re.compile(r'^([A-Z]{3,}),(?:\s*\b[A-Z]{3,})*', re.MULTILINE)).NameTuple(),
+			re.compile(r'^([A-Z]{3,}),(?:\s*\b[A-Z]{3,})*', re.MULTILINE),optional=True).NameTuple(),
 		dndparsetools.subtypeField.NameTuple(),
 		dndparsetools.synergyField.NameTuple(),
 		dndparsetools.priceField.NameTuple(),
@@ -35,11 +35,11 @@ class ArmorItemEntry(BookEntry):
 		dndparsetools.schoolField.NameTuple(),
 		dndparsetools.activationSpeedField.NameTuple(),
 		dndparsetools.activationModeField.NameTuple(),
-		FieldData('weight', re.compile(r'\bWeight:\s*(\d+\s*lb\.)')).NameTuple(),
+		FieldData('weight', re.compile(r'\bWeight:\s*(\d+\s*lb\.)',re.MULTILINE)).NameTuple(),
 		FieldData('creationPrereqs',
-			re.compile(r'\bPrerequisites: (.*?)\.')).NameTuple(),
+			re.compile(r'\bPrerequisites:\s?([^.]*)\.',re.MULTILINE)).NameTuple(),
 		FieldData('creationCost',
-			re.compile(r'\bCost to Create:(.*?)\.')).NameTuple(),
+			re.compile(r'\bCost to Create:\s?([^.]*)\.',re.MULTILINE)).NameTuple(),
 		FieldData('description',re.compile('()')).NameTuple()
 	])
 	

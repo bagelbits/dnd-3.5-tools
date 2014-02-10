@@ -3,18 +3,18 @@ import re
 from collections import OrderedDict
 from collections import namedtuple
 
-class FieldData(namedtuple('FieldData',['name','regex','default','verbose'])):
+class FieldData(namedtuple('FieldData',['name','regex','default','verbose','optional'])):
 	__slots__ = ()
 	#This is just sugar so we don't hve to put 'None' everywhere for default values
-	def __new__(self,name,regex,default=None,verbose=False):
-		return super(FieldData,self).__new__(self,name,regex,default,verbose)
+	def __new__(self,name,regex,default=None,verbose=False,optional=False):
+		return super(FieldData,self).__new__(self,name,regex,default,verbose,optional)
 
 	def NameTuple(self):
 		return (self.name,self)
 		
 titleField = FieldData('title',	re.compile(r'^((?:[A-Z]{3,},*)(?:\s*\b[A-Z]{2,},*)*)', re.MULTILINE))
-subtypeField = FieldData('subtype',	re.compile(r'\[([A-Z]{3,})\]', re.MULTILINE))
-synergyField = FieldData('synergy',	re.compile(r'\bSynergy Prerequisite:\s*(\b\w+\b(?:\s*\b[a-z]+\b){,2})'))
+subtypeField = FieldData('subtype',	re.compile(r'\[([A-Z]{3,})\]', re.MULTILINE),optional=True)
+synergyField = FieldData('synergy',	re.compile(r'\bSynergy Prerequisite:\s*(\b\w+\b(?:\s*\b[a-z]+\b){,2})'),optional=True)
 priceField = FieldData('price',	re.compile(r'\bPrice(?:\s+\(Item Level\)):\s*(\+?(?:\d|,)+\s(?:gp|bonus))', re.MULTILINE))
 casterLvlField = FieldData('casterLvl', re.compile(r'\bCaster Level: (\d*)(?:st|nd|rd|th)', re.MULTILINE))
 auraField = FieldData('aura', re.compile(r'\bAura:\s+\b\w+\b;\s+\(DC (\d+)\)\s+\b\w+\b', re.MULTILINE))
@@ -62,12 +62,12 @@ class BookEntry:
 				unmatched = unmatched.replace(match.group(0),'')
 				setattr(self,field, re.sub(r'\s+',' ',match.group(1),re.MULTILINE))
 			elif fieldData.verbose:
-				print 'Match failed for ' + field + ': ' + data
+				print 'Match failed for ' + field +'(' + fieldData.regex.pattern + '): ' + data
 		
 		return unmatched
 	def unmatchedFields(self):
 		unmatched = []
 		for field, fieldData in self._fieldDict.items():
-			if not hasattr(self,field) or getattr(self,field) == fieldData.default:
+			if not fieldData.optional and (not hasattr(self,field) or getattr(self,field) == fieldData.default):
 				unmatched.append(field)
 		return unmatched

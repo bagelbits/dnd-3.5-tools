@@ -12,7 +12,6 @@ Relic Power: If you have established the proper divine connection, once per day 
 To use the relic power, you must wor. ship Obad-Hai and either sacrifice a 4th-level divine spell slot or have the True Believer feat and at least 7 HD. If you sacri. fice a 6th-level divine slot (or have the True Believer feat and at least 11 HD), you can use the relic power two times per day. 
 Lore: The first suit of armor of the fallen leaves was sewn together by Ehlonna and presented as a gift to Obad-Hai (Knowl. edge [religion] DC 20). 
 Prerequisites: Craft Magic Arms and Armor, Sanctify Relic, baleful polymorph, gust of wind. 
-Armor of the fallen leaves 
 Cost to Create: 8,500 gp (plus 350 gp for masterwork breastplate), 680 XP, 17 days. 
 
 BARRICADE BUCKLER Price (Item Level): 4,165 gp (9th) Body Slot: — (held) Caster Level: 9th Aura: Moderate; (DC 19) evocation Activation: Swift (command) Weight: 5 lb. 
