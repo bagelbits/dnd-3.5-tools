@@ -54,9 +54,28 @@ class ArmorItemEntry(BookEntry):
 		return unparsed	
 
 
-def buildRegex(fieldName,endPattern = "",optional = False, greedyData = True):
-	return r'(?:({0}):\s*(.*{1}){2}){3}'.format(fieldName,'?' if not greedyData else '', endPattern,'?' if optional else '')
+	
+class Entry:
+	def __init__(self,name,shortName=None endPattern=None,entries=None,greedyData=False,optional=False,specialRegex=None):
+		self.name = name
+		self.shortName = shortName if shortName else name
+		self.greedyData = greedyData
+		self.optional = optional
+		self.entries = entries
+		
+		self._regex = re.compile(specialRegex if specialRegex else self.__buildRegex(), re.DOTALL|re.MULTILINE)
 
+	def __buildRegex(self):
+		return r'(?:({0}):\s*(.*{1}){2}){3}'.format(\
+			self.name,\
+			'?' if not self.greedyData else '',\
+			endPattern,'?' if optional else '')
+	
+	def addSubEntry(self, subName:
+		self.entries
+
+ArmorItem = Entry('Title', specialRegex=r'match a title here')
+ArmorItem.AddSubEntry( Entry('Price \(Item Level\)'
 reg = 	buildRegex('Price \(Item Level\)') +\
 		buildRegex('Body Slot') +\
 		buildRegex('Caster Level') + \
