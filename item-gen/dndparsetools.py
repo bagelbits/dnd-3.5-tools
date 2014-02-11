@@ -5,9 +5,9 @@ from collections import namedtuple
 
 class FieldData(namedtuple('FieldData',['name','regex','default','verbose','optional'])):
 	__slots__ = ()
-	#This is just sugar so we don't hve to put 'None' everywhere for default values
-	def __new__(self,name,regex,default=None,verbose=False,optional=False):
-		return super(FieldData,self).__new__(self,name,regex,default,verbose,optional)
+	#This is just sugar so we don't have to put 'None' everywhere for default values
+	def __new__(self,name,regex,greedy=False,verbose=False,optional=False):
+		return super(FieldData,self).__new__(self,name,regex,verbose,optional)
 
 	def NameTuple(self):
 		return (self.name,self)
@@ -47,6 +47,7 @@ class BookEntry:
 	#pre-parsed values may be provided as tuples following the data arg
 	def parse(self, data, *values):
 		#load any supplied values
+		self.__dict__['rawData'] = data
 		for field,value in zip(values[0::2], values[1::2]):
 			assert field in self.__dict__
 			self.__dict__[field] = value
