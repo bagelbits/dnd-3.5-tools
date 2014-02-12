@@ -5,6 +5,7 @@ import yaml
 import unicodedata
 import codecs
 import re
+import collections
 #import dndparsetools
 #from dndparsetools import FieldData
 #from dndparsetools import BookEntry
@@ -54,29 +55,35 @@ ArmorItems = {}
 #		return unparsed	
 
 
-	
 class Entry:
-	def __init__(self,name,shortName=None, endPattern='',entries=None,greedyData=False,optional=False,specialRegex=None):
+	def __init__(self,name,data):
 		self.name = name
-		self.shortName = shortName if shortName else name
-		self.endPattern = endPattern
-		self.greedyData = greedyData
-		self.optional = optional
-		self.entries = entries
-		
-		self._regex = re.compile(specialRegex if specialRegex else self.__buildRegex(), re.DOTALL|re.MULTILINE)
+		self.raw = data
+		self.children = []
+	def __str__(self):
+		return '{0}: {1}'.format(self.name, repr(self.raw))
 
-	def __buildRegex(self):
-		return r'(?:({0}):\s*(.*{1}){2}){3}'.format(\
-			self.name,\
-			'?' if not self.greedyData else '',\
-			self.endPattern,'?' if self.optional else '')
+class EntryType:
+	def __init__(self, type, delimRegex = None):
+		self.type = type
+		self.regex = delimRegex
 	
-	def addsub(self, subName):
-		self.entries
+	def addSubEntry
+	def parse(self, data):
+		currEntry = self.regex.search(data)
+		entryList = []
+		
+		while currEntry:
+			nextEntry = self.regex.search(data,currEntry.end())
+			entryEnd = nextEntry.start() if nextEntry else len(data)
+			
+			entryList.append(Entry(currEntry.group(), data[currEntry.end():entryEnd]))
+			print currEntry.group() + ' ' + str(currEntry.end()) + ' ' + str(entryEnd)
+			
+			currEntry = nextEntry
+		
+		return entryList
 
-ArmorItem = Entry('Title', specialRegex=r'match a title here')
-ArmorItem.addsub( Entry('Price \(Item Level\)'))
 #reg = 	buildRegex('Price \(Item Level\)') +\
 #		buildRegex('Body Slot') +\
 #		buildRegex('Caster Level') + \
@@ -88,8 +95,6 @@ ArmorItem.addsub( Entry('Price \(Item Level\)'))
 #		buildRegex('Prerequisites') +\
 #		buildRegex('Cost to Create')
 
-#print reg
-
 with codecs.open("assets\out.txt", encoding='utf-8',mode='w',) as outFile:
 	fileContents = str()
 
@@ -100,8 +105,32 @@ with codecs.open("assets\out.txt", encoding='utf-8',mode='w',) as outFile:
 	fileContents = fileContents.replace(u'\xad','')
 	fileContents = fileContents.replace(u'\xac ','')
 	fileContents = fileContents.replace(u'\u2014','--') #replace long-dash
+
+	armorEntry = EntryType('Armor Item', re.compile(r'^((?:[A-Z]{3,},*)(?:\s*\b[A-Z]{2,},*)*)', re.MULTILINE))
+	armorEntry.addSubEntry('Price \(Item Level\)')
 	
-	fileSplit = ArmorItemEntry._fieldDict['title'].regex.split(fileContents)
+	items = armorEntry.parse(fileContents)
+	for item in items:
+		print item
+	exit()
+	#0 is always empty since the tile regex starts with ^
+	regex = r'(' + \
+				buildRegex('Price (Item Level)')+'|'+buildRegex('Body Slot') + '|'+\
+				buildRegex('Caster Level') + '|' + buildRegex('Caster Level') + '|'+\
+				buildRegex('Aura') + '|' + buildRegex('Activation') + '|' +\
+				buildRegex('Weight') + '|' + buildRegex('^Lore') +\
+		r'):\s*'
+	
+	for title,data in zip(fileSplit[1::2],fileSplit[2::2]):
+		print title
+	
+		print regex
+		dataSplit = re.split(regex,data)
+		print dataSplit
+		
+		for field, fieldData in zip(dataSplit[1::2], dataSplit[2::2]):
+			print 'field({0})-{1}'.format(field.strip(),fieldData.strip())
+	#fileSplit = ArmorItemEntry._fieldDict['title'].regex.split(fileContents)
 	
 	#testReg = re.compile(reg, re.DOTALL|re.MULTILINE)
 	#for title,data in zip(fileSplit[1::2],fileSplit[2::2]):
