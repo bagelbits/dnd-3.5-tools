@@ -25,9 +25,10 @@ class ArmorItemEntry(BookEntry):
 			re.compile(r'^([A-Z]{3,}),(?:\s*\b[A-Z]{3,})*', re.MULTILINE),optional=True).NameTuple(),
 		dndparsetools.subtypeField.NameTuple(),
 		dndparsetools.synergyField.NameTuple(),
-		dndparsetools.priceField.NameTuple(),
 		FieldData('itemLvl',
 			re.compile(r'\bPrice(?:\s+\(Item Level\)):\s*(?:\+?(?:\d|,)+\s(?:gp|bonus))\s*\((.*?)\)', re.MULTILINE)).NameTuple(),
+		dndparsetools.priceField.NameTuple(),
+		
 		FieldData('bodySlot',
 			re.compile(r'\bBody Slot:\s*(Body|--\s*\(held\))', re.MULTILINE)).NameTuple(),
 		dndparsetools.casterLvlField.NameTuple(),
@@ -36,6 +37,9 @@ class ArmorItemEntry(BookEntry):
 		dndparsetools.activationSpeedField.NameTuple(),
 		dndparsetools.activationModeField.NameTuple(),
 		FieldData('weight', re.compile(r'\bWeight:\s*(\d+\s*lb\.)',re.MULTILINE)).NameTuple(),
+		FieldData('relicPower', re.compile(r'\bRelic Power:\s*(.*?)(?=Lore:)',re.MULTILINE|re.DOTALL),optional=True).NameTuple(),
+		FieldData('lore', re.compile(r'\bLore:\s*(.*?)(?=Prerequisites:)',re.MULTILINE|re.DOTALL),optional=True).NameTuple(),
+		
 		FieldData('creationPrereqs',
 			re.compile(r'\bPrerequisites:\s?([^.]*)\.',re.MULTILINE)).NameTuple(),
 		FieldData('creationCost',
