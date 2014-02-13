@@ -24,7 +24,6 @@ class ArmorItemEntry(BookEntry):
 		FieldData('baseEntry',
 			re.compile(r'^([A-Z]{3,}),(?:\s*\b[A-Z]{3,})*', re.MULTILINE),optional=True).NameTuple(),
 		dndparsetools.subtypeField.NameTuple(),
-		dndparsetools.synergyField.NameTuple(),
 		FieldData('itemLvl',
 			re.compile(r'\bPrice(?:\s+\(Item Level\)):\s*(?:\+?(?:\d|,)+\s(?:gp|bonus))\s*\((.*?)\)', re.MULTILINE)).NameTuple(),
 		dndparsetools.priceField.NameTuple(),
