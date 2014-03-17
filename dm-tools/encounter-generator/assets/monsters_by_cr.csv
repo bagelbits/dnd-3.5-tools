@@ -31,6 +31,7 @@ Adamantine Spider,DrU,106,Construct,3,Small
 Adaru,MM5,20,"Outsider (Chaotic, Evil, Extraplanar, Tanar'ri)",10,Medium
 Advespa (Baatezu),MM2,67,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",3,Large
 Ahuitzol,FF,14,Aberration (Aquatic),6,Large
+Air Weird,MM2,91,Elemental (Air),12,Large
 Alaghi,Mon,14,Monstrous Humanoid,4,Medium
 Albatross,Sto,165,Animal ,1/4,Small
 Alchemy Beetle,SX,74,Construct,2,Small
@@ -1006,8 +1007,8 @@ Dwarf Ancestor,MM4,52,Outsider (Native),6,Large
 Dwarf Einherjar,DD,199,Outsider (Quasi-Deity),20,Small
 "Dwarf, Duergar",MM,92,Humanoid (Dwarf),1,Medium
 "Dwarf, Duergar Psionic",XPH,195,"Humanoid (Dwarf, Psionic)",1,Medium
-"Dwarf, Glacier",Fr,122,Humanoid (Dwarf),1,Medium
-"Dwarf, Glacier Snow Hunter",Fr,123,Humanoid (Dwarf),2,Medium
+"Glacier Dwarf, Warrior 1",Fr,122,Humanoid (Dwarf),1,Medium
+"Snow Hunter, Glacier Dwarf Ranger 2",Fr,123,Humanoid (Dwarf),2,Medium
 "Dwarf, Midgard",Fr,124,Outsider (Native),5,Small
 Dweomervore,CSW,134,Dragon,7,Small
 Dybbuk,FCI,36,"Outsider (Chaotic, Evil, Extraplanar, Incorporeal, Loumara)",8,Medium
@@ -1016,6 +1017,7 @@ Eagle,MM,272,Animal,1/2,Small
 "Eagle, Giant",MM,93,Magical Beast,3,Large
 "Eagle, Legendary",MM2,137,Animal,6,Small
 Earth Glider,Und,84,"Outsider (Earth, Extraplanar, Evil)",12,Large
+Earth Weird,MM2,91,Elemental (Earth),12,Large
 Earth Whisper,RS,187,"Elemental (Earth, Extraplanar, Incorporeal)",5,Medium
 "Ecalypse, Ephemera",MP,170,Outsider,9,Large
 Ectoplasmic Swarm,CP,129,"Magical Beast (Psionic, Swarm)",5,Diminutive
@@ -1042,8 +1044,6 @@ Elder Spawn of Juiblex,MM5,163,"Elemental (Extraplanar, Water)",14,Gargantuan
 "Elemental Steward, Emberling",CP,130,"Elemental (Extraplanar, Fire, Psionic)",2,Small
 "Elemental Steward, Geodite",CP,131,"Elemental (Earth, Extraplanar, Psionic)",2,Small
 "Elemental Steward, Tempestan",CP,132,"Elemental (Air, Extraplanar, Psionic)",2,Small
-"Elemental Weird, Ice",Fr,126,"Elemental (Cold, Extraplanar, Water)",15,Large
-"Elemental Weird, Snow",Fr,127,"Elemental (Air, Cold, Extraplanar)",15,Large
 "Elemental, Air Primal",EL,187,Elemental (Air),35,Colossal
 "Elemental, Earth Primal",EL,187,Elemental (Earth),35,Colossal
 "Elemental, Elder Air",MM,95,"Elemental (Air, Extraplanar)",11,Huge
@@ -1169,6 +1169,7 @@ Fihyr,MM2,100,Aberration,3,Small
 "Fihyr, Greater",MM2,100,Aberration,15,Medium
 Firbolg,MM2,101,Giant,12,Large
 Fire Spider Swarm,SSL,155,"Magical Beast (Extraplanar, Evil, Fire, Swarm)",9,
+Fire Weird,MM2,91,Elemental (Fire),12,Large
 "Firefly, Giant",AE,91,Vermin,1/2,Large
 Firenewt,Mon,48,"Monstrous Humanoid (Fire, Reptilian)",1,Medium
 Fireshadow,DCS,225,"Undead (Chaos, Evil, Extraplanar)",10,Huge
@@ -1210,6 +1211,7 @@ Galeb Duhr,MM2,107,"Elemental (Earth, Extraplanar)",9,Medium
 Gambol,MM2,108,Magical Beast,5,Large
 Garbler,TM,167,Aberration,8,Small
 Gargoyle,MM,113,Monstrous Humanoid (Earth),4,Medium
+"Gargoyle, Ice Beast",Fr,139,Construct (Cold),3,Medium
 "Gargoyle, Kir-Lanan",FRCS,312,Monstrous Humanoid,2,Medium
 Garngrath,MM5,60,Magical Beast (Extraplanar),20,Colossal
 Gas Spore,LoM,148,Plant,3,Large
@@ -1243,9 +1245,9 @@ Giant Wasp Mount,MM4,84,Vermin,3,Large
 "Giant, Fog",Mon,50,Giant (Air),8,Huge
 "Giant, Forest",MM2,110,Giant,11,Huge
 "Giant, Frost",MM,122,Giant (Cold),9,Large
-"Giant, Frost Mauler",Fr,134,Giant (Cold),11,Large
-"Giant, Frost Spiritspeaker",Fr,134,Giant (Cold),10,Large
-"Giant, Frost Tundra Scout",Fr,135,Giant (Cold),10,Large
+"Frost Giant Mauler",Fr,134,Giant (Cold),11,Large
+"Frost Giant Spiritspeaker",Fr,134,Giant (Cold),10,Large
+"Frost Giant Tundra Scout",Fr,135,Giant (Cold),10,Large
 "Giant, Greater Dusk",HH,147,Giant,14,Huge
 "Giant, Hill",MM,123,Giant,7,Large
 "Giant, Least Dusk",HH,147,Giant,4,Medium
@@ -1286,7 +1288,7 @@ Gnoll,MM,130,Humanoid (Gnoll),1,Medium
 Goatfolk (Ibixian),MM3,63,Monstrous Humanoid,2,Medium
 Goblin,MM,133,Humanoid (Goblinoid),1/3,Small
 "Goblin, Dekanter",Mon,53,Monstrous Humanoid (Goblinoid),1,Medium
-"Goblin, Snow",Fr,136,Humanoid (Goblinoid),1/2,Small
+"Snow Goblin, 1st-level Warrior",Fr,136,Humanoid (Goblinoid),1/2,Small
 Golden Protector (Celestial Half-Dragon Lammasu),MM,166,Dragon,13,Large
 "Golem, Adamantine",EL,194,Construct,25,Huge
 "Golem, Alchemical",MM3,66,Construct,11,Large
@@ -1480,6 +1482,7 @@ Ice Devil (Gelugon),MM,56,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",13,Lar
 "Ice Paraelemental, Medium",MP,181,"Elemental (Air, Cold)",3,Medium
 "Ice Paraelemental, Small",MP,181,"Elemental (Air, Cold)",1,Small
 Ice Serpent,Mon,62,"Elemental (Air, Cold)",3,Large
+Ice Weird,Fr,126,"Elemental (Cold, Extraplanar, Water)",15,Large
 Icegaunt,Fr,141,Undead (Cold),6,Medium
 "Ildriss, Elemental Grue",CAr,155,"Elemental (Air, Evil, Extraplanar)",2,Medium
 "Illithidae, Embrac",LoM,154,Aberration,7,Large
@@ -1819,7 +1822,7 @@ Nabassu,FCI,48,"Outsider (Chaotic, Evil, Extraplanar, Tanar'ri)",5,Medium
 "Naga, Water",MM,193,Aberration (Aquatic),7,Large
 Nagahydra,SK,77,Aberration,18,Huge
 Nagatha,MM4,102,Monstrous Humanoid,4,Medium
-Naityan Rakshasa,ToB,151,"Outsider (Native)",7,Medium
+Naityan Rakshasa,ToB,151,Outsider (Native),7,Medium
 Nalfeshnee (Demon),MM,45,"Outsider (Chaotic, Extraplanar, Evil, Tanar'ri)",14,Huge
 Narzugon,FCII,125,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",5,Medium
 "Narzugon, Devil (Baatezu)",MP,167,"Outsider (Evil, Lawful)",9,Medium
@@ -2287,6 +2290,7 @@ Snake Head,SSL,152,Construct,1,Tiny
 "Snake, Two-headed Adder",FRCS,309,Animal,1,Small
 "Snake, Winged Viper",FRCS,309,Animal,2,Large
 Snapping Turtle,Sto,168,Animal ,1,Small
+Snow Weird,Fr,127,"Elemental (Air, Cold, Extraplanar)",15,Large
 Snowcloak,Fr,153,Aberration (Cold),4,Large
 Solamith,MM5,28,"Outsider (Chaotic, Evil, Extraplanar, Tanar'ri)",8,Large
 Solar (Angel),MM,12,"Outsider (Angel, Extraplanar, Good)",23,Large
@@ -2326,12 +2330,16 @@ Spider Eater,MM,234,Magical Beast,5,Large
 "Spider, Phase",MM,207,Magical Beast,5,Large
 "Spider, Shadow",MM2,184,Magical Beast,12,Huge
 "Spider, Sword",Mon,79,Vermin,5,Large
+"Snow Spider, Small",Fr,154,Vermin,1/2,Small
+"Snow Spider, Medium",Fr,154,Vermin,1,Medium
+"Snow Spider, Large",Fr,154,Vermin,2,Large
 "Spinagon, Devil (Baatezu)",MP,167,"Outsider (Evil, Lawful)",4,Small
 Spined Devil (Spinagon),FCII,136,"Outsider (Baatezu, Evil, Extraplanar, Lawful)",4,Small
 Spirit Folk,OA,192,Humanoid (Spirit),1/2,Medium
 Spirit of the Air,FF,160,Magical Beast (Air),11,Large
 Spirit of the Land,MM2,189,Fey (Incoporeal),23,Huge
 Spirit Tree,Gh,170,Plant,10,Huge
+Spirit Wolf,Fr,155,"Fey (Augmented Animal, Incorporeal)",2,Medium
 Spirrax,MM5,166,Aberration (Extraplanar),18,Gargantuan
 Spitting Spider,DrU,141,Vermin,5,Large
 Splinterwaif,MM3,164,Fey,2,Medium
@@ -2538,6 +2546,7 @@ Twig Blight,MM2,197,Plant,1/3,Small
 Twilight Guardian,DM,121,Plant (Dragonblood),7,Large
 Uchuulon (Slime Chuul),Sto,163,Aberration (Aquatic),6,Large
 Udoroot,XPH,214,Plant (Psionic),5,Huge
+Uldra,Fr,158,Fey,1/2,Small
 Ulgurstasta,FF,180,Undead,11,Gargantuan
 "Ultroloth, Yugoloth",MP,187,Outsider (Evil),16,Medium
 Umber Hulk,MM,248,Aberration,7,Large
@@ -2624,14 +2633,11 @@ Warforged Titan,ECS,302,Construct,8,Huge
 Waste Crawler (Anhydrut),Sa,191,"Construct (Extraplanar, Lawful)",9,Large
 Wastrilith,FF,54,"Outsider (Aquatic, Chaotic, Evil, Extraplanar)",17,Huge
 Watchspider,CSW,140,Magical Beast,1,Medium
+Water Weird,MM2,91,Elemental (Water),12,Large
 Waterveiled Assassin (Water Avatar),MM4,13,"Elemental (Extraplanar, Water)",15,Large
 Weasel,MM,282,Animal,1/4,Tiny
 "Weasel, Dire",MM,65,Animal,2,Medium
 Web Mummy,MM4,165,Undead,4,Medium
-"Weird, Air",MM2,91,Elemental (Air),12,Large
-"Weird, Earth",MM2,91,Elemental (Earth),12,Large
-"Weird, Fire",MM2,91,Elemental (Fire),12,Large
-"Weird, Water",MM2,91,Elemental (Water),12,Large
 Wemic,Mon,84,Monstrous Humanoid,3,Large
 Werebat,Mon,92,Shapechanger,4,Huge
 Werebear (Lycanthrope),MM,170,"Humanoid (Human, Shapechanger)",5,

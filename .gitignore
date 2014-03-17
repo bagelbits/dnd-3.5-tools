@@ -8,3 +8,5 @@ character-specific/Krag/weapons/.DS_Store
 *.pyc
 *.csv#
 dm-tools/encounter-generator/assets/creatures.db
+
+dm-tools/encounter-generator/test.py
