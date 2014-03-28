@@ -21,9 +21,11 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>
 """
 
+#TODO: When you get an organization, either/or type enforcement on per creature basis
+
 import argparse
 from random import randint
-from creature_db_setup import db_setup
+from creature_db_setup import db_setup, print_creature_stats
 import assets.dmg_tables as dmg_tables
 
 #For making text all colorful and easier to read.
@@ -191,15 +193,6 @@ def get_creature_list(db_cursor, creature_cr, set_creature_type='', set_creature
   return list(proper_cr_monsters)
 
 def random_creature_by_cr(db_cursor, creature_cr, set_creature_type='', set_creature_book=''):
-  
-  """
-  TODO: More concise type enforcing
-  Try exact type
-  Keep only element, alignment, type
-  Drop type
-  Drop alignment
-  Try fucking anything (though try and keep in mind want alignment they usually are)
-  """
 
   alignment = []
   proper_cr_monsters = []
@@ -517,8 +510,6 @@ parser.add_argument('-r', '--reload-db', action='store_true',
   default=False, dest='reload_db',
   help='Cursory reload of db. This will really only add new monsters.\nFor other changes, please delete assets/creatures.db first.')
 
-# TODO: Option for setting types you want
-
 args=parser.parse_args()
 
 ####################################################################################
@@ -546,8 +537,6 @@ if args.pokemon_mode:
 else:
   set_cr = int(args.requested_cr)
 
-  
-
   if args.set_types:
     set_types = " ".join(args.set_types).split(", ")
   else:
@@ -568,8 +557,6 @@ else:
 ####################################################################################
 #                                 CSV PROCESSING                                   #
 ####################################################################################
-
-# TODO: Turn this into a sqlite db.
 
 for encounter in range(0, max_encounters):
   encounter_cr = set_cr

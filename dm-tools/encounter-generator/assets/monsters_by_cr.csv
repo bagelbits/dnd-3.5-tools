@@ -1231,6 +1231,7 @@ Ghast,MM,119,Undead,3,Medium
 Ghaunadan,Mon,49,Shapechanger,5,Medium
 "Ghirrash, Shadow Beast",MH,68,Outsider (Extraplanar),7,Large
 Ghosteater,Gh,165,Aberration (Incorporeal),3,Medium
+"Frostfell Ghost, Human Sorcerer 3",Fr,132,Undead (Incorporeal),5,Medium
 Ghoul,MM,118,Undead,1,Medium
 "Ghoul, Abyssal",FF,12,Undead (Extraplanar),10,Medium
 Giant Wasp Mount,MM4,84,Vermin,3,Large
@@ -1288,7 +1289,7 @@ Gnoll,MM,130,Humanoid (Gnoll),1,Medium
 Goatfolk (Ibixian),MM3,63,Monstrous Humanoid,2,Medium
 Goblin,MM,133,Humanoid (Goblinoid),1/3,Small
 "Goblin, Dekanter",Mon,53,Monstrous Humanoid (Goblinoid),1,Medium
-"Snow Goblin, 1st-level Warrior",Fr,136,Humanoid (Goblinoid),1/2,Small
+"Snow Goblin, Warrior 1",Fr,136,Humanoid (Goblinoid),1/2,Small
 Golden Protector (Celestial Half-Dragon Lammasu),MM,166,Dragon,13,Large
 "Golem, Adamantine",EL,194,Construct,25,Huge
 "Golem, Alchemical",MM3,66,Construct,11,Large
@@ -2158,7 +2159,7 @@ Scouring Slinger,MM5,144,Construct,18,Huge
 Scouring Stanchion,MM5,145,Construct,18,Huge
 Scyllan,Sto,157,"Outsider (Aquatic, Native)",13,Huge
 Scyther of Thoon,MM5,116,Construct,6,Medium
-Seal,Sto,167,Animal,1/3,Medium
+Seal,Fr,166,Animal,1/3,Medium
 Seawolf,Sto,158,Magical Beast (Shapechanger),3,Medium
 Selkie,FF,145,"Humanoid (Aquatic, Shapechanger)",1,Medium
 Senmurv,FF,149,Magical Beast,3,Large
