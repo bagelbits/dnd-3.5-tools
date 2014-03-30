@@ -375,8 +375,39 @@ def import_frostfell_creature(db_cursor, line):
       organization, treasure, alignment, advancement, la, description,
       ability_descriptions, books))
 
+# Range is as follows:
+# 1, 2, 3, 4, 5-6, 7-9, 10+
 def insert_group_cr_range(db_cursor, creature_id, creature_cr, group_range, group_name):
-  sorted_group_cr = []
+  sorted_group_cr = [
+    [], #Creature num: 1
+    [], #Creature num: 2
+    [], #Creature num: 3
+    [], #Creature num: 4
+    [], #Creature num: 5-6
+    [], #Creature num: 7-9
+    [], #Creature num: 10-12
+  ]
+
+  for number in group_range:
+    if number > 12:
+      print "%sCreature id: %s has more than 12 members in a group. Please check!%s" % (
+        colorz.RED, creature_id, colorz.ENDC)
+      continue
+
+    if number == 1:
+      sorted_group_cr[0].append(number)
+    elif number == 2:
+      sorted_group_cr[0].append(number)
+    elif number == 3:
+      sorted_group_cr[0].append(number)
+    elif number == 4:
+      sorted_group_cr[0].append(number)
+    elif number < 7:
+      sorted_group_cr[0].append(number)
+    elif number < 10:
+      sorted_group_cr[0].append(number)
+    elif number < 13:
+      sorted_group_cr[0].append(number)
 
 
 #NOTE: Rolled CRs are only going to be their standard range
@@ -422,10 +453,22 @@ def populate_groups(db_cursor, creature_id, org_line):
     # Expand dice rolls
     match = re.search(r'(\d+)d(\d+)(\+(\d+)|)', group)
     if match:
-      group = range(int(match.group(1)), int(match.group(1))*int(match.group(2)) + 1)
+      group = [int(match.group(1)), int(match.group(1))*int(match.group(2))]
+
       if match.group(3):
-        group[0] = int(match.group(4))
-        group[1] = int(match.group(4))
+        group[0] += int(match.group(4))
+        group[1] += int(match.group(4))
+      
+      # Min filtering for max creature limit
+      if group[0] > 12:
+        continue
+
+      # Max filtering for max creature limit
+      if group[1] > 12:
+        group[1] = 12
+
+      group = range(group[0], group[1] + 1)
+
       for number in group:
         if number not in standardize_list:
           standardize_list.append(number)
@@ -435,20 +478,25 @@ def populate_groups(db_cursor, creature_id, org_line):
       #print match.group(0)
 
     # Expand ranges
-    if not isinstance(group, list):
-      match = re.search(r'\((\d+-\d+)\)', group)
-      if match:
-        group = match.group(1).split('-')
-        group = range(int(group[0]), int(group[1]) + 1)
+    match = re.search(r'\((\d+-\d+)\)', group)
+    if match:
+      group = [int(x) for x in match.group(1).split('-')]
 
-        for number in group:
-          if number == 1:
-            db_cursor.execute("SELECT name FROM creature WHERE id = ?" , (creature_id,))
-            print db_cursor.fetchone()[0]
-          if number not in standardize_list:
-            standardize_list.append(number)
-        insert_group_cr_range(db_cursor, creature_id, main_creature_cr, group, group_name)
-        return
+      # Min filtering for max creature limit
+      if group[0] > 12:
+        continue
+
+      # Max filtering for max creature limit
+      if group[1] > 12:
+        group[1] = 12
+      
+      group = range(int(group[0]), int(group[1]) + 1)
+
+      for number in group:
+        if number not in standardize_list:
+          standardize_list.append(number)
+      insert_group_cr_range(db_cursor, creature_id, main_creature_cr, group, group_name)
+      return
 
     # Group these by same CR grouping and store max-mins
 
