@@ -146,7 +146,7 @@ def get_creature_list(db_cursor, creature_cr, set_creature_type='', set_creature
   creature_by_type = []
   creature_by_subtype = []
 
-  if set_creature_type:
+  if set_creature_type['type_id'] or set_creature_type['subtype_id']:
     if set_creature_type['type_id']:
       db_cursor.execute('SELECT creature.id FROM creature_type, creature\
         WHERE creature_type.type_id = ?\
@@ -164,11 +164,15 @@ def get_creature_list(db_cursor, creature_cr, set_creature_type='', set_creature
           AND creature.cr = ?', (subtype_id, creature_cr))
         subtype_subgroup = db_cursor.fetchall()
         if subtype_subgroup:
-          creature_by_subtype.append(set([_id[0] for _id in subtype_subgroup]))
+          creature_by_subtype.extend(set([_id[0] for _id in subtype_subgroup]))
+
       
   creature_by_type = set(creature_by_type)
   if creature_by_subtype:
-    proper_cr_monsters = set.intersection(creature_by_type, *creature_by_subtype)
+    if creature_by_type:
+      proper_cr_monsters = set.intersection(creature_by_type, *creature_by_subtype)
+    else:
+      proper_cr_monsters = creature_by_subtype
   else:
     proper_cr_monsters = creature_by_type
 
@@ -264,7 +268,7 @@ def random_creature_by_cr(db_cursor, creature_cr, set_creature_type='', set_crea
 def get_creature_data(db_cursor, creature_id):
   # Let's pull all of the storecd data for that creature
   creature_data = {'id': creature_id}
-  
+
   db_cursor.execute('SELECT name, cr FROM creature WHERE id = ? LIMIT 1', (creature_id,))
   creature_data['name'], creature_data['cr'] = db_cursor.fetchone()
 
@@ -373,6 +377,7 @@ def get_party_exp(db_cursor, party_levels, encounter_creatures):
 
     print "Characters with level %s gain %sxp" % (character_level, character_xp)
 
+  #TODO: GRAMMAR
   if low_cr_found:
     print "\n    Note: Some of these creature have a CR less than 8 the character's level"
     print "    and thus aren't awarded xp."

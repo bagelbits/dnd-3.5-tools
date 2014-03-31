@@ -10,3 +10,7 @@ character-specific/Krag/weapons/.DS_Store
 dm-tools/encounter-generator/assets/creatures.db
 
 dm-tools/encounter-generator/test.py
+
+dm-tools/encounter-generator/Noah_encounters.txt
+
+dm-tools/encounter-generator.zip
