@@ -131,7 +131,7 @@ def get_weird_same_cr(set_cr, total_creatures):
 
   return creature_cr, new_set_cr
 
-def get_creature_list(db_cursor, creature_cr, set_creature_type='', set_creature_book=''):
+def get_creature_list(db_cursor, creature_cr, set_creature_type='', set_creature_book='', align_varience=False):
   proper_cr_monsters = set([])
 
   # Generate all creatures with that cr if nothing set
@@ -194,7 +194,7 @@ def get_creature_list(db_cursor, creature_cr, set_creature_type='', set_creature
 
   return list(proper_cr_monsters)
 
-def random_creature_by_cr(db_cursor, creature_cr, set_creature_type='', set_creature_book=''):
+def random_creature_by_cr(db_cursor, creature_cr, set_creature_type='', set_creature_book='', align_varience=False):
   
   """
   TODO: More concise type enforcing
@@ -379,12 +379,12 @@ def get_party_exp(db_cursor, party_levels, encounter_creatures):
 
   #TODO: GRAMMAR
   if low_cr_found:
-    print "\n    Note: Some of these creature have a CR less than 8 the character's level"
-    print "    and thus aren't awarded xp."
+    print "\n    Note: Some of these creatures have a CR 8 or more lower than"
+    print "    the character's level and thus aren't awarded xp."
 
   if high_cr_found:
-    print "\n    Note: some of these creatures have a CR greater than 8 the character's level"
-    print "    and thus aren't awarded xp."
+    print "\n    Note: Some of these creatures have a CR 8 or more greater than"
+    print "    the character's level and thus aren't awarded xp."
 
   print ""
 
@@ -434,6 +434,7 @@ def get_encouter_creatures(db_cursor, creature_group_cr, number_of_creatures, se
   set_creature_type = set_creature_data['creature_type']
   book_enforce = set_creature_data['book_enforce']
   set_creature_book = set_creature_data['creature_book']
+  align_varience = set_creature_data['align_varience']
 
 
   encounter_creatures = []
@@ -465,7 +466,7 @@ def get_encouter_creatures(db_cursor, creature_group_cr, number_of_creatures, se
           creature_cr = new_cr
 
     creature_id, creature_subtype_alignment = random_creature_by_cr(db_cursor, creature_cr,
-      set_creature_type, set_creature_book)
+      set_creature_type, set_creature_book, align_varience)
     creature_data = get_creature_data(db_cursor, creature_id)
     if type_enforce and not set_creature_type:
       set_creature_type = creature_data['type']
@@ -512,6 +513,9 @@ parser.add_argument('-V', '--no-varience', action='store_true',
   help="Hard set CR, do not vary based off varience tables")
 parser.add_argument('-t', '--set-types', nargs='*', dest='set_types',
   help="Set types that you want. Please comma separate these.")
+parser.add_argument('-a', '--alignment-var', action='store_true',
+  default=False, dest='align_var',
+  help="Allow for one step varience in alignment")
 parser.add_argument('-n', '---encounters', default='1',
   dest='max_encounters', help="Set max number of encounters to generate")
 parser.add_argument('--pokemon-mode', default=False, dest='pokemon_mode',
@@ -565,6 +569,7 @@ else:
 
   max_creatures = int(args.max_creatures)
   type_enforce = args.type_enforce
+  align_var = args.align_var
   book_enforce = args.book_enforce
   party_levels = args.party_levels
   creatur_type_count = int(args.creatur_type_count)
@@ -612,6 +617,7 @@ for encounter in range(0, max_encounters):
     'book_enforce': book_enforce,
     'creature_type': set_creature_type,
     'creature_book': set_creature_book,
+    'align_varience': align_var
   }
   
   encounter_creatures = get_encouter_creatures(db_cursor, creature_group_cr,
