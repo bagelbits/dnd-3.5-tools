@@ -92,7 +92,7 @@ def get_same_cr_total(creature_cr, number):
   elif number > 9:
     number = 7
 
-  # Account for weird creatur cr
+  # Account for weird creature cr
   if creature_cr < 5:
     for row in sorted(dmg_tables.weird_same_cr.keys()):
       if isinstance(dmg_tables.weird_same_cr[row][number - 2], list):
@@ -110,8 +110,18 @@ def get_same_cr_total(creature_cr, number):
   return int(creature_cr) + number
 
 #TODO: Implement this!
-def get_mixed_cr_totla():
+def get_mixed_cr_total():
   pass
+
+def de_plural_creature_name(creature_name):
+  if re.search('wolves', creature_name):
+    creature_name = re.sub('wolves', 'wolf', creature_name)
+
+  creature_name = re.sub('s$', '', creature_name)
+
+  creature_name = re.sub('frost giant', 'giant, frost', creature_name)
+
+  return creature_name
 
 #################################################
 #             DATABASE MANAGEMENT               #
@@ -273,7 +283,7 @@ def import_frostfell_creature(db_cursor, line):
                      (line[0].title(), monster_cr))
   creature_id = db_cursor.fetchone()
   if not creature_id:
-    print "%sBase creatuer not found: %s%s" % (colorz.RED, line[0].title(), colorz.ENDC)
+    print "%sBase creature not found: %s%s" % (colorz.RED, line[0].title(), colorz.ENDC)
   else:
     creature_id = creature_id[0]
 
@@ -379,7 +389,7 @@ def import_frostfell_creature(db_cursor, line):
 # Range is as follows:
 # 1, 2, 3, 4, 5-6, 7-9, 10-12, 13+
 # 13+ gets treated as non-combat and gets same CR as 10-12
-def insert_group_cr_range(db_cursor, creature_id, creature_cr, group_range, group_name):
+def insert_single_group_cr_range(db_cursor, creature_id, creature_cr, group_range, group_name):
   sorted_group_cr = [
     [], #Creature num: 1
     [], #Creature num: 2
@@ -410,21 +420,37 @@ def insert_group_cr_range(db_cursor, creature_id, creature_cr, group_range, grou
     else:
       sorted_group_cr[7].append(number)
 
-  print sorted_group_cr
+  for group in sorted_group_cr:
+    if not group:
+      continue
 
+    group_cr = get_same_cr_total (creature_cr, group[0])
+    group_min = group[0]
+    group_max = group[-1]
 
+    combat_group = True
+    if group_min > 12:
+      combat_group = False
+
+    db_cursor.execute("INSERT INTO creature_group VALUES(NULL, ?, ?, ?, ?, ?, ?)",
+      (group_cr, group_min, group_max, group_name, creature_id, combat_group))
+    db_cursor.execute("SELECT id FROM creature_group WHERE main_creature_id = ?\
+      AND group_name = ?", (creature_id, group_name))
+    creature_group_id = db_cursor.fetchone()[0]
+    db_cursor.execute("INSERT INTO creature_group_contents VALUES(?, ?, ?, ?)",
+      (creature_group_id, creature_id, group_min, group_max))
 
 #NOTE: Rolled CRs are only going to be their standard range
 # without any weighted for rolling.
-def populate_groups(db_cursor, creature_id, org_line):
+def populate_groups(db_cursor, main_creature_id, org_line):
   global standardize_list
 
   #Get main creature cr
-  db_cursor.execute("SELECT cr FROM creature WHERE id = ?" , (creature_id,))
+  db_cursor.execute("SELECT cr FROM creature WHERE id = ?" , (main_creature_id,))
   main_creature_cr = db_cursor.fetchone()[0]
 
-  db_cursor.execute("SELECT name FROM creature WHERE id = ?" , (creature_id,))
-  creature_name = db_cursor.fetchone()[0]
+  db_cursor.execute("SELECT name FROM creature WHERE id = ?" , (main_creature_id,))
+  main_creature_name = db_cursor.fetchone()[0]
   
   org_line = replace_outside_parens(org_line.lower(), '(?<=[\w\),]) or(?=\s)', ',', ' or')
   org_line = stitch_split_parens(org_line)
@@ -436,6 +462,10 @@ def populate_groups(db_cursor, creature_id, org_line):
     # Pull name from everything not in parens
     group_name = group.split('(', 1)[0].strip()
     
+    ###################################
+    # Handle soliatry and pairs first #
+    ###################################
+
     if group == 'pair':
       group = 2
     if group == 'mated pair':
@@ -447,13 +477,17 @@ def populate_groups(db_cursor, creature_id, org_line):
       quantity = group
       group_cr = get_same_cr_total(main_creature_cr, quantity)
       db_cursor.execute("INSERT INTO creature_group VALUES(NULL, ?, ?, ?, ?, ?, ?)",
-        (group_cr, quantity, quantity, group_name, creature_id, True))
+        (group_cr, quantity, quantity, group_name, main_creature_id, True))
       db_cursor.execute("SELECT id FROM creature_group WHERE main_creature_id = ?\
-        AND group_name = ?", (creature_id, group_name))
+        AND group_name = ?", (main_creature_id, group_name))
       creature_group_id = db_cursor.fetchone()[0]
       db_cursor.execute("INSERT INTO creature_group_contents VALUES(?, ?, ?, ?)",
-        (creature_group_id, creature_id, quantity, quantity))
+        (creature_group_id, main_creature_id, quantity, quantity))
       continue
+
+    ######################################
+    # Next handle single creature groups #
+    ######################################
 
     # Expand dice rolls
     match = re.search(r'(\d+)d(\d+)(\+(\d+)|)', group)
@@ -466,13 +500,8 @@ def populate_groups(db_cursor, creature_id, org_line):
 
       group = range(group[0], group[1] + 1)
 
-      for number in group:
-        if number not in standardize_list:
-          standardize_list.append(number)
-      insert_group_cr_range(db_cursor, creature_id, main_creature_cr, group, group_name)
+      insert_single_group_cr_range(db_cursor, main_creature_id, main_creature_cr, group, group_name)
       continue
-
-      #print match.group(0)
 
     # Expand ranges
     match = re.search(r'\((\d+-\d+)\)', group)
@@ -481,20 +510,101 @@ def populate_groups(db_cursor, creature_id, org_line):
       
       group = range(int(group[0]), int(group[1]) + 1)
 
-      for number in group:
-        if number not in standardize_list:
-          standardize_list.append(number)
-      insert_group_cr_range(db_cursor, creature_id, main_creature_cr, group, group_name)
+      insert_single_group_cr_range(db_cursor, main_creature_id, main_creature_cr, group, group_name)
       continue
 
-    # Group these by same CR grouping and store max-mins
+    ###########################################
+    # Next handle multi-creature groups       #
+    # Note: Doesn't handle level advances yet #
+    ###########################################
+    #TODO: Handle class level advances
 
+    # Let's try and handle general cases.
+    group_stats = []
+    match = re.search(r'\((.*)\)', group)
+    group_contents = match.group(1)
+    group_contents = re.split(r' plus | and ', group_contents)
+    print "%s: %s" % (group_name, group_contents)
 
-    # if not isinstance(group, list):
-    #   if group not in standardize_list:
-    #     standardize_list.append(group)
+    # First entry always refers to main creature
+    match = re.search(r'(\d+(-\d+|))', group_contents[0])
+    if match:
+      main_creature_quantity = match.group(0)
+    else:
+      main_creature_quantity = '1'
+    print "%s: %s" % (main_creature_name, main_creature_quantity)
+
+    # Now lets get upper and lower bounds of the range
+    if '%' in main_creature_quantity:
+      print "%sERROR: Percentage symbol in main creature quantity of %s%s" % (
+        colorz.RED, main_creature_name, colorz.ENDC)
+      return
+    if '-' in main_creature_quantity:
+      main_creature_quantity = main_creature_quantity.split('-')
+      main_creature_quantity = [int(x) for x in main_creature_quantity]
+    else:
+      main_creature_quantity = [int(main_creature_quantity), int(main_creature_quantity)]
+
+    # Store the stats into a dict for ease of recall
+    main_creature_stats = {
+      'creature_id' : main_creature_id,
+      'creature_name' : main_creature_name,
+      'group_size_min' : main_creature_quantity[0],
+      'group_size_max' : main_creature_quantity[1],
+      'group_name' : group_name,
+      'base_cr' : main_creature_cr,
+    }
+
+    group_stats.append(main_creature_stats)
+
+    # And then remove the primary creature since it's been processed
+    del group_contents[0]
+
+    # Next lets try and get quantities and monster ids for
+    # the rest
+    for section in group_contents:
+      # Let's skip anything with a percentage or class level for now
+      #TODO: Handle class level advances
+      #TODO: Handle noncombatants
+      if '%' in section:
+        if group not in standardize_list:
+          print "%sPercentage encountered, aborting%s" % (colorz.RED, colorz.ENDC)
+          standardize_list.append(group)
+          break
+      match = re.search(r'[\-\s]level', section)
+      if match:
+        if group not in standardize_list:
+          print "%sClass level increment found, aborting%s" % (colorz.RED, colorz.ENDC)
+          standardize_list.append(group)
+          break
+
+      # Okay, let's handle the rest
+      match = re.search(r'(\d+(-\d+|) )', section)
+      creature_quantity = match.group(0)
+      creature_name = re.split(creature_quantity, section)[1].strip()
+
+      # Let's see if we can 
+      db_cursor.execute("SELECT id FROM creature WHERE lower(name) = lower(?)" , (
+        creature_name,))
+      creature_id = db_cursor.fetchone()
+      
+      # We need to depluralize creatures if they are plural
+      if not creature_id:
+        creature_name = de_plural_creature_name(creature_name)
+        db_cursor.execute("SELECT id FROM creature WHERE lower(name) = lower(?)" , (
+          creature_name,))
+        creature_id = db_cursor.fetchone()
+        if not creature_id:
+          if group not in standardize_list:
+            print "%sCreature not found: %s... aborting%s" % (
+              colorz.RED, creature_name.title(), colorz.ENDC)
+            standardize_list.append(group)
+            break
+
+      print "%s: %s" % (creature_name, creature_quantity)
 
     
+    print ""
 
   # for group in org_line:
   #   if group not in standardize_list:
@@ -664,13 +774,14 @@ def db_setup(reload_db):
   for creature_id in creature_id_list:
     line_count += 1
     per = line_count / float(id_list_length) * 100
-    stdout.write('\r%sPopulating monster organizations... %d%%%s' % (colorz.BLUE, per, colorz.ENDC))
-    stdout.flush()
+    #stdout.write('\r%sPopulating monster organizations... %d%%%s' % (colorz.BLUE, per, colorz.ENDC))
+    #stdout.flush()
     db_cursor.execute("SELECT organization FROM creature_stat WHERE creature_id = ?",
       (creature_id,))
     organization = db_cursor.fetchone()
     if organization:
       populate_groups(db_cursor, creature_id, organization[0])
+  print "%s Populating monster organizations... 100%% COMPLETE!%s" % (colorz.BLUE, colorz.ENDC)
   print " COMPLETE!%s" % colorz.ENDC
 
   standardize_list = sorted(standardize_list)
